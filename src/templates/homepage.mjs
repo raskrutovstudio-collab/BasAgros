@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { HOME_IMAGES } from '../data/home-images.mjs';
 import { HEADER_NAV_URLS } from './constants.mjs';
 import { escapeHtml, pageByUrl } from './html.mjs';
 
@@ -147,7 +148,39 @@ function slotArt(slot) {
   return svgWrap('home-slot-art', arts[slot] || arts.hero);
 }
 
+function imageFilesExist(asset) {
+  const files = [
+    asset.fallback,
+    ...asset.avif.map((item) => item.src),
+    ...asset.webp.map((item) => item.src)
+  ];
+  return files.every((href) => {
+    const rel = href.replace(/^\//, '').split('/').join(path.sep);
+    return fs.existsSync(path.join(process.cwd(), 'site', rel));
+  });
+}
+
+function pictureMarkup(asset) {
+  const avif = asset.avif.map((item) => `${item.src} ${item.w}w`).join(', ');
+  const webp = asset.webp.map((item) => `${item.src} ${item.w}w`).join(', ');
+  const loading = asset.priority
+    ? ' fetchpriority="high"'
+    : ' loading="lazy"';
+  return `<picture>
+      <source type="image/avif" srcset="${avif}" sizes="${escapeHtml(asset.sizes)}">
+      <source type="image/webp" srcset="${webp}" sizes="${escapeHtml(asset.sizes)}">
+      <img class="home-photo" src="${escapeHtml(asset.fallback)}" width="${asset.width}" height="${asset.height}" alt="${escapeHtml(asset.alt)}"${loading} decoding="async">
+    </picture>`;
+}
+
 function mediaSlot(slot, extraClass = '') {
+  const asset = HOME_IMAGES[slot];
+  if (asset && imageFilesExist(asset)) {
+    const classes = ['home-media-slot', 'home-media-slot-photo', extraClass].filter(Boolean).join(' ');
+    return `<div class="${classes}" data-asset-slot="${escapeHtml(slot)}">
+    ${pictureMarkup(asset)}
+  </div>`;
+  }
   return `<div class="home-media-slot ${extraClass}" data-asset-slot="${escapeHtml(slot)}" aria-hidden="true">
     ${slotArt(slot)}
   </div>`;
