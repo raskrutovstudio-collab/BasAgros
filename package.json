@@ -9,7 +9,8 @@
     "init:project": "node tools/init-project.mjs",
     "audit:pages": "node tools/audit-pages.mjs",
     "check:secrets": "node tools/check-secrets.mjs",
-    "quality:all": "npm run audit:pages && npm run check:secrets",
+    "validate:seo-routes": "node tools/validate-seo-routes.mjs",
+    "quality:all": "npm run audit:pages && npm run check:secrets && npm run validate:seo-routes",
     "lighthouse:mobile": "node tools/lighthouse-mobile.mjs",
     "serve": "node tools/serve.mjs"
   },
