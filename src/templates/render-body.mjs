@@ -1,4 +1,5 @@
 import { childrenOf, escapeHtml, joinSections } from './html.mjs';
+import { renderHomepage } from './homepage.mjs';
 
 function pageList(title, items) {
   if (!items.length) return '';
@@ -38,14 +39,6 @@ ${items}
 
 function heading(page) {
   return `      <h1>${escapeHtml(page.h1)}</h1>`;
-}
-
-function renderHomepage(page, pages) {
-  return joinSections([
-    heading(page),
-    routeMeta(page),
-    pageList('Разделы сайта', childrenOf(page.page_id, pages))
-  ]);
 }
 
 function renderCatalogHub(page, pages) {

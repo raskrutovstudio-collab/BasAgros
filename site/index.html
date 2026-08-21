@@ -5,62 +5,547 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BAS Agros — семена и травосмеси для сельского хозяйства в Казахстане</title>
-  <meta name="description" content="Технический каркас страницы «Главная». Индексация отключена до прохождения indexing gate.">
+  <meta name="description" content="BAS Agros — семена и травосмеси для сельского хозяйства в Казахстане. Каталог, цена по запросу, доставка по всему Казахстану.">
   <link rel="canonical" href="https://basagros.kz/">
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/home.css">
 </head>
-<body>
+<body class="page-home">
   <a class="skip-link" href="#main">Перейти к содержанию</a>
-  <header>
-    <p class="brand"><a href="/">BAS Agros</a></p>
-    <nav aria-label="Основная навигация">
-      <ul>
-        <li><a href="/" aria-current="page">Главная</a></li>
-        <li><a href="/catalog/">Каталог семян</a></li>
-        <li><a href="/o-kompanii/">О компании</a></li>
-        <li><a href="/faq/">FAQ</a></li>
-      </ul>
-    </nav>
+  <header class="home-header">
+    <div class="home-wrap home-header-inner">
+      <p class="home-brand"><a href="/">BAS Agros</a></p>
+      <input class="home-nav-check" id="home-nav-toggle" type="checkbox">
+      <label class="home-menu-toggle" for="home-nav-toggle">Меню</label>
+      <nav class="home-nav" aria-label="Основная навигация">
+        <ul>
+            <li><a href="/catalog/">Каталог</a></li>
+            <li><a href="/o-kompanii/">О компании</a></li>
+            <li><a href="/dostavka-i-oplata/">Доставка</a></li>
+            <li><a href="/kachestvo-i-sertifikaty/">Качество</a></li>
+            <li><a href="/agroblog/">Агроблог</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+        </ul>
+      </nav>
+      <p class="home-header-cta">
+        <a href="#request" class="home-btn home-btn-gold">Оставить заявку</a>
+      </p>
+    </div>
   </header>
   <main id="main">
-      <h1>Семена и травосмеси для сельского хозяйства</h1>
-      <section>
-        <h2>Технический статус маршрута</h2>
-        <p>Индексация отключена до прохождения indexing gate.</p>
-        <dl>
-          <div><dt>page_id</dt><dd>KZ3-001</dd></div>
-          <div><dt>page_type</dt><dd>homepage</dd></div>
-          <div><dt>template_type</dt><dd>homepage</dd></div>
-          <div><dt>priority</dt><dd>P0</dd></div>
-          <div><dt>launch_wave</dt><dd>Wave 1 — Catalog launch</dd></div>
-          <div><dt>indexing_gate</dt><dd>CONTENT_REQUIRED</dd></div>
-          <div><dt>indexability</dt><dd>noindex</dd></div>
-          <div><dt>page_intent</dt><dd>commercial</dd></div>
-        </dl>
-      </section>
-      <section>
-        <h2>Разделы сайта</h2>
-        <ul>
-          <li><a href="/catalog/">Каталог семян</a></li>
-          <li><a href="/dostavka-i-oplata/">Доставка и оплата</a></li>
-          <li><a href="/kachestvo-i-sertifikaty/">Качество и сертификаты</a></li>
-          <li><a href="/o-kompanii/">О компании</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/agroblog/">Агроблог</a></li>
+    <section class="home-hero" aria-labelledby="home-h1">
+      <div class="home-wrap home-hero-grid">
+        <div class="home-hero-copy">
+          <h1 id="home-h1">Семена и травосмеси для сельского хозяйства</h1>
+          <p class="home-lead">BAS Agros предлагает семена для сельского хозяйства. Основное направление — травы и травосмеси. География предложения — весь Казахстан.</p>
+          <p class="home-hero-actions">
+            <a href="/catalog/" class="home-btn home-btn-gold">Каталог</a>
+            <a href="#request" class="home-btn home-btn-ghost">Оставить заявку</a>
+          </p>
+        </div>
+        <div class="home-media-slot home-hero-media" data-asset-slot="hero" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 88 C22 62 30 54 48 48 C64 42 72 28 78 12"/>
+      <path d="M18 88 C28 70 40 62 58 58"/>
+      <path d="M70 88 V22"/><path d="M82 88 V36"/>
+      <circle cx="48" cy="48" r="18" opacity="0.35"/></g>
+  </svg>
+  </div>
+        <ul class="home-feature-bar">
+        <li class="home-feature">
+          <svg class="home-icon" viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M28 78c14-26 28-26 44 0"/><path d="M36 32c8 10 20 10 28 0"/></g>
+  </svg>
+          <p>Травы и травосмеси</p>
+        </li>
+        <li class="home-feature">
+          <svg class="home-icon" viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 28h56v48H22z"/><path d="M42 28v48"/><path d="M22 52h56"/></g>
+  </svg>
+          <p>Каталог семян</p>
+        </li>
+        <li class="home-feature">
+          <svg class="home-icon" viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M28 50h44"/><path d="M50 28v44"/><path d="M34 36h32"/><path d="M34 64h32"/></g>
+  </svg>
+          <p>Цена по запросу</p>
+        </li>
+        <li class="home-feature">
+          <svg class="home-icon" viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M24 72V38l26-14 26 14v34H24z"/></g>
+  </svg>
+          <p>Уточнить наличие</p>
+        </li>
+        <li class="home-feature">
+          <svg class="home-icon" viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 62h42l16-20h12v20h-8"/><path d="M32 76a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M68 76a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/></g>
+  </svg>
+          <p>Доставка по всему Казахстану</p>
+        </li>
         </ul>
-      </section>
+      </div>
+    </section>
+    <section class="home-section home-section-paper" aria-labelledby="home-directions">
+      <div class="home-wrap home-directions">
+        <header class="home-section-intro">
+          <h2 id="home-directions">Направления каталога</h2>
+          <p>Каталог группирует семена по товарным категориям. Отдельная ось навигации собирает товары по подтверждённому назначению.</p>
+        </header>
+        <ul class="home-directions-grid">
+        <li class="home-cut-card">
+          <svg class="home-icon" viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M28 78c14-26 28-26 44 0"/><path d="M36 32c8 10 20 10 28 0"/></g>
+  </svg>
+          <h3>Травосмеси</h3>
+        </li>
+        <li class="home-cut-card">
+          <svg class="home-icon" viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M16 74c14-18 24-18 34 0 14-18 24-18 34 0"/><path d="M16 52c14-14 24-14 34 0 14-14 24-14 34 0"/></g>
+  </svg>
+          <h3>Сорго</h3>
+        </li>
+        <li class="home-cut-card">
+          <svg class="home-icon" viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M50 14c18 20 18 48 0 72C32 62 32 34 50 14z"/></g>
+  </svg>
+          <h3>Однолетние кормовые травы</h3>
+        </li>
+        <li class="home-cut-card">
+          <svg class="home-icon" viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M16 74c14-18 24-18 34 0 14-18 24-18 34 0"/><path d="M16 52c14-14 24-14 34 0 14-14 24-14 34 0"/></g>
+  </svg>
+          <h3>Многолетние кормовые травы</h3>
+        </li>
+        <li class="home-cut-card">
+          <svg class="home-icon" viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M28 50h44"/><path d="M50 28v44"/><path d="M34 36h32"/><path d="M34 64h32"/></g>
+  </svg>
+          <h3>Цена по запросу</h3>
+        </li>
+        <li class="home-cut-card">
+          <svg class="home-icon" viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M24 74h52V36H24z"/><path d="M34 36V24h32v12"/></g>
+  </svg>
+          <h3>Желаемый объём</h3>
+        </li>
+        </ul>
+      </div>
+    </section>
+    <section class="home-section home-section-light home-catalog" aria-labelledby="home-catalog">
+      <div class="home-wrap">
+        <header class="home-catalog-head">
+          <h2 id="home-catalog">Каталог семян</h2>
+          <a href="/catalog/" class="home-text-link-ink">Открыть каталог</a>
+        </header>
+        <ul class="home-filters">
+        <li><a href="/catalog/travosmesi/" class="home-filter">Травосмеси</a></li>
+        <li><a href="/catalog/sorgo/" class="home-filter">Сорго</a></li>
+        <li><a href="/catalog/odnoletnie-kormovye-travy/" class="home-filter">Однолетние кормовые травы</a></li>
+        <li><a href="/catalog/mnogoletnie-kormovye-travy/" class="home-filter">Многолетние кормовые травы</a></li>
+        </ul>
+      </div>
+    </section>
+    <section class="home-section home-section-paper" aria-labelledby="home-products">
+      <div class="home-wrap">
+        <header class="home-section-intro home-section-intro-wide">
+          <h2 id="home-products">Товары каталога</h2>
+          <p>Названия и адреса страниц взяты из SEO-карты. Цена по запросу. Наличие уточняется отдельно.</p>
+        </header>
+        <div class="home-product-grid">
+        <article class="home-product">
+          <div class="home-media-slot home-product-media" data-asset-slot="espartset" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M50 92 V18"/>
+      <path d="M50 34 C30 24 22 12 28 6"/><path d="M50 34 C70 24 78 12 72 6"/>
+      <path d="M50 54 C26 44 16 30 22 20"/><path d="M50 54 C74 44 84 30 78 20"/>
+      <path d="M42 18 h16"/></g>
+  </svg>
+  </div>
+          <div class="home-product-body">
+            <h3>Эспарцет</h3>
+            <p>Цена по запросу</p>
+            <p class="home-product-actions">
+              <a href="/catalog/mnogoletnie-kormovye-travy/espartset/" class="home-btn home-btn-line">Подробнее</a>
+              <a href="#request" class="home-btn home-btn-gold">Запросить цену</a>
+            </p>
+          </div>
+        </article>
+        <article class="home-product">
+          <div class="home-media-slot home-product-media" data-asset-slot="lyutserna" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M50 92 V30"/>
+      <path d="M50 34 C36 16 24 20 30 36"/>
+      <path d="M50 34 C64 16 76 20 70 36"/>
+      <path d="M50 26 C44 8 56 8 50 26"/></g>
+  </svg>
+  </div>
+          <div class="home-product-body">
+            <h3>Люцерна</h3>
+            <p>Цена по запросу</p>
+            <p class="home-product-actions">
+              <a href="/catalog/mnogoletnie-kormovye-travy/lyutserna/" class="home-btn home-btn-line">Подробнее</a>
+              <a href="#request" class="home-btn home-btn-gold">Запросить цену</a>
+            </p>
+          </div>
+        </article>
+        <article class="home-product">
+          <div class="home-media-slot home-product-media" data-asset-slot="zhitnyak" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M50 94 V10"/>
+      <path d="M50 18 L38 8"/><path d="M50 18 L62 8"/>
+      <path d="M50 30 L34 20"/><path d="M50 30 L66 20"/>
+      <path d="M50 42 L32 34"/><path d="M50 42 L68 34"/>
+      <path d="M50 54 L36 48"/><path d="M50 54 L64 48"/></g>
+  </svg>
+  </div>
+          <div class="home-product-body">
+            <h3>Житняк</h3>
+            <p>Цена по запросу</p>
+            <p class="home-product-actions">
+              <a href="/catalog/mnogoletnie-kormovye-travy/zhitnyak/" class="home-btn home-btn-line">Подробнее</a>
+              <a href="#request" class="home-btn home-btn-gold">Запросить цену</a>
+            </p>
+          </div>
+        </article>
+        <article class="home-product">
+          <div class="home-media-slot home-product-media" data-asset-slot="travosmes-kormovaya" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M28 90 V32"/><path d="M50 94 V18"/><path d="M72 90 V40"/>
+      <path d="M28 40 C18 28 16 16 22 12"/><path d="M50 28 C40 16 38 8 44 6"/>
+      <path d="M72 48 C82 36 84 24 78 18"/></g>
+  </svg>
+  </div>
+          <div class="home-product-body">
+            <h3>Травосмесь «Кормовая»</h3>
+            <p>Цена по запросу</p>
+            <p class="home-product-actions">
+              <a href="/catalog/travosmesi/kormovaya/" class="home-btn home-btn-line">Подробнее</a>
+              <a href="#request" class="home-btn home-btn-gold">Запросить цену</a>
+            </p>
+          </div>
+        </article>
+        <article class="home-product">
+          <div class="home-media-slot home-product-media" data-asset-slot="travosmes-universalnaya" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 88 V44"/><path d="M40 92 V24"/><path d="M58 90 V30"/><path d="M78 88 V48"/>
+      <path d="M40 32 C28 20 26 10 32 8"/><path d="M58 38 C70 24 74 14 68 10"/></g>
+  </svg>
+  </div>
+          <div class="home-product-body">
+            <h3>Травосмесь «Универсальная»</h3>
+            <p>Цена по запросу</p>
+            <p class="home-product-actions">
+              <a href="/catalog/travosmesi/universalnaya/" class="home-btn home-btn-line">Подробнее</a>
+              <a href="#request" class="home-btn home-btn-gold">Запросить цену</a>
+            </p>
+          </div>
+        </article>
+        <article class="home-product">
+          <div class="home-media-slot home-product-media" data-asset-slot="fatseliya" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M50 92 C50 70 74 64 74 46 C74 28 50 24 50 40 C50 54 28 52 28 36 C28 22 50 18 50 8"/>
+      <path d="M50 92 V62"/></g>
+  </svg>
+  </div>
+          <div class="home-product-body">
+            <h3>Фацелия</h3>
+            <p>Цена по запросу</p>
+            <p class="home-product-actions">
+              <a href="/catalog/odnoletnie-kormovye-travy/fatseliya/" class="home-btn home-btn-line">Подробнее</a>
+              <a href="#request" class="home-btn home-btn-gold">Запросить цену</a>
+            </p>
+          </div>
+        </article>
+        </div>
+      </div>
+    </section>
+    <section class="home-section home-section-ink home-purpose-section" aria-labelledby="home-purpose">
+      <div class="home-wrap home-purpose">
+        <div class="home-purpose-copy">
+          <h2 id="home-purpose">Подбор по назначению</h2>
+          <p>Страницы по задаче применения собирают только подтверждённые товары. Промежуточный URL «по назначению» не используется.</p>
+        </div>
+        <div class="home-purpose-fields">
+          <ol>
+        <li><a href="/catalog/dlya-senokosa/" class="home-purpose-field">Семена трав для сенокоса</a></li>
+        <li><a href="/catalog/pastbishchnye-travy/" class="home-purpose-field">Пастбищные травы</a></li>
+        <li><a href="/catalog/medonosy/" class="home-purpose-field">Семена медоносов</a></li>
+        <li><a href="/catalog/sideraty/" class="home-purpose-field">Семена сидератов</a></li>
+          </ol>
+          <a href="/catalog/" class="home-btn home-btn-gold home-btn-wide">Открыть каталог</a>
+        </div>
+        <div class="home-media-slot home-purpose-media" data-asset-slot="representative" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="50" cy="28" r="12"/>
+      <path d="M24 86 C28 58 40 50 50 50 C60 50 72 58 76 86"/>
+      <path d="M38 62 h24 v16 H38z"/></g>
+  </svg>
+  </div>
+      </div>
+    </section>
+    <section class="home-section home-section-paper" aria-labelledby="home-about">
+      <div class="home-wrap">
+        <div class="home-about">
+          <div class="home-about-visual">
+          <div class="home-media-slot home-about-frame" data-asset-slot="warehouse" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 78 V40 L50 18 L86 40 V78z"/><path d="M50 18 V78"/><path d="M28 78 V52 h16 v26"/></g>
+  </svg>
+  </div>
+          <div class="home-media-slot home-about-frame" data-asset-slot="seeds" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M36 28 C24 44 24 62 36 78 C48 62 48 44 36 28z"/>
+      <path d="M64 22 C52 40 52 60 64 80 C76 60 76 40 64 22z"/></g>
+  </svg>
+  </div>
+          <div class="home-media-slot home-about-frame" data-asset-slot="order" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 26 h56 v52 H22z"/><path d="M34 40 h32"/><path d="M34 52 h32"/><path d="M34 64 h20"/></g>
+  </svg>
+  </div>
+          <div class="home-media-slot home-about-frame" data-asset-slot="shipping" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 64 h40 l14-18 h16 v18 h-8"/>
+      <path d="M30 78 a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/>
+      <path d="M68 78 a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/></g>
+  </svg>
+  </div>
+          </div>
+          <div class="home-about-copy">
+            <h2 id="home-about">О компании</h2>
+            <p>BAS Agros — поставки семян по Казахстану. Сайт представляет ассортимент и принимает заявки на семена и травосмеси. Контакты и реквизиты собраны на странице о компании.</p>
+            <p class="home-hero-actions">
+              <a href="/o-kompanii/" class="home-btn home-btn-gold">О компании</a>
+              <a href="/catalog/" class="home-btn home-btn-line">Каталог</a>
+            </p>
+          </div>
+        </div>
+        <ul class="home-about-strip">
+        <li class="home-about-chip"><strong>Травосмеси</strong></li>
+        <li class="home-about-chip"><strong>Сорго</strong></li>
+        <li class="home-about-chip"><strong>Однолетние</strong></li>
+        <li class="home-about-chip"><strong>Многолетние</strong></li>
+        </ul>
+      </div>
+    </section>
+    <section class="home-section home-section-light" aria-labelledby="home-delivery">
+      <div class="home-wrap home-delivery">
+        <div class="home-delivery-copy">
+          <h2 id="home-delivery">Доставка и заказ</h2>
+          <p>Доставка по всему Казахстану. Сроки, тарифы и способы оплаты на этой странице не указаны: они требуют отдельного подтверждения.</p>
+          <a href="/dostavka-i-oplata/" class="home-btn home-btn-line">Доставка и оплата</a>
+        </div>
+        <div class="home-media-slot home-map-slot" data-asset-slot="kazakhstan" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 42 L22 18 L48 12 L72 16 L92 28 L88 46 L70 58 L42 62 L18 54 Z"/></g>
+  </svg>
+  </div>
+        <ol class="home-steps">
+        <li class="home-step">
+          <h3>Заявка</h3>
+          <p>Клиент выбирает категорию или товар и оставляет заявку.</p>
+        </li>
+        <li class="home-step">
+          <h3>Уточнить наличие</h3>
+          <p>Наличие проверяется по запросу.</p>
+        </li>
+        <li class="home-step">
+          <h3>Желаемый объём</h3>
+          <p>Объём согласуется индивидуально.</p>
+        </li>
+        <li class="home-step">
+          <h3>Доставка по всему Казахстану</h3>
+          <p>География поставки — весь Казахстан.</p>
+        </li>
+        </ol>
+      </div>
+    </section>
+    <section class="home-section home-section-paper" aria-labelledby="home-quality">
+      <div class="home-wrap home-quality">
+        <div class="home-quality-copy">
+          <h2 id="home-quality">Качество и документы</h2>
+          <p>Допустимы общие документы компании или поставщика. Отдельный сертификат на каждый товар не заявляется.</p>
+          <p class="home-hero-actions">
+            <a href="/kachestvo-i-sertifikaty/" class="home-btn home-btn-gold">Качество и сертификаты</a>
+            <a href="#request" class="home-btn home-btn-line">Оставить заявку</a>
+          </p>
+        </div>
+        <div class="home-quality-docs">
+          <div class="home-media-slot home-doc-slot" data-asset-slot="document-1" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M30 16 h28 l12 12 v56 H30z"/><path d="M58 16 v12 h12"/><path d="M38 44 h24"/><path d="M38 54 h24"/><path d="M38 64 h16"/></g>
+  </svg>
+  </div>
+          <div class="home-media-slot home-doc-slot" data-asset-slot="document-2" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M28 18 h32 l12 12 v52 H28z"/><path d="M60 18 v12 h12"/><path d="M36 48 h22"/></g>
+  </svg>
+  </div>
+          <div class="home-media-slot home-doc-slot" data-asset-slot="document-3" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M32 14 h26 l14 14 v54 H32z"/><path d="M58 14 v14 h14"/><path d="M40 52 h20"/><path d="M40 62 h14"/></g>
+  </svg>
+  </div>
+        </div>
+        <ul class="home-quality-list">
+          <li>
+            <h3>Общие документы компании</h3>
+            <p>Допустимы общие документы компании.</p>
+          </li>
+          <li>
+            <h3>Документы поставщика</h3>
+            <p>Допустимы общие документы поставщика.</p>
+          </li>
+          <li>
+            <h3>Запрос документов</h3>
+            <p>Документы запрашиваются через заявку или страницу качества.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="home-section home-section-light" aria-labelledby="home-articles">
+      <div class="home-wrap">
+        <header class="home-catalog-head">
+          <h2 id="home-articles">Агроблог</h2>
+          <a href="/agroblog/" class="home-text-link-ink">Все материалы</a>
+        </header>
+        <div class="home-article-grid">
+        <article class="home-article">
+          <div class="home-media-slot home-article-media" data-asset-slot="article-1" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 68 C28 48 40 42 52 40 C66 38 78 24 84 12"/>
+      <path d="M18 80 C32 64 48 58 70 56"/></g>
+  </svg>
+  </div>
+          <p class="home-article-tag">Агроблог</p>
+          <h3><a href="/agroblog/posev-lyutserny/">Посев люцерны и норма высева</a></h3>
+          <p><a href="/agroblog/posev-lyutserny/">Читать</a></p>
+        </article>
+        <article class="home-article">
+          <div class="home-media-slot home-article-media" data-asset-slot="article-2" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 78 C30 58 46 48 62 44"/><path d="M24 88 C40 70 58 64 80 60"/></g>
+  </svg>
+  </div>
+          <p class="home-article-tag">Агроблог</p>
+          <h3><a href="/agroblog/urozhaynost-lyutserny/">Урожайность люцерны</a></h3>
+          <p><a href="/agroblog/urozhaynost-lyutserny/">Читать</a></p>
+        </article>
+        <article class="home-article">
+          <div class="home-media-slot home-article-media" data-asset-slot="article-3" aria-hidden="true">
+    <svg class="home-slot-art" viewBox="0 0 100 100" width="100" height="100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 84 V28"/><path d="M40 88 V22"/><path d="M62 86 V34"/><path d="M20 36 C12 24 14 14 22 12"/></g>
+  </svg>
+  </div>
+          <p class="home-article-tag">Агроблог</p>
+          <h3><a href="/agroblog/viko-ovsyanaya-smes-posev/">Вико-овсяная смесь: сроки посева и норма высева</a></h3>
+          <p><a href="/agroblog/viko-ovsyanaya-smes-posev/">Читать</a></p>
+        </article>
+        </div>
+      </div>
+    </section>
+    <section class="home-section home-section-paper" aria-labelledby="home-faq">
+      <div class="home-wrap home-faq">
+        <header class="home-section-intro">
+          <h2 id="home-faq">Вопросы о заказе</h2>
+          <p>Краткие ответы по цене, наличию, доставке и объёму. Полный список — в разделе FAQ.</p>
+          <a href="/faq/" class="home-text-link-ink">Частые вопросы</a>
+        </header>
+        <div class="home-faq-list">
+        <details class="home-faq-item">
+          <summary>Как узнать цену?</summary>
+          <p>Цена по запросу. Числовая стоимость на сайте не публикуется.</p>
+        </details>
+        <details class="home-faq-item">
+          <summary>Как уточнить наличие?</summary>
+          <p>Уточнить наличие. Остатки склада не публикуются как наличие.</p>
+        </details>
+        <details class="home-faq-item">
+          <summary>Куда доставляете?</summary>
+          <p>Доставка по всему Казахстану.</p>
+        </details>
+        <details class="home-faq-item">
+          <summary>Какой минимальный объём?</summary>
+          <p>Фиксированного минимального заказа нет. Желаемый объём согласуется индивидуально.</p>
+        </details>
+        <details class="home-faq-item">
+          <summary>Где смотреть документы?</summary>
+          <p>Общие документы компании или поставщика собраны на странице качества.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+    <section class="home-section home-section-ink home-request" id="request" aria-labelledby="home-request">
+      <div class="home-wrap home-request-grid">
+        <div>
+          <h2 id="home-request">Оставить заявку</h2>
+          <p>Заявка передаёт контакт и желаемый объём. Отправка будет доступна после подключения формы.</p>
+          <p><a href="/o-kompanii/" class="home-text-link">О компании</a></p>
+        </div>
+        <form class="home-form" data-lead-form data-form-name="Главная — заявка" novalidate>
+          <input class="lead-form-honeypot" type="text" name="website" autocomplete="off" tabindex="-1" aria-hidden="true">
+          <div class="home-field">
+            <label for="home-lead-name">Имя</label>
+            <input id="home-lead-name" name="name" type="text" autocomplete="name">
+          </div>
+          <div class="home-field">
+            <label for="home-lead-phone">Телефон</label>
+            <input id="home-lead-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="home-lead-phone-hint">
+            <small id="home-lead-phone-hint">Укажите номер для связи.</small>
+          </div>
+          <div class="home-field">
+            <label for="home-lead-volume">Желаемый объём</label>
+            <input id="home-lead-volume" name="desired_volume" type="text" autocomplete="off">
+          </div>
+          <div class="home-field">
+            <label for="home-lead-message">Комментарий</label>
+            <textarea id="home-lead-message" name="message" rows="3"></textarea>
+          </div>
+          <button type="submit" class="home-btn home-btn-gold home-btn-wide" disabled aria-disabled="true">Оставить заявку</button>
+          <div data-form-status aria-live="polite" aria-atomic="true">Отправка будет доступна после подключения формы.</div>
+        </form>
+      </div>
+    </section>
   </main>
-  <footer>
-    <nav aria-label="Дополнительные разделы">
-      <ul>
-        <li><a href="/dostavka-i-oplata/">Доставка и оплата</a></li>
-        <li><a href="/kachestvo-i-sertifikaty/">Качество и сертификаты</a></li>
-        <li><a href="/o-kompanii/">О компании</a></li>
-        <li><a href="/faq/">FAQ</a></li>
-        <li><a href="/agroblog/">Агроблог</a></li>
-      </ul>
-    </nav>
+  <footer class="home-footer">
+    <div class="home-wrap home-footer-grid">
+      <div>
+        <p class="home-brand"><a href="/">BAS Agros</a></p>
+        <p>Поставки семян по Казахстану.</p>
+      </div>
+      <nav aria-label="Разделы сайта">
+        <h2>Разделы</h2>
+        <ul>
+            <li><a href="/catalog/">Каталог семян</a></li>
+            <li><a href="/o-kompanii/">О компании</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/agroblog/">Агроблог</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Каталог">
+        <h2>Каталог</h2>
+        <ul>
+            <li><a href="/catalog/travosmesi/">Травосмеси</a></li>
+            <li><a href="/catalog/sorgo/">Сорго</a></li>
+            <li><a href="/catalog/odnoletnie-kormovye-travy/">Однолетние кормовые травы</a></li>
+            <li><a href="/catalog/mnogoletnie-kormovye-travy/">Многолетние кормовые травы</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Сервисные страницы">
+        <h2>Сервис</h2>
+        <ul>
+            <li><a href="/dostavka-i-oplata/">Доставка и оплата</a></li>
+            <li><a href="/kachestvo-i-sertifikaty/">Качество и сертификаты</a></li>
+            <li><a href="/o-kompanii/">О компании</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="home-wrap home-footer-bar">
+      <p>BAS Agros</p>
+    </div>
   </footer>
+  <script src="/assets/js/site-config.js" defer></script>
+  <script src="/assets/js/lead-form.js" defer></script>
 </body>
 </html>
