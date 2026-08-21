@@ -1,0 +1,131 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  color: #111;
+  background: #fff;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 72rem;
+  padding: 1rem;
+}
+
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  transform: translateY(-200%);
+  background: #fff;
+  color: #111;
+  padding: 0.75rem 1rem;
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+a:focus-visible,
+.skip-link:focus-visible {
+  outline: 0.1875rem solid #111;
+  outline-offset: 0.125rem;
+}
+
+header,
+footer,
+main {
+  display: block;
+}
+
+header,
+footer {
+  border: 0.0625rem solid #111;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+footer {
+  margin-top: 2rem;
+  margin-bottom: 0;
+}
+
+.brand {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+nav ul,
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a,
+.breadcrumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+main ul {
+  padding-left: 1.25rem;
+}
+
+main li {
+  margin: 0.5rem 0;
+}
+
+main a {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+h1,
+h2 {
+  line-height: 1.25;
+}
+
+dl {
+  margin: 0;
+}
+
+dl > div {
+  margin: 0.5rem 0;
+}
+
+dt {
+  font-weight: 700;
+}
+
+dd {
+  margin: 0;
+}
+
+@media (max-width: 40rem) {
+  body {
+    padding: 0.75rem;
+  }
+
+  nav ul,
+  .breadcrumbs {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto;
+  }
+}
