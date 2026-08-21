@@ -293,6 +293,32 @@ if (!fs.existsSync(cssPath)) {
   if (/fonts\.google|@font-face/.test(css)) fail('CSS: найдено подключение шрифта бренд-системы');
 }
 
+const siteConfigPath = path.join(siteRoot, 'assets', 'js', 'site-config.js');
+if (fs.existsSync(siteConfigPath)) {
+  const siteConfig = fs.readFileSync(siteConfigPath, 'utf8');
+  const enabled = /enabled\s*:\s*true/.test(siteConfig);
+  const endpointMatch = /leadEndpoint\s*:\s*['"]([^'"]*)['"]/.exec(siteConfig);
+  const endpoint = endpointMatch ? endpointMatch[1].trim() : '';
+  if (enabled && !endpoint) {
+    fail('форма не может быть активна при пустом endpoint');
+  }
+  const homeHtml = fs.existsSync(routeToFile('/')) ? fs.readFileSync(routeToFile('/'), 'utf8') : '';
+  if (homeHtml.includes('data-lead-form') && (!enabled || !endpoint)) {
+    const submitDisabled =
+      /<button\b[^>]*\btype=["']submit["'][^>]*\bdisabled\b/i.test(homeHtml) ||
+      /<button\b[^>]*\bdisabled\b[^>]*\btype=["']submit["']/i.test(homeHtml);
+    if (!submitDisabled) {
+      fail('/: submit формы должен быть disabled, пока endpoint пустой');
+    }
+    if (!homeHtml.includes('Отправка будет доступна после подключения формы.')) {
+      fail('/: нет текста об отключённой форме');
+    }
+    if (/name=["']consent["']/.test(homeHtml)) {
+      fail('/: согласие с политикой нельзя показывать без маршрута /privacy/');
+    }
+  }
+}
+
 if (!fs.existsSync(inventoryPath)) {
   fail('нет site/.generated-pages.json');
 } else {
