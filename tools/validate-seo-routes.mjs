@@ -5,11 +5,25 @@ const root = process.cwd();
 const manifestPath = path.join(root, 'src', 'data', 'seo-routes.json');
 const EXPECTED_PAGES = 59;
 const EXPECTED_PRODUCTS = 37;
-const ROOT_PARENT_IDS = new Set(['Kazakhstan']);
+const EXPECTED_PRIORITY = { P0: 8, P1: 26, P2: 25 };
+const EXPECTED_GATES = { DATA_REQUIRED: 37, CONTENT_REQUIRED: 22 };
+const ALLOWED_PRIORITIES = new Set(['P0', 'P1', 'P2']);
+const ALLOWED_GATES = new Set(['DATA_REQUIRED', 'CONTENT_REQUIRED']);
+const ALLOWED_PAGE_INTENTS = new Set([
+  'commercial',
+  'category',
+  'commercial_support',
+  'trust',
+  'navigation',
+  'informational'
+]);
+const FICTIVE_PARENT_IDS = new Set(['Kazakhstan', 'kazakhstan', 'ROOT', 'root', 'market']);
+const CRM_ID_RE = /^\d+(?:;\d+)*$/;
 const REQUIRED_FIELDS = [
   'page_id', 'parent_id', 'page_name', 'url', 'page_type', 'template_type',
-  'title', 'h1', 'priority', 'launch_wave', 'crm_product_id',
-  'indexability', 'canonical', 'sitemap', 'indexing_gate'
+  'title', 'h1', 'priority', 'launch_wave', 'crm_product_id', 'page_intent',
+  'target_indexability', 'indexability', 'canonical', 'target_sitemap',
+  'sitemap', 'ready_to_index', 'indexing_gate'
 ];
 const FORBIDDEN_URLS = [
   '/optovye-postavki/',
@@ -51,6 +65,15 @@ try {
 if (!manifest.source?.name || !manifest.source?.version) {
   fail('в source должны быть имя и версия исходной SEO-карты');
 }
+if (manifest.source?.detected_page_rows !== EXPECTED_PAGES) {
+  fail(`source.detected_page_rows должен быть ${EXPECTED_PAGES}`);
+}
+if (manifest.source?.detected_columns !== 78) {
+  fail('source.detected_columns должен быть 78');
+}
+if (manifest.source?.excel_table?.used_for_import !== false) {
+  fail('объект Excel SEOMapV3 не должен ограничивать импорт');
+}
 
 const pages = Array.isArray(manifest.pages) ? manifest.pages : [];
 if (pages.length !== EXPECTED_PAGES) {
@@ -65,6 +88,9 @@ if (products.length !== EXPECTED_PRODUCTS) {
 const pageIds = new Set();
 const urls = new Set();
 const byUrl = new Map();
+const priorityCounts = { P0: 0, P1: 0, P2: 0 };
+const gateCounts = { DATA_REQUIRED: 0, CONTENT_REQUIRED: 0 };
+let readyCount = 0;
 
 for (const [index, page] of pages.entries()) {
   const label = page.page_id || page.url || `#${index + 1}`;
@@ -85,10 +111,63 @@ for (const [index, page] of pages.entries()) {
 
   if (!page.title) fail(`${label}: пустой title`);
   if (!page.h1) fail(`${label}: пустой H1`);
+  if (!page.canonical) fail(`${label}: пустой canonical`);
+
+  if (!ALLOWED_PRIORITIES.has(page.priority)) {
+    fail(`${label}: пустой или неизвестный priority (${page.priority})`);
+  } else {
+    priorityCounts[page.priority] += 1;
+  }
+
+  if (!ALLOWED_GATES.has(page.indexing_gate)) {
+    fail(`${label}: пустой или снятый indexing_gate (${page.indexing_gate})`);
+  } else {
+    gateCounts[page.indexing_gate] += 1;
+  }
+
+  if (page.page_type === 'product' && page.indexing_gate !== 'DATA_REQUIRED') {
+    fail(`${label}: товарная страница должна иметь indexing_gate=DATA_REQUIRED`);
+  }
+  if (page.page_type !== 'product' && page.indexing_gate !== 'CONTENT_REQUIRED') {
+    fail(`${label}: нетоварная страница должна иметь indexing_gate=CONTENT_REQUIRED`);
+  }
+
+  if (page.ready_to_index === true) readyCount += 1;
+  if (page.ready_to_index !== true && page.ready_to_index !== false) {
+    fail(`${label}: ready_to_index должен быть boolean`);
+  }
+  if (page.ready_to_index !== true) {
+    if (page.indexability === 'index') {
+      fail(`${label}: indexability=index запрещён, пока ready_to_index=false`);
+    }
+    if (page.sitemap === true || page.sitemap === 'yes') {
+      fail(`${label}: sitemap=true запрещён, пока ready_to_index=false`);
+    }
+    if (!ALLOWED_GATES.has(page.indexing_gate)) {
+      fail(`${label}: снятие gate без подтверждённой готовности`);
+    }
+  }
+  if (page.sitemap !== false && page.ready_to_index !== true) {
+    fail(`${label}: текущий sitemap должен быть false`);
+  }
+
+  if (page.page_type === 'product') {
+    if (page.page_intent !== null) fail(`${label}: у товара page_intent должен быть null`);
+    if (typeof page.crm_product_id !== 'string' || !CRM_ID_RE.test(page.crm_product_id)) {
+      fail(`${label}: crm_product_id должен быть строкой числовых ID`);
+    }
+  } else {
+    if (page.crm_product_id !== null) {
+      fail(`${label}: у нетоварной страницы crm_product_id должен быть null`);
+    }
+    if (!ALLOWED_PAGE_INTENTS.has(page.page_intent)) {
+      fail(`${label}: недопустимый page_intent (${page.page_intent})`);
+    }
+  }
 
   if (page.url) {
     if (!page.url.startsWith('/') || !page.url.endsWith('/')) {
-      fail(`${label}: URL должен начинаться и заканчиваться trailing slash (${page.url})`);
+      fail(`${label}: URL должен начинаться с / и заканчиваться trailing slash (${page.url})`);
     }
     if (page.url.includes('?') || /[?&](filter|sort|q|search)=/i.test(page.url)) {
       fail(`${label}: запрещён индексируемый filter/sort/search URL (${page.url})`);
@@ -99,12 +178,39 @@ for (const [index, page] of pages.entries()) {
   }
 }
 
+if (readyCount !== 0) {
+  fail(`READY_TO_INDEX должен быть 0, сейчас ready_to_index=true у ${readyCount} страниц`);
+}
+
+for (const [priority, expected] of Object.entries(EXPECTED_PRIORITY)) {
+  if (priorityCounts[priority] !== expected) {
+    fail(`ожидалось ${expected} страниц ${priority}, сейчас ${priorityCounts[priority]}`);
+  }
+}
+for (const [gate, expected] of Object.entries(EXPECTED_GATES)) {
+  if (gateCounts[gate] !== expected) {
+    fail(`ожидалось ${expected} страниц ${gate}, сейчас ${gateCounts[gate]}`);
+  }
+}
+
+const homePages = pages.filter((page) => page.page_type === 'homepage' || page.url === '/');
+if (homePages.length !== 1) fail(`должна быть ровно одна главная, сейчас ${homePages.length}`);
+const home = homePages[0];
+if (home) {
+  if (home.parent_id !== null) fail(`${home.page_id}: у главной parent_id должен быть null`);
+  if (home.market !== 'Kazakhstan') fail(`${home.page_id}: у главной market должен быть Kazakhstan`);
+}
+
 for (const page of pages) {
-  if (!page.parent_id) {
-    fail(`${page.page_id}: пустой parent_id`);
+  if (page === home) continue;
+  if (page.parent_id === null || page.parent_id === undefined || page.parent_id === '') {
+    fail(`${page.page_id}: parent_id=null разрешён только главной`);
     continue;
   }
-  if (!pageIds.has(page.parent_id) && !ROOT_PARENT_IDS.has(page.parent_id)) {
+  if (FICTIVE_PARENT_IDS.has(page.parent_id)) {
+    fail(`${page.page_id}: запрещён фиктивный parent_id ${page.parent_id}`);
+  }
+  if (!pageIds.has(page.parent_id)) {
     fail(`${page.page_id}: parent_id ${page.parent_id} не существует`);
   }
 }
@@ -185,4 +291,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Проверка SEO routes: ${pages.length} URL, ${products.length} product pages; ошибок: 0`);
+console.log(`Проверка SEO routes: ${pages.length} URL, ${products.length} product pages, P0=${priorityCounts.P0} P1=${priorityCounts.P1} P2=${priorityCounts.P2}; ошибок: 0`);
