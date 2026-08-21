@@ -1,0 +1,65 @@
+---
+description: Mandatory release quality gate for every production page
+alwaysApply: true
+---
+# PAGE RELEASE QUALITY GATE
+
+Performance, SEO, Accessibility и семантика — часть разработки.
+
+Перед готовностью:
+`npm run quality:all` → exit 0.
+
+Затем 3 mobile Lighthouse runs.
+
+Порог:
+- каждый Mobile Performance >= 90;
+- target median >= 95;
+- Accessibility >= 95, target 100;
+- SEO = 100;
+- LCP <= 2.5 s target;
+- CLS <= 0.05 target;
+- TBT <= 100 ms target.
+
+Mobile < 90 — страница не готова.
+
+Critical path:
+- H1/offering/CTA/first-screen media без JS;
+- compact critical CSS;
+- no mass preload;
+- only real critical font/LCP resource gets priority.
+
+Images:
+- alt у каждого img;
+- meaningful alt для content, alt="" для decorative;
+- dimensions;
+- srcset/sizes;
+- LCP not lazy;
+- below-fold lazy;
+- no oversized mobile assets.
+
+CSS/JS:
+- no builder runtime/public.bundle/duplicate assets;
+- minimal JS;
+- no library for simple menu/accordion;
+- no duplicate handlers.
+
+Accessibility:
+- landmarks, headings, contrast, labels, link/button names,
+  focus-visible, keyboard, modal focus, touch targets, alt.
+
+SEO/Schema:
+- lang/charset/viewport/title/description/canonical/one H1;
+- crawlable links;
+- correct robots/indexability;
+- valid truthful JSON-LD;
+- no fake ratings/reviews/offers/prices.
+
+Forms:
+- label/name/type/autocomplete;
+- one handler;
+- real success/error;
+- consent;
+- no secrets.
+
+Final QA:
+360/390/412/430/768/1280/1440 + Console + Network + menu + CTA + forms + popup + FAQ/tabs/slider.

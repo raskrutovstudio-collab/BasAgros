@@ -1,0 +1,13 @@
+---
+description: Постоянный accessibility стандарт
+alwaysApply: true
+---
+- Semantic header/nav/main/footer и native interactive elements.
+- Каждый field имеет label.
+- Placeholder не заменяет label.
+- Visible focus.
+- Menu/popup/accordion/tabs работают с keyboard.
+- Modal: Escape, focus trap, return focus.
+- Информация не только цветом.
+- Основные touch targets ориентировочно >=44x44.
+- ARIA только когда native semantics недостаточно.

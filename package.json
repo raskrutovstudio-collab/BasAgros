@@ -1,0 +1,19 @@
+{
+  "name": "universal-clean-site-starter",
+  "private": true,
+  "version": "3.0.0",
+  "engines": {
+    "node": ">=22.19"
+  },
+  "scripts": {
+    "init:project": "node tools/init-project.mjs",
+    "audit:pages": "node tools/audit-pages.mjs",
+    "check:secrets": "node tools/check-secrets.mjs",
+    "quality:all": "npm run audit:pages && npm run check:secrets",
+    "lighthouse:mobile": "node tools/lighthouse-mobile.mjs",
+    "serve": "node tools/serve.mjs"
+  },
+  "devDependencies": {
+    "lighthouse": "^12.8.2"
+  }
+}

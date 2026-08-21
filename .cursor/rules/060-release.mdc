@@ -1,0 +1,19 @@
+---
+description: Безопасный выпуск страниц
+alwaysApply: true
+---
+Перед release:
+1. npm run quality:all
+2. git diff --check
+3. responsive QA
+4. Console/Network
+5. functional QA
+6. Lighthouse mobile x3
+7. Title/Description/Canonical/H1/Schema
+8. forms/analytics
+
+Запрещено:
+- production при Mobile Performance < 90;
+- deploy без отдельной команды;
+- менять redirects/robots/sitemap «заодно»;
+- отправлять реальные leads/conversions без разрешения.

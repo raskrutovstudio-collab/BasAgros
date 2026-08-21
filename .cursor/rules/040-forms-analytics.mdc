@@ -1,0 +1,13 @@
+---
+description: Формы, контакты, аналитика и интеграции
+alwaysApply: true
+---
+- Сначала выясни существующий механизм формы.
+- Не создавай второй submit-handler/fetch при наличии общего.
+- label/name/type/autocomplete; required по факту.
+- Сохраняй consent, form name, page, UTM, success/error.
+- No secrets/API keys/service role in frontend.
+- Не ломай Supabase/Resend/CRM и analytics events.
+- Не дублируй Метрику/GA4/GTM/form handler.
+- Conversion event только после confirmed success.
+- Production test lead без разрешения не отправлять.

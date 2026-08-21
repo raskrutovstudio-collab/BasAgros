@@ -1,0 +1,39 @@
+{
+  "package": "Universal Clean Site Starter",
+  "version": "3.0.0",
+  "project": null,
+  "initialized": false,
+  "node_min": "22.19",
+  "site_root": "site",
+  "init_command": "npm run init:project -- --name \"Project Name\" --domain \"https://example.kz\"",
+  "quality_command": "npm run quality:all",
+  "lighthouse_command": "npm run lighthouse:mobile -- <URL>",
+  "cursor_rules": [
+    "010-project-core",
+    "020-performance",
+    "025-page-release-quality",
+    "030-seo-aeo",
+    "035-accessibility",
+    "040-forms-analytics",
+    "050-content-style",
+    "060-release"
+  ],
+  "cursor_skills": [
+    "build-static-seo-page"
+  ],
+  "agent_skills": [
+    "accessibility",
+    "core-web-vitals",
+    "forms-standard",
+    "frontend-design-review",
+    "lp-motor-clean-migration",
+    "performance",
+    "programmatic-seo",
+    "schema",
+    "seo",
+    "seo-audit",
+    "site-architecture",
+    "web-quality-audit",
+    "webapp-testing"
+  ]
+}

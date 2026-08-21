@@ -1,0 +1,42 @@
+<form class="lead-form" data-lead-form data-form-name="Страница — заявка" novalidate>
+  <div class="field">
+    <label for="lead-name">Имя</label>
+    <input id="lead-name" name="name" type="text" autocomplete="name">
+  </div>
+
+  <div class="field">
+    <label for="lead-phone">Телефон</label>
+    <input
+      id="lead-phone"
+      name="phone"
+      type="tel"
+      inputmode="tel"
+      autocomplete="tel"
+      required
+      aria-describedby="lead-phone-hint"
+    >
+    <small id="lead-phone-hint">Укажите номер для связи.</small>
+  </div>
+
+  <div class="field">
+    <label for="lead-message">Комментарий</label>
+    <textarea id="lead-message" name="message" rows="4"></textarea>
+  </div>
+
+  <input
+    class="lead-form-honeypot"
+    type="text"
+    name="website"
+    autocomplete="off"
+    tabindex="-1"
+    aria-hidden="true"
+  >
+
+  <label class="consent">
+    <input name="consent" type="checkbox" value="yes" required>
+    <span>Я согласен(на) с политикой обработки персональных данных.</span>
+  </label>
+
+  <button type="submit">Отправить заявку</button>
+  <div data-form-status aria-live="polite" aria-atomic="true"></div>
+</form>
