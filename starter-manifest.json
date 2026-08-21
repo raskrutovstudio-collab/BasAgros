@@ -1,8 +1,8 @@
 {
   "package": "Universal Clean Site Starter",
   "version": "3.0.0",
-  "project": null,
-  "initialized": false,
+  "project": "basagros.kz",
+  "initialized": true,
   "node_min": "22.19",
   "site_root": "site",
   "init_command": "npm run init:project -- --name \"Project Name\" --domain \"https://example.kz\"",
