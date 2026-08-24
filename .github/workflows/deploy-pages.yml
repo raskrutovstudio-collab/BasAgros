@@ -1,3 +1,4 @@
+# Push-triggered preview deployment for the approved work branch.
 name: Deploy closed preview to GitHub Pages
 
 on:
