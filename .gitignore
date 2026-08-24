@@ -1,9 +1,0 @@
-node_modules/
-.pages-preview/
-reports/
-*.log
-.env
-.env.*
-!.env.example
-.DS_Store
-Thumbs.db
