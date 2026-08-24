@@ -68,6 +68,11 @@ export const HOME_IMAGES = {
     alt: 'Сельскохозяйственная техника в поле',
     sizes: '(min-width: 64rem) min(18vw, 300px), 44vw'
   },
+  'article-1': {
+    ...pair('product-kormovaya', 640, 520, 480, 360),
+    alt: 'Кормовые культуры на поле',
+    sizes: '(min-width: 64rem) min(28vw, 420px), (min-width: 48rem) 44vw, calc(100vw - 1.5rem)'
+  },
   'article-2': {
     ...pair('article-lyutserna', 960, 540, 720, 405),
     alt: 'Поле люцерны',

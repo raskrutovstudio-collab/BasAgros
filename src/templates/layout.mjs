@@ -71,6 +71,30 @@ ${navItems(FOOTER_NAV_URLS, pages, page.url)}
 }
 
 function renderHomeDocument({ page, pages, main }) {
+  const structuredData = JSON.stringify([
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'BAS Agros',
+      url: page.canonical,
+      description: homepageDescription()
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'BAS Agros',
+      url: page.canonical,
+      inLanguage: 'ru'
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: page.title,
+      url: page.canonical,
+      description: homepageDescription(),
+      inLanguage: 'ru'
+    }
+  ]).replace(/</g, '\\u003c');
   return `<!doctype html>
 ${GENERATED_MARKER}
 <html lang="ru">
@@ -81,8 +105,17 @@ ${GENERATED_MARKER}
   <meta name="description" content="${escapeHtml(homepageDescription())}">
   <link rel="canonical" href="${escapeHtml(page.canonical)}">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#F7F8F3">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="${escapeHtml(page.title)}">
+  <meta property="og:description" content="${escapeHtml(homepageDescription())}">
+  <meta property="og:url" content="${escapeHtml(page.canonical)}">
+  <meta property="og:site_name" content="BAS Agros">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%224%22 fill=%22%23173F2C%22/><path d=%22M7 24C8 12 15 7 25 7c0 11-6 17-18 17Z%22 fill=%22%23E5EEE6%22/></svg>">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home.css">
+  <script type="application/ld+json">${structuredData}</script>
 </head>
 <body class="page-home">
   <a class="skip-link" href="#main">Перейти к содержанию</a>
@@ -92,6 +125,7 @@ ${main}
   </main>
 ${renderHomeFooter(pages)}
   <script src="/assets/js/site-config.js" defer></script>
+  <script src="/assets/js/home.js" defer></script>
   <script src="/assets/js/lead-form.js" defer></script>
 </body>
 </html>
