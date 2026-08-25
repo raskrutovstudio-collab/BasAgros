@@ -29,8 +29,8 @@ export const HOME_IMAGES = {
     sizes: '(min-width: 64rem) min(20vw, 280px), (min-width: 48rem) 28vw, 38vw'
   },
   lyutserna: {
-    ...pair('product-lyutserna', 640, 520, 480, 360),
-    alt: 'Люцерна',
+    ...pair('article-lyutserna', 960, 540, 720, 405),
+    alt: 'Поле люцерны',
     sizes: '(min-width: 64rem) min(20vw, 280px), (min-width: 48rem) 28vw, 38vw'
   },
   'travosmes-kormovaya': {

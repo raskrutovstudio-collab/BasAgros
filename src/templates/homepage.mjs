@@ -78,7 +78,7 @@ function sectionHead(data, id, aside = '') {
 }
 function renderSolutions(pages) {
   const data = block('solutions');
-  const cards = data.items.map((item) => { requirePage(pages, item.url); return `<li><a class="home-solution" href="${item.url}">${mediaSlot(item.slot)}<span><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.text)}</small><b aria-hidden="true">→</b></span></a></li>`; }).join('');
+  const cards = data.items.map((item) => { requirePage(pages, item.url); return `<li><a class="home-solution" href="${item.url}">${mediaSlot(item.slot)}<span><strong>${escapeHtml(item.title)}</strong><b aria-hidden="true">→</b></span></a></li>`; }).join('');
   return `<section class="home-section" id="solutions" aria-labelledby="solutions-title"><div class="home-wrap">${sectionHead(data, 'solutions-title')}<ul class="home-solution-grid">${cards}</ul></div></section>`;
 }
 function renderCatalog(pages) {
@@ -96,7 +96,7 @@ function formFields(compact = false) {
 }
 function renderGuide() {
   const data = block('guide');
-  return `<section class="home-section home-guide" aria-labelledby="guide-title"><div class="home-wrap home-guide-grid"><div><h2 id="guide-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p><ol>${data.items.map((item) => `<li><span>${escapeHtml(item.title)}</span><small>${escapeHtml(item.text)}</small></li>`).join('')}</ol></div><form class="home-form home-form-compact" data-lead-form data-form-name="Главная — помощь с выбором" novalidate>${formFields(true)}</form></div></section>`;
+  return `<section class="home-section home-guide" aria-labelledby="guide-title"><div class="home-wrap home-guide-grid"><div><h2 id="guide-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p><ul class="home-guide-markers">${data.items.map((item) => `<li>${escapeHtml(item.title)}</li>`).join('')}</ul></div><form class="home-form home-form-compact" data-lead-form data-form-name="Главная — помощь с выбором" novalidate>${formFields(true)}</form></div></section>`;
 }
 function renderAbout(pages) {
   const data = block('about'); data.links.forEach((x) => requirePage(pages, x.url));
@@ -104,7 +104,7 @@ function renderAbout(pages) {
 }
 function renderDeliveryQuality(pages) {
   const delivery = block('delivery'); const quality = block('quality'); requirePage(pages, delivery.links[0].url); requirePage(pages, quality.links[0].url);
-  return `<section class="home-section home-service" aria-label="Доставка и качество"><div class="home-wrap home-service-grid"><article aria-labelledby="delivery-title"><h2 id="delivery-title">${escapeHtml(delivery.heading)}</h2><p>${escapeHtml(delivery.text)}</p><ol class="home-delivery-steps">${delivery.items.map((item, i) => `<li><span>${i + 1}</span><div><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p></div></li>`).join('')}</ol>${link(delivery.links[0].url, `${delivery.links[0].label} →`, 'home-text-link')}</article><article class="home-quality" aria-labelledby="quality-title"><div>${icon('document')}<h2 id="quality-title">${escapeHtml(quality.heading)}</h2><p>${escapeHtml(quality.text)}</p>${link(quality.links[0].url, `${quality.links[0].label} →`, 'home-text-link')}</div>${mediaSlot('quality', 'home-quality-media')}</article></div></section>`;
+  return `<section class="home-section home-service" aria-label="Доставка и качество"><div class="home-wrap home-service-grid"><article aria-labelledby="delivery-title"><h2 id="delivery-title">${escapeHtml(delivery.heading)}</h2><p>${escapeHtml(delivery.text)}</p><ol class="home-delivery-steps">${delivery.items.map((item) => `<li><div><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p></div></li>`).join('')}</ol>${link(delivery.links[0].url, `${delivery.links[0].label} →`, 'home-text-link')}</article><article class="home-quality" aria-labelledby="quality-title"><div>${icon('document')}<h2 id="quality-title">${escapeHtml(quality.heading)}</h2><p>${escapeHtml(quality.text)}</p>${link(quality.links[0].url, `${quality.links[0].label} →`, 'home-text-link')}</div>${mediaSlot('quality', 'home-quality-media')}</article></div></section>`;
 }
 function renderArticles(pages) {
   const data = block('articles');
