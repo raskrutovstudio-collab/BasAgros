@@ -1,5 +1,5 @@
-# Push-triggered preview deployment for the approved work branch.
-name: Deploy closed preview to GitHub Pages
+# Production deployment for the approved work branch.
+name: Deploy BAS Agros to GitHub Pages
 
 on:
   push:
@@ -13,7 +13,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages-preview
+  group: pages-production
   cancel-in-progress: true
 
 jobs:
@@ -38,19 +38,16 @@ jobs:
       - name: Validate and build site
         run: npm run quality:all
 
-      - name: Prepare closed Pages preview
-        run: node tools/prepare-pages-preview.mjs
-
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Pages artifact
+      - name: Upload production site
         uses: actions/upload-pages-artifact@v4
         with:
-          path: .pages-preview
+          path: site
 
       - name: Deploy to GitHub Pages
         id: deployment
