@@ -114,7 +114,7 @@ ${GENERATED_MARKER}
   <meta property="og:site_name" content="BAS Agros">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%224%22 fill=%22%23173F2C%22/><path d=%22M7 24C8 12 15 7 25 7c0 11-6 17-18 17Z%22 fill=%22%23E5EEE6%22/></svg>">
   <link rel="stylesheet" href="/assets/css/site.css">
-  <link rel="stylesheet" href="/assets/css/home.css?v=20260825-2">
+  <link rel="stylesheet" href="/assets/css/home.css?v=20260825-3">
   <script type="application/ld+json">${structuredData}</script>
 </head>
 <body class="page-home">

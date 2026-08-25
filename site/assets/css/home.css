@@ -650,3 +650,67 @@
   .home-footer-grid { grid-template-columns: 1fr; }
   .home-footer-brand { grid-column: auto; }
 }
+
+
+/* Header refinement: approved BAS Agros logo and evenly distributed desktop controls. */
+.home-header .home-wrap {
+  width: min(calc(100% - 1.5rem), 86rem);
+}
+.home-brand {
+  flex: 0 0 auto;
+  width: 4.6rem;
+  min-height: 4rem;
+}
+.home-logo-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 4rem;
+  object-fit: contain;
+}
+.home-footer .home-brand {
+  width: 5.5rem;
+  min-height: 4.8rem;
+}
+
+@media (min-width: 64rem) {
+  .home-header,
+  .home-header-inner {
+    min-height: 5.5rem;
+  }
+  .home-header-inner {
+    gap: clamp(1.25rem, 2vw, 2rem);
+  }
+  .home-header .home-brand {
+    width: 5.25rem;
+    min-height: 4.75rem;
+  }
+  .home-header .home-logo-image {
+    max-height: 4.75rem;
+  }
+  .home-nav {
+    justify-content: space-between;
+    gap: clamp(1rem, 1.8vw, 1.75rem);
+  }
+  .home-nav ul {
+    flex: 1 1 auto;
+    justify-content: space-evenly;
+    gap: .25rem;
+  }
+  .home-nav li a {
+    min-height: 3rem;
+    padding-inline: .45rem;
+    font-size: clamp(.82rem, .9vw, .9rem);
+    font-weight: 680;
+  }
+  .home-nav-actions {
+    flex: 0 0 auto;
+    gap: .7rem;
+    margin-left: 0;
+  }
+  .home-nav-actions .home-btn {
+    min-height: 3rem;
+    padding: .7rem 1.05rem;
+    font-size: .86rem;
+  }
+}

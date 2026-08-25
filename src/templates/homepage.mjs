@@ -31,7 +31,7 @@ function link(url, label, className = '') {
   return `<a href="${escapeHtml(url)}"${className ? ` class="${className}"` : ''}>${escapeHtml(label)}</a>`;
 }
 function logo() {
-  return `<span class="home-logo-mark" aria-hidden="true"><svg viewBox="0 0 42 42" width="42" height="42"><path d="M21 4c8 6 11 13 8 21-8 1-14-3-17-10 2-5 5-9 9-11Z"/><path d="M9 28c8-4 16-2 23 6M20 9c-1 9 2 16 10 22"/></svg></span><span>BAS<br>AGROS</span>`;
+  return `<img class="home-logo-image" src="/assets/img/bas-agros-logo.png" width="1342" height="1172" alt="BAS Agros" decoding="async">`;
 }
 function icon(name) {
   const shapes = {
