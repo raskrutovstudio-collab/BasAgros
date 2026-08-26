@@ -7,6 +7,59 @@
   const endpoint = String(config.leadEndpoint || '').trim();
   const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 
+  function normalizePhoneDigits(value) {
+    let digits = String(value || '').replace(/\D/g, '');
+    if (digits.startsWith('8') && digits.length >= 11) digits = `7${digits.slice(1)}`;
+    if (digits.startsWith('7')) digits = digits.slice(1);
+    if (digits.length > 10) digits = digits.slice(0, 10);
+    return digits;
+  }
+
+  function formatPhone(value) {
+    const digits = normalizePhoneDigits(value);
+    if (!digits.length) return '';
+    const parts = ['+7'];
+    if (digits.length) parts.push(digits.slice(0, 3));
+    if (digits.length > 3) parts.push(digits.slice(3, 6));
+    if (digits.length > 6) parts.push(digits.slice(6, 8));
+    if (digits.length > 8) parts.push(digits.slice(8, 10));
+    return parts.join(' ');
+  }
+
+  function isCompletePhone(value) {
+    return normalizePhoneDigits(value).length === 10;
+  }
+
+  function validatePhone(input) {
+    if (!input) return true;
+    const valid = isCompletePhone(input.value);
+    input.setCustomValidity(valid ? '' : 'Введите номер в формате +7 XXX XXX XX XX');
+    return valid;
+  }
+
+  function bindPhoneMask(form) {
+    const inputs = form.querySelectorAll('input[name="phone"][data-phone-mask]');
+    for (const input of inputs) {
+      input.addEventListener('focus', () => {
+        if (!input.value) input.value = '+7 ';
+      });
+      input.addEventListener('input', () => {
+        input.value = formatPhone(input.value);
+        validatePhone(input);
+      });
+      input.addEventListener('blur', () => {
+        if (!normalizePhoneDigits(input.value).length) input.value = '';
+        validatePhone(input);
+      });
+      input.addEventListener('paste', () => {
+        queueMicrotask(() => {
+          input.value = formatPhone(input.value);
+          validatePhone(input);
+        });
+      });
+    }
+  }
+
   function canActivateLeadForm() {
     if (config.enabled === true && !endpoint) {
       console.error('Форма не может быть активна: endpoint пустой.');
@@ -41,11 +94,20 @@
     );
   }
 
+  function formDataToObject(form) {
+    const entries = [...new FormData(form).entries()]
+      .map(([key, value]) => [key, typeof value === 'string' ? value.trim() : value]);
+    const data = Object.fromEntries(entries);
+    if ('phone' in data) data.phone = formatPhone(data.phone);
+    return data;
+  }
+
   const active = canActivateLeadForm();
 
   for (const form of forms) {
     if (form.dataset.handlerBound === 'true') continue;
     form.dataset.handlerBound = 'true';
+    bindPhoneMask(form);
 
     if (!active) {
       disableForm(form);
@@ -67,20 +129,20 @@
 
       const status = form.querySelector('[data-form-status]');
       const submit = form.querySelector('button[type="submit"]');
+      const phone = form.querySelector('input[name="phone"]');
 
       if (form.dataset.submitting === 'true') return;
 
+      validatePhone(phone);
       if (!form.checkValidity()) {
         form.reportValidity();
         if (status) status.textContent = 'Проверьте обязательные поля.';
         return;
       }
 
-      const data = Object.fromEntries(new FormData(form).entries());
+      const data = formDataToObject(form);
 
-      if (data.website) {
-        return;
-      }
+      if (data.website) return;
 
       const payload = {
         ...data,
