@@ -208,5 +208,31 @@ if (!css.includes('Guide form: visual match to approved homepage reference.')) {
   css += guideReferenceRule;
 }
 
+const botanicalPlacementRule = `
+/* Hero botanical placement matched to the approved reference: mostly on the white field, stem near the photo edge. */
+@media (min-width: 48rem) {
+  .home-botanical {
+    left: auto;
+    right: calc(100% - 1.35rem);
+    top: 49%;
+    width: 9rem;
+    height: auto;
+    opacity: .44;
+    transform: translateY(-50%);
+  }
+}
+@media (min-width: 80rem) {
+  .home-botanical {
+    right: calc(100% - 1.2rem);
+    top: 48%;
+    width: 9rem;
+    opacity: .42;
+  }
+}
+`;
+if (!css.includes('Hero botanical placement matched to the approved reference')) {
+  css += botanicalPlacementRule;
+}
+
 fs.writeFileSync(cssPath, css, 'utf8');
-console.log('Brand overrides applied: transparent logo, aligned header, inline hero labels, exact audience icons, and reference-matched guide form.');
+console.log('Brand overrides applied: transparent logo, aligned header, inline hero labels, exact audience icons, reference-matched guide form, and corrected botanical placement.');
