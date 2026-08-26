@@ -11,7 +11,7 @@ const guideForm = `<form class="home-form home-form-compact" data-lead-form data
 <label for="guide-sowing-area">Площадь посева<input id="guide-sowing-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label>
 <label for="guide-name">Ваше имя<input id="guide-name" name="name" type="text" autocomplete="name" placeholder="Введите имя"></label>
 <label for="guide-phone">Телефон<input id="guide-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="${phonePattern}" placeholder="+7 XXX XXX XX XX"></label>
-<button class="home-btn home-btn-primary" type="submit">Получить предложение</button>
+<button class="home-btn home-btn-primary" type="submit" disabled aria-disabled="true">Получить предложение</button>
 <p class="home-guide-consent home-field-wide">Нажимая кнопку, вы соглашаетесь на обработку персональных данных. Отправка формы будет включена после публикации утверждённой политики конфиденциальности.</p>
 <div class="home-form-status home-field-wide" data-form-status aria-live="polite" aria-atomic="true">Отправка будет доступна после подключения формы.</div>
 <input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -24,7 +24,7 @@ const requestForm = `<form class="home-form" data-lead-form data-form-name="Гл
 <label for="request-sowing-area">Площадь посева<input id="request-sowing-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label>
 <label class="home-field-wide" for="request-message">Комментарий<textarea id="request-message" name="message" rows="4"></textarea></label>
 <p class="home-guide-consent home-field-wide">Нажимая кнопку, вы соглашаетесь на обработку персональных данных. Отправка формы будет включена после публикации утверждённой политики конфиденциальности.</p>
-<button class="home-btn home-btn-primary" type="submit">Получить предложение</button>
+<button class="home-btn home-btn-primary" type="submit" disabled aria-disabled="true">Получить предложение</button>
 <div class="home-form-status home-field-wide" data-form-status aria-live="polite" aria-atomic="true">Отправка будет доступна после подключения формы.</div>
 <input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 </form>`;
@@ -62,7 +62,7 @@ function assertFormContract(html) {
       ['phone mask marker', /<input(?=[^>]*name="phone")(?=[^>]*data-phone-mask)[^>]*>/],
       ['honeypot', /<input(?=[^>]*name="website")(?=[^>]*class="[^"]*lead-form-honeypot)[^>]*>/],
       ['status', /<(?:div|p)(?=[^>]*data-form-status)(?=[^>]*aria-live="polite")[^>]*>/],
-      ['submit button', /<button[^>]*type="submit"/],
+      ['submit button', /<button(?=[^>]*type="submit")(?=[^>]*disabled)[^>]*>/],
       ['sowing area', /name="sowing_area"/]
     ];
 
