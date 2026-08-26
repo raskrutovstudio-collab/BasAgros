@@ -25,5 +25,15 @@ function patchHtml(dir) {
   }
 }
 
+function patchHeaderColors() {
+  const cssPath = path.join(siteRoot, 'assets', 'css', 'home.css');
+  let css = fs.readFileSync(cssPath, 'utf8');
+  const marker = '/* Header nav links use the same deep green as the hero offer. */';
+  const rule = `\n${marker}\n.home-nav li a { color: var(--color-green-deep); }\n`;
+  if (!css.includes(marker)) css += rule;
+  fs.writeFileSync(cssPath, css, 'utf8');
+}
+
 patchHtml(siteRoot);
-console.log('Header phone button applied: phone icon +7 705 960 89 87.');
+patchHeaderColors();
+console.log('Header phone button applied and nav links matched to hero offer color.');
