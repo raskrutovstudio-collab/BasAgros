@@ -8,6 +8,9 @@ const phoneButton = `<a href="tel:+77059608987" class="home-btn home-btn-outline
 const firstNavItem = '<li><a href="/">Главная</a></li>';
 const lastNavItem = '<li><a href="#contacts">Контакты</a></li>';
 
+const aboutOld = '<p>BAS Agros поставляет семена кормовых трав, травосмесей и сельскохозяйственных культур по Казахстану. Каталог помогает перейти от задачи хозяйства к подходящей категории или культуре и оставить заявку на согласование параметров поставки.</p>';
+const aboutNew = '<p>BAS Agros специализируется на поставках семян кормовых трав, травосмесей и сельскохозяйственных культур по Казахстану. Основное направление компании — травы и травосмеси для хозяйств, которым важно подобрать культуру под конкретную задачу: сенокос, пастбище, кормовую базу, медоносный посев или сидерацию.</p><p>Каталог построен так, чтобы можно было перейти от задачи хозяйства к подходящей категории или культуре, уточнить параметры продукции и оставить заявку на подбор. Условия поставки и доставки согласовываются при обработке заявки, а сведения о продукции и сопроводительных документах предоставляются по запросу.</p>';
+
 function patchHtml(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const abs = path.join(dir, entry.name);
@@ -32,6 +35,7 @@ function patchHtml(dir) {
         next = next.replace('</li></ul><div class="home-nav-actions">', `</li>${lastNavItem}</ul><div class="home-nav-actions">`);
       }
       next = next.replace('<div><h2>Контакты</h2>', '<div id="contacts"><h2>Контакты</h2>');
+      next = next.replace(aboutOld, aboutNew);
     }
 
     if (next !== html) fs.writeFileSync(abs, next, 'utf8');
@@ -54,9 +58,13 @@ function patchHomeCss() {
   const guideHeadingRule = `\n${guideHeadingMarker}\n.home-guide h2 {\n  max-width: 27rem;\n  font-size: clamp(1.9rem, 2.25vw, 2.35rem);\n  line-height: 1.08;\n  overflow-wrap: normal;\n  word-break: normal;\n}\n.home-guide-grid > div > p {\n  max-width: 27rem;\n}\n`;
   if (!css.includes(guideHeadingMarker)) css += guideHeadingRule;
 
+  const aboutCopyMarker = '/* Expanded company copy spacing. */';
+  const aboutCopyRule = `\n${aboutCopyMarker}\n.home-about-copy p + p {\n  margin-top: .85rem;\n}\n`;
+  if (!css.includes(aboutCopyMarker)) css += aboutCopyRule;
+
   fs.writeFileSync(cssPath, css, 'utf8');
 }
 
 patchHtml(siteRoot);
 patchHomeCss();
-console.log('Header navigation, aligned catalog card actions and guide heading typography applied.');
+console.log('Header navigation, catalog alignment, guide heading and expanded company copy applied.');
