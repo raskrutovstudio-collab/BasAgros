@@ -5,6 +5,8 @@ const siteRoot = path.join(process.cwd(), 'site');
 const oldButton = '<a href="/o-kompanii/" class="home-btn home-btn-outline">Связаться</a>';
 const phoneIcon = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style="flex:0 0 auto;margin-right:.45rem"><path d="M7.3 3.5 9.6 8l-1.8 1.6c1 2.3 2.7 4 5 5l1.7-1.8 4.4 2.3c.5.3.8.8.7 1.4-.3 2.1-1.8 3.5-3.9 3.5C9.2 20 4 14.8 4 8.3c0-2 1.4-3.6 3.5-3.9.6-.1 1.2.2 1.5.7Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const phoneButton = `<a href="tel:+77059608987" class="home-btn home-btn-outline" aria-label="Позвонить по номеру +7 705 960 89 87">${phoneIcon}<span>+7 705 960 89 87</span></a>`;
+const firstNavItem = '<li><a href="/">Главная</a></li>';
+const lastNavItem = '<li><a href="#contacts">Контакты</a></li>';
 
 function patchHtml(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -21,6 +23,17 @@ function patchHtml(dir) {
       '<a href="tel:+77059608987" class="home-btn home-btn-outline" aria-label="Позвонить по номеру 8 705 960 89 87">8 705 960 89 87</a>',
       phoneButton
     );
+
+    if (path.resolve(abs) === path.resolve(siteRoot, 'index.html')) {
+      if (!next.includes(firstNavItem)) {
+        next = next.replace('<nav class="home-nav" id="home-navigation" aria-label="Основная навигация" data-mobile-nav><ul>', `<nav class="home-nav" id="home-navigation" aria-label="Основная навигация" data-mobile-nav><ul>${firstNavItem}`);
+      }
+      if (!next.includes(lastNavItem)) {
+        next = next.replace('</li></ul><div class="home-nav-actions">', `</li>${lastNavItem}</ul><div class="home-nav-actions">`);
+      }
+      next = next.replace('<div><h2>Контакты</h2>', '<div id="contacts"><h2>Контакты</h2>');
+    }
+
     if (next !== html) fs.writeFileSync(abs, next, 'utf8');
   }
 }
@@ -36,4 +49,4 @@ function patchHeaderColors() {
 
 patchHtml(siteRoot);
 patchHeaderColors();
-console.log('Header phone button applied and nav links matched to hero offer color.');
+console.log('Header phone button, nav colors, Home first item and Contacts last item applied.');
