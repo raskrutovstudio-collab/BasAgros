@@ -87,6 +87,16 @@
     if (status) status.textContent = DISABLED_MESSAGE;
   }
 
+  function enableForm(form) {
+    const submit = form.querySelector('button[type="submit"]');
+    if (submit) {
+      submit.disabled = false;
+      submit.removeAttribute('aria-disabled');
+    }
+    const status = form.querySelector('[data-form-status]');
+    if (status && status.textContent === DISABLED_MESSAGE) status.textContent = '';
+  }
+
   function captureUtm() {
     const params = new URLSearchParams(location.search);
     for (const key of utmKeys) {
@@ -124,6 +134,7 @@
       continue;
     }
 
+    enableForm(form);
     captureUtm();
 
     form.addEventListener('submit', async (event) => {
@@ -186,7 +197,8 @@
         }
       } finally {
         delete form.dataset.submitting;
-        if (submit) submit.disabled = false;
+        if (canActivateLeadForm()) enableForm(form);
+        else disableForm(form);
       }
     });
   }
