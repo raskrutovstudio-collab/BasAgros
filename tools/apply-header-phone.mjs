@@ -36,6 +36,7 @@ function patchHtml(dir) {
       }
       next = next.replace('<div><h2>Контакты</h2>', '<div id="contacts"><h2>Контакты</h2>');
       next = next.replace(aboutOld, aboutNew);
+      next = next.replaceAll('<p class="home-eyebrow">Агроблог</p>', '');
     }
 
     if (next !== html) fs.writeFileSync(abs, next, 'utf8');
@@ -67,4 +68,4 @@ function patchHomeCss() {
 
 patchHtml(siteRoot);
 patchHomeCss();
-console.log('Header navigation, catalog alignment, guide heading and expanded company copy applied.');
+console.log('Header navigation, catalog alignment, guide heading, expanded company copy and agroblog card cleanup applied.');
