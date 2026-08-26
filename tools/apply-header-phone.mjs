@@ -38,15 +38,21 @@ function patchHtml(dir) {
   }
 }
 
-function patchHeaderColors() {
+function patchHomeCss() {
   const cssPath = path.join(siteRoot, 'assets', 'css', 'home.css');
   let css = fs.readFileSync(cssPath, 'utf8');
-  const marker = '/* Header nav links use the same deep green as the hero offer. */';
-  const rule = `\n${marker}\n.home-nav li a { color: var(--color-green-deep); }\n`;
-  if (!css.includes(marker)) css += rule;
+
+  const headerMarker = '/* Header nav links use the same deep green as the hero offer. */';
+  const headerRule = `\n${headerMarker}\n.home-nav li a { color: var(--color-green-deep); }\n`;
+  if (!css.includes(headerMarker)) css += headerRule;
+
+  const catalogMarker = '/* Align catalog card action links to a common bottom baseline. */';
+  const catalogRule = `\n${catalogMarker}\n.home-category > div {\n  display: flex;\n  flex: 1 1 auto;\n  flex-direction: column;\n  padding-bottom: 15px;\n}\n.home-category > div > a {\n  margin-top: auto;\n  align-self: flex-start;\n}\n`;
+  if (!css.includes(catalogMarker)) css += catalogRule;
+
   fs.writeFileSync(cssPath, css, 'utf8');
 }
 
 patchHtml(siteRoot);
-patchHeaderColors();
-console.log('Header phone button, nav colors, Home first item and Contacts last item applied.');
+patchHomeCss();
+console.log('Header navigation and aligned catalog card actions applied.');
