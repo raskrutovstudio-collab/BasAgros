@@ -50,9 +50,13 @@ function patchHomeCss() {
   const catalogRule = `\n${catalogMarker}\n.home-category > div {\n  display: flex;\n  flex: 1 1 auto;\n  flex-direction: column;\n  padding-bottom: 15px;\n}\n.home-category > div > a {\n  margin-top: auto;\n  align-self: flex-start;\n}\n`;
   if (!css.includes(catalogMarker)) css += catalogRule;
 
+  const guideHeadingMarker = '/* Prevent awkward word breaking in the guide heading. */';
+  const guideHeadingRule = `\n${guideHeadingMarker}\n.home-guide h2 {\n  max-width: 27rem;\n  font-size: clamp(1.9rem, 2.25vw, 2.35rem);\n  line-height: 1.08;\n  overflow-wrap: normal;\n  word-break: normal;\n}\n.home-guide-grid > div > p {\n  max-width: 27rem;\n}\n`;
+  if (!css.includes(guideHeadingMarker)) css += guideHeadingRule;
+
   fs.writeFileSync(cssPath, css, 'utf8');
 }
 
 patchHtml(siteRoot);
 patchHomeCss();
-console.log('Header navigation and aligned catalog card actions applied.');
+console.log('Header navigation, aligned catalog card actions and guide heading typography applied.');
