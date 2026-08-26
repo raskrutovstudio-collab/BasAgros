@@ -63,9 +63,13 @@ function patchHomeCss() {
   const aboutCopyRule = `\n${aboutCopyMarker}\n.home-about-copy p + p {\n  margin-top: .85rem;\n}\n`;
   if (!css.includes(aboutCopyMarker)) css += aboutCopyRule;
 
+  const footerStackMarker = '/* Keep footer navigation links stacked vertically. */';
+  const footerStackRule = `\n${footerStackMarker}\n.home-footer nav ul {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.home-footer nav li {\n  display: block;\n  width: 100%;\n}\n`;
+  if (!css.includes(footerStackMarker)) css += footerStackRule;
+
   fs.writeFileSync(cssPath, css, 'utf8');
 }
 
 patchHtml(siteRoot);
 patchHomeCss();
-console.log('Header navigation, catalog alignment, guide heading, expanded company copy and agroblog card cleanup applied.');
+console.log('Header navigation, catalog alignment, guide heading, expanded company copy, agroblog cleanup and footer link stacking applied.');
