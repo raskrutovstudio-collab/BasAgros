@@ -40,9 +40,27 @@ function icon(name) {
     bee: '<ellipse cx="24" cy="24" rx="7" ry="12"/><path d="m19 16-7-6c-5 7-1 13 7 12m10-6 7-6c5 7 1 13-7 12M18 24h12m-11 6h10M24 12V7"/>',
     box: '<path d="m8 15 16-8 16 8-16 9-16-9Zm0 0v18l16 9 16-9V15M24 24v18"/>',
     leaf: '<path d="M9 38C9 20 19 9 38 8c1 19-10 30-29 30Zm2-2c8-11 15-17 25-24"/>',
-    document: '<path d="M11 5h19l8 8v30H11zM30 5v8h8M17 22h15m-15 7h15m-15 7h10"/>'
+    document: '<path d="M11 5h19l8 8v30H11zM30 5v8h8M17 22h15m-15 7h15m-15 7h10"/>',
+    quality: '<circle cx="24" cy="18" r="8"/><path d="M21 18l2 2 4-4"/><path d="M18 25v12l6-4 6 4V25"/>',
+    categories: '<rect x="8" y="10" width="12" height="10" rx="2"/><rect x="28" y="10" width="12" height="10" rx="2"/><rect x="18" y="28" width="12" height="10" rx="2"/><path d="M14 20v4h16v4"/><path d="M34 20v4"/>',
+    compass: '<circle cx="24" cy="24" r="14"/><path d="m29 19-8 3-3 8 8-3 3-8Z"/><circle cx="24" cy="24" r="1.2"/>',
+    delivery: '<path d="M6 16h23v13H6z"/><path d="M29 20h6l5 6v3H29z"/><circle cx="16" cy="34" r="4"/><circle cx="34" cy="34" r="4"/><path d="M12 21h10"/>'
   };
   return `<svg class="home-icon" viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${shapes[name] || shapes.leaf}</g></svg>`;
+}
+function trustIcon(title) {
+  switch (title) {
+    case 'Качество семян':
+      return icon('quality');
+    case 'Категории под задачи':
+      return icon('categories');
+    case 'Поддержка выбора':
+      return icon('compass');
+    case 'Доставка по Казахстану':
+      return icon('delivery');
+    default:
+      return icon('leaf');
+  }
 }
 function imageFilesExist(asset) {
   return [asset.fallback, ...asset.avif.map((x) => x.src), ...asset.webp.map((x) => x.src)]
@@ -100,7 +118,7 @@ function renderGuide() {
 }
 function renderAbout(pages) {
   const data = block('about'); data.links.forEach((x) => requirePage(pages, x.url));
-  return `<section class="home-section home-about" aria-labelledby="about-title"><div class="home-wrap"><div class="home-about-grid"><div class="home-about-collage">${mediaSlot('warehouse', 'home-about-main')}${mediaSlot('seeds')}${mediaSlot('shipping')}</div><div class="home-about-copy"><h2 id="about-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p><div class="home-actions">${link(data.links[0].url, data.links[0].label, 'home-btn home-btn-outline')}${link(data.links[1].url, data.links[1].label, 'home-btn home-btn-primary')}</div></div></div><ul class="home-trust">${data.items.map((item) => `<li>${icon('leaf')}<div><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></div></li>`).join('')}</ul></div></section>`;
+  return `<section class="home-section home-about" aria-labelledby="about-title"><div class="home-wrap"><div class="home-about-grid"><div class="home-about-collage">${mediaSlot('warehouse', 'home-about-main')}${mediaSlot('seeds')}${mediaSlot('shipping')}</div><div class="home-about-copy"><h2 id="about-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p><div class="home-actions">${link(data.links[0].url, data.links[0].label, 'home-btn home-btn-outline')}${link(data.links[1].url, data.links[1].label, 'home-btn home-btn-primary')}</div></div></div><ul class="home-trust">${data.items.map((item) => `<li>${trustIcon(item.title)}<div><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></div></li>`).join('')}</ul></div></section>`;
 }
 function renderDeliveryQuality(pages) {
   const delivery = block('delivery'); const quality = block('quality'); requirePage(pages, delivery.links[0].url); requirePage(pages, quality.links[0].url);
