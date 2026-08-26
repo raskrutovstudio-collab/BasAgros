@@ -28,9 +28,21 @@ const wideHeader = 'width: min(calc(100% - 1.5rem), 86rem);';
 const pageWidth = 'width: min(calc(100% - 2rem), var(--home-max));';
 if (css.includes(wideHeader)) {
   css = css.replace(wideHeader, pageWidth);
-  fs.writeFileSync(cssPath, css, 'utf8');
 } else if (!css.includes(pageWidth)) {
   throw new Error('Header width override was not found in home.css');
 }
 
-console.log('Brand overrides applied: transparent logo and page-aligned header width.');
+const heroCategoryInlineRule = `
+/* Keep first-screen category labels and arrows on one line. */
+@media (min-width: 48rem) {
+  .home-hero-categories a {
+    white-space: nowrap;
+  }
+}
+`;
+if (!css.includes('Keep first-screen category labels and arrows on one line.')) {
+  css += heroCategoryInlineRule;
+}
+
+fs.writeFileSync(cssPath, css, 'utf8');
+console.log('Brand overrides applied: transparent logo, page-aligned header width, and inline hero category labels.');
