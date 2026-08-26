@@ -58,3 +58,81 @@
     });
   }
 })();
+
+(() => {
+  if (!document.body.classList.contains('page-home')) return;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    .home-back-to-top {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 40;
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      padding: 0;
+      border: 1px solid #2f7d4a;
+      border-radius: 50%;
+      background: rgba(250, 251, 247, .96);
+      color: #17452c;
+      box-shadow: 0 8px 24px rgba(23, 69, 44, .14);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity .2s ease, transform .2s ease, visibility .2s ease, background .2s ease, color .2s ease;
+    }
+    .home-back-to-top.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .home-back-to-top:hover {
+      background: #2f7d4a;
+      color: #fff;
+    }
+    .home-back-to-top:focus-visible {
+      outline: 3px solid rgba(47, 125, 74, .28);
+      outline-offset: 3px;
+    }
+    .home-back-to-top svg {
+      width: 21px;
+      height: 21px;
+    }
+    @media (max-width: 47.99rem) {
+      .home-back-to-top {
+        right: 16px;
+        bottom: 16px;
+        width: 46px;
+        height: 46px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .home-back-to-top { transition: none; }
+    }
+  `;
+  document.head.append(style);
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'home-back-to-top';
+  button.setAttribute('aria-label', 'Наверх');
+  button.title = 'Наверх';
+  button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  document.body.append(button);
+
+  const syncVisibility = () => {
+    button.classList.toggle('is-visible', window.scrollY > 600);
+  };
+
+  button.addEventListener('click', () => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+  });
+
+  window.addEventListener('scroll', syncVisibility, { passive: true });
+  syncVisibility();
+})();
