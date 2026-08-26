@@ -208,43 +208,14 @@ if (!css.includes('Guide form: visual match to approved homepage reference.')) {
   css += guideReferenceRule;
 }
 
-const botanicalPlacementRule = `
-/* Hero botanical placement measured from the approved reference crop: fully on white, flush to photo edge, almost full hero height. */
-@media (min-width: 48rem) {
-  .home-botanical {
-    left: auto;
-    right: 100%;
-    top: 1.5%;
-    bottom: auto;
-    width: auto;
-    height: 91%;
-    max-width: none;
-    opacity: .5;
-    transform: none;
-    object-fit: contain;
-    object-position: right top;
-  }
-}
-@media (min-width: 80rem) {
-  .home-botanical {
-    right: 100%;
-    top: 1.5%;
-    width: auto;
-    height: 91%;
-    opacity: .48;
-  }
-}
-`;
-
-const oldBotanicalPlacementPattern = /\/\* Hero botanical placement matched to the approved reference:[\s\S]*?@media \(min-width: 80rem\) \{[\s\S]*?\n\}\n/;
-const measuredBotanicalPlacementPattern = /\/\* Hero botanical placement measured from the approved reference crop:[\s\S]*?@media \(min-width: 80rem\) \{[\s\S]*?\n\}\n/;
-if (oldBotanicalPlacementPattern.test(css)) {
-  css = css.replace(oldBotanicalPlacementPattern, botanicalPlacementRule.trimStart());
-} else if (measuredBotanicalPlacementPattern.test(css)) {
-  css = css.replace(measuredBotanicalPlacementPattern, botanicalPlacementRule.trimStart());
-} else {
-  css += botanicalPlacementRule;
+const leftoverBotanicalOverridePatterns = [
+  /\/\* Hero botanical placement matched to the approved reference:[\s\S]*?@media \(min-width: 80rem\) \{[\s\S]*?\n\}\n/,
+  /\/\* Hero botanical placement measured from the approved reference crop:[\s\S]*?@media \(min-width: 80rem\) \{[\s\S]*?\n\}\n/,
+  /\/\* Final hero botanical positioning:[\s\S]*?@media \(min-width: 80rem\) \{[\s\S]*?\n\}\n/
+];
+for (const pattern of leftoverBotanicalOverridePatterns) {
+  css = css.replace(pattern, '');
 }
 
 fs.writeFileSync(cssPath, css, 'utf8');
-console.log('Brand overrides applied: transparent logo, aligned header, inline hero labels, exact audience icons, reference-matched guide form, and measured botanical placement.');
+console.log('Brand overrides applied: transparent logo, aligned header, inline hero labels, exact audience icons, and reference-matched guide form.');

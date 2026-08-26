@@ -4,39 +4,18 @@ import path from 'node:path';
 const cssPath = path.join(process.cwd(), 'site', 'assets', 'css', 'home.css');
 let css = fs.readFileSync(cssPath, 'utf8');
 
-const marker = '/* Final hero botanical positioning: reference-sized, bottom-aligned, no stretching. */';
-const rule = `
-${marker}
-@media (min-width: 48rem) {
-  .home-botanical {
-    left: auto;
-    right: 100%;
-    top: auto;
-    bottom: 0;
-    width: 7.5rem;
-    height: auto;
-    max-width: none;
-    max-height: none;
-    opacity: .44;
-    transform: none;
-    object-fit: contain;
-    object-position: right bottom;
-  }
+const leftoverOverridePatterns = [
+  /\/\* Hero botanical placement matched to the approved reference:[\s\S]*?@media \(min-width: 80rem\) \{[\s\S]*?\n\}\n/,
+  /\/\* Hero botanical placement measured from the approved reference crop:[\s\S]*?@media \(min-width: 80rem\) \{[\s\S]*?\n\}\n/,
+  /\/\* Final hero botanical positioning:[\s\S]*?@media \(min-width: 80rem\) \{[\s\S]*?\n\}\n/
+];
+for (const pattern of leftoverOverridePatterns) {
+  css = css.replace(pattern, '');
 }
-@media (min-width: 80rem) {
-  .home-botanical {
-    right: 100%;
-    bottom: 0;
-    width: 7.5rem;
-    height: auto;
-    opacity: .42;
-  }
-}
-`;
 
-if (!css.includes(marker)) {
-  css += rule;
+if (/height:\s*91%/.test(css)) {
+  throw new Error('home.css still contains height: 91% for botanical; remove the leftover rule instead of stacking another override.');
 }
 
 fs.writeFileSync(cssPath, css, 'utf8');
-console.log('Final hero botanical placement applied: 120px intrinsic-width image, bottom aligned at the photo seam.');
+console.log('Hero botanical leftover overrides removed; source CSS keeps the single reference placement.');
