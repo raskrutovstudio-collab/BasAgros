@@ -8,11 +8,18 @@
   const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 
   function normalizePhoneDigits(value) {
-    let digits = String(value || '').replace(/\D/g, '');
-    if (digits.startsWith('8') && digits.length >= 11) digits = `7${digits.slice(1)}`;
-    if (digits.startsWith('7')) digits = digits.slice(1);
-    if (digits.length > 10) digits = digits.slice(0, 10);
-    return digits;
+    const raw = String(value || '').trim();
+    let digits = raw.replace(/\D/g, '');
+
+    if (raw.startsWith('+7') && digits.startsWith('7')) {
+      digits = digits.slice(1);
+    } else if (digits.length >= 11 && digits.startsWith('8')) {
+      digits = digits.slice(1);
+    } else if (digits.length >= 11 && digits.startsWith('7')) {
+      digits = digits.slice(1);
+    }
+
+    return digits.slice(0, 10);
   }
 
   function formatPhone(value) {
@@ -141,7 +148,6 @@
       }
 
       const data = formDataToObject(form);
-
       if (data.website) return;
 
       const payload = {
