@@ -1,5 +1,6 @@
 import { childrenOf, escapeHtml, joinSections } from './html.mjs';
 import { renderHomepage } from './homepage.mjs';
+import { isEtalonProduct, renderProduct } from './product.mjs';
 
 function pageList(title, items) {
   if (!items.length) return '';
@@ -71,6 +72,11 @@ function renderShell(page) {
   return joinSections([heading(page), routeMeta(page)]);
 }
 
+function renderProductPage(page, pages) {
+  if (isEtalonProduct(page)) return renderProduct(page, pages);
+  return renderShell(page);
+}
+
 function renderArticleHub(page, pages) {
   return joinSections([
     heading(page),
@@ -84,7 +90,7 @@ const RENDERERS = {
   catalog_hub: renderCatalogHub,
   category: renderCategory,
   culture: renderCulture,
-  product: renderShell,
+  product: renderProductPage,
   solution: renderShell,
   commercial_service: renderShell,
   corporate: renderShell,
