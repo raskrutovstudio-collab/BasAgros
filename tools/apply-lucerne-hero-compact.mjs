@@ -28,13 +28,20 @@ if (!factsPattern.test(html)) {
 }
 html = html.replace(factsPattern, compactFacts);
 
+const oldHeroImage = '<img src="/assets/img/home/about-field-640.webp" width="640" height="720" alt="Сельскохозяйственное поле" fetchpriority="high" decoding="async">';
+const lucerneHeroImage = '<img src="/assets/img/products/lucerne-field-hero.webp" width="400" height="267" alt="Поле цветущей люцерны" fetchpriority="high" decoding="async">';
+if (!html.includes(oldHeroImage)) {
+  throw new Error('Не найдено исходное главное изображение на странице люцерны');
+}
+html = html.replace(oldHeroImage, lucerneHeroImage);
+
 fs.writeFileSync(pagePath, html, 'utf8');
 
 let css = fs.readFileSync(cssPath, 'utf8');
 const marker = '/* Lucerne hero: two facts, viewport-fitted media. */';
 if (!css.includes(marker)) {
-  css += `\n${marker}\n.page-product .product-facts {\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n}\n@media (min-width: 48rem) {\n  .page-product .product-hero-grid {\n    min-height: 0;\n    align-items: stretch;\n  }\n  .page-product .product-gallery {\n    min-height: 0;\n    height: auto;\n    align-self: stretch;\n  }\n  .page-product .product-gallery-main {\n    position: absolute;\n    inset: 0;\n    min-height: 0;\n    height: auto;\n  }\n  .page-product .product-gallery-main img {\n    position: absolute;\n    inset: 0;\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n  }\n}\n@media (min-width: 64rem) {\n  .page-product .product-hero {\n    min-height: calc(100vh - 4.25rem);\n    min-height: calc(100svh - 4.25rem);\n  }\n  .page-product .product-hero > .home-wrap {\n    display: grid;\n    grid-template-rows: auto minmax(0, 1fr);\n    min-height: calc(100vh - 4.25rem);\n    min-height: calc(100svh - 4.25rem);\n  }\n  .page-product .product-hero-grid {\n    height: auto;\n    min-height: 0;\n    padding-top: 1.25rem;\n    padding-bottom: 1.25rem;\n    align-items: stretch;\n  }\n  .page-product .product-gallery {\n    height: auto;\n    min-height: 0;\n  }\n  .page-product .product-hero-copy {\n    align-self: center;\n  }\n}\n`;
+  css += `\n${marker}\n.page-product .product-facts {\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n}\n@media (min-width: 48rem) {\n  .page-product .product-hero-grid {\n    min-height: 0;\n    align-items: stretch;\n  }\n  .page-product .product-gallery {\n    min-height: 0;\n    height: auto;\n    align-self: stretch;\n  }\n  .page-product .product-gallery-main {\n    position: absolute;\n    inset: 0;\n    min-height: 0;\n    height: auto;\n  }\n  .page-product .product-gallery-main img {\n    position: absolute;\n    inset: 0;\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n    object-position: center center;\n  }\n}\n@media (min-width: 64rem) {\n  .page-product .product-hero {\n    min-height: calc(100vh - 4.25rem);\n    min-height: calc(100svh - 4.25rem);\n  }\n  .page-product .product-hero > .home-wrap {\n    display: grid;\n    grid-template-rows: auto minmax(0, 1fr);\n    min-height: calc(100vh - 4.25rem);\n    min-height: calc(100svh - 4.25rem);\n  }\n  .page-product .product-hero-grid {\n    height: auto;\n    min-height: 0;\n    padding-top: 1.25rem;\n    padding-bottom: 1.6rem;\n    align-items: stretch;\n  }\n  .page-product .product-gallery {\n    height: auto;\n    min-height: 0;\n  }\n  .page-product .product-hero-copy {\n    align-self: center;\n  }\n}\n`;
   fs.writeFileSync(cssPath, css, 'utf8');
 }
 
-console.log('Lucerne hero fitted to the desktop viewport with price and delivery facts preserved.');
+console.log('Lucerne hero uses the flowering lucerne field image, with price/delivery facts and a small bottom breathing space.');
