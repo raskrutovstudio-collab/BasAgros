@@ -20,7 +20,11 @@ if (!fs.existsSync(heroImagePayloadPath)) throw new Error('Не найден и�
 
 const heroImagePayload = fs.readFileSync(heroImagePayloadPath, 'utf8').trim();
 const heroImageBuffer = Buffer.from(heroImagePayload, 'base64');
-if (heroImageBuffer.length < 50000 || heroImageBuffer.subarray(0, 4).toString('ascii') !== 'RIFF' || heroImageBuffer.subarray(8, 12).toString('ascii') !== 'WEBP') {
+if (
+  heroImageBuffer.length < 10000 ||
+  heroImageBuffer.subarray(0, 4).toString('ascii') !== 'RIFF' ||
+  heroImageBuffer.subarray(8, 12).toString('ascii') !== 'WEBP'
+) {
   throw new Error('Некорректный WebP-файл поля люцерны');
 }
 fs.mkdirSync(path.dirname(heroImagePath), { recursive: true });
@@ -40,7 +44,7 @@ if (!factsPattern.test(html)) {
 html = html.replace(factsPattern, compactFacts);
 
 const oldHeroImage = '<img src="/assets/img/home/about-field-640.webp" width="640" height="720" alt="Сельскохозяйственное поле" fetchpriority="high" decoding="async">';
-const lucerneHeroImage = '<img src="/assets/img/products/lucerne-field-hero.webp" width="800" height="533" alt="Поле цветущей люцерны" fetchpriority="high" decoding="async">';
+const lucerneHeroImage = '<img src="/assets/img/products/lucerne-field-hero.webp" width="360" height="240" alt="Поле цветущей люцерны" fetchpriority="high" decoding="async">';
 if (!html.includes(oldHeroImage)) {
   throw new Error('Не найдено исходное главное изображение на странице люцерны');
 }
