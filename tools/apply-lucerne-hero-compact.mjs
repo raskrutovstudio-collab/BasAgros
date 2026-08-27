@@ -31,10 +31,10 @@ html = html.replace(factsPattern, compactFacts);
 fs.writeFileSync(pagePath, html, 'utf8');
 
 let css = fs.readFileSync(cssPath, 'utf8');
-const marker = '/* Lucerne hero: two facts, media follows content height. */';
+const marker = '/* Lucerne hero: two facts, viewport-fitted media. */';
 if (!css.includes(marker)) {
-  css += `\n${marker}\n.page-product .product-facts {\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n}\n@media (min-width: 48rem) {\n  .page-product .product-hero-grid {\n    min-height: 0;\n    align-items: stretch;\n  }\n  .page-product .product-gallery {\n    min-height: 0;\n    height: auto;\n    align-self: stretch;\n  }\n  .page-product .product-gallery-main {\n    position: absolute;\n    inset: 0;\n    min-height: 0;\n    height: auto;\n  }\n  .page-product .product-gallery-main img {\n    position: absolute;\n    inset: 0;\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n  }\n  .page-product .product-hero-copy {\n    align-self: start;\n  }\n}\n`;
+  css += `\n${marker}\n.page-product .product-facts {\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n}\n@media (min-width: 48rem) {\n  .page-product .product-hero-grid {\n    min-height: 0;\n    align-items: stretch;\n  }\n  .page-product .product-gallery {\n    min-height: 0;\n    height: auto;\n    align-self: stretch;\n  }\n  .page-product .product-gallery-main {\n    position: absolute;\n    inset: 0;\n    min-height: 0;\n    height: auto;\n  }\n  .page-product .product-gallery-main img {\n    position: absolute;\n    inset: 0;\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n  }\n}\n@media (min-width: 64rem) {\n  .page-product .product-hero {\n    min-height: calc(100vh - 4.25rem);\n    min-height: calc(100svh - 4.25rem);\n  }\n  .page-product .product-hero > .home-wrap {\n    display: grid;\n    grid-template-rows: auto minmax(0, 1fr);\n    min-height: calc(100vh - 4.25rem);\n    min-height: calc(100svh - 4.25rem);\n  }\n  .page-product .product-hero-grid {\n    height: auto;\n    min-height: 0;\n    padding-top: 1.25rem;\n    padding-bottom: 1.25rem;\n    align-items: stretch;\n  }\n  .page-product .product-gallery {\n    height: auto;\n    min-height: 0;\n  }\n  .page-product .product-hero-copy {\n    align-self: center;\n  }\n}\n`;
   fs.writeFileSync(cssPath, css, 'utf8');
 }
 
-console.log('Lucerne hero compacted: price and delivery facts restored; media follows content height.');
+console.log('Lucerne hero fitted to the desktop viewport with price and delivery facts preserved.');
