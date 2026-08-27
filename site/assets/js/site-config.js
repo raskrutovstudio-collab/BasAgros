@@ -10,6 +10,6 @@
   - private key.
 */
 window.SITE_CONFIG = Object.freeze({
-  enabled: false,
-  leadEndpoint: ''
+  enabled: true,
+  leadEndpoint: 'https://forms.basagros.kz/lead.php'
 });
