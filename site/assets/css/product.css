@@ -274,6 +274,35 @@
   font-weight: 700;
 }
 
+.product-spec-list-compact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .55rem .8rem;
+  border-top: 0;
+}
+
+.product-spec-list-compact > div {
+  display: grid;
+  grid-template-columns: minmax(7rem, .8fr) 1.2fr;
+  gap: .45rem .7rem;
+  align-items: center;
+  min-height: 3.3rem;
+  padding: .65rem .8rem;
+  border: 1px solid #d6ded8;
+  border-radius: .35rem;
+  background: #fff;
+}
+
+.product-spec-list-compact dt {
+  font-size: .78rem;
+  line-height: 1.25;
+}
+
+.product-spec-list-compact dd {
+  font-size: .9rem;
+  line-height: 1.3;
+}
+
 .product-guide {
   background: #173f2c;
   color: #fff;
@@ -572,6 +601,17 @@
   .product-spec-list > div {
     grid-template-columns: 1fr;
     gap: .2rem;
+  }
+
+  .product-spec-list-compact {
+    grid-template-columns: 1fr;
+  }
+
+  .product-spec-list-compact > div {
+    grid-template-columns: minmax(7rem, .8fr) 1.2fr;
+    gap: .45rem .65rem;
+    min-height: 0;
+    padding: .62rem .72rem;
   }
 
   .product-use-card {
