@@ -192,7 +192,7 @@ for (const page of pages) {
     if (re.test(html)) fail(`${label}: в HTML есть CRM Product ID ${id}`);
   }
 
-  if (/0\s*₸/.test(html) || /1\s*₸/.test(html)) fail(`${label}: найдены технические цены 0 ₸ или 1 ₸`);
+  if (/(^|[^0-9])(?:0|1)\s*₸/.test(html)) fail(`${label}: найдены технические цены 0 ₸ или 1 ₸`);
   if (/^(<<<<<<<|>>>>>>>)/m.test(html) || /^=======$/m.test(html)) {
     fail(`${label}: найден конфликтный маркер Git`);
   }
