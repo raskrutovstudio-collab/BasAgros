@@ -17,8 +17,16 @@ if (!fs.existsSync(cssPath)) throw new Error('Не найден product.css');
 
 let html = fs.readFileSync(pagePath, 'utf8');
 
-html = html.replace(/\s*<div><svg[^>]*>[\s\S]*?<\/svg><dt>Наличие<\/dt><dd>[^<]*<\/dd><\/div>/, '');
-html = html.replace(/\s*<div><svg[^>]*>[\s\S]*?<\/svg><dt>Документы<\/dt><dd>[^<]*<\/dd><\/div>/, '');
+const factsPattern = /<dl class="product-facts" aria-label="Основные условия">[\s\S]*?<\/dl>/;
+const compactFacts = `<dl class="product-facts" aria-label="Основные условия">
+            <div><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 12 5h6l1 1v6l-7 7-7-7Z"/><circle cx="15.5" cy="8.5" r="1"/></g></svg><dt>Цена</dt><dd>от 2 580 000 ₸/т</dd></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 4v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></g></svg><dt>Доставка</dt><dd>Казахстан и СНГ</dd></div>
+          </dl>`;
+
+if (!factsPattern.test(html)) {
+  throw new Error('Не найден блок основных условий на странице люцерны');
+}
+html = html.replace(factsPattern, compactFacts);
 
 fs.writeFileSync(pagePath, html, 'utf8');
 
@@ -29,4 +37,4 @@ if (!css.includes(marker)) {
   fs.writeFileSync(cssPath, css, 'utf8');
 }
 
-console.log('Lucerne hero compacted: availability/docs facts removed; image follows content height.');
+console.log('Lucerne hero compacted: price and delivery facts restored; media follows content height.');
