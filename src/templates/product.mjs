@@ -1,7 +1,6 @@
 import { escapeHtml, pageByUrl } from './html.mjs';
 
 const LUCERNE_URL = '/catalog/mnogoletnie-kormovye-travy/lyutserna/';
-const CRM_PRODUCT_ID = '150';
 
 function requirePage(pages, url) {
   const page = pageByUrl(pages, url);
@@ -58,7 +57,6 @@ export function productStructuredData(page) {
       url: page.canonical,
       description: productDescription(page),
       category: 'Многолетние кормовые травы',
-      productID: CRM_PRODUCT_ID,
       brand: {
         '@type': 'Brand',
         name: 'BAS Agros'
@@ -93,7 +91,7 @@ function breadcrumbs(pages) {
     ['/catalog/mnogoletnie-kormovye-travy/', 'Многолетние кормовые травы']
   ];
   for (const [url] of items) requirePage(pages, url);
-  return `<nav class="product-breadcrumbs" aria-label="Навигация по разделу"><ol>${items.map(([url, label]) => `<li><a href="${url}">${label}</a></li>`).join('')}<li aria-current="page"><span>Люцерна</span></li></ol></nav>`;
+  return `<nav class="product-breadcrumbs" aria-label="Навигация по разделу"><ol class="breadcrumbs">${items.map(([url, label]) => `<li><a href="${url}">${label}</a></li>`).join('')}<li aria-current="page"><span>Люцерна</span></li></ol></nav>`;
 }
 
 function hero(pages) {
@@ -186,7 +184,7 @@ function faq() {
 }
 
 function requestForm() {
-  return `<section class="product-request" id="request" aria-labelledby="product-request-title"><div class="home-wrap product-request-grid"><div><p class="product-eyebrow">Заявка</p><h2 id="product-request-title">Запросить цену на семена люцерны</h2><p>Укажите контактные данные и параметры заявки. Можно сообщить площадь посева или необходимый объём продукции.</p><ul><li>${icon('check')}<span>Товар: Люцерна</span></li><li>${icon('check')}<span>Цена — по запросу</span></li><li>${icon('check')}<span>Поставка по Казахстану</span></li></ul></div><form class="home-form product-form" data-lead-form data-form-name="Товар — Люцерна — запрос цены" data-crm-product-id="${CRM_PRODUCT_ID}"><label for="lucerne-name">Имя<input id="lucerne-name" name="name" type="text" autocomplete="name"></label><label for="lucerne-phone">Телефон<input id="lucerne-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label><label for="lucerne-area">Площадь посева<input id="lucerne-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label><label for="lucerne-message">Объём или комментарий<textarea id="lucerne-message" name="message" rows="4" placeholder="Например, нужный объём или место доставки"></textarea></label><input type="hidden" name="category" value="Люцерна"><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><p class="product-form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p><button class="home-btn home-btn-primary" type="submit">Запросить цену</button><div class="home-form-status" data-form-status aria-live="polite" aria-atomic="true"></div></form></div></section>`;
+  return `<section class="product-request" id="request" aria-labelledby="product-request-title"><div class="home-wrap product-request-grid"><div><p class="product-eyebrow">Заявка</p><h2 id="product-request-title">Запросить цену на семена люцерны</h2><p>Укажите контактные данные и параметры заявки. Можно сообщить площадь посева или необходимый объём продукции.</p><ul><li>${icon('check')}<span>Товар: Люцерна</span></li><li>${icon('check')}<span>Цена — по запросу</span></li><li>${icon('check')}<span>Поставка по Казахстану</span></li></ul></div><form class="home-form product-form" data-lead-form data-form-name="Товар — Люцерна — запрос цены"><label for="lucerne-name">Имя<input id="lucerne-name" name="name" type="text" autocomplete="name"></label><label for="lucerne-phone">Телефон<input id="lucerne-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label><label for="lucerne-area">Площадь посева<input id="lucerne-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label><label for="lucerne-message">Объём или комментарий<textarea id="lucerne-message" name="message" rows="4" placeholder="Например, нужный объём или место доставки"></textarea></label><input type="hidden" name="category" value="Люцерна"><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><p class="product-form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p><button class="home-btn home-btn-primary" type="submit">Запросить цену</button><div class="home-form-status" data-form-status aria-live="polite" aria-atomic="true"></div></form></div></section>`;
 }
 
 export function renderProduct(page, pages) {
