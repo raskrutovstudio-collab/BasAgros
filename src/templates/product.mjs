@@ -20,6 +20,9 @@ function icon(name) {
     delivery: '<path d="M3 7h11v9H3zM14 10h4l3 4v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
     doc: '<path d="M6 3h8l4 4v14H6zM14 3v5h5M9 12h6m-6 4h6"/>',
     field: '<path d="M4 19c4-5 8-7 16-8M4 15c4-4 8-6 16-7M4 11c4-3 8-5 16-6"/>',
+    hay: '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/><path d="M5 9H3m2 6H3m16-6h2m-2 6h2"/>',
+    pasture: '<path d="M3 18c4-4 9-5 18-5M5 20v-8m14 8V10M5 16h14M5 19h14"/>',
+    flower: '<circle cx="12" cy="10" r="2"/><circle cx="12" cy="5.5" r="2.5"/><circle cx="16.3" cy="8.5" r="2.5"/><circle cx="14.7" cy="13" r="2.5"/><circle cx="9.3" cy="13" r="2.5"/><circle cx="7.7" cy="8.5" r="2.5"/><path d="M12 15v6m0-2c-2-2.5-4-2.5-5.5-2.5 0 2 1.7 3.5 5.5 3.5m0-1c2-2.5 4-2.5 5.5-2.5 0 2-1.7 3.5-5.5 3.5"/>',
     check: '<circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/>'
   };
   return `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${icons[name] || icons.check}</g></svg>`;
@@ -136,11 +139,11 @@ function intro() {
 
 function useCases(pages) {
   const cards = [
-    ['/catalog/dlya-senokosa/', 'Для сенокоса', 'Люцерна входит в подборку культур для сенокосного направления.'],
-    ['/catalog/pastbishchnye-travy/', 'Для пастбищ', 'Культура представлена в подборке для пастбищного и сенокосно-пастбищного направления.'],
-    ['/catalog/medonosy/', 'Медоносное направление', 'Люцерна включена в подборку культур для медоносного направления.']
+    ['/catalog/dlya-senokosa/', 'hay', 'Для сенокоса', 'Люцерна входит в подборку культур для сенокосного направления.'],
+    ['/catalog/pastbishchnye-travy/', 'pasture', 'Для пастбищ', 'Культура представлена в подборке для пастбищного и сенокосно-пастбищного направления.'],
+    ['/catalog/medonosy/', 'flower', 'Медоносное направление', 'Люцерна включена в подборку культур для медоносного направления.']
   ];
-  const html = cards.map(([url, title, text]) => `<article class="product-use-card">${icon('field')}<h3>${title}</h3><p>${text}</p>${link(pages, url, 'Подробнее →')}</article>`).join('');
+  const html = cards.map(([url, iconName, title, text]) => `<article class="product-use-card">${icon(iconName)}<h3>${title}</h3><p>${text}</p>${link(pages, url, 'Подробнее →')}</article>`).join('');
   return `<section class="product-section product-use" aria-labelledby="product-use-title"><div class="home-wrap"><div class="product-section-head"><div><p class="product-eyebrow">Применение</p><h2 id="product-use-title">Для каких задач используют люцерну</h2></div><p>Назначение культуры помогает сузить выбор. Конкретную продукцию и параметры заказа лучше уточнять под задачу хозяйства.</p></div><div class="product-use-grid">${html}</div></div></section>`;
 }
 
