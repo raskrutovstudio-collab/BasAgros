@@ -177,10 +177,10 @@ function commercial(pages) {
 
 function articles(pages) {
   const cards = [
-    ['/agroblog/posev-lyutserny/', 'Посев люцерны и норма высева', 'Подробный материал о вопросах посева вынесен отдельно, чтобы товарная страница оставалась коммерческой.'],
-    ['/agroblog/urozhaynost-lyutserny/', 'Урожайность люцерны', 'Отдельный материал для информационного интента об урожайности культуры.']
+    ['/agroblog/posev-lyutserny/', 'Посев люцерны: сроки и норма высева', 'Когда сеять люцерну, как подготовить почву, выбрать глубину заделки и рассчитать норму высева.'],
+    ['/agroblog/urozhaynost-lyutserny/', 'От чего зависит урожайность люцерны', 'Как на урожайность влияют сорт, почва, влага, уход за посевами и сроки проведения укосов.']
   ];
-  return `<section class="product-section product-articles" aria-labelledby="product-articles-title"><div class="home-wrap"><div class="product-section-head"><div><p class="product-eyebrow">Агроблог</p><h2 id="product-articles-title">Посев и урожайность люцерны</h2></div><p>Агрономические вопросы вынесены в отдельные материалы. Здесь остаётся информация, необходимая для выбора и заказа товара.</p></div><div class="product-article-grid">${cards.map(([url, title, text]) => `<article><h3>${title}</h3><p>${text}</p>${link(pages, url, 'Читать материал →')}</article>`).join('')}</div></div></section>`;
+  return `<section class="product-section product-articles" aria-labelledby="product-articles-title"><div class="home-wrap"><div class="product-section-head"><div><p class="product-eyebrow">Полезно знать</p><h2 id="product-articles-title">Посев и урожайность люцерны</h2></div><p>В этих материалах собраны практические рекомендации по посеву люцерны и объяснение факторов, от которых зависит урожайность культуры.</p></div><div class="product-article-grid">${cards.map(([url, title, text]) => `<article><h3>${title}</h3><p>${text}</p>${link(pages, url, 'Читать статью →')}</article>`).join('')}</div></div></section>`;
 }
 
 function faq() {
