@@ -118,8 +118,8 @@ function hero(pages) {
             <div>${icon('doc')}<dt>Документы</dt><dd>По запросу</dd></div>
           </dl>
           <div class="product-actions">
-            <a class="home-btn home-btn-primary" href="#request">Запросить цену</a>
-            <a class="home-btn home-btn-outline" href="#request">Уточнить наличие</a>
+            <a class="home-btn home-btn-primary" href="#request" data-product-modal-intent="price">Запросить цену</a>
+            <a class="home-btn home-btn-outline" href="#request" data-product-modal-intent="availability">Уточнить наличие</a>
           </div>
           <p class="product-helper">Укажите необходимый объём или площадь посева — условия согласовываются по конкретной заявке.</p>
         </div>
@@ -172,11 +172,11 @@ function selectionGuide() {
     ['Необходимый объём', 'Если объём уже рассчитан, его можно сразу указать в заявке.'],
     ['Место доставки', 'Укажите регион или населённый пункт для согласования поставки.']
   ];
-  return `<section class="product-section product-guide" aria-labelledby="product-guide-title"><div class="home-wrap product-guide-grid"><div><p class="product-eyebrow">Подбор</p><h2 id="product-guide-title">Что указать при выборе семян люцерны</h2><p>Эти данные помогают быстрее перейти от общего запроса к конкретным условиям поставки.</p><a class="home-btn home-btn-primary" href="#request">Уточнить подходящий вариант</a></div><ol>${items.map(([title, text]) => `<li><span><strong>${title}</strong><small>${text}</small></span></li>`).join('')}</ol></div></section>`;
+  return `<section class="product-section product-guide" aria-labelledby="product-guide-title"><div class="home-wrap product-guide-grid"><div><p class="product-eyebrow">Подбор</p><h2 id="product-guide-title">Что указать при выборе семян люцерны</h2><p>Эти данные помогают быстрее перейти от общего запроса к конкретным условиям поставки.</p><a class="home-btn home-btn-primary" href="#request" data-product-modal-intent="selection">Уточнить подходящий вариант</a></div><ol>${items.map(([title, text]) => `<li><span><strong>${title}</strong><small>${text}</small></span></li>`).join('')}</ol></div></section>`;
 }
 
 function commercial(pages) {
-  return `<section class="product-section product-commercial" aria-labelledby="product-commercial-title"><div class="home-wrap"><div class="product-commercial-card"><div><p class="product-eyebrow">Условия заказа</p><h2 id="product-commercial-title">Цена и наличие семян люцерны</h2><p>Фиксированная стоимость на странице не публикуется. Цена и актуальное наличие уточняются для конкретной заявки.</p><div class="product-actions"><a class="home-btn home-btn-primary" href="#request">Запросить цену</a><a class="home-btn home-btn-outline" href="#request">Уточнить наличие</a></div></div><div class="product-commercial-links"><div>${icon('delivery')}<h3>Поставка по Казахстану</h3><p>Условия и стоимость доставки согласовываются по заказу.</p>${link(pages, '/dostavka-i-oplata/', 'Доставка и оплата →')}</div><div>${icon('doc')}<h3>Информация и документы</h3><p>Доступные сведения по продукции и документы уточняются по конкретной поставке.</p>${link(pages, '/kachestvo-i-sertifikaty/', 'Качество и сертификаты →')}</div></div></div></div></section>`;
+  return `<section class="product-section product-commercial" aria-labelledby="product-commercial-title"><div class="home-wrap"><div class="product-commercial-card"><div><p class="product-eyebrow">Условия заказа</p><h2 id="product-commercial-title">Цена и наличие семян люцерны</h2><p>Фиксированная стоимость на странице не публикуется. Цена и актуальное наличие уточняются для конкретной заявки.</p><div class="product-actions"><a class="home-btn home-btn-primary" href="#request" data-product-modal-intent="price">Запросить цену</a><a class="home-btn home-btn-outline" href="#request" data-product-modal-intent="availability">Уточнить наличие</a></div></div><div class="product-commercial-links"><div>${icon('delivery')}<h3>Поставка по Казахстану</h3><p>Условия и стоимость доставки согласовываются по заказу.</p>${link(pages, '/dostavka-i-oplata/', 'Доставка и оплата →')}</div><div>${icon('doc')}<h3>Информация и документы</h3><p>Доступные сведения по продукции и документы уточняются по конкретной поставке.</p>${link(pages, '/kachestvo-i-sertifikaty/', 'Качество и сертификаты →')}</div></div></div></div></section>`;
 }
 
 function articles(pages) {
@@ -197,7 +197,30 @@ function requestForm() {
   return `<section class="product-request" id="request" aria-labelledby="product-request-title"><div class="home-wrap product-request-grid"><div><p class="product-eyebrow">Заявка</p><h2 id="product-request-title">Запросить цену на семена люцерны</h2><p>Укажите контактные данные и параметры заявки. Можно сообщить площадь посева или необходимый объём продукции.</p><ul><li>${icon('check')}<span>Товар: Люцерна</span></li><li>${icon('check')}<span>Цена — по запросу</span></li><li>${icon('check')}<span>Поставка по Казахстану</span></li></ul></div><form class="home-form product-form" data-lead-form data-form-name="Товар — Люцерна — запрос цены"><label for="lucerne-name">Имя<input id="lucerne-name" name="name" type="text" autocomplete="name"></label><label for="lucerne-phone">Телефон<input id="lucerne-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label><label for="lucerne-area">Площадь посева<input id="lucerne-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label><label for="lucerne-message">Объём или комментарий<textarea id="lucerne-message" name="message" rows="4" placeholder="Например, нужный объём или место доставки"></textarea></label><input type="hidden" name="category" value="Люцерна"><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><p class="product-form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p><button class="home-btn home-btn-primary" type="submit">Запросить цену</button><div class="home-form-status" data-form-status aria-live="polite" aria-atomic="true"></div></form></div></section>`;
 }
 
+function requestModal() {
+  return `<dialog class="product-modal" data-product-modal aria-labelledby="product-modal-title" aria-describedby="product-modal-description">
+    <div class="product-modal-panel">
+      <button class="product-modal-close" type="button" data-product-modal-close aria-label="Закрыть форму">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+      <p class="product-eyebrow">Заявка</p>
+      <h2 id="product-modal-title" data-product-modal-title>Оставить заявку на семена люцерны</h2>
+      <p id="product-modal-description" class="product-modal-description" data-product-modal-description>Оставьте контактные данные и кратко опишите задачу. Менеджер свяжется с вами для уточнения деталей.</p>
+      <form class="home-form product-modal-form" data-lead-form data-form-name="Товар — Люцерна — модальное окно — общая заявка">
+        <label for="lucerne-modal-name">Имя<input id="lucerne-modal-name" name="name" type="text" autocomplete="name"></label>
+        <label for="lucerne-modal-phone">Телефон<input id="lucerne-modal-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label>
+        <label for="lucerne-modal-message" class="product-modal-message"><span data-product-modal-field-label>Что вас интересует</span><textarea id="lucerne-modal-message" name="message" rows="3" data-product-modal-message placeholder="Например, необходимый объём или место доставки"></textarea></label>
+        <input type="hidden" name="category" value="Люцерна">
+        <input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="product-form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+        <button class="home-btn home-btn-primary" type="submit" data-product-modal-submit>Отправить заявку</button>
+        <div class="home-form-status" data-form-status aria-live="polite" aria-atomic="true"></div>
+      </form>
+    </div>
+  </dialog>`;
+}
+
 export function renderProduct(page, pages) {
   if (!isEtalonProduct(page)) return '';
-  return [hero(pages), intro(), useCases(pages), characteristics(), selectionGuide(), commercial(pages), articles(pages), faq(), requestForm()].join('\n');
+  return [hero(pages), intro(), useCases(pages), characteristics(), selectionGuide(), commercial(pages), articles(pages), faq(), requestForm(), requestModal()].join('\n');
 }
