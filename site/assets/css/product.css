@@ -549,6 +549,18 @@
 @media (min-width: 48rem) {
   .product-intro-grid {
     grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+    align-items: stretch;
+  }
+
+  .product-intro-media {
+    position: relative;
+    aspect-ratio: auto;
+    min-height: 0;
+  }
+
+  .product-intro-media img {
+    position: absolute;
+    inset: 0;
   }
 
   .product-hero-grid {
