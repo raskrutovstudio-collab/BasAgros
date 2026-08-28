@@ -647,3 +647,13 @@
     min-height: auto;
   }
 }
+
+@media (min-width: 64rem) {
+  .product-intro-grid {
+    grid-template-columns: minmax(24rem, 29.75rem) minmax(0, 1fr);
+  }
+
+  .product-intro-media {
+    aspect-ratio: 4 / 3;
+  }
+}
