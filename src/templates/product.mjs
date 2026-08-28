@@ -152,7 +152,7 @@ function useCases(pages) {
 }
 
 function characteristics() {
-  return `<section class="product-section product-specs" aria-labelledby="product-specs-title"><div class="home-wrap product-two-col">
+  return `<section class="product-section product-specs product-specs-compact" aria-labelledby="product-specs-title"><div class="home-wrap product-two-col">
     <div><p class="product-eyebrow">Характеристики</p><h2 id="product-specs-title">Что можно уточнить по семенам люцерны</h2><p>Технические параметры должны относиться к конкретной предлагаемой продукции. Поэтому сорт, репродукция, происхождение, фасовка и показатели партии не подменяются универсальными значениями.</p></div>
     <dl class="product-spec-list">
       <div><dt>Наименование</dt><dd>Люцерна</dd></div>
