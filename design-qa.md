@@ -2,6 +2,49 @@
 
 final result: passed
 
+---
+
+# Design QA — lucerne hero price line break
+
+final result: passed
+
+## Comparison target
+
+- Source visual truth: `/workspace/scratch/06acb4949b46/upload/b0421eb7-c67e-4749-b8a1-66fd5e037243.png` (850 × 345 px).
+- Implementation: locally built lucerne product page in the cloud browser.
+- Implementation screenshot: browser-rendered in-session capture at a 1363 × 936 CSS px viewport and 1× density; the cloud browser did not expose a reusable filesystem path.
+- State: product hero immediately after page load.
+
+## Evidence
+
+- The source image and implementation screenshot were opened together in one comparison input.
+- The supplied reference shows the price continuing inside the audience paragraph.
+- The implementation preserves the approved typography and hero layout while placing «Базовая цена…» on a new visual line.
+- Computed layout: `.product-lead-price` is `display: block`, begins below the preceding text, and has a 6.9 px visual gap.
+- Focused DOM evidence was sufficient because the requested change concerns one readable text boundary; no image asset changed.
+
+## Fidelity surfaces
+
+- Fonts and typography: existing family, weight, size, line height, color, and text width are unchanged.
+- Spacing and layout rhythm: only a small `.35rem` gap was added before the price line; surrounding hero spacing is unchanged.
+- Colors and tokens: inherited text and background colors are unchanged.
+- Image quality: the field and seed images are unchanged.
+- Copy and content: the approved audience, price, availability, and delivery wording is unchanged; only the line break changed.
+
+## Findings and comparison history
+
+- Initial P2: the price began on the same line as the audience copy in the supplied screenshot.
+- Fix: wrapped the price sentence in a block-level `.product-lead-price` element.
+- Post-fix evidence: the price starts on a separate line without clipping, overflow, or hero regression.
+- No remaining P0/P1/P2 findings.
+
+## Browser and functional checks
+
+- Header, breadcrumbs, hero image, two fact cards, CTA buttons, and helper copy remain visible.
+- The page contains the expected title and complete lucerne lead copy.
+- Console: no site-originated errors; the only logged error belongs to the cloud-browser extension.
+- Build: `npm run quality:all` passed; 59 pages, 0 audit errors, 0 warnings, 0 broken internal links, 0 indexing errors.
+
 ## Comparison target
 
 - Source visual truth: `/workspace/scratch/06acb4949b46/upload/291fb67c-2750-47a9-9baf-42146db3712f.png`.
