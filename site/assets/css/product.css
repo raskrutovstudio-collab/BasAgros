@@ -160,7 +160,7 @@
 }
 
 .product-section {
-  padding: clamp(3.8rem, 7vw, 6.5rem) 0;
+  padding: clamp(3.2rem, 5.8vw, 5.35rem) 0;
 }
 
 .product-section h2,
@@ -186,7 +186,7 @@
 }
 
 .product-intro {
-  padding-block: clamp(2.5rem, 4vw, 3rem);
+  padding-block: clamp(2.15rem, 3.4vw, 2.6rem);
   background: #f7f8f3;
 }
 
@@ -445,7 +445,7 @@
 }
 
 .product-faq {
-  padding-block: clamp(3.25rem, 5vw, 4.5rem);
+  padding-block: clamp(2.8rem, 4.2vw, 3.8rem);
   background:
     linear-gradient(rgba(247, 248, 243, .94), rgba(247, 248, 243, .94)),
     url('/assets/img/products/lucerne-field-hero.webp') center 46% / cover no-repeat;
@@ -506,7 +506,7 @@
 }
 
 .product-request {
-  padding: clamp(4rem, 7vw, 6rem) 0;
+  padding: clamp(3.4rem, 5.8vw, 5.1rem) 0;
   background: #173f2c;
   color: #fff;
 }

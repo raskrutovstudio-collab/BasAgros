@@ -155,7 +155,7 @@ ${GENERATED_MARKER}
   <meta property="og:site_name" content="BAS Agros">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home.css?v=20260825-3">
-  <link rel="stylesheet" href="/assets/css/product.css?v=20260828-6">
+  <link rel="stylesheet" href="/assets/css/product.css?v=20260828-7">
   <script type="application/ld+json">${structuredData}</script>
 </head>
 <body class="page-home page-product">
