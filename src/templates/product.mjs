@@ -140,11 +140,14 @@ function intro() {
 
 function useCases(pages) {
   const cards = [
-    ['/catalog/dlya-senokosa/', 'hay', 'Для сенокоса', 'Люцерна входит в подборку культур для сенокосного направления.'],
-    ['/catalog/pastbishchnye-travy/', 'pasture', 'Для пастбищ', 'Культура представлена в подборке для пастбищного и сенокосно-пастбищного направления.'],
-    ['/catalog/medonosy/', 'flower', 'Медоносное направление', 'Люцерна включена в подборку культур для медоносного направления.']
+    ['/catalog/dlya-senokosa/', 'ref-hay', 'Поле с заготовленным сеном', 'Для сенокоса', 'Люцерна входит в подборку культур для сенокосного направления.'],
+    ['/catalog/pastbishchnye-travy/', 'ref-pasture', 'Коровы на зелёном пастбище', 'Для пастбищ', 'Культура представлена в подборке для пастбищного и сенокосно-пастбищного направления.'],
+    ['/catalog/medonosy/', 'ref-phacelia', 'Цветущее поле фацелии', 'Медоносное направление', 'Люцерна включена в подборку культур для медоносного направления.']
   ];
-  const html = cards.map(([url, iconName, title, text]) => `<article class="product-use-card">${icon(iconName)}<h3>${title}</h3><p>${text}</p>${link(pages, url, 'Подробнее →')}</article>`).join('');
+  const html = cards.map(([url, imageName, alt, title, text]) => {
+    requirePage(pages, url);
+    return `<article class="product-use-card"><a class="product-use-link" href="${url}"><span class="product-use-media"><picture><source type="image/avif" srcset="/assets/img/home/${imageName}-480.avif 480w, /assets/img/home/${imageName}-640.avif 640w" sizes="(min-width: 48rem) 32vw, calc(100vw - 2rem)"><source type="image/webp" srcset="/assets/img/home/${imageName}-480.webp 480w, /assets/img/home/${imageName}-640.webp 640w" sizes="(min-width: 48rem) 32vw, calc(100vw - 2rem)"><img src="/assets/img/home/${imageName}-640.webp" width="640" height="520" alt="${alt}" loading="lazy" decoding="async"></picture></span><span class="product-use-caption"><strong>${title}</strong><b aria-hidden="true">→</b></span><span class="visually-hidden">${text}</span></a></article>`;
+  }).join('');
   return `<section class="product-section product-use" aria-labelledby="product-use-title"><div class="home-wrap"><div class="product-section-head"><div><p class="product-eyebrow">Применение</p><h2 id="product-use-title">Для каких задач используют люцерну</h2></div><p>Назначение культуры помогает сузить выбор. Конкретную продукцию и параметры заказа лучше уточнять под задачу хозяйства.</p></div><div class="product-use-grid">${html}</div></div></section>`;
 }
 
