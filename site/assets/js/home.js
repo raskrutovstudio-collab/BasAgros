@@ -35,27 +35,29 @@
 })();
 
 (() => {
-  const faq = document.querySelector('.home-faq');
-  if (!faq) return;
+  const faqGroups = document.querySelectorAll('.home-faq, .product-faq');
+  if (!faqGroups.length) return;
 
-  const items = [...faq.querySelectorAll('details')];
-  let firstOpenSeen = false;
-  for (const item of items) {
-    if (!item.open) continue;
-    if (!firstOpenSeen) {
-      firstOpenSeen = true;
-    } else {
-      item.open = false;
-    }
-  }
-
-  for (const item of items) {
-    item.addEventListener('toggle', () => {
-      if (!item.open) return;
-      for (const other of items) {
-        if (other !== item && other.open) other.open = false;
+  for (const faq of faqGroups) {
+    const items = [...faq.querySelectorAll('details')];
+    let firstOpenSeen = false;
+    for (const item of items) {
+      if (!item.open) continue;
+      if (!firstOpenSeen) {
+        firstOpenSeen = true;
+      } else {
+        item.open = false;
       }
-    });
+    }
+
+    for (const item of items) {
+      item.addEventListener('toggle', () => {
+        if (!item.open) return;
+        for (const other of items) {
+          if (other !== item && other.open) other.open = false;
+        }
+      });
+    }
   }
 })();
 
