@@ -55,3 +55,48 @@ final result: passed
 - [x] Reduce vertical rhythm and card padding.
 - [x] Preserve responsive two-column tablet and one-column mobile layouts.
 - [x] Verify production CSS, layout metrics, overflow, build, and deployment.
+
+---
+
+# Design QA — mobile lucerne breadcrumbs
+
+final result: passed
+
+## Comparison target
+
+- Source visual truth: `/workspace/scratch/06acb4949b46/upload/0e04d12b-0c8c-4e14-867c-6bf6d0e5f702.png` (808 × 628).
+- Implementation: browser-rendered lucerne product page inside a 390 × 820 CSS px mobile viewport.
+- Implementation screenshot: browser-rendered in-session capture; the cloud browser did not expose a reusable filesystem path.
+- State: generated mobile product page after `npm run build:site`.
+
+## Evidence
+
+- Source and implementation screenshots were placed in one combined comparison input.
+- Computed layout: `flex-direction: row`, `flex-wrap: wrap`, `align-items: center`, gap `5.6px 8px`, usable width `351px`.
+- Row 1: «Главная» and «Каталог семян» at y=84.
+- Row 2: «Многолетние кормовые травы» and «Люцерна» at y=107.
+- All labels and arrow separators remain visible; there is no horizontal overflow or clipping.
+- A focused crop was unnecessary because labels were readable and exact row positions were verified from rendered DOM geometry.
+
+## Fidelity surfaces
+
+- Fonts and typography: existing family, sizes, weights, colors, and line height are preserved.
+- Spacing and layout rhythm: breadcrumbs occupy two compact rows instead of four, with even gaps.
+- Colors and visual tokens: inherited text and separator colors are unchanged.
+- Image quality: the breadcrumb component contains no raster or decorative assets; surrounding assets are unchanged.
+- Copy and content: all four breadcrumb labels and URLs are unchanged.
+
+## Findings and comparison history
+
+- P0/P1/P2: none after the fix. P3: none required.
+- Initial evidence: the global mobile rule forced every item onto its own row.
+- Fix: a product-specific mobile override restores horizontal flow while preserving wrapping.
+- Post-fix evidence: two items render on each of two rows at 390px.
+
+## Browser and functional checks
+
+- Breadcrumb links retain their original URLs and accessible navigation label.
+- Header, hero, product facts, buttons, and fixed quick-action bar remain rendered without regression.
+- Console: no site-originated errors; the only logged error belongs to the cloud-browser extension.
+- CSS cache key: `product.css?v=20260828-11`.
+- Build: `npm run quality:all` passed; 59 pages, 0 audit errors, 0 warnings, 0 broken internal links, 0 indexing errors.

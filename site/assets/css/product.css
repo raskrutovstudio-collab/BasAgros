@@ -767,6 +767,13 @@ body.product-modal-open {
 }
 
 @media (max-width: 47.99rem) {
+  .product-breadcrumbs ol {
+    flex-direction: row;
+    align-items: center;
+    gap: .35rem .5rem;
+    line-height: 1.35;
+  }
+
   .product-modal {
     width: min(calc(100% - 1rem), 39rem);
     max-height: calc(100dvh - 1rem);
