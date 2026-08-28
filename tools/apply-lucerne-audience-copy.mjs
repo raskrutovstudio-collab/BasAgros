@@ -14,12 +14,9 @@ if (!fs.existsSync(pagePath)) {
   throw new Error('Не найдена собранная страница люцерны');
 }
 
-let html = fs.readFileSync(pagePath, 'utf8');
+const html = fs.readFileSync(pagePath, 'utf8');
+if (!html.includes('для фермерских хозяйств и агропромышленных компаний')) {
+  throw new Error('В hero люцерны нет утверждённой audience-формулировки');
+}
 
-html = html.replace(
-  'Семена люцерны для сельскохозяйственных хозяйств с поставкой по Казахстану и странам СНГ.',
-  'Семена люцерны для фермерских хозяйств и агропромышленных компаний с поставкой по Казахстану и странам СНГ.'
-);
-
-fs.writeFileSync(pagePath, html, 'utf8');
-console.log('Lucerne hero audience copy updated.');
+console.log('Lucerne audience copy already present in template.');

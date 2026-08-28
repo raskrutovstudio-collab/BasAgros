@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { GENERATED_MARKER } from '../src/templates/constants.mjs';
 import { breadcrumbsOf } from '../src/templates/html.mjs';
-import { productTitle } from '../src/templates/product.mjs';
+import { isEtalonProduct, productH1, productRobots, productTitle } from '../src/templates/product.mjs';
 
 const root = process.cwd();
 const siteRoot = path.join(root, 'site');
@@ -165,7 +165,7 @@ for (const page of pages) {
   const h1Matches = html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/gi) || [];
   if (h1Matches.length !== 1) fail(`${label}: должен быть ровно один H1 (сейчас ${h1Matches.length})`);
   const h1 = unescapeHtml((h1Matches[0] || '').replace(/<[^>]+>/g, '')).trim();
-  if (h1 !== page.h1) fail(`${label}: H1 не совпадает с манифестом`);
+  if (h1 !== productH1(page)) fail(`${label}: H1 не совпадает с ожидаемым значением`);
 
   const canonical =
     html.match(/<link\b[^>]*rel=["']canonical["'][^>]*>/i) ||
@@ -175,9 +175,14 @@ for (const page of pages) {
 
   const robots = /<meta\b[^>]*name=["']robots["'][^>]*>/i.exec(html);
   const robotsContent = robots ? extractAttr(robots[0], 'content').replace(/\s+/g, '').toLowerCase() : '';
-  if (robotsContent !== 'noindex,nofollow') {
+  const expectedRobots = productRobots(page).replace(/\s+/g, '').toLowerCase();
+  if (robotsContent !== expectedRobots) {
     indexingErrors += 1;
-    fail(`${label}: ожидался robots noindex, nofollow`);
+    fail(`${label}: ожидался robots ${productRobots(page)}`);
+  }
+  if (isEtalonProduct(page) && /noindex|nofollow/i.test(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ''))) {
+    indexingErrors += 1;
+    fail(`${label}: на странице люцерны остался noindex или nofollow`);
   }
 
   if (!html.includes('href="/assets/css/site.css"')) {
@@ -208,7 +213,8 @@ for (const page of pages) {
     expectedCrumbs.forEach((crumb, index) => {
       const item = crumbs[index];
       const last = index === expectedCrumbs.length - 1;
-      if (item.text !== crumb.page_name) fail(`${label}: крошка «${item.text}» не равна ${crumb.page_name}`);
+      const expectedCrumbText = last && isEtalonProduct(page) ? productH1(page) : crumb.page_name;
+      if (item.text !== expectedCrumbText) fail(`${label}: крошка «${item.text}» не равна ${expectedCrumbText}`);
       if (last) {
         if (item.href) fail(`${label}: текущая крошка не должна быть ссылкой`);
         if (!item.current) fail(`${label}: текущая крошка без aria-current`);

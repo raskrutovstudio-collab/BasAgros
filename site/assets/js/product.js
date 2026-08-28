@@ -9,41 +9,28 @@
   const message = modal?.querySelector('[data-product-modal-message]');
   const submit = modal?.querySelector('[data-product-modal-submit]');
   const closeButton = modal?.querySelector('[data-product-modal-close]');
+  const intentField = modal?.querySelector('[data-product-modal-intent-field]');
 
   if (!modal || !form || !title || !description || !fieldLabel || !message || !submit || !closeButton) return;
 
   const variants = {
-    price: {
-      title: 'Запросить цену на семена люцерны',
-      description: 'Укажите контактные данные, необходимый объём и место доставки. Менеджер рассчитает стоимость для вашей заявки.',
-      fieldLabel: 'Необходимый объём и место доставки',
+    commercial_offer: {
+      title: 'Получить коммерческое предложение',
+      description: 'Укажите контактные данные, необходимый объём и место доставки. Менеджер уточнит актуальное наличие, стоимость партии, фасовку и условия поставки.',
+      fieldLabel: 'Объём / место доставки',
       placeholder: 'Например, 2 тонны, доставка в Костанай',
-      submit: 'Запросить цену',
-      formName: 'Товар — Люцерна — модальное окно — запрос цены'
+      submit: 'Получить коммерческое предложение',
+      formName: 'Товар — Люцерна — модальное окно — коммерческое предложение',
+      intent: 'commercial_offer'
     },
-    availability: {
-      title: 'Уточнить наличие семян люцерны',
-      description: 'Сообщите необходимый объём и желаемый срок получения. Менеджер проверит актуальное наличие и свяжется с вами.',
-      fieldLabel: 'Необходимый объём и желаемый срок',
-      placeholder: 'Например, 1 тонна, требуется в сентябре',
-      submit: 'Уточнить наличие',
-      formName: 'Товар — Люцерна — модальное окно — уточнение наличия'
-    },
-    selection: {
-      title: 'Подобрать вариант семян люцерны',
-      description: 'Опишите задачу хозяйства, площадь посева и регион. Менеджер уточнит доступные варианты продукции.',
-      fieldLabel: 'Задача, площадь посева и регион',
-      placeholder: 'Например, сенокос, 50 га, Акмолинская область',
-      submit: 'Подобрать вариант',
-      formName: 'Товар — Люцерна — модальное окно — подбор варианта'
-    },
-    request: {
-      title: 'Оставить заявку на семена люцерны',
-      description: 'Оставьте контактные данные и кратко опишите задачу. Менеджер свяжется с вами для уточнения деталей.',
-      fieldLabel: 'Что вас интересует',
-      placeholder: 'Например, необходимый объём или место доставки',
-      submit: 'Отправить заявку',
-      formName: 'Товар — Люцерна — модальное окно — общая заявка'
+    party_characteristics: {
+      title: 'Запросить характеристики партии',
+      description: 'Оставьте контакт и необходимый объём. Менеджер сообщит доступные характеристики конкретной партии и сведения по сопровождающим документам.',
+      fieldLabel: 'Объём / место доставки',
+      placeholder: 'Например, 2 тонны или площадь посева',
+      submit: 'Запросить характеристики партии',
+      formName: 'Товар — Люцерна — модальное окно — характеристики партии',
+      intent: 'party_characteristics'
     }
   };
 
@@ -54,20 +41,19 @@
     if (explicit && variants[explicit]) return explicit;
 
     const label = (trigger.textContent || '').toLowerCase();
-    if (label.includes('налич')) return 'availability';
-    if (label.includes('подход') || label.includes('вариант')) return 'selection';
-    if (label.includes('цен')) return 'price';
-    return 'request';
+    if (label.includes('характеристик')) return 'party_characteristics';
+    return 'commercial_offer';
   }
 
   function applyVariant(intent) {
-    const variant = variants[intent] || variants.request;
+    const variant = variants[intent] || variants.commercial_offer;
     title.textContent = variant.title;
     description.textContent = variant.description;
     fieldLabel.textContent = variant.fieldLabel;
     message.placeholder = variant.placeholder;
     submit.textContent = variant.submit;
     form.dataset.formName = variant.formName;
+    if (intentField) intentField.value = variant.intent;
 
     const status = form.querySelector('[data-form-status]');
     if (status) status.textContent = '';

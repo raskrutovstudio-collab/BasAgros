@@ -1,7 +1,7 @@
 import { GENERATED_MARKER, HEADER_NAV_URLS, FOOTER_NAV_URLS } from './constants.mjs';
 import { breadcrumbsOf, escapeHtml, joinSections, pageByUrl } from './html.mjs';
 import { homepageDescription, renderHomeFooter, renderHomeHeader } from './homepage.mjs';
-import { isEtalonProduct, productDescription, productStructuredData, productTitle } from './product.mjs';
+import { isEtalonProduct, productDescription, productRobots, productStructuredData, productTitle } from './product.mjs';
 
 function navItems(urls, pages, currentUrl) {
   return urls.map((url) => {
@@ -158,7 +158,7 @@ ${GENERATED_MARKER}
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}">
   <link rel="canonical" href="${escapeHtml(page.canonical)}">
-  <meta name="robots" content="noindex, nofollow">
+  <meta name="robots" content="${escapeHtml(productRobots(page))}">
   <meta name="theme-color" content="#F7F8F3">
   <meta property="og:type" content="product">
   <meta property="og:locale" content="ru_RU">
@@ -181,7 +181,7 @@ ${GENERATED_MARKER}
   <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home.css?v=20260828-1">
-  <link rel="stylesheet" href="/assets/css/product.css?v=20260828-13">
+  <link rel="stylesheet" href="/assets/css/product.css?v=20260828-14">
   <script type="application/ld+json">${structuredData}</script>
 </head>
 <body class="page-home page-product">
@@ -193,7 +193,7 @@ ${main}
 ${renderHomeFooter(pages)}
   <script src="/assets/js/site-config.js" defer></script>
   <script src="/assets/js/home.js?v=20260828-2" defer></script>
-  <script src="/assets/js/product.js?v=20260828-1" defer></script>
+  <script src="/assets/js/product.js?v=20260828-2" defer></script>
   <script src="/assets/js/lead-form.js" defer></script>
 </body>
 </html>

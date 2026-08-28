@@ -1,6 +1,37 @@
 import { escapeHtml, pageByUrl } from './html.mjs';
 
 const LUCERNE_URL = '/catalog/mnogoletnie-kormovye-travy/lyutserna/';
+const LUCERNE_IMAGE = 'https://basagros.kz/assets/img/social/lucerne-seeds-1200x630.jpg';
+
+const PARTY_LABELS = {
+  variety: 'Сорт',
+  reproduction: 'Репродукция',
+  origin: 'Производитель / происхождение',
+  harvestYear: 'Год урожая',
+  lotNumber: 'Номер партии',
+  purity: 'Чистота',
+  germination: 'Всхожесть',
+  hardSeeds: 'Твёрдые семена',
+  impurities: 'Примеси',
+  packagingNetWeight: 'Вес упаковки',
+  availableVolume: 'Доступный объём',
+  documents: 'Документы'
+};
+
+const PARTY_DATA = {
+  variety: null,
+  reproduction: null,
+  origin: null,
+  harvestYear: null,
+  lotNumber: null,
+  purity: null,
+  germination: null,
+  hardSeeds: null,
+  impurities: null,
+  packagingNetWeight: null,
+  availableVolume: null,
+  documents: null
+};
 
 function requirePage(pages, url) {
   const page = pageByUrl(pages, url);
@@ -19,10 +50,6 @@ function icon(name) {
     stock: '<path d="M4 8.5 12 4l8 4.5V18l-8 4-8-4V8.5Z"/><path d="m4 8.5 8 4 8-4M12 12.5V22"/>',
     delivery: '<path d="M3 7h11v9H3zM14 10h4l3 4v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
     doc: '<path d="M6 3h8l4 4v14H6zM14 3v5h5M9 12h6m-6 4h6"/>',
-    field: '<path d="M4 19c4-5 8-7 16-8M4 15c4-4 8-6 16-7M4 11c4-3 8-5 16-6"/>',
-    hay: '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/><path d="M5 9H3m2 6H3m16-6h2m-2 6h2"/>',
-    pasture: '<path d="M3 18c4-4 9-5 18-5M5 20v-8m14 8V10M5 16h14M5 19h14"/>',
-    flower: '<circle cx="12" cy="10" r="2"/><circle cx="12" cy="5.5" r="2.5"/><circle cx="16.3" cy="8.5" r="2.5"/><circle cx="14.7" cy="13" r="2.5"/><circle cx="9.3" cy="13" r="2.5"/><circle cx="7.7" cy="8.5" r="2.5"/><path d="M12 15v6m0-2c-2-2.5-4-2.5-5.5-2.5 0 2 1.7 3.5 5.5 3.5m0-1c2-2.5 4-2.5 5.5-2.5 0 2-1.7 3.5-5.5 3.5"/>',
     check: '<circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/>'
   };
   return `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${icons[name] || icons.check}</g></svg>`;
@@ -37,22 +64,36 @@ export function productTitle(page) {
   return 'Семена люцерны купить в Казахстане — цена | BAS Agros';
 }
 
+export function productH1(page) {
+  if (!isEtalonProduct(page)) return page?.h1 || '';
+  return 'Семена люцерны';
+}
+
 export function productDescription(page) {
   if (!isEtalonProduct(page)) return '';
   return 'Семена люцерны для фермерских хозяйств. Цена от 2 580 000 ₸ за тонну. Поставка по Казахстану и СНГ. Уточните наличие и условия заказа в BAS Agros.';
 }
 
+export function productRobots(page) {
+  return isEtalonProduct(page) ? 'index, follow' : 'noindex, nofollow';
+}
+
 export function productFaq() {
   return [
     ['Сколько стоят семена люцерны?', 'Базовая цена — от 2 580 000 ₸ за тонну. Итоговая стоимость зависит от выбранной позиции, характеристик партии, объёма заказа и пункта доставки. Для точного расчёта укажите необходимый объём или площадь посева и населённый пункт.'],
-    ['Есть ли семена люцерны в наличии?', 'Наличие меняется по мере формирования и отгрузки партий, поэтому подтверждается на дату заявки. Укажите необходимый объём и желаемый срок получения — менеджер проверит доступную продукцию и сообщит актуальные условия поставки.'],
-    ['Куда можно заказать доставку?', 'Поставка возможна по Казахстану и в страны СНГ. Срок и стоимость доставки рассчитываются отдельно с учётом объёма заказа, выбранной упаковки и пункта назначения.'],
-    ['Какая упаковка доступна?', 'Можно уточнить поставку в БИГ-БЭГ / МКР или полипропиленовом мешке. Фактический вес нетто одной упаковки и количество мест зависят от партии и согласованного объёма заказа.'],
-    ['Подходит ли люцерна для сенокоса?', 'Люцерну используют для многолетних кормовых посевов и заготовки сена. Конкретную позицию и технологию посева подбирают с учётом почвы, климата, обеспеченности влагой и планируемого режима укосов.'],
-    ['Используют ли люцерну для пастбищ?', 'Люцерну применяют в пастбищных и сенокосно-пастбищных посевах. Состав травостоя и режим его использования следует подбирать под условия хозяйства, регион и планируемую нагрузку на пастбище.'],
-    ['Какие данные о семенах можно уточнить?', 'Перед заказом можно запросить доступные характеристики продукции и сведения по конкретной партии. Набор показателей зависит от предлагаемой позиции, поэтому менеджер подтверждает их до согласования поставки.'],
+    ['Есть ли семена люцерны в наличии?', 'Наличие подтверждается по конкретной заявке и партии. Укажите необходимый объём — менеджер проверит доступную продукцию и сообщит актуальные условия поставки.'],
+    ['Куда возможна доставка?', 'Поставка возможна по Казахстану и в страны СНГ. Параметры отгрузки согласовываются по конкретному заказу.'],
+    ['Какая упаковка доступна?', 'Доступны БИГ-БЭГ / МКР и полипропиленовый мешок. Размер тары не означает фиксированный вес семян. Вес нетто упаковки и количество мест подтверждаются перед поставкой.'],
+    ['Какие характеристики партии можно получить?', 'По запросу менеджер сообщает доступные сведения конкретной партии: сорт, репродукцию, год урожая, показатели чистоты и всхожести и другие подтверждённые данные, если они есть у предлагаемой продукции.'],
+    ['Какие документы можно запросить?', 'Сведения по сопровождающим документам зависят от конкретной партии и подтверждаются перед поставкой.'],
     ['Какая норма высева люцерны?', 'Справочный ориентир — 13,5–16,8 кг/га. Рабочая норма зависит от способа и цели посева, характеристик семян, типа почвы и условий увлажнения, поэтому её корректируют под конкретную технологию и участок.']
   ];
+}
+
+function confirmedPartyRows(data = PARTY_DATA) {
+  return Object.entries(PARTY_LABELS)
+    .filter(([key]) => data[key] != null && String(data[key]).trim() !== '')
+    .map(([key, label]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(String(data[key]))}</dd></div>`);
 }
 
 export function productStructuredData(page) {
@@ -62,13 +103,15 @@ export function productStructuredData(page) {
     {
       '@context': 'https://schema.org',
       '@type': 'Product',
-      name: 'Люцерна',
+      name: productH1(page),
       url: page.canonical,
       description: productDescription(page),
+      image: LUCERNE_IMAGE,
       category: 'Многолетние кормовые травы',
-      brand: {
-        '@type': 'Brand',
-        name: 'BAS Agros'
+      seller: {
+        '@type': 'Organization',
+        name: 'BAS Agros',
+        url: 'https://basagros.kz/'
       }
     },
     {
@@ -78,7 +121,7 @@ export function productStructuredData(page) {
         { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://basagros.kz/' },
         { '@type': 'ListItem', position: 2, name: 'Каталог семян', item: 'https://basagros.kz/catalog/' },
         { '@type': 'ListItem', position: 3, name: 'Многолетние кормовые травы', item: 'https://basagros.kz/catalog/mnogoletnie-kormovye-travy/' },
-        { '@type': 'ListItem', position: 4, name: 'Люцерна', item: page.canonical }
+        { '@type': 'ListItem', position: 4, name: productH1(page), item: page.canonical }
       ]
     },
     {
@@ -100,7 +143,11 @@ function breadcrumbs(pages) {
     ['/catalog/mnogoletnie-kormovye-travy/', 'Многолетние кормовые травы']
   ];
   for (const [url] of items) requirePage(pages, url);
-  return `<nav class="product-breadcrumbs" aria-label="Навигация по разделу"><ol class="breadcrumbs">${items.map(([url, label]) => `<li><a href="${url}">${label}</a></li>`).join('')}<li aria-current="page"><span>Люцерна</span></li></ol></nav>`;
+  return `<nav class="product-breadcrumbs" aria-label="Навигация по разделу"><ol class="breadcrumbs">${items.map(([url, label]) => `<li><a href="${url}">${label}</a></li>`).join('')}<li aria-current="page"><span>Семена люцерны</span></li></ol></nav>`;
+}
+
+function ctaPair(primaryIntent, secondaryIntent) {
+  return `<div class="product-actions"><a class="home-btn home-btn-primary" href="#request" data-product-modal-intent="${primaryIntent}">Получить коммерческое предложение</a><a class="home-btn home-btn-outline" href="#request" data-product-modal-intent="${secondaryIntent}">Запросить характеристики партии</a></div>`;
 }
 
 function hero(pages) {
@@ -109,38 +156,35 @@ function hero(pages) {
       ${breadcrumbs(pages)}
       <div class="product-hero-grid">
         <div class="product-gallery" aria-label="Иллюстрации товара">
-          <div class="product-gallery-main"><img src="/assets/img/home/about-field-640.webp" width="640" height="720" alt="Сельскохозяйственное поле" fetchpriority="high" decoding="async"></div>
+          <div class="product-gallery-main"><img src="/assets/img/products/lucerne-field-hero.webp" width="640" height="427" alt="Поле цветущей люцерны" fetchpriority="high" decoding="async"></div>
           <div class="product-gallery-detail"><img src="/assets/img/home/about-seeds-640.webp" width="640" height="640" alt="Семена крупным планом" loading="lazy" decoding="async"></div>
         </div>
         <div class="product-hero-copy">
           <p class="product-kicker">Многолетние кормовые травы</p>
-          <h1 id="product-h1">Люцерна</h1>
-          <p class="product-lead">Семена люцерны для сельскохозяйственных хозяйств с поставкой по Казахстану. Цена и актуальное наличие уточняются по конкретной заявке.</p>
+          <h1 id="product-h1">Семена люцерны</h1>
+          <p class="product-lead">Семена люцерны для фермерских хозяйств и агропромышленных компаний с поставкой по Казахстану и странам СНГ.<span class="product-lead-price">Базовая цена — от 2 580 000 ₸ за тонну; актуальное наличие и итоговые условия уточняются по заявке.</span></p>
           <dl class="product-facts" aria-label="Основные условия">
-            <div>${icon('price')}<dt>Цена</dt><dd>По запросу</dd></div>
-            <div>${icon('stock')}<dt>Наличие</dt><dd>Уточнить</dd></div>
-            <div>${icon('delivery')}<dt>Доставка</dt><dd>По Казахстану</dd></div>
-            <div>${icon('doc')}<dt>Документы</dt><dd>По запросу</dd></div>
+            <div>${icon('price')}<dt>Цена</dt><dd>от 2 580 000 ₸/т</dd></div>
+            <div>${icon('delivery')}<dt>Доставка</dt><dd>Казахстан и СНГ</dd></div>
           </dl>
-          <div class="product-actions">
-            <a class="home-btn home-btn-primary" href="#request" data-product-modal-intent="price">Запросить цену</a>
-            <a class="home-btn home-btn-outline" href="#request" data-product-modal-intent="availability">Уточнить наличие</a>
-          </div>
-          <p class="product-helper">Укажите необходимый объём или площадь посева — условия согласовываются по конкретной заявке.</p>
+          ${ctaPair('commercial_offer', 'party_characteristics')}
+          <p class="product-helper">Укажите необходимый объём — характеристики партии и условия поставки подтвердит менеджер.</p>
         </div>
       </div>
     </div>
   </section>`;
 }
 
-function intro() {
-  return `<section class="product-section product-intro" aria-labelledby="product-intro-title"><div class="home-wrap product-intro-grid">
-    <figure class="product-intro-media"><img src="/assets/img/products/lucerne-seeds-section-640.webp" srcset="/assets/img/products/lucerne-seeds-section-640.webp 640w, /assets/img/products/lucerne-seeds-section-960.webp 960w" sizes="(min-width: 48rem) 46vw, 100vw" width="960" height="720" alt="Цветущая люцерна и семена крупным планом" loading="lazy" decoding="async"></figure>
-    <div class="product-intro-copy"><p class="product-eyebrow">О товаре</p>
-    <h2 id="product-intro-title">Семена люцерны</h2>
-    <p>Семена люцерны используют для закладки многолетних кормовых посевов, получения сена, сенажа и зелёной массы. Люцерна относится к бобовым культурам и ценится в животноводстве за питательность и содержание растительного белка.</p>
-    <p>Посевы люцерны помогают хозяйству формировать кормовую базу на несколько сезонов. Развитая корневая система позволяет культуре использовать влагу из глубоких слоёв почвы, а симбиоз с клубеньковыми бактериями способствует накоплению биологического азота. Сорт, норму высева и технологию выращивания подбирают с учётом региона, почвы и назначения посевов.</p></div>
-  </div></section>`;
+function commercial(pages) {
+  return `<section class="product-section product-commercial" data-lucerne-commercial-flow aria-labelledby="product-commercial-title"><div class="home-wrap"><div class="product-commercial-card"><div><p class="product-eyebrow">Коммерческие условия</p><h2 id="product-commercial-title">Цена, поставка и наличие</h2><dl class="product-facts" aria-label="Подтверждённые коммерческие условия"><div>${icon('price')}<dt>Цена</dt><dd>от 2 580 000 ₸/т</dd></div><div>${icon('delivery')}<dt>Поставка</dt><dd>Казахстан и СНГ</dd></div><div>${icon('stock')}<dt>Наличие</dt><dd>по заявке / партии</dd></div><div>${icon('doc')}<dt>Фасовка</dt><dd>БИГ-БЭГ / МКР и ПП-мешок</dd></div></dl><p>Вес нетто упаковки, доступный объём и параметры конкретной партии подтверждаются перед поставкой.</p>${ctaPair('commercial_offer', 'party_characteristics')}</div><div class="product-commercial-links"><div>${icon('delivery')}<h3>Поставка по Казахстану и СНГ</h3><p>Поставка возможна по Казахстану и в страны СНГ. Направление, объём и стоимость доставки согласовываются по конкретному заказу.</p>${link(pages, '/dostavka-i-oplata/', 'Доставка и оплата →')}</div><div>${icon('doc')}<h3>Информация и документы</h3><p>Доступные сведения по продукции и документы уточняются по конкретной поставке.</p>${link(pages, '/kachestvo-i-sertifikaty/', 'Качество и сертификаты →')}</div></div></div></div></section>`;
+}
+
+function partySpecs() {
+  const rows = confirmedPartyRows(PARTY_DATA);
+  const body = rows.length
+    ? `<dl class="product-spec-list product-spec-list-compact">${rows.join('')}</dl>`
+    : `<div><p>Сорт, репродукция, год урожая, показатели чистоты и всхожести и сведения по документам зависят от доступной партии и подтверждаются перед поставкой.</p><a class="home-btn home-btn-outline" href="#request" data-product-modal-intent="party_characteristics">Запросить характеристики партии</a></div>`;
+  return `<section class="product-section product-specs product-specs-compact" aria-labelledby="product-party-title"><div class="home-wrap product-two-col"><div><p class="product-eyebrow">Партия</p><h2 id="product-party-title">Характеристики конкретной партии</h2><p>Технические параметры относятся к предлагаемой партии, а не к универсальному описанию культуры.</p></div>${body}</div></section>`;
 }
 
 function useCases(pages) {
@@ -153,21 +197,11 @@ function useCases(pages) {
     requirePage(pages, url);
     return `<article class="product-use-card"><a class="product-use-link" href="${url}"><span class="product-use-media"><picture><source type="image/avif" srcset="/assets/img/home/${imageName}-480.avif 480w, /assets/img/home/${imageName}-640.avif 640w" sizes="(min-width: 48rem) 32vw, calc(100vw - 2rem)"><source type="image/webp" srcset="/assets/img/home/${imageName}-480.webp 480w, /assets/img/home/${imageName}-640.webp 640w" sizes="(min-width: 48rem) 32vw, calc(100vw - 2rem)"><img src="/assets/img/home/${imageName}-640.webp" width="640" height="520" alt="${alt}" loading="lazy" decoding="async"></picture></span><span class="product-use-caption"><strong>${title}</strong><b aria-hidden="true">→</b></span><span class="visually-hidden">${text}</span></a></article>`;
   }).join('');
-  return `<section class="product-section product-use" aria-labelledby="product-use-title"><div class="home-wrap"><div class="product-section-head"><div><p class="product-eyebrow">Применение</p><h2 id="product-use-title">Для каких задач используют люцерну</h2></div><p>Назначение культуры помогает сузить выбор. Конкретную продукцию и параметры заказа лучше уточнять под задачу хозяйства.</p></div><div class="product-use-grid">${html}</div></div></section>`;
+  return `<section class="product-section product-use" aria-labelledby="product-use-title"><div class="home-wrap"><div class="product-section-head"><div><p class="product-eyebrow">Применение</p><h2 id="product-use-title">Для каких задач подходит люцерна</h2></div><p>Назначение культуры помогает сузить выбор. Конкретную продукцию и параметры заказа лучше уточнять под задачу хозяйства.</p></div><div class="product-use-grid">${html}</div></div></section>`;
 }
 
-function characteristics() {
-  return `<section class="product-section product-specs product-specs-compact" aria-labelledby="product-specs-title"><div class="home-wrap product-two-col">
-    <div><p class="product-eyebrow">Характеристики</p><h2 id="product-specs-title">Что можно уточнить по семенам люцерны</h2><p>Технические параметры должны относиться к конкретной предлагаемой продукции. Поэтому сорт, репродукция, происхождение, фасовка и показатели партии не подменяются универсальными значениями.</p></div>
-    <dl class="product-spec-list">
-      <div><dt>Наименование</dt><dd>Люцерна</dd></div>
-      <div><dt>Категория</dt><dd>Многолетние кормовые травы</dd></div>
-      <div><dt>Сорт / вариант</dt><dd>Уточняется по доступной продукции</dd></div>
-      <div><dt>Репродукция</dt><dd>Уточняется по конкретной позиции</dd></div>
-      <div><dt>Фасовка</dt><dd>Уточняется при обработке заявки</dd></div>
-      <div><dt>Показатели партии</dt><dd>Доступные сведения — по запросу</dd></div>
-    </dl>
-  </div></section>`;
+function packaging() {
+  return `<section class="product-section product-articles" aria-labelledby="product-packaging-title"><div class="home-wrap"><div class="product-section-head"><div><p class="product-eyebrow">Фасовка</p><h2 id="product-packaging-title">Варианты упаковки семян люцерны</h2></div><p>Формат тары можно выбрать или уточнить при оформлении заявки. Фактический вес нетто одной упаковки зависит от партии и согласуется отдельно.</p></div><div class="product-article-grid"><article><h3>БИГ-БЭГ / МКР</h3><p>МКР Л4 Н-140, 95×95 — мягкий контейнер разового использования. Подходит как вариант тары для крупной отгрузки семян.</p></article><article><h3>Полипропиленовый мешок</h3><p>Полипропиленовый мешок 56×110 — альтернативный вариант фасовки для формирования заказа. Количество упаковок рассчитывается по необходимому объёму.</p></article></div><p class="product-helper">Размер тары не означает фиксированный вес семян. Вес нетто и количество мест указываются в параметрах конкретной поставки.</p></div></section>`;
 }
 
 function selectionGuide() {
@@ -177,11 +211,34 @@ function selectionGuide() {
     ['Необходимый объём', 'Если объём уже рассчитан, его можно сразу указать в заявке.'],
     ['Место доставки', 'Укажите регион или населённый пункт для согласования поставки.']
   ];
-  return `<section class="product-section product-guide" aria-labelledby="product-guide-title"><div class="home-wrap product-guide-grid"><div><p class="product-eyebrow">Подбор</p><h2 id="product-guide-title">Что указать при выборе семян люцерны</h2><p>Эти данные помогают быстрее перейти от общего запроса к конкретным условиям поставки.</p><a class="home-btn home-btn-primary" href="#request" data-product-modal-intent="selection">Уточнить подходящий вариант</a></div><ol>${items.map(([title, text]) => `<li><span><strong>${title}</strong><small>${text}</small></span></li>`).join('')}</ol></div></section>`;
+  return `<section class="product-section product-guide" aria-labelledby="product-guide-title"><div class="home-wrap product-guide-grid"><div><p class="product-eyebrow">Подбор</p><h2 id="product-guide-title">Что указать при выборе семян люцерны</h2><p>Эти данные помогают быстрее перейти от общего запроса к конкретным условиям поставки.</p><a class="home-btn home-btn-primary" href="#request" data-product-modal-intent="commercial_offer">Получить коммерческое предложение</a></div><ol>${items.map(([title, text]) => `<li><span><strong>${title}</strong><small>${text}</small></span></li>`).join('')}</ol></div></section>`;
 }
 
-function commercial(pages) {
-  return `<section class="product-section product-commercial" aria-labelledby="product-commercial-title"><div class="home-wrap"><div class="product-commercial-card"><div><p class="product-eyebrow">Условия заказа</p><h2 id="product-commercial-title">Цена и наличие семян люцерны</h2><p>Фиксированная стоимость на странице не публикуется. Цена и актуальное наличие уточняются для конкретной заявки.</p><div class="product-actions"><a class="home-btn home-btn-primary" href="#request" data-product-modal-intent="price">Запросить цену</a><a class="home-btn home-btn-outline" href="#request" data-product-modal-intent="availability">Уточнить наличие</a></div></div><div class="product-commercial-links"><div>${icon('delivery')}<h3>Поставка по Казахстану</h3><p>Условия и стоимость доставки согласовываются по заказу.</p>${link(pages, '/dostavka-i-oplata/', 'Доставка и оплата →')}</div><div>${icon('doc')}<h3>Информация и документы</h3><p>Доступные сведения по продукции и документы уточняются по конкретной поставке.</p>${link(pages, '/kachestvo-i-sertifikaty/', 'Качество и сертификаты →')}</div></div></div></div></section>`;
+function procurement() {
+  const items = [
+    ['Заявка', 'Покупатель указывает необходимый объём и населённый пункт.'],
+    ['Подтверждение партии', 'Менеджер уточняет доступную продукцию и характеристики.'],
+    ['Коммерческое предложение', 'Согласуются цена, фасовка и условия поставки.'],
+    ['Поставка', 'Параметры отгрузки согласовываются по конкретному заказу.']
+  ];
+  return `<section class="product-section product-specs" aria-labelledby="product-flow-title"><div class="home-wrap product-two-col"><div><p class="product-eyebrow">Закупка</p><h2 id="product-flow-title">Как проходит закупка и поставка</h2><p>Сроки подготовки, оплата и самовывоз не публикуются без подтверждённых условий конкретной поставки.</p></div><ol class="product-flow-list">${items.map(([title, text]) => `<li><strong>${title}</strong><span>${text}</span></li>`).join('')}</ol></div></section>`;
+}
+
+function quality(pages) {
+  return `<section class="product-section product-commercial" aria-labelledby="product-quality-title"><div class="home-wrap"><div class="product-commercial-card"><div><p class="product-eyebrow">Качество</p><h2 id="product-quality-title">Качество и документы</h2><p>Сведения по сопровождающим документам зависят от конкретной партии и подтверждаются перед поставкой.</p><a class="home-btn home-btn-outline" href="#request" data-product-modal-intent="party_characteristics">Запросить характеристики партии</a></div><div class="product-commercial-links"><div>${icon('doc')}<h3>Документы поставки</h3><p>Доступный комплект документов уточняется по предлагаемой партии.</p>${link(pages, '/kachestvo-i-sertifikaty/', 'Качество и сертификаты →')}</div><div>${icon('delivery')}<h3>Условия поставки</h3><p>Направление, объём и параметры отгрузки согласовываются по заказу.</p>${link(pages, '/dostavka-i-oplata/', 'Доставка и оплата →')}</div></div></div></div></section>`;
+}
+
+function agronomy() {
+  return `<section class="product-section product-intro" aria-labelledby="product-agronomy-title"><div class="home-wrap"><div class="product-section-head"><div><p class="product-eyebrow">Ориентиры</p><h2 id="product-agronomy-title">Краткие агрономические ориентиры</h2></div><p>Эти сведения описывают культуру в целом. Они не заменяют характеристики конкретной продаваемой партии.</p></div><div class="product-intro-grid"><figure class="product-intro-media"><img src="/assets/img/products/lucerne-seeds-section-640.webp" srcset="/assets/img/products/lucerne-seeds-section-640.webp 640w, /assets/img/products/lucerne-seeds-section-960.webp 960w" sizes="(min-width: 48rem) 46vw, 100vw" width="960" height="720" alt="Цветущая люцерна и семена крупным планом" loading="lazy" decoding="async"></figure><div class="product-intro-copy"><p>Семена люцерны используют для закладки многолетних кормовых посевов, получения сена, сенажа и зелёной массы. Люцерна относится к бобовым культурам и ценится в животноводстве за питательность и содержание растительного белка.</p><p>Сорт, норму высева и технологию выращивания подбирают с учётом региона, почвы и назначения посевов.</p></div></div><dl class="product-spec-list product-spec-list-compact" aria-label="Справочные агрономические ориентиры">
+      <div><dt>Культура</dt><dd>Люцерна посевная</dd></div>
+      <div><dt>Научное название</dt><dd>Medicago sativa L.</dd></div>
+      <div><dt>Тип</dt><dd>Многолетняя бобовая кормовая</dd></div>
+      <div><dt>Назначение</dt><dd>Сено, сенаж, кормовые и пастбищные посевы</dd></div>
+      <div><dt>Масса 1000 семян</dt><dd>Ориентировочно 1,6–2,2 г</dd></div>
+      <div><dt>Норма высева</dt><dd>Ориентир 13,5–16,8 кг/га</dd></div>
+      <div><dt>pH почвы</dt><dd>Ориентир 6,3–7,0</dd></div>
+      <div><dt>Глубина посева</dt><dd>Ориентир 0,6–1,3 см</dd></div>
+    </dl></div></section>`;
 }
 
 function articles(pages) {
@@ -199,7 +256,7 @@ function faq() {
 }
 
 function requestForm() {
-  return `<section class="product-request" id="request" aria-labelledby="product-request-title"><div class="home-wrap product-request-grid"><div><p class="product-eyebrow">Заявка</p><h2 id="product-request-title">Запросить цену на семена люцерны</h2><p>Укажите контактные данные и параметры заявки. Можно сообщить площадь посева или необходимый объём продукции.</p><ul><li>${icon('check')}<span>Товар: Люцерна</span></li><li>${icon('check')}<span>Цена — по запросу</span></li><li>${icon('check')}<span>Поставка по Казахстану</span></li></ul></div><form class="home-form product-form" data-lead-form data-form-name="Товар — Люцерна — запрос цены"><label for="lucerne-name">Имя<input id="lucerne-name" name="name" type="text" autocomplete="name"></label><label for="lucerne-phone">Телефон<input id="lucerne-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label><label for="lucerne-area">Площадь посева<input id="lucerne-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label><label for="lucerne-message">Объём или комментарий<textarea id="lucerne-message" name="message" rows="4" placeholder="Например, нужный объём или место доставки"></textarea></label><input type="hidden" name="category" value="Люцерна"><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><p class="product-form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p><button class="home-btn home-btn-primary" type="submit">Запросить цену</button><div class="home-form-status" data-form-status aria-live="polite" aria-atomic="true"></div></form></div></section>`;
+  return `<section class="product-request" id="request" aria-labelledby="product-request-title"><div class="home-wrap product-request-grid"><div><p class="product-eyebrow">Заявка</p><h2 id="product-request-title">Получить коммерческое предложение</h2><p>Укажите контактные данные и параметры заявки. Можно сообщить площадь посева или необходимый объём продукции.</p><ul><li>${icon('check')}<span>Товар: семена люцерны</span></li><li>${icon('check')}<span>Базовая цена — от 2 580 000 ₸/т</span></li><li>${icon('check')}<span>Поставка по Казахстану и СНГ</span></li></ul></div><form class="home-form product-form" data-lead-form data-form-name="Товар — Люцерна — коммерческое предложение"><label for="lucerne-name">Имя<input id="lucerne-name" name="name" type="text" autocomplete="name"></label><label for="lucerne-phone">Телефон<input id="lucerne-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label><label for="lucerne-area">Площадь посева<input id="lucerne-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label><label for="lucerne-message">Объём / место доставки<textarea id="lucerne-message" name="message" rows="4" placeholder="Например, нужный объём или населённый пункт"></textarea></label><input type="hidden" name="category" value="Семена люцерны"><input type="hidden" name="intent" value="commercial_offer"><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><p class="product-form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p><button class="home-btn home-btn-primary" type="submit">Получить коммерческое предложение</button><div class="home-form-status" data-form-status aria-live="polite" aria-atomic="true"></div></form></div></section>`;
 }
 
 function requestModal() {
@@ -209,16 +266,17 @@ function requestModal() {
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg>
       </button>
       <p class="product-eyebrow">Заявка</p>
-      <h2 id="product-modal-title" data-product-modal-title>Оставить заявку на семена люцерны</h2>
-      <p id="product-modal-description" class="product-modal-description" data-product-modal-description>Оставьте контактные данные и кратко опишите задачу. Менеджер свяжется с вами для уточнения деталей.</p>
-      <form class="home-form product-modal-form" data-lead-form data-form-name="Товар — Люцерна — модальное окно — общая заявка">
+      <h2 id="product-modal-title" data-product-modal-title>Получить коммерческое предложение</h2>
+      <p id="product-modal-description" class="product-modal-description" data-product-modal-description>Укажите контактные данные, необходимый объём и место доставки. Менеджер уточнит актуальное наличие, стоимость партии, фасовку и условия поставки.</p>
+      <form class="home-form product-modal-form" data-lead-form data-form-name="Товар — Люцерна — модальное окно — коммерческое предложение">
         <label for="lucerne-modal-name">Имя<input id="lucerne-modal-name" name="name" type="text" autocomplete="name"></label>
         <label for="lucerne-modal-phone">Телефон<input id="lucerne-modal-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label>
-        <label for="lucerne-modal-message" class="product-modal-message"><span data-product-modal-field-label>Что вас интересует</span><textarea id="lucerne-modal-message" name="message" rows="3" data-product-modal-message placeholder="Например, необходимый объём или место доставки"></textarea></label>
-        <input type="hidden" name="category" value="Люцерна">
+        <label for="lucerne-modal-message" class="product-modal-message"><span data-product-modal-field-label>Объём / место доставки</span><textarea id="lucerne-modal-message" name="message" rows="3" data-product-modal-message placeholder="Например, необходимый объём или населённый пункт"></textarea></label>
+        <input type="hidden" name="category" value="Семена люцерны">
+        <input type="hidden" name="intent" value="commercial_offer" data-product-modal-intent-field>
         <input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <p class="product-form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
-        <button class="home-btn home-btn-primary" type="submit" data-product-modal-submit>Отправить заявку</button>
+        <button class="home-btn home-btn-primary" type="submit" data-product-modal-submit>Получить коммерческое предложение</button>
         <div class="home-form-status" data-form-status aria-live="polite" aria-atomic="true"></div>
       </form>
     </div>
@@ -227,5 +285,5 @@ function requestModal() {
 
 export function renderProduct(page, pages) {
   if (!isEtalonProduct(page)) return '';
-  return [hero(pages), intro(), useCases(pages), characteristics(), selectionGuide(), commercial(pages), articles(pages), faq(), requestForm(), requestModal()].join('\n');
+  return [hero(pages), commercial(pages), partySpecs(), useCases(pages), packaging(), selectionGuide(), procurement(), quality(pages), agronomy(), faq(), articles(pages), requestForm(), requestModal()].join('\n');
 }
