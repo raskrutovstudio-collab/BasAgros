@@ -113,7 +113,8 @@ ${GENERATED_MARKER}
   <meta property="og:description" content="${escapeHtml(homepageDescription())}">
   <meta property="og:url" content="${escapeHtml(page.canonical)}">
   <meta property="og:site_name" content="BAS Agros">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%224%22 fill=%22%23173F2C%22/><path d=%22M7 24C8 12 15 7 25 7c0 11-6 17-18 17Z%22 fill=%22%23E5EEE6%22/></svg>">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-bull.png?v=20260828-1">
+  <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home.css?v=20260825-3">
   <script type="application/ld+json">${structuredData}</script>
@@ -154,6 +155,8 @@ ${GENERATED_MARKER}
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${escapeHtml(page.canonical)}">
   <meta property="og:site_name" content="BAS Agros">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-bull.png?v=20260828-1">
+  <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home.css?v=20260825-3">
   <link rel="stylesheet" href="/assets/css/product.css?v=20260828-10">
