@@ -125,11 +125,12 @@ function hero(pages) {
 }
 
 function intro() {
-  return `<section class="product-section product-intro" aria-labelledby="product-intro-title"><div class="home-wrap product-narrow">
-    <p class="product-eyebrow">О товаре</p>
+  return `<section class="product-section product-intro" aria-labelledby="product-intro-title"><div class="home-wrap product-intro-grid">
+    <figure class="product-intro-media"><img src="/assets/img/products/lucerne-seeds-section-640.webp" srcset="/assets/img/products/lucerne-seeds-section-640.webp 640w, /assets/img/products/lucerne-seeds-section-960.webp 960w" sizes="(min-width: 48rem) 46vw, 100vw" width="960" height="720" alt="Цветущая люцерна и семена крупным планом" loading="lazy" decoding="async"></figure>
+    <div class="product-intro-copy"><p class="product-eyebrow">О товаре</p>
     <h2 id="product-intro-title">Семена люцерны</h2>
     <p>Люцерна представлена в каталоге BAS Agros в категории многолетних кормовых трав. Семена поставляются для сельскохозяйственных хозяйств Казахстана.</p>
-    <p>Для конкретной позиции отдельно уточняются доступный вариант продукции, характеристики, сведения по партии, наличие и необходимый объём.</p>
+    <p>Для конкретной позиции отдельно уточняются доступный вариант продукции, характеристики, сведения по партии, наличие и необходимый объём.</p></div>
   </div></section>`;
 }
 

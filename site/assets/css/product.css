@@ -189,6 +189,30 @@
   background: #f7f8f3;
 }
 
+.product-intro-grid {
+  display: grid;
+  gap: clamp(1.8rem, 4vw, 4.5rem);
+  align-items: center;
+}
+
+.product-intro-media {
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  overflow: hidden;
+  background: #e7ebdf;
+}
+
+.product-intro-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-intro-copy {
+  max-width: 42rem;
+}
+
 .product-intro p:not(.product-eyebrow) {
   margin: 1rem 0 0;
   font-size: 1.05rem;
@@ -523,6 +547,10 @@
 }
 
 @media (min-width: 48rem) {
+  .product-intro-grid {
+    grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  }
+
   .product-hero-grid {
     grid-template-columns: minmax(0, 1.05fr) minmax(20rem, .95fr);
     min-height: 38rem;
