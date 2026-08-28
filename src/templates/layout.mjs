@@ -1,7 +1,7 @@
 import { GENERATED_MARKER, HEADER_NAV_URLS, FOOTER_NAV_URLS } from './constants.mjs';
 import { breadcrumbsOf, escapeHtml, joinSections, pageByUrl } from './html.mjs';
 import { homepageDescription, renderHomeFooter, renderHomeHeader } from './homepage.mjs';
-import { isEtalonProduct, productDescription, productStructuredData } from './product.mjs';
+import { isEtalonProduct, productDescription, productStructuredData, productTitle } from './product.mjs';
 
 function navItems(urls, pages, currentUrl) {
   return urls.map((url) => {
@@ -134,6 +134,7 @@ ${renderHomeFooter(pages)}
 }
 
 function renderProductDocument({ page, pages, main }) {
+  const title = productTitle(page);
   const description = productDescription(page);
   const structuredData = JSON.stringify(productStructuredData(page)).replace(/</g, '\\u003c');
   return `<!doctype html>
@@ -142,14 +143,14 @@ ${GENERATED_MARKER}
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(page.title)}</title>
+  <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}">
   <link rel="canonical" href="${escapeHtml(page.canonical)}">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#F7F8F3">
   <meta property="og:type" content="product">
   <meta property="og:locale" content="ru_RU">
-  <meta property="og:title" content="${escapeHtml(page.title)}">
+  <meta property="og:title" content="${escapeHtml(title)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${escapeHtml(page.canonical)}">
   <meta property="og:site_name" content="BAS Agros">

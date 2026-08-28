@@ -32,9 +32,14 @@ export function isEtalonProduct(page) {
   return page?.url === LUCERNE_URL;
 }
 
+export function productTitle(page) {
+  if (!isEtalonProduct(page)) return page?.title || '';
+  return 'Семена люцерны купить в Казахстане — цена | BAS Agros';
+}
+
 export function productDescription(page) {
   if (!isEtalonProduct(page)) return '';
-  return 'Люцерна — семена для хозяйств Казахстана. Цена по запросу, наличие и условия доставки уточняются по заявке. Информация о продукции и документах — по запросу.';
+  return 'Семена люцерны для фермерских хозяйств. Цена от 2 580 000 ₸ за тонну. Поставка по Казахстану и СНГ. Уточните наличие и условия заказа в BAS Agros.';
 }
 
 export function productFaq() {

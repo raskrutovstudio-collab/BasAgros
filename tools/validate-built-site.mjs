@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { GENERATED_MARKER } from '../src/templates/constants.mjs';
 import { breadcrumbsOf } from '../src/templates/html.mjs';
+import { productTitle } from '../src/templates/product.mjs';
 
 const root = process.cwd();
 const siteRoot = path.join(root, 'site');
@@ -159,7 +160,7 @@ for (const page of pages) {
   if (!/<html\b[^>]*\blang=["']ru["']/i.test(html)) fail(`${label}: нет lang="ru"`);
 
   const title = unescapeHtml((html.match(/<title>([\s\S]*?)<\/title>/i) || [])[1] || '').trim();
-  if (title !== page.title) fail(`${label}: Title не совпадает с манифестом`);
+  if (title !== productTitle(page)) fail(`${label}: Title не совпадает с ожидаемым значением`);
 
   const h1Matches = html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/gi) || [];
   if (h1Matches.length !== 1) fail(`${label}: должен быть ровно один H1 (сейчас ${h1Matches.length})`);
