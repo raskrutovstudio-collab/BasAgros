@@ -191,12 +191,12 @@
 
 .product-intro-grid {
   display: grid;
-  gap: clamp(1.8rem, 4vw, 4.5rem);
+  gap: clamp(1.5rem, 2.5vw, 2.25rem);
   align-items: center;
 }
 
 .product-intro-media {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1;
   margin: 0;
   overflow: hidden;
   background: #e7ebdf;
@@ -206,7 +206,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .product-intro-copy {
@@ -548,19 +548,7 @@
 
 @media (min-width: 48rem) {
   .product-intro-grid {
-    grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
-    align-items: stretch;
-  }
-
-  .product-intro-media {
-    position: relative;
-    aspect-ratio: auto;
-    min-height: 0;
-  }
-
-  .product-intro-media img {
-    position: absolute;
-    inset: 0;
+    grid-template-columns: minmax(17rem, 20rem) minmax(0, 1fr);
   }
 
   .product-hero-grid {
