@@ -27,8 +27,8 @@ function requirePage(pages, url) {
   if (!value) throw new Error(`homepage ссылается на URL вне manifest: ${url}`);
   return value;
 }
-function link(url, label, className = '') {
-  return `<a href="${escapeHtml(url)}"${className ? ` class="${className}"` : ''}>${escapeHtml(label)}</a>`;
+function link(url, label, className = '', attributes = '') {
+  return `<a href="${escapeHtml(url)}"${className ? ` class="${className}"` : ''}${attributes ? ` ${attributes}` : ''}>${escapeHtml(label)}</a>`;
 }
 function logo() {
   return `<img class="home-logo-image" src="/assets/img/bas-agros-logo.png" width="1342" height="1172" alt="BAS Agros" decoding="async">`;
@@ -79,7 +79,7 @@ function navList(items, pages) {
 
 export function homepageDescription() { return homepage.description.text; }
 export function renderHomeHeader(page, pages) {
-  return `<header class="home-header"><div class="home-wrap home-header-inner"><a class="home-brand" href="/" aria-label="BAS Agros — главная">${logo()}</a><button class="home-menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" data-menu-toggle><span class="visually-hidden">Открыть меню</span><span aria-hidden="true"></span></button><nav class="home-nav" id="home-navigation" aria-label="Основная навигация" data-mobile-nav><ul>${navList(HEADER, pages)}</ul><div class="home-nav-actions">${link('/o-kompanii/', 'Связаться', 'home-btn home-btn-outline')}${link('#request', 'Оставить заявку', 'home-btn home-btn-primary')}</div></nav></div></header>`;
+  return `<header class="home-header"><div class="home-wrap home-header-inner"><a class="home-brand" href="/" aria-label="BAS Agros — главная">${logo()}</a><button class="home-menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" data-menu-toggle><span class="visually-hidden">Открыть меню</span><span aria-hidden="true"></span></button><nav class="home-nav" id="home-navigation" aria-label="Основная навигация" data-mobile-nav><ul>${navList(HEADER, pages)}</ul><div class="home-nav-actions">${link('/o-kompanii/', 'Связаться', 'home-btn home-btn-outline')}${link('#request', 'Оставить заявку', 'home-btn home-btn-primary', 'data-home-modal-intent="request"')}</div></nav></div></header>`;
 }
 export function renderHomeFooter(pages) {
   const cols = Object.entries(FOOTER).map(([heading, urls]) => `<nav aria-label="${heading}"><h2>${heading}</h2><ul>${urls.map((url) => { const p = requirePage(pages, url); return `<li>${link(p.url, p.page_name)}</li>`; }).join('')}</ul></nav>`).join('');
@@ -92,7 +92,7 @@ function renderHero(page, pages) {
   const data = block('hero');
   if (page.h1 !== data.heading) throw new Error('homepage hero.heading должен совпадать с h1 маршрута');
   const categoryLinks = data.items.map((item) => { requirePage(pages, item.url); return `<li>${link(item.url, `${item.title} →`)}</li>`; }).join('');
-  return `<section class="home-hero" aria-labelledby="home-h1"><div class="home-wrap home-hero-grid"><div class="home-hero-copy"><p class="home-eyebrow">Семена для сельского хозяйства</p><h1 id="home-h1">${escapeHtml(data.heading)}</h1><p class="home-lead">${escapeHtml(data.text)}</p><div class="home-actions">${link(data.links[0].url, data.links[0].label, 'home-btn home-btn-outline')}${link(data.links[1].url, data.links[1].label, 'home-btn home-btn-primary')}</div></div><div class="home-hero-visual">${mediaSlot('hero', 'home-hero-main')}${mediaSlot('seeds', 'home-hero-detail')}${botanicalMark()}</div><ul class="home-hero-categories">${categoryLinks}</ul></div></section>`;
+  return `<section class="home-hero" aria-labelledby="home-h1"><div class="home-wrap home-hero-grid"><div class="home-hero-copy"><p class="home-eyebrow">Семена для сельского хозяйства</p><h1 id="home-h1">${escapeHtml(data.heading)}</h1><p class="home-lead">${escapeHtml(data.text)}</p><div class="home-actions">${link(data.links[0].url, data.links[0].label, 'home-btn home-btn-outline')}${link(data.links[1].url, data.links[1].label, 'home-btn home-btn-primary', 'data-home-modal-intent="selection"')}</div></div><div class="home-hero-visual">${mediaSlot('hero', 'home-hero-main')}${mediaSlot('seeds', 'home-hero-detail')}${botanicalMark()}</div><ul class="home-hero-categories">${categoryLinks}</ul></div></section>`;
 }
 function sectionHead(data, id, aside = '') {
   return `<header class="home-section-head"><div><h2 id="${id}">${escapeHtml(data.heading)}</h2>${data.text ? `<p>${escapeHtml(data.text)}</p>` : ''}</div>${aside}</header>`;
@@ -140,7 +140,30 @@ function renderRequest() {
   const data = block('request');
   return `<section class="home-section home-request" id="request" aria-labelledby="request-title"><div class="home-wrap home-request-grid"><div><p class="home-eyebrow">Заявка</p><h2 id="request-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p></div><form class="home-form" data-lead-form data-form-name="Главная — заявка" novalidate>${formFields()}</form></div></section>`;
 }
+function renderHomeModal() {
+  return `<dialog class="home-modal" data-home-modal aria-labelledby="home-modal-title" aria-describedby="home-modal-description">
+    <div class="home-modal-panel">
+      <button class="home-modal-close" type="button" data-home-modal-close aria-label="Закрыть форму">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+      <p class="home-eyebrow">Заявка</p>
+      <h2 id="home-modal-title" data-home-modal-title>Оставить заявку</h2>
+      <p id="home-modal-description" class="home-modal-description" data-home-modal-description>Укажите контактные данные и интересующую культуру. Менеджер свяжется с вами для уточнения параметров заявки.</p>
+      <form class="home-form home-modal-form" data-lead-form data-form-name="Главная — модальное окно — общая заявка">
+        <label for="home-modal-name">Имя<input id="home-modal-name" name="name" type="text" autocomplete="name"></label>
+        <label for="home-modal-phone">Телефон<input id="home-modal-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label>
+        <label for="home-modal-category"><span data-home-modal-category-label>Категория или культура</span><input id="home-modal-category" name="category" type="text" data-home-modal-category placeholder="Например, люцерна или травосмесь"></label>
+        <label for="home-modal-area">Площадь посева<input id="home-modal-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label>
+        <label class="home-modal-message" for="home-modal-message"><span data-home-modal-message-label>Комментарий</span><textarea id="home-modal-message" name="message" rows="3" data-home-modal-message placeholder="Например, нужный объём и место доставки"></textarea></label>
+        <input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="home-modal-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+        <button class="home-btn home-btn-primary" type="submit" disabled aria-disabled="true" data-home-modal-submit>Отправить заявку</button>
+        <div class="home-form-status" data-form-status aria-live="polite" aria-atomic="true">Отправка будет доступна после подключения формы.</div>
+      </form>
+    </div>
+  </dialog>`;
+}
 export function renderHomepage(page, pages) {
   HEADER_NAV_URLS.forEach((url) => requirePage(pages, url));
-  return [renderHero(page, pages), renderSolutions(pages), renderCatalog(pages), renderAudience(pages), renderGuide(), renderAbout(pages), renderDeliveryQuality(pages), renderArticles(pages), renderFaq(pages), renderRequest()].join('\n');
+  return [renderHero(page, pages), renderSolutions(pages), renderCatalog(pages), renderAudience(pages), renderGuide(), renderAbout(pages), renderDeliveryQuality(pages), renderArticles(pages), renderFaq(pages), renderRequest(), renderHomeModal()].join('\n');
 }

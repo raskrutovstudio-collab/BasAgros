@@ -138,3 +138,117 @@
   window.addEventListener('scroll', syncVisibility, { passive: true });
   syncVisibility();
 })();
+
+(() => {
+  if (!document.body.classList.contains('page-home') || document.body.classList.contains('page-product')) return;
+
+  const modal = document.querySelector('[data-home-modal]');
+  const form = modal?.querySelector('[data-lead-form]');
+  const title = modal?.querySelector('[data-home-modal-title]');
+  const description = modal?.querySelector('[data-home-modal-description]');
+  const categoryLabel = modal?.querySelector('[data-home-modal-category-label]');
+  const category = modal?.querySelector('[data-home-modal-category]');
+  const messageLabel = modal?.querySelector('[data-home-modal-message-label]');
+  const message = modal?.querySelector('[data-home-modal-message]');
+  const submit = modal?.querySelector('[data-home-modal-submit]');
+  const closeButton = modal?.querySelector('[data-home-modal-close]');
+
+  if (!modal || !form || !title || !description || !categoryLabel || !category || !messageLabel || !message || !submit || !closeButton) return;
+
+  const variants = {
+    request: {
+      title: 'Оставить заявку',
+      description: 'Укажите контактные данные, интересующую культуру или категорию и площадь посева. Менеджер свяжется с вами для уточнения параметров заявки.',
+      categoryLabel: 'Категория или культура',
+      categoryPlaceholder: 'Например, люцерна или травосмесь',
+      messageLabel: 'Комментарий',
+      messagePlaceholder: 'Например, нужный объём и место доставки',
+      submit: 'Отправить заявку',
+      formName: 'Главная — модальное окно — общая заявка'
+    },
+    selection: {
+      title: 'Подобрать семена для хозяйства',
+      description: 'Укажите задачу хозяйства, площадь посева и регион. Менеджер поможет сориентироваться в подходящих категориях и доступных вариантах.',
+      categoryLabel: 'Что нужно подобрать',
+      categoryPlaceholder: 'Например, семена для сенокоса',
+      messageLabel: 'Задача хозяйства и регион',
+      messagePlaceholder: 'Например, кормовая база, Акмолинская область',
+      submit: 'Получить предложение',
+      formName: 'Главная — модальное окно — подбор семян'
+    }
+  };
+
+  let returnFocus = null;
+
+  function applyVariant(intent) {
+    const variant = variants[intent] || variants.request;
+    title.textContent = variant.title;
+    description.textContent = variant.description;
+    categoryLabel.textContent = variant.categoryLabel;
+    category.placeholder = variant.categoryPlaceholder;
+    messageLabel.textContent = variant.messageLabel;
+    message.placeholder = variant.messagePlaceholder;
+    submit.textContent = variant.submit;
+    form.dataset.formName = variant.formName;
+
+    const status = form.querySelector('[data-form-status]');
+    if (status && !submit.disabled) status.textContent = '';
+  }
+
+  function focusableElements() {
+    return [...modal.querySelectorAll('button:not([disabled]), input:not([disabled]):not([type="hidden"]):not([tabindex="-1"]), textarea:not([disabled]), select:not([disabled]), a[href]')]
+      .filter((element) => !element.hasAttribute('hidden'));
+  }
+
+  function openModal(trigger) {
+    returnFocus = trigger;
+    applyVariant(trigger.dataset.homeModalIntent);
+    document.body.classList.add('home-modal-open');
+    modal.showModal();
+    requestAnimationFrame(() => modal.querySelector('input[name="name"]')?.focus());
+  }
+
+  function closeModal() {
+    if (modal.open) modal.close();
+  }
+
+  document.addEventListener('click', (event) => {
+    const trigger = event.target.closest('[data-home-modal-intent]');
+    if (!trigger || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    openModal(trigger);
+  });
+
+  closeButton.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) closeModal();
+  });
+
+  modal.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    closeModal();
+  });
+
+  modal.addEventListener('keydown', (event) => {
+    if (event.key !== 'Tab') return;
+    const elements = focusableElements();
+    if (!elements.length) return;
+    const first = elements[0];
+    const last = elements[elements.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  modal.addEventListener('close', () => {
+    document.body.classList.remove('home-modal-open');
+    if (returnFocus?.isConnected) returnFocus.focus();
+    returnFocus = null;
+  });
+})();

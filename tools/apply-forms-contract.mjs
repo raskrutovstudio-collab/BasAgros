@@ -41,7 +41,7 @@ function replaceForm(html, formName, markup) {
 
 function assertFormContract(html) {
   const forms = [...html.matchAll(/<form\b[\s\S]*?<\/form>/g)].map((match) => match[0]);
-  if (forms.length !== 2) throw new Error(`На главной ожидалось 2 формы, найдено ${forms.length}`);
+  if (forms.length !== 3) throw new Error(`На главной ожидалось 3 формы, включая модальную, найдено ${forms.length}`);
 
   const names = new Set();
   const pageIds = new Set();
@@ -97,4 +97,4 @@ html = html.replace('Укажите категорию или культуру �
 assertFormContract(html);
 fs.writeFileSync(homePath, html, 'utf8');
 
-console.log('Forms contract applied: 2 homepage forms, phone mask markup, sowing_area and stable field names.');
+console.log('Forms contract applied: 3 homepage forms including modal, phone mask markup, sowing_area and stable field names.');

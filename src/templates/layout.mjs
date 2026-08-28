@@ -127,7 +127,7 @@ ${GENERATED_MARKER}
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
-  <link rel="stylesheet" href="/assets/css/home.css?v=20260825-3">
+  <link rel="stylesheet" href="/assets/css/home.css?v=20260828-1">
   <script type="application/ld+json">${structuredData}</script>
 </head>
 <body class="page-home">
@@ -138,7 +138,7 @@ ${main}
   </main>
 ${renderHomeFooter(pages)}
   <script src="/assets/js/site-config.js" defer></script>
-  <script src="/assets/js/home.js" defer></script>
+  <script src="/assets/js/home.js?v=20260828-1" defer></script>
   <script src="/assets/js/lead-form.js" defer></script>
 </body>
 </html>
@@ -180,7 +180,7 @@ ${GENERATED_MARKER}
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
-  <link rel="stylesheet" href="/assets/css/home.css?v=20260825-3">
+  <link rel="stylesheet" href="/assets/css/home.css?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/product.css?v=20260828-10">
   <script type="application/ld+json">${structuredData}</script>
 </head>
@@ -192,7 +192,7 @@ ${main}
   </main>
 ${renderHomeFooter(pages)}
   <script src="/assets/js/site-config.js" defer></script>
-  <script src="/assets/js/home.js" defer></script>
+  <script src="/assets/js/home.js?v=20260828-1" defer></script>
   <script src="/assets/js/product.js?v=20260828-1" defer></script>
   <script src="/assets/js/lead-form.js" defer></script>
 </body>
