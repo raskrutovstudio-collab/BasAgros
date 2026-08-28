@@ -34,7 +34,7 @@ const heroImagePayload = heroImageParts
   .join('');
 const heroImageBuffer = Buffer.from(heroImagePayload, 'base64');
 if (
-  heroImageBuffer.length !== 42998 ||
+  heroImageBuffer.length !== 42994 ||
   heroImageBuffer.subarray(0, 4).toString('ascii') !== 'RIFF' ||
   heroImageBuffer.subarray(8, 12).toString('ascii') !== 'WEBP'
 ) {
