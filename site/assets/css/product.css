@@ -186,6 +186,7 @@
 }
 
 .product-intro {
+  padding-block: clamp(2.5rem, 4vw, 3rem);
   background: #f7f8f3;
 }
 
@@ -199,7 +200,7 @@
   aspect-ratio: 1;
   margin: 0;
   overflow: hidden;
-  background: #e7ebdf;
+  background: transparent;
 }
 
 .product-intro-media img {
