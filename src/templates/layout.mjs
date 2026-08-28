@@ -113,6 +113,17 @@ ${GENERATED_MARKER}
   <meta property="og:description" content="${escapeHtml(homepageDescription())}">
   <meta property="og:url" content="${escapeHtml(page.canonical)}">
   <meta property="og:site_name" content="BAS Agros">
+  <meta property="og:image" content="https://basagros.kz/assets/img/social/home-fields-1200x630.jpg">
+  <meta property="og:image:secure_url" content="https://basagros.kz/assets/img/social/home-fields-1200x630.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Сельскохозяйственные поля BAS Agros">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeHtml(page.title)}">
+  <meta name="twitter:description" content="${escapeHtml(homepageDescription())}">
+  <meta name="twitter:image" content="https://basagros.kz/assets/img/social/home-fields-1200x630.jpg">
+  <meta name="twitter:image:alt" content="Сельскохозяйственные поля BAS Agros">
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
@@ -155,6 +166,17 @@ ${GENERATED_MARKER}
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${escapeHtml(page.canonical)}">
   <meta property="og:site_name" content="BAS Agros">
+  <meta property="og:image" content="https://basagros.kz/assets/img/social/lucerne-seeds-1200x630.jpg">
+  <meta property="og:image:secure_url" content="https://basagros.kz/assets/img/social/lucerne-seeds-1200x630.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Цветущая люцерна и семена люцерны">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeHtml(title)}">
+  <meta name="twitter:description" content="${escapeHtml(description)}">
+  <meta name="twitter:image" content="https://basagros.kz/assets/img/social/lucerne-seeds-1200x630.jpg">
+  <meta name="twitter:image:alt" content="Цветущая люцерна и семена люцерны">
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
