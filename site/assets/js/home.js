@@ -70,7 +70,7 @@
       position: fixed;
       right: 24px;
       bottom: 24px;
-      z-index: 40;
+      z-index: 10000;
       display: grid;
       place-items: center;
       width: 52px;
@@ -107,7 +107,7 @@
     @media (max-width: 47.99rem) {
       .home-back-to-top {
         right: 16px;
-        bottom: 16px;
+        bottom: calc(5.75rem + env(safe-area-inset-bottom) + 12px);
         width: 46px;
         height: 46px;
       }

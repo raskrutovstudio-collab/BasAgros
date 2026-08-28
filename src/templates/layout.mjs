@@ -138,7 +138,7 @@ ${main}
   </main>
 ${renderHomeFooter(pages)}
   <script src="/assets/js/site-config.js" defer></script>
-  <script src="/assets/js/home.js?v=20260828-1" defer></script>
+  <script src="/assets/js/home.js?v=20260828-2" defer></script>
   <script src="/assets/js/lead-form.js" defer></script>
 </body>
 </html>
@@ -192,7 +192,7 @@ ${main}
   </main>
 ${renderHomeFooter(pages)}
   <script src="/assets/js/site-config.js" defer></script>
-  <script src="/assets/js/home.js?v=20260828-1" defer></script>
+  <script src="/assets/js/home.js?v=20260828-2" defer></script>
   <script src="/assets/js/product.js?v=20260828-1" defer></script>
   <script src="/assets/js/lead-form.js" defer></script>
 </body>
