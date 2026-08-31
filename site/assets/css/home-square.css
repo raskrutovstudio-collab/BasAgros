@@ -5,3 +5,9 @@
 .page-home-main *::after {
   border-radius: 0 !important;
 }
+
+/* Subtle frame for the three standard catalog category images. */
+.page-home-main .home-category:not(.home-category-featured) .home-media {
+  border: clamp(.35rem, .55vw, .55rem) solid var(--color-sage);
+  background: var(--color-sage);
+}
