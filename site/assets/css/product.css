@@ -1381,3 +1381,95 @@ body.product-modal-open {
     max-width: 42rem;
   }
 }
+
+/* Lucerne agronomy: photo height follows the desktop text column. */
+.product-agronomy .product-intro-copy > p:first-child {
+  margin-top: 0;
+}
+
+@media (min-width: 64rem) and (max-width: 71.99rem) {
+  .product-agronomy .product-intro-grid {
+    grid-template-columns: minmax(18rem, 22rem) minmax(0, 1fr);
+    align-items: start;
+    gap: 1.25rem 1.5rem;
+  }
+
+  .product-agronomy .product-intro-media {
+    max-width: 22rem;
+    aspect-ratio: 4 / 3;
+  }
+
+  .product-agronomy .product-intro-media img {
+    object-fit: contain;
+    object-position: 46% 48%;
+  }
+
+  .product-agronomy .product-intro-copy p:not(.product-eyebrow) {
+    margin-top: .7rem;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 72rem) {
+  .product-agronomy > .home-wrap {
+    display: grid;
+    grid-template-columns: minmax(24rem, 28rem) minmax(0, 1fr);
+    column-gap: 1.75rem;
+    align-items: start;
+  }
+
+  .product-agronomy .product-section-head {
+    grid-column: 1 / -1;
+    margin-bottom: 1.35rem;
+  }
+
+  .product-agronomy .product-intro-grid {
+    display: contents;
+  }
+
+  .product-agronomy .product-intro-media {
+    grid-column: 1;
+    grid-row: 2 / 4;
+    align-self: stretch;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  .product-agronomy .product-intro-media img {
+    object-fit: cover;
+    object-position: 42% 52%;
+  }
+
+  .product-agronomy .product-intro-copy {
+    grid-column: 2;
+    grid-row: 2;
+    max-width: 38rem;
+  }
+
+  .product-agronomy .product-intro-copy p:not(.product-eyebrow) {
+    margin-top: .7rem;
+    line-height: 1.5;
+  }
+
+  .product-agronomy .product-intro-copy > p:first-child {
+    margin-top: 0;
+  }
+
+  .product-agronomy .product-spec-list {
+    grid-column: 2;
+    grid-row: 3;
+    margin-top: .75rem;
+  }
+
+  .product-agronomy .product-spec-list-compact {
+    gap: .4rem .55rem;
+  }
+
+  .product-agronomy .product-spec-list-compact > div {
+    min-height: 2.35rem;
+    padding: .42rem .65rem;
+  }
+}
