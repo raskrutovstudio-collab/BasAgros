@@ -9,7 +9,8 @@ const phoneIcon = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="
 const phoneButton = `<a href="tel:+77059608987" class="home-btn home-btn-outline" aria-label="Позвонить по номеру +7 705 960 89 87">${phoneIcon}<span>+7 705 960 89 87</span></a>`;
 const firstNavItem = '<li><a href="/">Главная</a></li>';
 const lastNavItem = '<li><a href="#contacts">Контакты</a></li>';
-
+const footerLocation = '<p>Поставка семян по Казахстану.</p>';
+const footerContacts = '<p class="home-footer-contact"><a href="https://wa.me/77059608987" target="_blank" rel="noopener" aria-label="Написать BAS Agros в WhatsApp">WhatsApp: +7 705 960 89 87</a></p><p class="home-footer-contact"><a href="mailto:basagros@mail.ru">E-mail: basagros@mail.ru</a></p>';
 
 function patchHtml(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -28,6 +29,10 @@ function patchHtml(dir) {
       phoneButton
     );
 
+    if (next.includes(footerLocation) && !next.includes('mailto:basagros@mail.ru')) {
+      next = next.replace(footerLocation, `${footerContacts}${footerLocation}`);
+    }
+
     if (path.resolve(abs) === path.resolve(siteRoot, 'index.html')) {
       if (!next.includes(firstNavItem)) {
         next = next.replace('<nav class="home-nav" id="home-navigation" aria-label="Основная навигация" data-mobile-nav><ul>', `<nav class="home-nav" id="home-navigation" aria-label="Основная навигация" data-mobile-nav><ul>${firstNavItem}`);
@@ -39,6 +44,15 @@ function patchHtml(dir) {
         next = next.replace('<div><h2>Контакты</h2>', '<div id="contacts"><h2>Контакты</h2>');
       }
       next = next.replaceAll('<p class="home-eyebrow">Агроблог</p>', '');
+
+      next = next.replace(
+        '"telephone":"+77059608987","contactPoint"',
+        '"telephone":"+77059608987","email":"basagros@mail.ru","contactPoint"'
+      );
+      next = next.replace(
+        '"@type":"ContactPoint","telephone":"+77059608987","contactType"',
+        '"@type":"ContactPoint","telephone":"+77059608987","email":"basagros@mail.ru","contactType"'
+      );
     }
 
     if (next !== html) fs.writeFileSync(abs, next, 'utf8');
@@ -69,9 +83,13 @@ function patchHomeCss() {
   const footerStackRule = `\n${footerStackMarker}\n.home-footer nav ul {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.home-footer nav li {\n  display: block;\n  width: 100%;\n}\n`;
   if (!css.includes(footerStackMarker)) css += footerStackRule;
 
+  const footerContactsMarker = '/* Footer direct contact links. */';
+  const footerContactsRule = `\n${footerContactsMarker}\n.home-footer-contact {\n  margin: .35rem 0;\n}\n.home-footer-contact a {\n  display: inline-flex;\n  min-height: 2rem;\n  align-items: center;\n  color: #fff;\n  font-size: .82rem;\n  font-weight: 650;\n  text-decoration: none;\n}\n.home-footer-contact a:hover {\n  text-decoration: underline;\n  text-underline-offset: .2rem;\n}\n`;
+  if (!css.includes(footerContactsMarker)) css += footerContactsRule;
+
   fs.writeFileSync(cssPath, css, 'utf8');
 }
 
 patchHtml(siteRoot);
 patchHomeCss();
-console.log('Header navigation, catalog alignment, guide heading, expanded company copy, agroblog cleanup and footer link stacking applied.');
+console.log('Header navigation, direct contacts, catalog alignment, guide heading, company copy, agroblog cleanup and footer link stacking applied.');
