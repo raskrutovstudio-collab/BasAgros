@@ -1473,3 +1473,97 @@ body.product-modal-open {
     padding: .42rem .65rem;
   }
 }
+
+/* Lucerne quality: compact two-column section. */
+.product-flow + .product-quality {
+  padding-top: clamp(1.2rem, 1.8vw, 1.55rem);
+}
+
+.product-quality {
+  padding-bottom: clamp(1.25rem, 1.9vw, 1.65rem);
+}
+
+.product-quality .product-commercial-card {
+  gap: 1.25rem 1.8rem;
+  padding: clamp(1rem, 1.7vw, 1.35rem);
+  align-items: start;
+}
+
+.product-quality h2 {
+  font-size: clamp(2rem, 3vw, 2.7rem);
+}
+
+.product-quality .product-commercial-card > div:first-child > p:not(.product-eyebrow) {
+  max-width: 38rem;
+  margin: .55rem 0 .8rem;
+  line-height: 1.45;
+}
+
+.product-quality .product-commercial-links {
+  gap: 0;
+}
+
+.product-quality .product-commercial-links > div {
+  padding: .58rem 0;
+}
+
+.product-quality .product-commercial-links > div:first-child {
+  padding-top: .3rem;
+}
+
+.product-quality .product-commercial-links > div:last-child {
+  padding-bottom: 0;
+}
+
+.product-quality .product-commercial-links svg {
+  width: 1.45rem;
+  height: 1.45rem;
+  margin-bottom: .32rem;
+}
+
+.product-quality .product-commercial-links p {
+  margin: .28rem 0 .45rem;
+  line-height: 1.4;
+}
+
+.product-quality + .product-intro {
+  padding-top: clamp(1.2rem, 1.8vw, 1.55rem);
+}
+
+@media (max-width: 47.99rem) {
+  .product-flow + .product-quality {
+    padding-top: 1rem;
+  }
+
+  .product-quality {
+    padding-bottom: 1rem;
+  }
+
+  .product-quality .product-commercial-card {
+    gap: .85rem;
+    padding: .9rem .8rem;
+  }
+
+  .product-quality h2 {
+    font-size: clamp(1.9rem, 8vw, 2.2rem);
+  }
+
+  .product-quality .product-commercial-links > div {
+    padding: .52rem 0;
+  }
+
+  .product-quality + .product-intro {
+    padding-top: 1rem;
+  }
+}
+
+/* Lucerne agronomy lead inside content column. */
+.product-intro-copy .product-agronomy-lead {
+  margin: 0 0 .85rem;
+}
+
+@media (max-width: 47.99rem) {
+  .product-intro-copy .product-agronomy-lead {
+    margin-bottom: .7rem;
+  }
+}
