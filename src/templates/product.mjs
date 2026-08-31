@@ -53,7 +53,8 @@ function icon(name) {
     spec: '<path d="M7 3h8l4 4v14H7zM15 3v5h5"/><path d="m9.2 12.1 1.3 1.3 3.2-3.3M9.2 17.1 10.5 18.4 13.7 15.1"/>',
     check: '<circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/>',
     bigbag: '<path d="M6.6 9.4h10.8v10.2H6.6z"/><path d="M6.6 9.4 8.2 6.4h7.6l1.6 3"/><path d="M8.4 6.4c0-1.2.6-2 1.4-2s1.4.8 1.4 2M12.8 6.4c0-1.2.6-2 1.4-2s1.4.8 1.4 2"/><path d="M9 13.4h6v3.4H9z"/>',
-    sack: '<path d="M8.2 10.6 7.2 20.4h9.6l-1-9.8"/><path d="M8.2 10.6c0-1.3 1.7-2.3 3.8-2.3s3.8 1 3.8 2.3"/><path d="M9.8 8.4 10.5 5h3l.7 3.4"/><path d="M9.8 8.4h4.4"/>'
+    sack: '<path d="M8.2 10.6 7.2 20.4h9.6l-1-9.8"/><path d="M8.2 10.6c0-1.3 1.7-2.3 3.8-2.3s3.8 1 3.8 2.3"/><path d="M9.8 8.4 10.5 5h3l.7 3.4"/><path d="M9.8 8.4h4.4"/>',
+    request: '<path d="M8 6.4h8v14.2H8z"/><path d="M10 6.4V4.8h4V6.4"/><path d="M10.3 10.4h5.4M10.3 13.6h5.4M10.3 16.8h3.6"/>'
   };
   return `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${icons[name] || icons.check}</g></svg>`;
 }
@@ -220,12 +221,12 @@ function selectionGuide() {
 
 function procurement() {
   const items = [
-    ['Заявка', 'Покупатель указывает необходимый объём и населённый пункт.'],
-    ['Подтверждение партии', 'Менеджер уточняет доступную продукцию и характеристики.'],
-    ['Коммерческое предложение', 'Согласуются цена, фасовка и условия поставки.'],
-    ['Поставка', 'Параметры отгрузки согласовываются по конкретному заказу.']
+    ['request', 'Заявка', 'Покупатель указывает необходимый объём и населённый пункт.'],
+    ['spec', 'Подтверждение партии', 'Менеджер уточняет доступную продукцию и характеристики.'],
+    ['doc', 'Коммерческое предложение', 'Согласуются цена, фасовка и условия поставки.'],
+    ['delivery', 'Поставка', 'Параметры отгрузки согласовываются по конкретному заказу.']
   ];
-  return `<section class="product-section product-specs" aria-labelledby="product-flow-title"><div class="home-wrap product-two-col"><div><p class="product-eyebrow">Закупка</p><h2 id="product-flow-title">Как проходит закупка и поставка</h2><p>Сроки подготовки, оплата и самовывоз не публикуются без подтверждённых условий конкретной поставки.</p></div><ol class="product-flow-list">${items.map(([title, text]) => `<li><strong>${title}</strong><span>${text}</span></li>`).join('')}</ol></div></section>`;
+  return `<section class="product-section product-specs product-flow" aria-labelledby="product-flow-title"><div class="home-wrap product-two-col"><div><p class="product-eyebrow">Закупка</p><h2 id="product-flow-title">Как проходит закупка и поставка</h2><p>Сроки подготовки, оплата и самовывоз не публикуются без подтверждённых условий конкретной поставки.</p></div><ol class="product-flow-list">${items.map(([name, title, text]) => `<li><span class="product-flow-icon">${icon(name)}</span><strong>${title}</strong><span>${text}</span></li>`).join('')}</ol></div></section>`;
 }
 
 function quality(pages) {

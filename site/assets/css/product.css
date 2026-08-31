@@ -1243,3 +1243,141 @@ body.product-modal-open {
     padding: .95rem .9rem 1rem;
   }
 }
+
+/* Lucerne procurement: icons instead of 01–04, compact rhythm. */
+.product-guide:has(+ .product-flow) {
+  padding-bottom: clamp(1.55rem, 2.5vw, 2.1rem);
+}
+
+.product-flow {
+  padding: clamp(1.5rem, 2.4vw, 2.1rem) 0;
+}
+
+.product-flow + .product-commercial {
+  padding-top: clamp(1.55rem, 2.5vw, 2.1rem);
+}
+
+.product-flow .product-two-col {
+  gap: 1.15rem 2.15rem;
+  align-items: start;
+}
+
+.product-flow .product-flow-list {
+  counter-reset: none;
+}
+
+.product-flow .product-flow-list li {
+  display: grid;
+  grid-template-columns: 1.4rem minmax(0, 1fr);
+  column-gap: .65rem;
+  padding: .62rem 0;
+  counter-increment: none;
+}
+
+.product-flow .product-flow-list li::before {
+  content: none;
+}
+
+.product-flow-icon {
+  grid-column: 1;
+  grid-row: 1;
+  display: block;
+  margin-top: .12rem;
+  color: #2f7a4d;
+}
+
+.product-flow-icon svg {
+  display: block;
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+.product-flow .product-flow-list strong {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.product-flow .product-flow-list li > span:not(.product-flow-icon) {
+  grid-column: 2;
+  margin-top: .18rem;
+}
+
+.product-flow .product-flow-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+@media (max-width: 47.99rem) {
+  .product-guide:has(+ .product-flow) {
+    padding-bottom: 1.25rem;
+  }
+
+  .product-flow {
+    padding: 1.25rem 0;
+  }
+
+  .product-flow + .product-commercial {
+    padding-top: 1.25rem;
+  }
+
+  .product-flow .product-two-col {
+    gap: 1rem;
+  }
+
+  .product-flow .product-flow-list li {
+    padding: .55rem 0;
+  }
+}
+
+/* Lucerne party section: no icon, tighter spacing to adjacent sections. */
+.product-commercial[data-lucerne-commercial-flow] {
+  padding-bottom: clamp(1.65rem, 2.4vw, 2.2rem);
+}
+
+.product-party {
+  padding: clamp(.75rem, 1.25vw, 1rem) 0;
+}
+
+.product-party-copy .product-eyebrow {
+  margin-bottom: .25rem;
+}
+
+.product-party-grid {
+  gap: .8rem 2rem;
+}
+
+.product-party + .product-use {
+  padding-top: clamp(1.65rem, 2.4vw, 2.2rem);
+}
+
+@media (max-width: 56.24rem) {
+  .product-commercial[data-lucerne-commercial-flow] {
+    padding-bottom: 1.5rem;
+  }
+
+  .product-party {
+    padding: .7rem 0 .85rem;
+  }
+
+  .product-party + .product-use {
+    padding-top: 1.5rem;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .product-party {
+    padding: .65rem 0 .8rem;
+  }
+}
+
+/* Lucerne use section: wider supporting copy, tighter heading gap. */
+@media (min-width: 64rem) {
+  .product-use .product-section-head {
+    grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+    column-gap: 1.25rem;
+  }
+
+  .product-use .product-section-head > p {
+    max-width: 42rem;
+  }
+}
