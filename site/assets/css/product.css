@@ -1172,3 +1172,74 @@ body.product-modal-open {
     padding: .9rem .85rem .95rem;
   }
 }
+
+/* Lucerne packaging: compact cards with outline icons. */
+.product-use:has(+ .product-packaging) {
+  padding-bottom: clamp(1.55rem, 2.5vw, 2.1rem);
+}
+
+.product-packaging {
+  padding: clamp(1.45rem, 2.3vw, 1.95rem) 0;
+}
+
+.product-packaging + .product-guide {
+  padding-top: clamp(1.55rem, 2.5vw, 2.1rem);
+}
+
+.product-packaging .product-section-head {
+  margin-bottom: 1.05rem;
+}
+
+.product-packaging .product-article-grid article {
+  min-width: 0;
+  padding: 1.1rem 1.15rem 1.15rem;
+  border-color: #c5d6c8;
+  border-radius: .75rem;
+}
+
+.product-pack-icon {
+  display: block;
+  margin: 0 0 .5rem;
+  color: #2f7a4d;
+}
+
+.product-pack-icon svg {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.product-packaging .product-article-grid h3 {
+  margin: 0;
+}
+
+.product-packaging .product-article-grid p {
+  margin: .4rem 0 0;
+  line-height: 1.45;
+}
+
+.product-packaging .product-helper {
+  margin-top: .75rem;
+}
+
+@media (max-width: 47.99rem) {
+  .product-use:has(+ .product-packaging) {
+    padding-bottom: 1.25rem;
+  }
+
+  .product-packaging {
+    padding: 1.2rem 0;
+  }
+
+  .product-packaging + .product-guide {
+    padding-top: 1.25rem;
+  }
+
+  .product-packaging .product-section-head {
+    margin-bottom: .85rem;
+  }
+
+  .product-packaging .product-article-grid article {
+    padding: .95rem .9rem 1rem;
+  }
+}

@@ -51,7 +51,9 @@ function icon(name) {
     delivery: '<path d="M3 7h11v9H3zM14 10h4l3 4v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
     doc: '<path d="M6 3h8l4 4v14H6zM14 3v5h5M9 12h6m-6 4h6"/>',
     spec: '<path d="M7 3h8l4 4v14H7zM15 3v5h5"/><path d="m9.2 12.1 1.3 1.3 3.2-3.3M9.2 17.1 10.5 18.4 13.7 15.1"/>',
-    check: '<circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/>'
+    check: '<circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/>',
+    bigbag: '<path d="M6.6 9.4h10.8v10.2H6.6z"/><path d="M6.6 9.4 8.2 6.4h7.6l1.6 3"/><path d="M8.4 6.4c0-1.2.6-2 1.4-2s1.4.8 1.4 2M12.8 6.4c0-1.2.6-2 1.4-2s1.4.8 1.4 2"/><path d="M9 13.4h6v3.4H9z"/>',
+    sack: '<path d="M8.2 10.6 7.2 20.4h9.6l-1-9.8"/><path d="M8.2 10.6c0-1.3 1.7-2.3 3.8-2.3s3.8 1 3.8 2.3"/><path d="M9.8 8.4 10.5 5h3l.7 3.4"/><path d="M9.8 8.4h4.4"/>'
   };
   return `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${icons[name] || icons.check}</g></svg>`;
 }
@@ -203,7 +205,7 @@ function useCases(pages) {
 }
 
 function packaging() {
-  return `<section class="product-section product-articles" aria-labelledby="product-packaging-title"><div class="home-wrap"><div class="product-section-head"><div><p class="product-eyebrow">Фасовка</p><h2 id="product-packaging-title">Варианты упаковки семян люцерны</h2></div><p>Формат тары можно выбрать или уточнить при оформлении заявки. Фактический вес нетто одной упаковки зависит от партии и согласуется отдельно.</p></div><div class="product-article-grid"><article><h3>БИГ-БЭГ / МКР</h3><p>МКР Л4 Н-140, 95×95 — мягкий контейнер разового использования. Подходит как вариант тары для крупной отгрузки семян.</p></article><article><h3>Полипропиленовый мешок</h3><p>Полипропиленовый мешок 56×110 — альтернативный вариант фасовки для формирования заказа. Количество упаковок рассчитывается по необходимому объёму.</p></article></div><p class="product-helper">Размер тары не означает фиксированный вес семян. Вес нетто и количество мест указываются в параметрах конкретной поставки.</p></div></section>`;
+  return `<section class="product-section product-articles product-packaging" aria-labelledby="product-packaging-title"><div class="home-wrap"><div class="product-section-head"><div><p class="product-eyebrow">Фасовка</p><h2 id="product-packaging-title">Варианты упаковки семян люцерны</h2></div><p>Формат тары можно выбрать или уточнить при оформлении заявки. Фактический вес нетто одной упаковки зависит от партии и согласуется отдельно.</p></div><div class="product-article-grid"><article><span class="product-pack-icon">${icon('bigbag')}</span><h3>БИГ-БЭГ / МКР</h3><p>МКР Л4 Н-140, 95×95 — мягкий контейнер разового использования. Подходит как вариант тары для крупной отгрузки семян.</p></article><article><span class="product-pack-icon">${icon('sack')}</span><h3>Полипропиленовый мешок</h3><p>Полипропиленовый мешок 56×110 — альтернативный вариант фасовки для формирования заказа. Количество упаковок рассчитывается по необходимому объёму.</p></article></div><p class="product-helper">Размер тары не означает фиксированный вес семян. Вес нетто и количество мест указываются в параметрах конкретной поставки.</p></div></section>`;
 }
 
 function selectionGuide() {
