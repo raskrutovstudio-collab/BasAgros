@@ -87,9 +87,13 @@ function patchHomeCss() {
   const footerContactsRule = `\n${footerContactsMarker}\n.home-footer-contact {\n  margin: .35rem 0;\n}\n.home-footer-contact a {\n  display: inline-flex;\n  min-height: 2rem;\n  align-items: center;\n  color: #fff;\n  font-size: .82rem;\n  font-weight: 650;\n  text-decoration: none;\n}\n.home-footer-contact a:hover {\n  text-decoration: underline;\n  text-underline-offset: .2rem;\n}\n`;
   if (!css.includes(footerContactsMarker)) css += footerContactsRule;
 
+  const footerSingleLineMarker = '/* Keep WhatsApp and email on one line in footer. */';
+  const footerSingleLineRule = `\n${footerSingleLineMarker}\n.home-footer-contact a {\n  white-space: nowrap;\n  font-size: .78rem;\n}\n@media (min-width: 48rem) and (max-width: 63.99rem) {\n  .home-footer-grid {\n    grid-template-columns: 1.25fr .9fr 1.15fr;\n    column-gap: 1.5rem;\n  }\n}\n`;
+  if (!css.includes(footerSingleLineMarker)) css += footerSingleLineRule;
+
   fs.writeFileSync(cssPath, css, 'utf8');
 }
 
 patchHtml(siteRoot);
 patchHomeCss();
-console.log('Header navigation, direct contacts, catalog alignment, guide heading, company copy, agroblog cleanup and footer link stacking applied.');
+console.log('Header navigation, direct contacts, single-line footer contacts, catalog alignment, guide heading, company copy, agroblog cleanup and footer link stacking applied.');
