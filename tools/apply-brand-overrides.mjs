@@ -38,16 +38,10 @@ function replaceAudienceIcon(html, title, src) {
 }
 
 function patchGuide(html) {
-  let next = html;
-  next = next.replace(
-    /(<section class="home-section home-guide"[\s\S]*?<h2 id="guide-title">Поможем сориентироваться в каталоге<\/h2>)<p>[\s\S]*?<\/p><ul class="home-guide-markers">[\s\S]*?<\/ul>/,
-    '$1<p>Расскажите о задаче хозяйства и получите подбор семян и смесей с рекомендациями.</p>'
-  );
-  next = next.replace(
+  return html.replace(
     /<form class="home-form home-form-compact" data-lead-form data-form-name="Главная — помощь с выбором" novalidate>[\s\S]*?<\/form>/,
     guideFormMarkup
   );
-  return next;
 }
 
 function patchHtml(dir) {

@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { indexableUrls, isIndexablePage } from '../src/templates/indexing.mjs';
 
 const root = process.cwd();
 const manifestPath = path.join(root, 'src', 'data', 'seo-routes.json');
@@ -136,6 +137,19 @@ for (const [index, page] of pages.entries()) {
   if (page.ready_to_index !== true && page.ready_to_index !== false) {
     fail(`${label}: ready_to_index должен быть boolean`);
   }
+  if (isIndexablePage(page)) {
+    if (page.ready_to_index !== true) {
+      fail(`${label}: готовая к индексации страница должна иметь ready_to_index=true`);
+    }
+    if (page.indexability !== 'index') {
+      fail(`${label}: готовая к индексации страница должна иметь indexability=index`);
+    }
+    if (page.sitemap !== true) {
+      fail(`${label}: готовая к индексации страница должна иметь sitemap=true`);
+    }
+  } else if (page.ready_to_index === true) {
+    fail(`${label}: ready_to_index=true разрешён только точечно открытым страницам`);
+  }
   if (page.ready_to_index !== true) {
     if (page.indexability === 'index') {
       fail(`${label}: indexability=index запрещён, пока ready_to_index=false`);
@@ -178,8 +192,9 @@ for (const [index, page] of pages.entries()) {
   }
 }
 
-if (readyCount !== 0) {
-  fail(`READY_TO_INDEX должен быть 0, сейчас ready_to_index=true у ${readyCount} страниц`);
+const expectedReady = indexableUrls().length;
+if (readyCount !== expectedReady) {
+  fail(`READY_TO_INDEX должен быть ${expectedReady}, сейчас ready_to_index=true у ${readyCount} страниц`);
 }
 
 for (const [priority, expected] of Object.entries(EXPECTED_PRIORITY)) {

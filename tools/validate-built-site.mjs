@@ -2,7 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { GENERATED_MARKER } from '../src/templates/constants.mjs';
 import { breadcrumbsOf } from '../src/templates/html.mjs';
-import { isEtalonProduct, productH1, productRobots, productTitle } from '../src/templates/product.mjs';
+import { isIndexablePage, pageRobots } from '../src/templates/indexing.mjs';
+import { isEtalonProduct, productH1, productTitle } from '../src/templates/product.mjs';
 
 const root = process.cwd();
 const siteRoot = path.join(root, 'site');
@@ -136,9 +137,38 @@ if (pages.length !== EXPECTED_PAGES) {
   fail(`manifest routes: ожидалось ${EXPECTED_PAGES}, сейчас ${pages.length}`);
 }
 
-if (fs.existsSync(path.join(siteRoot, 'sitemap.xml'))) {
+const sitemapPath = path.join(siteRoot, 'sitemap.xml');
+const indexablePages = pages.filter(isIndexablePage);
+if (!fs.existsSync(sitemapPath)) {
   sitemapUrls += 1;
-  fail('найден site/sitemap.xml');
+  fail('нет site/sitemap.xml');
+} else {
+  const sitemap = fs.readFileSync(sitemapPath, 'utf8');
+  const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1].trim());
+  sitemapUrls = locs.length;
+  const expectedLocs = indexablePages.map((page) => page.canonical);
+  if (JSON.stringify(locs.slice().sort()) !== JSON.stringify(expectedLocs.slice().sort())) {
+    fail('sitemap.xml должен содержать только индексируемые URL');
+  }
+  for (const loc of locs) {
+    const page = pages.find((item) => item.canonical === loc);
+    if (!page || !isIndexablePage(page)) {
+      fail(`sitemap.xml содержит закрытый или неизвестный URL ${loc}`);
+    }
+  }
+}
+
+const robotsPath = path.join(siteRoot, 'robots.txt');
+if (!fs.existsSync(robotsPath)) {
+  fail('нет site/robots.txt');
+} else {
+  const robotsTxt = fs.readFileSync(robotsPath, 'utf8');
+  if (!/^User-agent:\s*\*\s*$/m.test(robotsTxt)) fail('robots.txt: нет User-agent: *');
+  if (!/^Allow:\s*\/\s*$/m.test(robotsTxt)) fail('robots.txt: / не должен быть закрыт');
+  if (/^Disallow:\s*\/\s*$/m.test(robotsTxt)) fail('robots.txt: Disallow: / блокирует главную');
+  if (!/^Sitemap:\s*https:\/\/basagros\.kz\/sitemap\.xml\s*$/m.test(robotsTxt)) {
+    fail('robots.txt: нет Sitemap: https://basagros.kz/sitemap.xml');
+  }
 }
 
 const generatedFiles = collectMarkedHtml(siteRoot).map((abs) => path.resolve(abs));
@@ -175,14 +205,14 @@ for (const page of pages) {
 
   const robots = /<meta\b[^>]*name=["']robots["'][^>]*>/i.exec(html);
   const robotsContent = robots ? extractAttr(robots[0], 'content').replace(/\s+/g, '').toLowerCase() : '';
-  const expectedRobots = productRobots(page).replace(/\s+/g, '').toLowerCase();
+  const expectedRobots = pageRobots(page).replace(/\s+/g, '').toLowerCase();
   if (robotsContent !== expectedRobots) {
     indexingErrors += 1;
-    fail(`${label}: ожидался robots ${productRobots(page)}`);
+    fail(`${label}: ожидался robots ${pageRobots(page)}`);
   }
-  if (isEtalonProduct(page) && /noindex|nofollow/i.test(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ''))) {
+  if (isIndexablePage(page) && /noindex|nofollow/i.test(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ''))) {
     indexingErrors += 1;
-    fail(`${label}: на странице люцерны остался noindex или nofollow`);
+    fail(`${label}: на индексируемой странице остался noindex или nofollow`);
   }
 
   if (!html.includes('href="/assets/css/site.css"')) {
@@ -310,6 +340,18 @@ if (fs.existsSync(siteConfigPath)) {
     fail('форма не может быть активна при пустом endpoint');
   }
   const homeHtml = fs.existsSync(routeToFile('/')) ? fs.readFileSync(routeToFile('/'), 'utf8') : '';
+  const homePlaceholders = [
+    'Политика конфиденциальности будет опубликована',
+    'Согласие с политикой конфиденциальности станет доступно',
+    'Отправка станет доступна после подключения',
+    'Отправка будет доступна после подключения формы',
+    'без обещаний агрономической услуги',
+    'Отдельный сертификат на каждый товар не заявляется',
+    'Профессиональные нормы публикуются'
+  ];
+  for (const phrase of homePlaceholders) {
+    if (homeHtml.includes(phrase)) fail(`/: остался production-placeholder «${phrase}»`);
+  }
   if (homeHtml.includes('data-lead-form') && (!enabled || !endpoint)) {
     const submitDisabled =
       /<button\b[^>]*\btype=["']submit["'][^>]*\bdisabled\b/i.test(homeHtml) ||

@@ -1,4 +1,5 @@
 import { escapeHtml, pageByUrl } from './html.mjs';
+import { pageRobots } from './indexing.mjs';
 
 const LUCERNE_URL = '/catalog/mnogoletnie-kormovye-travy/lyutserna/';
 const LUCERNE_IMAGE = 'https://basagros.kz/assets/img/social/lucerne-seeds-1200x630.jpg';
@@ -79,7 +80,7 @@ export function productDescription(page) {
 }
 
 export function productRobots(page) {
-  return isEtalonProduct(page) ? 'index, follow' : 'noindex, nofollow';
+  return pageRobots(page);
 }
 
 export function productFaq() {

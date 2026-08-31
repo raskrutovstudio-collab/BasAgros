@@ -16,6 +16,9 @@ const FOOTER = {
   'Компания': ['/o-kompanii/', '/dostavka-i-oplata/', '/kachestvo-i-sertifikaty/', '/faq/'],
   'Агроблог': ['/agroblog/', '/agroblog/urozhaynost-lyutserny/', '/agroblog/posev-lyutserny/', '/agroblog/viko-ovsyanaya-smes-posev/']
 };
+const PHONE_HREF = 'tel:+77059608987';
+const PHONE_LABEL = '+7 705 960 89 87';
+const CONSENT_TEXT = 'Нажимая кнопку, вы соглашаетесь на обработку персональных данных.';
 
 function block(id) {
   const value = homepage.blocks.find((item) => item.id === id);
@@ -30,8 +33,22 @@ function requirePage(pages, url) {
 function link(url, label, className = '', attributes = '') {
   return `<a href="${escapeHtml(url)}"${className ? ` class="${className}"` : ''}${attributes ? ` ${attributes}` : ''}>${escapeHtml(label)}</a>`;
 }
+function paragraphs(text) {
+  return String(text || '')
+    .split(/\n+/)
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .map((item) => `<p>${escapeHtml(item)}</p>`)
+    .join('');
+}
 function logo() {
   return `<img class="home-logo-image" src="/assets/img/bas-agros-logo.png" width="1342" height="1172" alt="BAS Agros" decoding="async">`;
+}
+function phoneIcon() {
+  return '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M7.3 3.5 9.6 8l-1.8 1.6c1 2.3 2.7 4 5 5l1.7-1.8 4.4 2.3c.5.3.8.8.7 1.4-.3 2.1-1.8 3.5-3.9 3.5C9.2 20 4 14.8 4 8.3c0-2 1.4-3.6 3.5-3.9.6-.1 1.2.2 1.5.7Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+function phoneLink(className) {
+  return `<a href="${PHONE_HREF}" class="${className}" aria-label="Позвонить по номеру ${PHONE_LABEL}">${phoneIcon()}<span>${PHONE_LABEL}</span></a>`;
 }
 function icon(name) {
   const shapes = {
@@ -78,12 +95,15 @@ function navList(items, pages) {
 }
 
 export function homepageDescription() { return homepage.description.text; }
+export function homepageFaq() {
+  return block('faq').items.map((item) => [item.title, item.text]);
+}
 export function renderHomeHeader(page, pages) {
-  return `<header class="home-header"><div class="home-wrap home-header-inner"><a class="home-brand" href="/" aria-label="BAS Agros — главная">${logo()}</a><button class="home-menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" data-menu-toggle><span class="visually-hidden">Открыть меню</span><span aria-hidden="true"></span></button><nav class="home-nav" id="home-navigation" aria-label="Основная навигация" data-mobile-nav><ul>${navList(HEADER, pages)}</ul><div class="home-nav-actions">${link('/o-kompanii/', 'Связаться', 'home-btn home-btn-outline')}${link('#request', 'Оставить заявку', 'home-btn home-btn-primary', 'data-home-modal-intent="request"')}</div></nav></div></header>`;
+  return `<header class="home-header"><div class="home-wrap home-header-inner"><a class="home-brand" href="/" aria-label="BAS Agros — главная">${logo()}</a><button class="home-menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" data-menu-toggle><span class="visually-hidden">Открыть меню</span><span aria-hidden="true"></span></button><nav class="home-nav" id="home-navigation" aria-label="Основная навигация" data-mobile-nav><ul>${navList(HEADER, pages)}</ul><div class="home-nav-actions">${phoneLink('home-btn home-btn-outline')}${link('#request', 'Получить предложение', 'home-btn home-btn-primary', 'data-home-modal-intent="commercial_offer"')}</div></nav></div></header>`;
 }
 export function renderHomeFooter(pages) {
   const cols = Object.entries(FOOTER).map(([heading, urls]) => `<nav aria-label="${heading}"><h2>${heading}</h2><ul>${urls.map((url) => { const p = requirePage(pages, url); return `<li>${link(p.url, p.page_name)}</li>`; }).join('')}</ul></nav>`).join('');
-  return `<footer class="home-footer"><div class="home-wrap home-footer-grid"><div class="home-footer-brand"><a class="home-brand" href="/">${logo()}</a><p>Семена трав, травосмеси и сельскохозяйственные культуры с доставкой по Казахстану.</p></div>${cols}<div><h2>Контакты</h2><p>Связь и параметры поставки согласовываются после обработки заявки.</p>${link('#request', 'Оставить заявку →', 'home-footer-cta')}</div></div><div class="home-wrap home-footer-bottom"><p>© BAS Agros</p><p>Политика конфиденциальности будет опубликована после утверждения.</p></div></footer>`;
+  return `<footer class="home-footer"><div class="home-wrap home-footer-grid"><div class="home-footer-brand"><a class="home-brand" href="/">${logo()}</a><p>Семена трав, травосмеси и сельскохозяйственные культуры с доставкой по Казахстану.</p></div>${cols}<div id="contacts"><h2>Контакты</h2><p>${phoneLink('home-footer-phone')}</p><p>Поставка семян по Казахстану.</p>${link('#request', 'Получить коммерческое предложение →', 'home-footer-cta', 'data-home-modal-intent="commercial_offer"')}</div></div><div class="home-wrap home-footer-bottom"><p>© BAS Agros</p></div></footer>`;
 }
 function botanicalMark() {
   return `<img class="home-botanical" src="/assets/img/home/hero-botanical-accent.png" alt="" aria-hidden="true" width="280" height="707" decoding="async">`;
@@ -92,7 +112,8 @@ function renderHero(page, pages) {
   const data = block('hero');
   if (page.h1 !== data.heading) throw new Error('homepage hero.heading должен совпадать с h1 маршрута');
   const categoryLinks = data.items.map((item) => { requirePage(pages, item.url); return `<li>${link(item.url, `${item.title} →`)}</li>`; }).join('');
-  return `<section class="home-hero" aria-labelledby="home-h1"><div class="home-wrap home-hero-grid"><div class="home-hero-copy"><p class="home-eyebrow">Семена для сельского хозяйства</p><h1 id="home-h1">${escapeHtml(data.heading)}</h1><p class="home-lead">${escapeHtml(data.text)}</p><div class="home-actions">${link(data.links[0].url, data.links[0].label, 'home-btn home-btn-outline')}${link(data.links[1].url, data.links[1].label, 'home-btn home-btn-primary', 'data-home-modal-intent="selection"')}</div></div><div class="home-hero-visual">${mediaSlot('hero', 'home-hero-main')}${mediaSlot('seeds', 'home-hero-detail')}${botanicalMark()}</div><ul class="home-hero-categories">${categoryLinks}</ul></div></section>`;
+  const facts = (data.facts || []).map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+  return `<section class="home-hero" aria-labelledby="home-h1"><div class="home-wrap home-hero-grid"><div class="home-hero-copy"><p class="home-eyebrow">Семена для сельского хозяйства</p><h1 id="home-h1">${escapeHtml(data.heading)}</h1><p class="home-lead">${escapeHtml(data.text)}</p>${facts ? `<ul class="home-hero-facts">${facts}</ul>` : ''}<div class="home-actions">${link(data.links[0].url, data.links[0].label, 'home-btn home-btn-primary', 'data-home-modal-intent="commercial_offer"')}${link(data.links[1].url, data.links[1].label, 'home-btn home-btn-outline')}</div></div><div class="home-hero-visual">${mediaSlot('hero', 'home-hero-main')}${mediaSlot('seeds', 'home-hero-detail')}${botanicalMark()}</div><ul class="home-hero-categories">${categoryLinks}</ul></div></section>`;
 }
 function sectionHead(data, id, aside = '') {
   return `<header class="home-section-head"><div><h2 id="${id}">${escapeHtml(data.heading)}</h2>${data.text ? `<p>${escapeHtml(data.text)}</p>` : ''}</div>${aside}</header>`;
@@ -107,21 +128,23 @@ function renderCatalog(pages) {
   const cards = data.items.map((item) => { requirePage(pages, item.url); return `<article class="home-category${item.featured ? ' home-category-featured' : ''}">${mediaSlot(item.slot)}<div><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>${link(item.url, 'Перейти →')}</div></article>`; }).join('');
   return `<section class="home-section home-catalog" aria-labelledby="catalog-title"><div class="home-wrap">${sectionHead(data, 'catalog-title', link('/catalog/', 'Весь каталог →', 'home-text-link'))}<div class="home-category-grid">${cards}</div></div></section>`;
 }
+function renderCrops(pages) {
+  const data = block('crops');
+  const items = data.items.map((item) => { requirePage(pages, item.url); return `<li>${link(item.url, item.title)}</li>`; }).join('');
+  return `<section class="home-section home-crops" aria-labelledby="crops-title"><div class="home-wrap">${sectionHead(data, 'crops-title')}<ul class="home-crops-list">${items}</ul></div></section>`;
+}
 function renderAudience(pages) {
   const data = block('audience');
   const rows = data.items.map((item) => { requirePage(pages, item.url); return `<li class="home-audience-row"><div class="home-audience-person">${icon(item.icon)}<strong>${escapeHtml(item.title)}</strong></div><span class="home-audience-arrow" aria-hidden="true">→</span><p>${escapeHtml(item.text)}</p><span class="home-audience-arrow" aria-hidden="true">→</span>${link(item.url, item.result)}</li>`; }).join('');
   return `<section class="home-section home-audience" aria-labelledby="audience-title"><div class="home-wrap">${sectionHead(data, 'audience-title')}<div class="home-audience-labels" aria-hidden="true"><span>Кому</span><span>Задача</span><span>Направление каталога</span></div><ul class="home-audience-list">${rows}</ul>${link(data.links[0].url, `${data.links[0].label} →`, 'home-text-link')}</div></section>`;
 }
-function formFields(compact = false) {
-  return `${compact ? `<label>Задача<select name="task"><option value="">Выберите задачу</option><option>Сенокос</option><option>Пастбище</option><option>Медоносный посев</option><option>Сидерация</option></select></label>` : `<label>Имя<input name="name" type="text" autocomplete="name"></label>`}<label>${compact ? 'Категория' : 'Телефон'}${compact ? `<select name="category"><option value="">Выберите категорию</option><option>Травосмеси</option><option>Многолетние травы</option><option>Однолетние травы</option><option>Сорго</option></select>` : `<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required>`}</label><label>${compact ? 'Желаемый объём' : 'Категория или культура'}<input name="${compact ? 'desired_volume' : 'category'}" type="text"></label><label>${compact ? 'Контакт' : 'Желаемый объём'}<input name="${compact ? 'contact' : 'desired_volume'}" type="text"${compact ? ' autocomplete="tel"' : ''}></label>${compact ? '' : `<label class="home-field-wide">Комментарий<textarea name="message" rows="4"></textarea></label><label class="home-consent home-field-wide"><input type="checkbox" name="privacy_consent" disabled><span>Согласие с политикой конфиденциальности станет доступно после публикации утверждённого документа.</span></label>`}<button class="home-btn home-btn-primary" type="submit" disabled aria-disabled="true">Получить предложение</button><p class="home-form-status${compact ? ' home-field-wide' : ''}" data-form-status aria-live="polite">Отправка будет доступна после подключения формы.</p><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">`;
-}
 function renderGuide() {
   const data = block('guide');
-  return `<section class="home-section home-guide" aria-labelledby="guide-title"><div class="home-wrap home-guide-grid"><div><h2 id="guide-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p><ul class="home-guide-markers">${data.items.map((item) => `<li>${escapeHtml(item.title)}</li>`).join('')}</ul></div><form class="home-form home-form-compact" data-lead-form data-form-name="Главная — помощь с выбором" novalidate>${formFields(true)}</form></div></section>`;
+  return `<section class="home-section home-guide" aria-labelledby="guide-title"><div class="home-wrap home-guide-grid"><div><h2 id="guide-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p><ul class="home-guide-markers">${data.items.map((item) => `<li>${escapeHtml(item.title)}</li>`).join('')}</ul></div><form class="home-form home-form-compact" data-lead-form data-form-name="Главная — подбор семян под задачу"><label for="guide-task">Задача хозяйства<select id="guide-task" name="task"><option value="">Выберите задачу</option><option value="Сенокос">Сенокос</option><option value="Пастбище">Пастбище</option><option value="Медоносный посев">Медоносный посев</option><option value="Сидерация">Сидерация</option></select></label><label for="guide-category">Категория<select id="guide-category" name="category"><option value="">Выберите категорию</option><option value="Травосмеси">Травосмеси</option><option value="Многолетние травы">Многолетние травы</option><option value="Однолетние травы">Однолетние травы</option><option value="Сорго">Сорго</option></select></label><label for="guide-sowing-area">Площадь посева<input id="guide-sowing-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label><label for="guide-desired-volume">Планируемый объём<input id="guide-desired-volume" name="desired_volume" type="text" placeholder="Например, 2 тонны"></label><label for="guide-delivery-locality">Регион / место доставки<input id="guide-delivery-locality" name="delivery_locality" type="text" autocomplete="address-level2" placeholder="Населённый пункт"></label><label for="guide-phone">Телефон<input id="guide-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label><input type="hidden" name="intent" value="seed_selection"><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="home-btn home-btn-primary" type="submit">Подобрать семена под задачу</button><p class="home-guide-consent home-field-wide">${escapeHtml(CONSENT_TEXT)}</p><div class="home-form-status home-field-wide" data-form-status aria-live="polite" aria-atomic="true"></div></form></div></section>`;
 }
 function renderAbout(pages) {
   const data = block('about'); data.links.forEach((x) => requirePage(pages, x.url));
-  return `<section class="home-section home-about" aria-labelledby="about-title"><div class="home-wrap"><div class="home-about-grid"><div class="home-about-collage">${mediaSlot('warehouse', 'home-about-main')}${mediaSlot('seeds')}${mediaSlot('shipping')}</div><div class="home-about-copy"><h2 id="about-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p><div class="home-actions">${link(data.links[0].url, data.links[0].label, 'home-btn home-btn-outline')}${link(data.links[1].url, data.links[1].label, 'home-btn home-btn-primary')}</div></div></div><ul class="home-trust">${data.items.map((item) => `<li>${trustIcon(item.title)}<div><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></div></li>`).join('')}</ul></div></section>`;
+  return `<section class="home-section home-about" aria-labelledby="about-title"><div class="home-wrap"><div class="home-about-grid"><div class="home-about-collage">${mediaSlot('warehouse', 'home-about-main')}${mediaSlot('seeds')}${mediaSlot('shipping')}</div><div class="home-about-copy"><h2 id="about-title">${escapeHtml(data.heading)}</h2>${paragraphs(data.text)}<div class="home-actions">${link(data.links[0].url, data.links[0].label, 'home-btn home-btn-outline')}${link(data.links[1].url, data.links[1].label, 'home-btn home-btn-primary')}</div></div></div><ul class="home-trust">${data.items.map((item) => `<li>${trustIcon(item.title)}<div><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></div></li>`).join('')}</ul></div></section>`;
 }
 function renderDeliveryQuality(pages) {
   const delivery = block('delivery'); const quality = block('quality'); requirePage(pages, delivery.links[0].url); requirePage(pages, quality.links[0].url);
@@ -129,7 +152,7 @@ function renderDeliveryQuality(pages) {
 }
 function renderArticles(pages) {
   const data = block('articles');
-  const cards = data.items.map((item) => { requirePage(pages, item.url); return `<article class="home-article">${mediaSlot(item.slot)}<div><p class="home-eyebrow">Агроблог</p><h3>${link(item.url, item.title)}</h3><p>${escapeHtml(item.text)}</p></div></article>`; }).join('');
+  const cards = data.items.map((item) => { requirePage(pages, item.url); return `<article class="home-article">${mediaSlot(item.slot)}<div><h3>${link(item.url, item.title)}</h3><p>${escapeHtml(item.text)}</p></div></article>`; }).join('');
   return `<section class="home-section home-articles" aria-labelledby="articles-title"><div class="home-wrap">${sectionHead(data, 'articles-title', link(data.links[0].url, `${data.links[0].label} →`, 'home-text-link'))}<div class="home-article-grid">${cards}</div></div></section>`;
 }
 function renderFaq(pages) {
@@ -138,7 +161,7 @@ function renderFaq(pages) {
 }
 function renderRequest() {
   const data = block('request');
-  return `<section class="home-section home-request" id="request" aria-labelledby="request-title"><div class="home-wrap home-request-grid"><div><p class="home-eyebrow">Заявка</p><h2 id="request-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p></div><form class="home-form" data-lead-form data-form-name="Главная — заявка" novalidate>${formFields()}</form></div></section>`;
+  return `<section class="home-section home-request" id="request" aria-labelledby="request-title"><div class="home-wrap home-request-grid"><div><p class="home-eyebrow">Коммерческое предложение</p><h2 id="request-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p></div><form class="home-form" data-lead-form data-form-name="Главная — коммерческое предложение"><label for="request-name">Имя<input id="request-name" name="name" type="text" autocomplete="name"></label><label for="request-phone">Телефон<input id="request-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label><label for="request-category">Категория или культура<input id="request-category" name="category" type="text" placeholder="Например, люцерна"></label><label for="request-sowing-area">Площадь посева<input id="request-sowing-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label><label for="request-desired-volume">Планируемый объём<input id="request-desired-volume" name="desired_volume" type="text" placeholder="Например, 2 тонны"></label><label for="request-delivery-locality">Населённый пункт доставки<input id="request-delivery-locality" name="delivery_locality" type="text" autocomplete="address-level2" placeholder="Населённый пункт"></label><label class="home-field-wide" for="request-message">Комментарий<textarea id="request-message" name="message" rows="4" placeholder="Дополнительные параметры заказа"></textarea></label><input type="hidden" name="intent" value="commercial_offer"><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><p class="home-guide-consent home-field-wide">${escapeHtml(CONSENT_TEXT)}</p><button class="home-btn home-btn-primary" type="submit">Получить коммерческое предложение</button><div class="home-form-status home-field-wide" data-form-status aria-live="polite" aria-atomic="true"></div></form></div></section>`;
 }
 function renderHomeModal() {
   return `<dialog class="home-modal" data-home-modal aria-labelledby="home-modal-title" aria-describedby="home-modal-description">
@@ -147,23 +170,24 @@ function renderHomeModal() {
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
       </button>
       <p class="home-eyebrow">Заявка</p>
-      <h2 id="home-modal-title" data-home-modal-title>Оставить заявку</h2>
-      <p id="home-modal-description" class="home-modal-description" data-home-modal-description>Укажите контактные данные и интересующую культуру. Менеджер свяжется с вами для уточнения параметров заявки.</p>
-      <form class="home-form home-modal-form" data-lead-form data-form-name="Главная — модальное окно — общая заявка">
+      <h2 id="home-modal-title" data-home-modal-title>Получить коммерческое предложение</h2>
+      <p id="home-modal-description" class="home-modal-description" data-home-modal-description>Укажите культуру, объём и населённый пункт доставки. Менеджер подготовит коммерческий расчёт под параметры заказа.</p>
+      <form class="home-form home-modal-form" data-lead-form data-form-name="Главная — модальное окно — коммерческое предложение">
         <label for="home-modal-name">Имя<input id="home-modal-name" name="name" type="text" autocomplete="name"></label>
         <label for="home-modal-phone">Телефон<input id="home-modal-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label>
         <label for="home-modal-category"><span data-home-modal-category-label>Категория или культура</span><input id="home-modal-category" name="category" type="text" data-home-modal-category placeholder="Например, люцерна или травосмесь"></label>
         <label for="home-modal-area">Площадь посева<input id="home-modal-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label>
-        <label class="home-modal-message" for="home-modal-message"><span data-home-modal-message-label>Комментарий</span><textarea id="home-modal-message" name="message" rows="3" data-home-modal-message placeholder="Например, нужный объём и место доставки"></textarea></label>
+        <label class="home-modal-message" for="home-modal-message"><span data-home-modal-message-label>Объём и место доставки</span><textarea id="home-modal-message" name="message" rows="3" data-home-modal-message placeholder="Например, 2 тонны, Акмолинская область"></textarea></label>
+        <input type="hidden" name="intent" value="commercial_offer" data-home-modal-intent-field>
         <input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <p class="home-modal-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
-        <button class="home-btn home-btn-primary" type="submit" disabled aria-disabled="true" data-home-modal-submit>Отправить заявку</button>
-        <div class="home-form-status" data-form-status aria-live="polite" aria-atomic="true">Отправка будет доступна после подключения формы.</div>
+        <p class="home-modal-note">${escapeHtml(CONSENT_TEXT)}</p>
+        <button class="home-btn home-btn-primary" type="submit" data-home-modal-submit>Получить коммерческое предложение</button>
+        <div class="home-form-status" data-form-status aria-live="polite" aria-atomic="true"></div>
       </form>
     </div>
   </dialog>`;
 }
 export function renderHomepage(page, pages) {
   HEADER_NAV_URLS.forEach((url) => requirePage(pages, url));
-  return [renderHero(page, pages), renderSolutions(pages), renderCatalog(pages), renderAudience(pages), renderGuide(), renderAbout(pages), renderDeliveryQuality(pages), renderArticles(pages), renderFaq(pages), renderRequest(), renderHomeModal()].join('\n');
+  return [renderHero(page, pages), renderSolutions(pages), renderCatalog(pages), renderCrops(pages), renderAudience(pages), renderGuide(), renderAbout(pages), renderDeliveryQuality(pages), renderArticles(pages), renderFaq(pages), renderRequest(), renderHomeModal()].join('\n');
 }

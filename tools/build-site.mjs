@@ -2,6 +2,7 @@ import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { GENERATED_MARKER } from '../src/templates/constants.mjs';
+import { isIndexablePage } from '../src/templates/indexing.mjs';
 import { renderDocument } from '../src/templates/layout.mjs';
 import { renderMain } from '../src/templates/render-body.mjs';
 import { assertKnownTypes } from '../src/templates/types.mjs';
@@ -114,4 +115,19 @@ writeUtf8(
   `${JSON.stringify(inventory, null, 2)}\n`
 );
 
-console.log(`Сборка сайта: ${pages.length} HTML-страниц из seo-routes.json`);
+const sitemapUrls = pages.filter(isIndexablePage).map((page) => page.canonical);
+const sitemapXml = [
+  '<?xml version="1.0" encoding="UTF-8"?>',
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  ...sitemapUrls.map((loc) => `  <url>\n    <loc>${loc}</loc>\n  </url>`),
+  '</urlset>',
+  ''
+].join('\n');
+fs.writeFileSync(path.join(siteRoot, 'sitemap.xml'), sitemapXml, 'utf8');
+fs.writeFileSync(
+  path.join(siteRoot, 'robots.txt'),
+  'User-agent: *\nAllow: /\n\nSitemap: https://basagros.kz/sitemap.xml\n',
+  'utf8'
+);
+
+console.log(`Сборка сайта: ${pages.length} HTML-страниц из seo-routes.json; sitemap: ${sitemapUrls.length} URL`);

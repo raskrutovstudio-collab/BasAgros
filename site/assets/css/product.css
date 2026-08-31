@@ -1567,3 +1567,11 @@ body.product-modal-open {
     margin-bottom: .7rem;
   }
 }
+
+/* Lucerne page: square corners everywhere. */
+.page-lucerne-square,
+.page-lucerne-square *,
+.page-lucerne-square *::before,
+.page-lucerne-square *::after {
+  border-radius: 0 !important;
+}
