@@ -1,0 +1,7 @@
+/* Homepage only: all UI elements use square corners. */
+.page-home-main,
+.page-home-main *,
+.page-home-main *::before,
+.page-home-main *::after {
+  border-radius: 0 !important;
+}
