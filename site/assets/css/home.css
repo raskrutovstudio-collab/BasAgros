@@ -1026,3 +1026,43 @@ body.home-modal-open { overflow: hidden; }
   display: block;
   width: 100%;
 }
+
+/* Three catalog cards share one image frame; sorghum is the size reference. */
+.home-category:not(.home-category-featured) .home-media {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+.home-category:not(.home-category-featured) .home-media picture,
+.home-category:not(.home-category-featured) .home-media img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.home-category [data-asset-slot="lyutserna"] img {
+  object-position: center 58%;
+}
+.home-category [data-asset-slot="fatseliya"] img {
+  object-position: center 72%;
+}
+.home-category [data-asset-slot="sorgo"] img {
+  object-position: center 42%;
+}
+
+@media (max-width: 47.99rem) {
+  .home-category:not(.home-category-featured) .home-media {
+    align-self: start;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+  }
+}
