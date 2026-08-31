@@ -10,6 +10,12 @@ if (!fs.existsSync(cssPath)) throw new Error('Не найден product.css');
 
 let html = fs.readFileSync(pagePath, 'utf8');
 
+const qualityCopy = 'По выбранной партии предоставляются характеристики семян и перечень сопровождающих документов для согласования поставки.';
+const qualityCopyBroken = 'По выбранной партии предоставляются характеристики семян и<br>перечень сопровождающих документов для согласования поставки.';
+if (html.includes(qualityCopy)) {
+  html = html.replace(qualityCopy, qualityCopyBroken);
+}
+
 const agronomyLead = 'Для уверенного старта люцерне нужны глубокая хорошо дренированная почва, плотное посевное ложе, точная глубина заделки и хороший контакт семян с почвой.';
 const agronomyLeadParagraph = `<p>${agronomyLead}</p>`;
 const agronomyCopyOpen = '<div class="product-intro-copy">';
@@ -36,4 +42,4 @@ if (!css.includes(marker)) {
   fs.writeFileSync(cssPath, css, 'utf8');
 }
 
-console.log('Lucerne agronomy lead moved into the content column.');
+console.log('Lucerne quality copy line break and agronomy lead placement applied.');
