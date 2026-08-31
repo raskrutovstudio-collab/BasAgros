@@ -151,9 +151,10 @@ ${GENERATED_MARKER}
   <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home.css?v=20260831-7">
+  <link rel="stylesheet" href="/assets/css/home-square.css?v=20260831-1">
   <script type="application/ld+json">${structuredData}</script>
 </head>
-<body class="page-home">
+<body class="page-home page-home-main">
   <a class="skip-link" href="#main">Перейти к содержанию</a>
 ${renderHomeHeader(page, pages)}
   <main id="main">
