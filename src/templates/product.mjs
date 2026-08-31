@@ -50,6 +50,7 @@ function icon(name) {
     stock: '<path d="M4 8.5 12 4l8 4.5V18l-8 4-8-4V8.5Z"/><path d="m4 8.5 8 4 8-4M12 12.5V22"/>',
     delivery: '<path d="M3 7h11v9H3zM14 10h4l3 4v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
     doc: '<path d="M6 3h8l4 4v14H6zM14 3v5h5M9 12h6m-6 4h6"/>',
+    spec: '<path d="M7 3h8l4 4v14H7zM15 3v5h5"/><path d="m9.2 12.1 1.3 1.3 3.2-3.3M9.2 17.1 10.5 18.4 13.7 15.1"/>',
     check: '<circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/>'
   };
   return `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${icons[name] || icons.check}</g></svg>`;
@@ -181,10 +182,11 @@ function commercial(pages) {
 
 function partySpecs() {
   const rows = confirmedPartyRows(PARTY_DATA);
-  const body = rows.length
+  const requestItems = ['Сорт', 'Репродукция', 'Год урожая', 'Чистота и всхожесть', 'Фасовка', 'Документы'];
+  const cardBody = rows.length
     ? `<dl class="product-spec-list product-spec-list-compact">${rows.join('')}</dl>`
-    : `<div><p>Сорт, репродукция, год урожая, показатели чистоты и всхожести и сведения по документам зависят от доступной партии и подтверждаются перед поставкой.</p><a class="home-btn home-btn-outline" href="#request" data-product-modal-intent="party_characteristics">Запросить характеристики партии</a></div>`;
-  return `<section class="product-section product-specs product-specs-compact" aria-labelledby="product-party-title"><div class="home-wrap product-two-col"><div><p class="product-eyebrow">Партия</p><h2 id="product-party-title">Характеристики конкретной партии</h2><p>Технические параметры относятся к предлагаемой партии, а не к универсальному описанию культуры.</p></div>${body}</div></section>`;
+    : `<ul class="product-party-list">${requestItems.map((item) => `<li>${icon('check')}<span>${item}</span></li>`).join('')}</ul>`;
+  return `<section class="product-section product-party" data-lucerne-party-card aria-labelledby="product-party-title"><div class="home-wrap product-party-grid"><div class="product-party-copy"><p class="product-eyebrow">Партия</p><span class="product-party-icon">${icon('spec')}</span><h2 id="product-party-title">Характеристики конкретной партии</h2><p>При закупке семян важны подтверждённые параметры конкретной партии: сорт, репродукция, год урожая, показатели качества и фасовка.</p></div><div class="product-party-card"><p class="product-party-card-label">Что можно получить</p><p>BAS Agros подбирает доступную партию под необходимый объём и передаёт её подтверждённые характеристики.</p>${cardBody}<a class="home-btn home-btn-outline" href="#request" data-product-modal-intent="party_characteristics">Запросить характеристики партии</a></div></div></section>`;
 }
 
 function useCases(pages) {
