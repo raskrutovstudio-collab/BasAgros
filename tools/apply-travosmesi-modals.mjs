@@ -21,6 +21,11 @@ html = html.replace(
   '<a href="#mix-request" data-mix-modal-trigger="commercial"$1>'
 );
 
+html = html.replace(
+  /\/assets\/css\/travosmesi\.css\?v=[^"']+/g,
+  '/assets/css/travosmesi.css?v=20260901-6'
+);
+
 if (!html.includes(marker)) {
   const modals = `
 <div ${marker}>
