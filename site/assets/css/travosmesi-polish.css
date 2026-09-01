@@ -1,0 +1,604 @@
+/* Travosmesi hub — visual polish layer. Keeps the approved BAS Agros language and square geometry. */
+.page-travosmesi {
+  --mix-dark: #143c29;
+  --mix-green: #2f7a4d;
+  --mix-sage: #e8eee5;
+  --mix-soft: #f4f6f1;
+  --mix-line: #d5ddd6;
+  --mix-text: #203028;
+}
+
+.page-travosmesi .mix-section {
+  padding-block: clamp(3.4rem, 5.6vw, 5.25rem);
+}
+
+/* HERO */
+.page-travosmesi .mix-hero {
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, #fff 0%, #fff 54%, #eef3ec 54%, #eef3ec 100%);
+}
+
+.page-travosmesi .mix-breadcrumbs {
+  padding-block: .9rem;
+  border-bottom-color: #e3e8e2;
+}
+
+.page-travosmesi .mix-hero-grid {
+  position: relative;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  min-height: 38rem;
+  border-bottom: 0;
+}
+
+.page-travosmesi .mix-hero-copy {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3.5rem, 6vw, 5.8rem) clamp(2.4rem, 5.5vw, 5rem) clamp(3.3rem, 5vw, 4.8rem) 0;
+}
+
+.page-travosmesi .mix-hero-copy::before {
+  content: '';
+  width: 4.5rem;
+  height: 2px;
+  margin-bottom: 1.3rem;
+  background: var(--mix-green);
+}
+
+.page-travosmesi .mix-hero h1 {
+  max-width: 31rem;
+  font-size: clamp(3.4rem, 5.5vw, 5.25rem);
+  letter-spacing: -.06em;
+}
+
+.page-travosmesi .mix-lead {
+  max-width: 35rem;
+  margin-block: 1.35rem 1.65rem;
+  font-size: clamp(1rem, 1.2vw, 1.08rem);
+  line-height: 1.62;
+}
+
+.page-travosmesi .mix-hero .home-actions {
+  gap: .7rem;
+}
+
+.page-travosmesi .mix-hero .home-btn {
+  min-height: 3.15rem;
+  padding-inline: 1.15rem;
+}
+
+.page-travosmesi .mix-hero-facts {
+  gap: 0;
+  margin-top: 1.7rem;
+  padding-top: 0;
+  border-top: 0;
+  border-left: 1px solid var(--mix-line);
+}
+
+.page-travosmesi .mix-hero-facts li {
+  min-height: 3.45rem;
+  padding: .7rem .9rem .7rem 1.2rem;
+  border-top: 1px solid var(--mix-line);
+  border-right: 1px solid var(--mix-line);
+  border-bottom: 1px solid var(--mix-line);
+  background: rgba(247, 248, 243, .72);
+  font-size: .82rem;
+}
+
+.page-travosmesi .mix-hero-facts li::before {
+  left: .7rem;
+  width: .3rem;
+  height: .3rem;
+}
+
+.page-travosmesi .mix-hero-media {
+  position: relative;
+  min-height: 38rem;
+  margin: 1.5rem 0 1.5rem 1.35rem;
+  border: clamp(.55rem, .9vw, .85rem) solid #dfe8dd;
+  background: #dfe8dd;
+  box-shadow: 0 1.5rem 3.5rem rgba(20, 60, 41, .12);
+}
+
+.page-travosmesi .mix-hero-media::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 28%;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(15, 55, 35, .16));
+}
+
+.page-travosmesi .mix-hero-image img {
+  transform: scale(1.025);
+  transition: transform .7s ease;
+}
+
+/* SECTION HEADS */
+.page-travosmesi .mix-section-head {
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, .8fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: end;
+  margin-bottom: 2.2rem;
+  padding-bottom: 1.3rem;
+  border-bottom: 1px solid var(--mix-line);
+}
+
+.page-travosmesi .mix-section-head h2,
+.page-travosmesi .mix-two-col h2,
+.page-travosmesi .mix-commercial h2,
+.page-travosmesi .mix-request h2 {
+  max-width: 38rem;
+  font-size: clamp(2.25rem, 3.4vw, 3.2rem);
+  letter-spacing: -.045em;
+}
+
+/* PRODUCT EDITORIAL GRID */
+.page-travosmesi .mix-products {
+  background: #fff;
+}
+
+.page-travosmesi .mix-product-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1.15rem;
+  border: 0;
+  background: transparent;
+}
+
+.page-travosmesi .mix-card {
+  position: relative;
+  grid-column: span 4;
+  overflow: hidden;
+  border: 1px solid var(--mix-line);
+  background: #fff;
+  box-shadow: 0 .85rem 2rem rgba(23, 55, 37, .055);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+.page-travosmesi .mix-card:nth-child(1) { grid-column: span 7; }
+.page-travosmesi .mix-card:nth-child(2) { grid-column: span 5; }
+
+.page-travosmesi .mix-card::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--mix-green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .22s ease;
+}
+
+.page-travosmesi .mix-card:hover {
+  transform: translateY(-3px);
+  border-color: #bccbbe;
+  box-shadow: 0 1.2rem 2.6rem rgba(23, 55, 37, .095);
+}
+
+.page-travosmesi .mix-card:hover::after {
+  transform: scaleX(1);
+}
+
+.page-travosmesi .mix-card-media {
+  aspect-ratio: 16 / 10;
+  border-bottom: .5rem solid var(--mix-sage);
+  background: var(--mix-sage);
+}
+
+.page-travosmesi .mix-card:nth-child(1) .mix-card-media,
+.page-travosmesi .mix-card:nth-child(2) .mix-card-media {
+  aspect-ratio: 16 / 8.6;
+}
+
+.page-travosmesi .mix-card-media img {
+  transition: transform .45s ease;
+}
+
+.page-travosmesi .mix-card:hover .mix-card-media img {
+  transform: scale(1.035);
+}
+
+.page-travosmesi .mix-card-body {
+  padding: 1.25rem 1.3rem 1.35rem;
+}
+
+.page-travosmesi .mix-card-body strong {
+  max-width: 24rem;
+  font-size: clamp(1.08rem, 1.45vw, 1.28rem);
+  line-height: 1.2;
+}
+
+.page-travosmesi .mix-card-body > span {
+  max-width: 32rem;
+  margin-top: .65rem;
+}
+
+.page-travosmesi .mix-card-body b {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding-top: 1.15rem;
+  transition: transform .2s ease;
+}
+
+.page-travosmesi .mix-card:hover .mix-card-body b {
+  transform: translateX(4px);
+}
+
+/* CHOICE SECTION */
+.page-travosmesi .mix-criteria {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(120deg, #113a26 0%, #173f2c 62%, #1d4a33 100%);
+}
+
+.page-travosmesi .mix-criteria::after {
+  content: '';
+  position: absolute;
+  top: -12rem;
+  right: -9rem;
+  width: 28rem;
+  height: 28rem;
+  border: 1px solid rgba(255,255,255,.08);
+  transform: rotate(18deg);
+  pointer-events: none;
+}
+
+.page-travosmesi .mix-criteria .home-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.page-travosmesi .mix-criteria .mix-two-col > div {
+  position: sticky;
+  top: 6.5rem;
+}
+
+.page-travosmesi .mix-criteria-list {
+  display: grid;
+  gap: .65rem;
+}
+
+.page-travosmesi .mix-criteria-list li {
+  grid-template-columns: 1.1rem minmax(10rem, .7fr) minmax(0, 1.3fr);
+  gap: 1rem;
+  padding: 1.15rem 1.2rem;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.035);
+}
+
+.page-travosmesi .mix-criteria-list li:last-child {
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+
+.page-travosmesi .mix-criteria-list li::before {
+  content: '';
+  width: .55rem;
+  height: .55rem;
+  margin-top: .34rem;
+  background: #80bd96;
+}
+
+.page-travosmesi .mix-criteria-list strong {
+  font-size: 1.02rem;
+}
+
+/* COMPARISON */
+.page-travosmesi .mix-compare {
+  background: var(--mix-soft);
+}
+
+.page-travosmesi .mix-compare-table {
+  overflow: hidden;
+  border: 1px solid var(--mix-line);
+  border-top: 3px solid var(--mix-dark);
+  background: #fff;
+}
+
+.page-travosmesi .mix-compare-row {
+  padding-inline: 1.15rem;
+  transition: background .18s ease;
+}
+
+.page-travosmesi .mix-compare-row:not(.mix-compare-header):hover {
+  background: #f3f6f1;
+}
+
+.page-travosmesi .mix-compare-header {
+  background: #edf2eb;
+}
+
+.page-travosmesi .mix-compare-row a {
+  text-decoration-thickness: 1px;
+}
+
+/* COMMERCIAL FOCAL BLOCK */
+.page-travosmesi .mix-commercial {
+  background: #fff;
+}
+
+.page-travosmesi .mix-commercial-card {
+  position: relative;
+  grid-template-columns: minmax(0, 1.15fr) minmax(19rem, .85fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  overflow: hidden;
+  padding: clamp(2rem, 4vw, 3.2rem);
+  border: 0;
+  background: var(--mix-dark);
+  box-shadow: 0 1.4rem 3.2rem rgba(20, 60, 41, .13);
+}
+
+.page-travosmesi .mix-commercial-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: .35rem;
+  height: 100%;
+  background: #7fb58f;
+}
+
+.page-travosmesi .mix-commercial-card h2,
+.page-travosmesi .mix-commercial-card .home-eyebrow {
+  color: #fff;
+}
+
+.page-travosmesi .mix-commercial-card > div:first-child > p:not(.home-eyebrow) {
+  color: #d7e4da;
+  line-height: 1.6;
+}
+
+.page-travosmesi .mix-commercial-card .home-btn-primary {
+  border-color: #fff;
+  background: #fff;
+  color: var(--mix-dark);
+}
+
+.page-travosmesi .mix-commercial-links a {
+  min-height: 6.6rem;
+  padding: 1rem .2rem;
+  border-color: rgba(255,255,255,.18);
+}
+
+.page-travosmesi .mix-commercial-links strong {
+  color: #fff;
+  font-size: 1rem;
+}
+
+.page-travosmesi .mix-commercial-links span {
+  color: #c9d9ce;
+}
+
+/* FINAL REQUEST */
+.page-travosmesi .mix-request {
+  background: #eef3ec;
+}
+
+.page-travosmesi .mix-request-grid {
+  align-items: center;
+}
+
+.page-travosmesi .mix-request-grid > div {
+  padding-right: clamp(0rem, 3vw, 2rem);
+}
+
+.page-travosmesi .mix-request-grid > div::before {
+  content: '';
+  display: block;
+  width: 4.5rem;
+  height: 2px;
+  margin-bottom: 1.2rem;
+  background: var(--mix-green);
+}
+
+.page-travosmesi .mix-form {
+  gap: .85rem;
+  padding: clamp(1.1rem, 2vw, 1.45rem);
+  border: 1px solid #cdd8cf;
+  background: #fff;
+  box-shadow: 0 1rem 2.5rem rgba(20, 60, 41, .07);
+}
+
+.page-travosmesi .mix-form input,
+.page-travosmesi .mix-form select,
+.page-travosmesi .mix-form textarea {
+  border-color: #c8d2ca;
+  background: #fbfcfa;
+}
+
+.page-travosmesi .mix-form input:focus,
+.page-travosmesi .mix-form select:focus,
+.page-travosmesi .mix-form textarea:focus {
+  border-color: var(--mix-green);
+  outline: 2px solid rgba(47, 122, 77, .14);
+  outline-offset: 0;
+}
+
+.page-travosmesi .mix-form .home-btn {
+  min-height: 3.15rem;
+}
+
+@media (max-width: 63.99rem) {
+  .page-travosmesi .mix-hero {
+    background: linear-gradient(90deg, #fff 0%, #fff 50%, #eef3ec 50%, #eef3ec 100%);
+  }
+
+  .page-travosmesi .mix-hero-grid {
+    min-height: 31rem;
+  }
+
+  .page-travosmesi .mix-hero-media {
+    min-height: 31rem;
+    margin-left: .75rem;
+  }
+
+  .page-travosmesi .mix-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .page-travosmesi .mix-card,
+  .page-travosmesi .mix-card:nth-child(1),
+  .page-travosmesi .mix-card:nth-child(2) {
+    grid-column: auto;
+  }
+
+  .page-travosmesi .mix-card:nth-child(1) .mix-card-media,
+  .page-travosmesi .mix-card:nth-child(2) .mix-card-media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .page-travosmesi .mix-card:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .page-travosmesi .mix-card:last-child .mix-card-link {
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+  }
+
+  .page-travosmesi .mix-card:last-child .mix-card-media {
+    min-height: 15rem;
+    aspect-ratio: auto;
+  }
+
+  .page-travosmesi .mix-section-head {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .page-travosmesi .mix-criteria .mix-two-col > div {
+    position: static;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .page-travosmesi .mix-section {
+    padding-block: 2.65rem;
+  }
+
+  .page-travosmesi .mix-hero {
+    background: #fff;
+  }
+
+  .page-travosmesi .mix-hero-grid {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .page-travosmesi .mix-hero-copy {
+    padding: 2.5rem 0 1.6rem;
+  }
+
+  .page-travosmesi .mix-hero h1 {
+    font-size: clamp(2.8rem, 14vw, 3.8rem);
+  }
+
+  .page-travosmesi .mix-hero-facts {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .page-travosmesi .mix-hero-media {
+    min-height: 0;
+    margin: 0 0 1.15rem;
+    aspect-ratio: 16 / 10;
+    border-width: .5rem;
+  }
+
+  .page-travosmesi .mix-section-head,
+  .page-travosmesi .mix-two-col,
+  .page-travosmesi .mix-commercial-card,
+  .page-travosmesi .mix-request-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .page-travosmesi .mix-section-head {
+    margin-bottom: 1.35rem;
+    padding-bottom: 1rem;
+  }
+
+  .page-travosmesi .mix-product-grid {
+    grid-template-columns: 1fr;
+    gap: .85rem;
+  }
+
+  .page-travosmesi .mix-card,
+  .page-travosmesi .mix-card:last-child {
+    grid-column: auto;
+  }
+
+  .page-travosmesi .mix-card-link,
+  .page-travosmesi .mix-card:last-child .mix-card-link {
+    display: grid;
+    grid-template-columns: 40% 60%;
+  }
+
+  .page-travosmesi .mix-card-media,
+  .page-travosmesi .mix-card:nth-child(1) .mix-card-media,
+  .page-travosmesi .mix-card:nth-child(2) .mix-card-media,
+  .page-travosmesi .mix-card:last-child .mix-card-media {
+    height: 100%;
+    min-height: 10.5rem;
+    aspect-ratio: auto;
+    border-right: .4rem solid var(--mix-sage);
+    border-bottom: 0;
+  }
+
+  .page-travosmesi .mix-card-body {
+    padding: .9rem;
+  }
+
+  .page-travosmesi .mix-card-body > span {
+    font-size: .79rem;
+  }
+
+  .page-travosmesi .mix-card:hover {
+    transform: none;
+  }
+
+  .page-travosmesi .mix-criteria-list li {
+    grid-template-columns: 1rem 1fr;
+    gap: .35rem .7rem;
+    padding: 1rem;
+  }
+
+  .page-travosmesi .mix-criteria-list li::before {
+    grid-row: 1 / 3;
+  }
+
+  .page-travosmesi .mix-criteria-list span {
+    grid-column: 2;
+  }
+
+  .page-travosmesi .mix-compare-table {
+    border-top-width: 2px;
+  }
+
+  .page-travosmesi .mix-commercial-card {
+    padding: 1.35rem 1rem 1.2rem 1.25rem;
+  }
+
+  .page-travosmesi .mix-form {
+    grid-template-columns: 1fr;
+    padding: .9rem;
+  }
+
+  .page-travosmesi .mix-field-wide,
+  .page-travosmesi .mix-form .home-btn,
+  .page-travosmesi .mix-form .home-form-status {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-travosmesi .mix-card,
+  .page-travosmesi .mix-card::after,
+  .page-travosmesi .mix-card-media img,
+  .page-travosmesi .mix-card-body b,
+  .page-travosmesi .mix-hero-image img {
+    transition: none !important;
+  }
+}
