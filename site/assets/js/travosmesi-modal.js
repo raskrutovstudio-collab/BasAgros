@@ -54,9 +54,9 @@
       .filter((element) => !element.hasAttribute('hidden'));
   }
 
-  function openModal(trigger) {
+  function openModal(trigger, fallbackIntent = 'selection') {
     returnFocus = trigger;
-    applyVariant(trigger.dataset.mixModalIntent);
+    applyVariant(trigger.dataset.mixModalIntent || fallbackIntent);
     document.body.classList.add('home-modal-open');
     modal.showModal();
     requestAnimationFrame(() => modal.querySelector('input[name="name"]')?.focus());
@@ -67,10 +67,12 @@
   }
 
   document.addEventListener('click', (event) => {
-    const trigger = event.target.closest('[data-mix-modal-intent]');
+    const explicitTrigger = event.target.closest('[data-mix-modal-intent]');
+    const quoteTrigger = event.target.closest('a[href="#mix-request"]');
+    const trigger = explicitTrigger || quoteTrigger;
     if (!trigger || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
-    openModal(trigger);
+    openModal(trigger, explicitTrigger ? 'selection' : 'quote');
   });
 
   closeButton.addEventListener('click', closeModal);
