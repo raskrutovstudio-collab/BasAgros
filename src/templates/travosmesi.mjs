@@ -10,30 +10,35 @@ const PRODUCTS = [
     url: '/catalog/travosmesi/kormovaya/',
     slot: 'travosmes-kormovaya',
     title: 'Травосмесь «Кормовая»',
+    titleLines: ['Травосмесь', '«Кормовая»'],
     text: 'Кормовое направление для хозяйств. Состав и параметры конкретного варианта уточняются перед поставкой.'
   },
   {
     url: '/catalog/travosmesi/universalnaya/',
     slot: 'travosmes-universalnaya',
     title: 'Травосмесь «Универсальная»',
+    titleLines: ['Травосмесь', '«Универсальная»'],
     text: 'Универсальная смесь в ассортименте BAS Agros. Подбор варианта выполняется под задачу и объём заказа.'
   },
   {
     url: '/catalog/travosmesi/rekultivatsionnaya/',
     slot: 'travosmes-rekultivatsionnaya',
     title: 'Травосмесь «Рекультивационная»',
+    titleLines: ['Травосмесь', '«Рекультивационная»'],
     text: 'Отдельная смесь для задач восстановления растительного покрова. Характеристики подтверждаются по предлагаемой позиции.'
   },
   {
     url: '/catalog/travosmesi/gazonnaya/',
     slot: 'travosmes-gazonnaya',
     title: 'Травосмесь «Газонная»',
+    titleLines: ['Травосмесь', '«Газонная»'],
     text: 'Газонное и озеленительное направление. Конкретный состав и условия поставки согласовываются по заявке.'
   },
   {
     url: '/catalog/travosmesi/rozh-vika-65-35/',
     slot: 'travosmes-rozh-vika',
     title: 'Озимая кормовая травосмесь «Рожь + Вика» 65/35',
+    titleLines: ['Озимая кормовая травосмесь', '«Рожь + Вика» 65/35'],
     text: 'Озимая кормовая смесь с указанным соотношением ржи и вики 65/35.'
   }
 ];
@@ -149,7 +154,8 @@ function hero(pages) {
 function products(pages) {
   const cards = PRODUCTS.map((item) => {
     requirePage(pages, item.url);
-    return `<article class="mix-card"><a class="mix-card-link" href="${escapeHtml(item.url)}">${media(item.slot, 'mix-card-media')}<span class="mix-card-body"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.text)}</span><b>Подробнее →</b></span></a></article>`;
+    const titleHtml = item.titleLines.map((line) => escapeHtml(line)).join('<br>');
+    return `<article class="mix-card"><a class="mix-card-link" href="${escapeHtml(item.url)}">${media(item.slot, 'mix-card-media')}<span class="mix-card-body"><strong>${titleHtml}</strong><span>${escapeHtml(item.text)}</span><b>Подробнее →</b></span></a></article>`;
   }).join('');
   return `<section class="mix-section mix-products" id="mix-products" aria-labelledby="mix-products-title"><div class="home-wrap"><div class="mix-section-head"><div><p class="home-eyebrow">Ассортимент</p><h2 id="mix-products-title">Травосмеси в каталоге</h2></div><p>Каждая смесь вынесена на отдельную товарную страницу. На хабе показаны только ассортимент и назначение — конкретный состав, партия и коммерческие условия подтверждаются на этапе заявки.</p></div><div class="mix-product-grid">${cards}</div></div></section>`;
 }
