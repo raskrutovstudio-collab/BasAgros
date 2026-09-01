@@ -1,0 +1,67 @@
+/* Travosmesi catalog refinement: tighter heading copy, smaller media, left-aligned card text. */
+
+.page-travosmesi .mix-products .mix-section-head > p {
+  text-align: left;
+}
+
+.page-travosmesi .mix-products .mix-card-body {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.page-travosmesi .mix-products .mix-card-body strong,
+.page-travosmesi .mix-products .mix-card-body > span,
+.page-travosmesi .mix-products .mix-card-body b {
+  text-align: left;
+}
+
+@media (min-width: 64rem) {
+  .page-travosmesi .mix-products .mix-section-head {
+    grid-template-columns: minmax(26rem, .82fr) minmax(0, 1.18fr);
+    column-gap: clamp(1rem, 1.8vw, 1.6rem);
+  }
+
+  .page-travosmesi .mix-products .mix-section-head > p {
+    width: min(100%, 44rem);
+    max-width: 44rem;
+    justify-self: start;
+    line-height: 1.48;
+  }
+
+  .page-travosmesi .mix-products .mix-card-media,
+  .page-travosmesi .mix-products .mix-card:nth-child(1) .mix-card-media,
+  .page-travosmesi .mix-products .mix-card:nth-child(2) .mix-card-media {
+    height: clamp(10.5rem, 13vw, 12.25rem);
+    aspect-ratio: auto;
+  }
+
+  .page-travosmesi .mix-products .mix-card-body {
+    padding: 1.05rem 1.15rem 1.15rem;
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .page-travosmesi .mix-products .mix-section-head {
+    grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+    gap: 1.25rem;
+  }
+
+  .page-travosmesi .mix-products .mix-section-head > p {
+    max-width: 36rem;
+    justify-self: start;
+  }
+
+  .page-travosmesi .mix-products .mix-card-media,
+  .page-travosmesi .mix-products .mix-card:nth-child(1) .mix-card-media,
+  .page-travosmesi .mix-products .mix-card:nth-child(2) .mix-card-media {
+    height: clamp(9.75rem, 19vw, 11.5rem);
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .page-travosmesi .mix-products .mix-section-head > p {
+    max-width: 100%;
+  }
+}
