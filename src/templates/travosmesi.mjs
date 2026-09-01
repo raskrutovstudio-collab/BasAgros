@@ -43,6 +43,14 @@ const PRODUCTS = [
   }
 ];
 
+const FAQ = [
+  ['Какие травосмеси представлены в каталоге?', 'В каталоге BAS Agros представлены кормовая, универсальная, рекультивационная, газонная травосмеси и озимая кормовая смесь «Рожь + Вика» 65/35.'],
+  ['Как выбрать травосмесь под задачу хозяйства?', 'Для подбора укажите назначение посева, площадь, необходимый объём и место доставки. По этим параметрам BAS Agros подбирает подходящую позицию из каталога.'],
+  ['Можно ли рассчитать необходимый объём травосмеси?', 'Да. Для расчёта укажите площадь посева и назначение. Если объём уже известен, его можно сразу указать в килограммах или тоннах.'],
+  ['Поставляет ли BAS Agros травосмеси по Казахстану?', 'Да. BAS Agros рассчитывает поставку травосмесей по Казахстану. Для коммерческого предложения укажите населённый пункт доставки.'],
+  ['Что указать для получения коммерческого предложения?', 'Укажите травосмесь или задачу, площадь, необходимый объём, место доставки и контактный телефон. Менеджер подготовит коммерческое предложение под параметры заказа.']
+];
+
 export function isTravosmesiHub(page) {
   return page?.url === TRAVOSMESI_URL;
 }
@@ -193,6 +201,11 @@ function commercial(pages) {
   return `<section class="mix-section mix-commercial" aria-labelledby="mix-commercial-title"><div class="home-wrap"><div class="mix-commercial-card"><div><p class="home-eyebrow">Поставка</p><h2 id="mix-commercial-title">От выбора смеси до коммерческого предложения</h2><p>Укажите травосмесь или задачу, площадь, объём и населённый пункт. Менеджер подбирает позицию и готовит коммерческое предложение с параметрами поставки.</p>${link('#mix-request', 'Получить коммерческое предложение', 'home-btn home-btn-primary', 'data-mix-modal-intent="quote"')}</div><div class="mix-commercial-links"><a href="/dostavka-i-oplata/"><strong>Доставка и оплата</strong><span>Параметры поставки и оплаты →</span></a><a href="/kachestvo-i-sertifikaty/"><strong>Качество и документы</strong><span>Характеристики и документы по продукции →</span></a></div></div></div></section>`;
 }
 
+function faq() {
+  const items = FAQ.map(([question, answer], index) => `<details${index === 0 ? ' open' : ''}><summary>${escapeHtml(question)}<span aria-hidden="true"></span></summary><p>${escapeHtml(answer)}</p></details>`).join('');
+  return `<section class="mix-section home-faq mix-faq" aria-labelledby="mix-faq-title"><div class="home-wrap home-faq-grid"><div><p class="home-eyebrow">FAQ</p><h2 id="mix-faq-title">Частые вопросы о травосмесях</h2><p>Короткие ответы по ассортименту, подбору, расчёту объёма и поставке травосмесей.</p></div><div>${items}</div></div></section>`;
+}
+
 function requestForm() {
   return `<section class="mix-section mix-request" id="mix-request" aria-labelledby="mix-request-title"><div class="home-wrap mix-request-grid"><div><p class="home-eyebrow">Заявка</p><h2 id="mix-request-title">Подобрать травосмесь и рассчитать поставку</h2><p>Укажите назначение, площадь, необходимый объём и место доставки — этих данных достаточно для подбора позиции и расчёта поставки. Название выбранной смеси добавьте в комментарии.</p></div><form class="home-form mix-form" data-lead-form data-form-name="Травосмеси — подбор и коммерческое предложение"><label for="mix-task">Назначение<select id="mix-task" name="task"><option value="">Выберите задачу</option><option value="Кормовое направление">Кормовое направление</option><option value="Сенокос">Сенокос</option><option value="Пастбище">Пастбище</option><option value="Рекультивация">Рекультивация</option><option value="Газон и озеленение">Газон и озеленение</option><option value="Другое">Другое</option></select></label><label for="mix-area">Площадь посева<input id="mix-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label><label for="mix-volume">Необходимый объём<input id="mix-volume" name="desired_volume" type="text" placeholder="Например, 2 тонны"></label><label for="mix-delivery">Место доставки<input id="mix-delivery" name="delivery_locality" type="text" autocomplete="address-level2" placeholder="Населённый пункт"></label><label for="mix-phone">Телефон<input id="mix-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label><label class="mix-field-wide" for="mix-message">Травосмесь или комментарий<textarea id="mix-message" name="message" rows="3" placeholder="Например, кормовая травосмесь"></textarea></label><input type="hidden" name="intent" value="travosmesi_quote"><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><p class="mix-consent mix-field-wide">${escapeHtml(CONSENT_TEXT)}</p><button class="home-btn home-btn-primary" type="submit">Получить коммерческое предложение</button><div class="home-form-status mix-field-wide" data-form-status aria-live="polite" aria-atomic="true"></div></form></div></section>`;
 }
@@ -228,11 +241,23 @@ export function travosmesiStructuredData(page, pages) {
         { '@type': 'ListItem', position: 2, name: 'Каталог семян', item: 'https://basagros.kz/catalog/' },
         { '@type': 'ListItem', position: 3, name: 'Травосмеси', item: page.canonical }
       ]
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: FAQ.map(([question, answer]) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: answer
+        }
+      }))
     }
   ];
 }
 
 export function renderTravosmesi(page, pages) {
   if (!isTravosmesiHub(page)) throw new Error('renderTravosmesi вызван не для /catalog/travosmesi/');
-  return [hero(pages), products(pages), criteria(), compare(), commercial(pages), requestForm(), requestModal()].join('\n');
+  return [hero(pages), products(pages), criteria(), compare(), commercial(pages), faq(), requestForm(), requestModal()].join('\n');
 }
