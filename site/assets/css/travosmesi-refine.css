@@ -4,14 +4,23 @@
   text-align: left;
 }
 
+.page-travosmesi .mix-products .mix-card-link {
+  align-items: stretch;
+}
+
 .page-travosmesi .mix-products .mix-card-body {
+  width: 100%;
+  align-self: stretch;
   align-items: flex-start;
+  box-sizing: border-box;
   text-align: left;
 }
 
 .page-travosmesi .mix-products .mix-card-body strong,
 .page-travosmesi .mix-products .mix-card-body > span,
 .page-travosmesi .mix-products .mix-card-body b {
+  width: 100%;
+  margin-left: 0;
   text-align: left;
 }
 
