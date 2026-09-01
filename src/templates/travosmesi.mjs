@@ -98,8 +98,24 @@ function breadcrumbs(pages) {
   return `<nav class="mix-breadcrumbs" aria-label="Навигация по разделу"><ol class="breadcrumbs"><li><a href="/">Главная</a></li><li><a href="/catalog/">Каталог семян</a></li><li aria-current="page"><span>Травосмеси</span></li></ol></nav>`;
 }
 
+function factIcon(name) {
+  const shapes = {
+    catalog: '<rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/>',
+    filter: '<path d="M4 6h16M4 12h16M4 18h16"/><rect x="8" y="4" width="4" height="4"/><rect x="13" y="10" width="4" height="4"/><rect x="6" y="16" width="4" height="4"/>',
+    calculator: '<rect x="4" y="2" width="16" height="20"/><path d="M7 6h10M8 11h2m3 0h2m3 0h2M8 15h2m3 0h2m3 0h2M8 19h2m3 0h2m3 0h2"/>',
+    truck: '<path d="M3 8h13v10H3z"/><path d="M16 12h4l3 4v2h-7z"/><rect x="6" y="18" width="4" height="4"/><rect x="17" y="18" width="4" height="4"/><path d="M6 11h7"/>'
+  };
+  return `<svg class="mix-hero-fact-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">${shapes[name]}</g></svg>`;
+}
+
 function hero(pages) {
-  return `<section class="mix-hero" aria-labelledby="mix-h1"><div class="home-wrap">${breadcrumbs(pages)}<div class="mix-hero-grid"><div class="mix-hero-copy"><p class="home-eyebrow">Каталог BAS Agros</p><h1 id="mix-h1">Травосмеси</h1><p class="mix-lead">Семена травосмесей для сельскохозяйственных, кормовых, рекультивационных и озеленительных задач. BAS Agros помогает выбрать подходящую позицию из каталога и рассчитать поставку по Казахстану.</p><div class="home-actions">${link('#mix-products', 'Выбрать травосмесь', 'home-btn home-btn-primary')}${link('#mix-request', 'Получить коммерческое предложение', 'home-btn home-btn-outline')}</div><ul class="mix-hero-facts"><li>5 товарных направлений</li><li>Подбор под задачу и площадь</li><li>Расчёт под необходимый объём</li><li>Поставка по Казахстану</li></ul></div><div class="mix-hero-media">${heroMedia()}</div></div></div></section>`;
+  const facts = [
+    ['catalog', '5 товарных направлений'],
+    ['filter', 'Подбор под задачу и площадь'],
+    ['calculator', 'Расчёт под необходимый объём'],
+    ['truck', 'Поставка по Казахстану']
+  ].map(([icon, text]) => `<li>${factIcon(icon)}<span>${text}</span></li>`).join('');
+  return `<section class="mix-hero" aria-labelledby="mix-h1"><div class="home-wrap">${breadcrumbs(pages)}<div class="mix-hero-grid"><div class="mix-hero-copy"><p class="home-eyebrow">Каталог BAS Agros</p><h1 id="mix-h1">Травосмеси</h1><p class="mix-lead">Семена травосмесей для сельскохозяйственных, кормовых, рекультивационных и озеленительных задач. BAS Agros помогает выбрать подходящую позицию из каталога и рассчитать поставку по Казахстану.</p><div class="home-actions">${link('#mix-products', 'Выбрать травосмесь', 'home-btn home-btn-primary')}${link('#mix-request', 'Получить коммерческое предложение', 'home-btn home-btn-outline')}</div><ul class="mix-hero-facts">${facts}</ul></div><div class="mix-hero-media">${heroMedia()}</div></div></div></section>`;
 }
 
 function products(pages) {
