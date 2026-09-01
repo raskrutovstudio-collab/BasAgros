@@ -1,6 +1,7 @@
 import { childrenOf, escapeHtml, joinSections } from './html.mjs';
 import { renderHomepage } from './homepage.mjs';
 import { isEtalonProduct, renderProduct } from './product.mjs';
+import { isTravosmesiHub, renderTravosmesi } from './travosmesi.mjs';
 
 function pageList(title, items) {
   if (!items.length) return '';
@@ -53,6 +54,7 @@ function renderCatalogHub(page, pages) {
 }
 
 function renderCategory(page, pages) {
+  if (isTravosmesiHub(page)) return renderTravosmesi(page, pages);
   return joinSections([
     heading(page),
     routeMeta(page),
