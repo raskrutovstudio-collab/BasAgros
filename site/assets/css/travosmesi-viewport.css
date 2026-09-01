@@ -18,9 +18,12 @@
 
   .page-travosmesi .mix-hero-copy {
     display: flex;
+    height: calc(100% - 2rem);
+    min-height: 0;
     flex-direction: column;
-    justify-content: center;
-    padding: clamp(1.6rem, 3vh, 2.25rem) clamp(2.2rem, 4vw, 3.6rem) clamp(1.4rem, 2.6vh, 1.9rem) 0;
+    justify-content: flex-start;
+    margin: 1rem 0;
+    padding: clamp(1.2rem, 2.2vh, 1.65rem) clamp(2.2rem, 4vw, 3.6rem) clamp(1rem, 1.8vh, 1.35rem) 0;
   }
 
   .page-travosmesi .mix-hero-copy::before {
@@ -33,9 +36,9 @@
   }
 
   .page-travosmesi .mix-lead {
-    margin-block: .85rem 1rem;
+    margin-block: .8rem .9rem;
     font-size: 1rem;
-    line-height: 1.5;
+    line-height: 1.48;
   }
 
   .page-travosmesi .mix-hero .home-btn {
@@ -44,14 +47,19 @@
   }
 
   .page-travosmesi .mix-hero-facts {
-    gap: .4rem .5rem;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    flex: 1 1 auto;
+    gap: .5rem .55rem;
+    min-height: 0;
     margin-top: 1rem;
     border-left: 0;
   }
 
   .page-travosmesi .mix-hero-facts li {
-    min-height: 2.7rem;
-    padding: .45rem .7rem;
+    height: 100%;
+    min-height: 0;
+    align-items: center;
+    padding: .55rem .75rem;
     border-left: 1px solid var(--mix-line);
   }
 
@@ -69,31 +77,33 @@
   }
 
   .page-travosmesi .mix-hero-copy {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    height: calc(100% - 1.4rem);
+    margin-top: .7rem;
+    margin-bottom: .7rem;
+    padding-top: .8rem;
+    padding-bottom: .8rem;
   }
 
   .page-travosmesi .mix-hero-copy::before {
-    margin-bottom: .65rem;
+    margin-bottom: .6rem;
   }
 
   .page-travosmesi .mix-hero h1 {
-    font-size: 3.45rem;
+    font-size: 3.4rem;
   }
 
   .page-travosmesi .mix-lead {
-    margin-block: .65rem .8rem;
-    line-height: 1.42;
+    margin-block: .55rem .7rem;
+    line-height: 1.4;
   }
 
   .page-travosmesi .mix-hero-facts {
-    gap: .3rem .45rem;
-    margin-top: .75rem;
+    gap: .35rem .45rem;
+    margin-top: .65rem;
   }
 
   .page-travosmesi .mix-hero-facts li {
-    min-height: 2.45rem;
-    padding-block: .35rem;
+    padding: .4rem .65rem;
   }
 
   .page-travosmesi .mix-hero-media {
