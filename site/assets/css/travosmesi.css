@@ -254,17 +254,15 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: mix-criteria;
 }
 
 .mix-criteria-list li {
   display: grid;
-  grid-template-columns: 2.25rem minmax(9rem, .65fr) minmax(0, 1.35fr);
+  grid-template-columns: 1.25rem minmax(9rem, .65fr) minmax(0, 1.35fr);
   gap: 1rem;
   align-items: start;
   padding: 1.05rem 0;
   border-top: 1px solid rgba(255,255,255,.18);
-  counter-increment: mix-criteria;
 }
 
 .mix-criteria-list li:last-child {
@@ -272,10 +270,15 @@
 }
 
 .mix-criteria-list li::before {
-  content: '0' counter(mix-criteria);
+  content: none;
+}
+
+.mix-criteria-icon {
+  display: block;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: .18rem;
   color: #80bd96;
-  font-size: .78rem;
-  font-weight: 800;
 }
 
 .mix-criteria-list strong {
@@ -545,11 +548,15 @@
     font-size: .8rem;
   }
   .mix-criteria-list li {
-    grid-template-columns: 2rem 1fr;
+    grid-template-columns: 1.25rem 1fr;
     gap: .35rem .75rem;
   }
   .mix-criteria-list li::before {
+    content: none;
+  }
+  .mix-criteria-icon {
     grid-row: 1 / 3;
+    margin-top: .2rem;
   }
   .mix-criteria-list span {
     grid-column: 2;

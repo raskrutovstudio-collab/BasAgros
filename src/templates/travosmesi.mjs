@@ -131,14 +131,20 @@ function breadcrumbs(pages) {
   return `<nav class="mix-breadcrumbs" aria-label="Навигация по разделу"><ol class="breadcrumbs"><li><a href="/">Главная</a></li><li><a href="/catalog/">Каталог семян</a></li><li aria-current="page"><span>Травосмеси</span></li></ol></nav>`;
 }
 
-function factIcon(name) {
+function mixIcon(name, className) {
   const shapes = {
     catalog: '<rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/>',
     filter: '<path d="M4 6h16M4 12h16M4 18h16"/><rect x="8" y="4" width="4" height="4"/><rect x="13" y="10" width="4" height="4"/><rect x="6" y="16" width="4" height="4"/>',
     calculator: '<rect x="4" y="2" width="16" height="20"/><path d="M7 6h10M8 11h2m3 0h2m3 0h2M8 15h2m3 0h2m3 0h2M8 19h2m3 0h2m3 0h2"/>',
-    truck: '<path d="M3 8h13v10H3z"/><path d="M16 12h4l3 4v2h-7z"/><rect x="6" y="18" width="4" height="4"/><rect x="17" y="18" width="4" height="4"/><path d="M6 11h7"/>'
+    truck: '<path d="M3 8h13v10H3z"/><path d="M16 12h4l3 4v2h-7z"/><rect x="6" y="18" width="4" height="4"/><rect x="17" y="18" width="4" height="4"/><path d="M6 11h7"/>',
+    checklist: '<path d="M9 6h11M9 12h11M9 18h8"/><path d="M4 6l1.6 1.6L8 5M4 12l1.6 1.6L8 11"/>',
+    plot: '<rect x="3" y="3" width="18" height="18"/><path d="M3 11h18M11 3v18"/>'
   };
-  return `<svg class="mix-hero-fact-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">${shapes[name]}</g></svg>`;
+  return `<svg class="${className}" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">${shapes[name]}</g></svg>`;
+}
+
+function factIcon(name) {
+  return mixIcon(name, 'mix-hero-fact-icon');
 }
 
 function hero(pages) {
@@ -162,12 +168,12 @@ function products(pages) {
 
 function criteria() {
   const items = [
-    ['Назначение', 'Сенокос, пастбищное направление, восстановление территории, газон или другая задача.'],
-    ['Площадь', 'Площадь помогает определить ориентировочную потребность в семенах.'],
-    ['Объём', 'Если необходимое количество уже рассчитано, его можно сразу указать в заявке.'],
-    ['Доставка', 'Населённый пункт нужен для расчёта логистики и коммерческого предложения.']
+    ['checklist', 'Назначение', 'Сенокос, пастбищное направление, восстановление территории, газон или другая задача.'],
+    ['plot', 'Площадь', 'Площадь помогает определить ориентировочную потребность в семенах.'],
+    ['calculator', 'Объём', 'Если необходимое количество уже рассчитано, его можно сразу указать в заявке.'],
+    ['truck', 'Доставка', 'Населённый пункт нужен для расчёта логистики и коммерческого предложения.']
   ];
-  return `<section class="mix-section mix-criteria" aria-labelledby="mix-criteria-title"><div class="home-wrap mix-two-col"><div><p class="home-eyebrow">Выбор</p><h2 id="mix-criteria-title">Как выбрать травосмесь под задачу</h2><p>Хаб помогает сузить выбор до подходящей товарной страницы. Для точного предложения достаточно описать задачу хозяйства и основные параметры заказа.</p></div><ol class="mix-criteria-list">${items.map(([title, text]) => `<li><strong>${title}</strong><span>${text}</span></li>`).join('')}</ol></div></section>`;
+  return `<section class="mix-section mix-criteria" aria-labelledby="mix-criteria-title"><div class="home-wrap mix-two-col"><div><p class="home-eyebrow">Выбор</p><h2 id="mix-criteria-title">Как выбрать травосмесь под задачу</h2><p>Хаб помогает сузить выбор до подходящей товарной страницы. Для точного предложения достаточно описать задачу хозяйства и основные параметры заказа.</p></div><ol class="mix-criteria-list">${items.map(([icon, title, text]) => `<li>${mixIcon(icon, 'mix-criteria-icon')}<strong>${title}</strong><span>${text}</span></li>`).join('')}</ol></div></section>`;
 }
 
 function compare() {

@@ -205,8 +205,8 @@ ${GENERATED_MARKER}
   <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home.css?v=20260831-9">
-  <link rel="stylesheet" href="/assets/css/travosmesi.css?v=20260901-5">
-  <link rel="stylesheet" href="/assets/css/travosmesi-polish.css?v=20260901-4">
+  <link rel="stylesheet" href="/assets/css/travosmesi.css?v=20260901-6">
+  <link rel="stylesheet" href="/assets/css/travosmesi-polish.css?v=20260901-5">
   <link rel="stylesheet" href="/assets/css/travosmesi-refine.css?v=20260901-2">
   <script type="application/ld+json">${structuredData}</script>
 </head>
