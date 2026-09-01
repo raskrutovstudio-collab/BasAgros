@@ -208,7 +208,7 @@ ${GENERATED_MARKER}
   <link rel="stylesheet" href="/assets/css/travosmesi.css?v=20260901-6">
   <link rel="stylesheet" href="/assets/css/travosmesi-polish.css?v=20260901-5">
   <link rel="stylesheet" href="/assets/css/travosmesi-refine.css?v=20260901-2">
-  <link rel="stylesheet" href="/assets/css/travosmesi-viewport.css?v=20260901-1">
+  <link rel="stylesheet" href="/assets/css/travosmesi-viewport.css?v=20260901-2">
   <script type="application/ld+json">${structuredData}</script>
 </head>
 <body class="page-home page-category page-travosmesi">
