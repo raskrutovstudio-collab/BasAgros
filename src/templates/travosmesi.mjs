@@ -56,12 +56,40 @@ function link(url, label, className = '', attributes = '') {
   return `<a href="${escapeHtml(url)}"${className ? ` class="${className}"` : ''}${attributes ? ` ${attributes}` : ''}>${escapeHtml(label)}</a>`;
 }
 
+const HERO_IMAGE = {
+  width: 1600,
+  height: 642,
+  fallback: '/assets/img/catalog/travosmesi-hero-1280.webp',
+  alt: 'Зелёное поле кормовых трав',
+  sizes: '(min-width: 64rem) min(52vw, 820px), (min-width: 48rem) min(46vw, 560px), calc(100vw - 2rem)',
+  avif: [
+    { src: '/assets/img/catalog/travosmesi-hero-720.avif', w: 720 },
+    { src: '/assets/img/catalog/travosmesi-hero-960.avif', w: 960 },
+    { src: '/assets/img/catalog/travosmesi-hero-1280.avif', w: 1280 },
+    { src: '/assets/img/catalog/travosmesi-hero-1600.avif', w: 1600 }
+  ],
+  webp: [
+    { src: '/assets/img/catalog/travosmesi-hero-720.webp', w: 720 },
+    { src: '/assets/img/catalog/travosmesi-hero-960.webp', w: 960 },
+    { src: '/assets/img/catalog/travosmesi-hero-1280.webp', w: 1280 },
+    { src: '/assets/img/catalog/travosmesi-hero-1600.webp', w: 1600 }
+  ]
+};
+
+function pictureSources(asset) {
+  const avif = asset.avif.map((item) => `${item.src} ${item.w}w`).join(', ');
+  const webp = asset.webp.map((item) => `${item.src} ${item.w}w`).join(', ');
+  return `<source type="image/avif" srcset="${avif}" sizes="${escapeHtml(asset.sizes)}"><source type="image/webp" srcset="${webp}" sizes="${escapeHtml(asset.sizes)}">`;
+}
+
 function media(slot, className = '') {
   const asset = HOME_IMAGES[slot];
   if (!asset) throw new Error(`Не найден image slot для травосмесей: ${slot}`);
-  const avif = asset.avif.map((item) => `${item.src} ${item.w}w`).join(', ');
-  const webp = asset.webp.map((item) => `${item.src} ${item.w}w`).join(', ');
-  return `<div class="mix-media ${className}" data-asset-slot="${escapeHtml(slot)}"><picture><source type="image/avif" srcset="${avif}" sizes="${escapeHtml(asset.sizes)}"><source type="image/webp" srcset="${webp}" sizes="${escapeHtml(asset.sizes)}"><img src="${escapeHtml(asset.fallback)}" width="${asset.width}" height="${asset.height}" alt="${escapeHtml(asset.alt)}" loading="lazy" decoding="async"></picture></div>`;
+  return `<div class="mix-media ${className}" data-asset-slot="${escapeHtml(slot)}"><picture>${pictureSources(asset)}<img src="${escapeHtml(asset.fallback)}" width="${asset.width}" height="${asset.height}" alt="${escapeHtml(asset.alt)}" loading="lazy" decoding="async"></picture></div>`;
+}
+
+function heroMedia() {
+  return `<div class="mix-media mix-hero-image" data-asset-slot="travosmesi-hero"><picture>${pictureSources(HERO_IMAGE)}<img src="${escapeHtml(HERO_IMAGE.fallback)}" width="${HERO_IMAGE.width}" height="${HERO_IMAGE.height}" alt="${escapeHtml(HERO_IMAGE.alt)}" fetchpriority="high" decoding="async"></picture></div>`;
 }
 
 function breadcrumbs(pages) {
@@ -71,7 +99,7 @@ function breadcrumbs(pages) {
 }
 
 function hero(pages) {
-  return `<section class="mix-hero" aria-labelledby="mix-h1"><div class="home-wrap">${breadcrumbs(pages)}<div class="mix-hero-grid"><div class="mix-hero-copy"><p class="home-eyebrow">Каталог BAS Agros</p><h1 id="mix-h1">Травосмеси</h1><p class="mix-lead">Семена травосмесей для сельскохозяйственных, кормовых, рекультивационных и озеленительных задач. BAS Agros помогает выбрать подходящую позицию из каталога и рассчитать поставку по Казахстану.</p><div class="home-actions">${link('#mix-products', 'Выбрать травосмесь', 'home-btn home-btn-primary')}${link('#mix-request', 'Получить коммерческое предложение', 'home-btn home-btn-outline')}</div><ul class="mix-hero-facts"><li>5 товарных направлений</li><li>Подбор под задачу и площадь</li><li>Расчёт под необходимый объём</li><li>Поставка по Казахстану</li></ul></div><div class="mix-hero-media">${media('travosmes-universalnaya', 'mix-hero-image')}</div></div></div></section>`;
+  return `<section class="mix-hero" aria-labelledby="mix-h1"><div class="home-wrap">${breadcrumbs(pages)}<div class="mix-hero-grid"><div class="mix-hero-copy"><p class="home-eyebrow">Каталог BAS Agros</p><h1 id="mix-h1">Травосмеси</h1><p class="mix-lead">Семена травосмесей для сельскохозяйственных, кормовых, рекультивационных и озеленительных задач. BAS Agros помогает выбрать подходящую позицию из каталога и рассчитать поставку по Казахстану.</p><div class="home-actions">${link('#mix-products', 'Выбрать травосмесь', 'home-btn home-btn-primary')}${link('#mix-request', 'Получить коммерческое предложение', 'home-btn home-btn-outline')}</div><ul class="mix-hero-facts"><li>5 товарных направлений</li><li>Подбор под задачу и площадь</li><li>Расчёт под необходимый объём</li><li>Поставка по Казахстану</li></ul></div><div class="mix-hero-media">${heroMedia()}</div></div></div></section>`;
 }
 
 function products(pages) {

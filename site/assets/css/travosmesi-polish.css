@@ -138,23 +138,13 @@
   position: relative;
   min-height: 38rem;
   margin: 1.5rem 0 1.5rem 1.35rem;
-  border: clamp(.55rem, .9vw, .85rem) solid #e6ece4;
-  background: #e6ece4;
-  box-shadow: 0 1.25rem 3rem rgba(20, 60, 41, .09);
-}
-
-.page-travosmesi .mix-hero-media::after {
-  content: '';
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 28%;
-  pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(15, 55, 35, .12));
+  border: clamp(.55rem, .9vw, .85rem) solid #f3f5f0;
+  background: #f3f5f0;
+  box-shadow: 0 1.25rem 3rem rgba(20, 60, 41, .07);
 }
 
 .page-travosmesi .mix-hero-image img {
-  transform: scale(1.025);
-  transition: transform .7s ease;
+  object-position: center 60%;
 }
 
 /* SECTION HEADS */

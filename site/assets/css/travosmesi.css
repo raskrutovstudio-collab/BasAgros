@@ -123,7 +123,7 @@
 .mix-hero-media {
   min-width: 0;
   min-height: 34rem;
-  background: var(--color-sage);
+  background: #f3f5f0;
 }
 
 .mix-media,
@@ -141,7 +141,7 @@
 }
 
 .mix-hero-image img {
-  object-position: center 52%;
+  object-position: center 60%;
 }
 
 .mix-section-head {
