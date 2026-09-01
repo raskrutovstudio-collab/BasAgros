@@ -206,6 +206,7 @@ ${GENERATED_MARKER}
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home.css?v=20260831-9">
   <link rel="stylesheet" href="/assets/css/travosmesi.css?v=20260901-1">
+  <link rel="stylesheet" href="/assets/css/travosmesi-polish.css?v=20260901-1">
   <script type="application/ld+json">${structuredData}</script>
 </head>
 <body class="page-home page-category page-travosmesi">
