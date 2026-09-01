@@ -67,7 +67,7 @@ function media(slot, className = '') {
 function breadcrumbs(pages) {
   requirePage(pages, '/');
   requirePage(pages, '/catalog/');
-  return `<nav class="mix-breadcrumbs" aria-label="Навигация по разделу"><ol><li><a href="/">Главная</a></li><li><a href="/catalog/">Каталог семян</a></li><li aria-current="page"><span>Травосмеси</span></li></ol></nav>`;
+  return `<nav class="mix-breadcrumbs" aria-label="Навигация по разделу"><ol class="breadcrumbs"><li><a href="/">Главная</a></li><li><a href="/catalog/">Каталог семян</a></li><li aria-current="page"><span>Травосмеси</span></li></ol></nav>`;
 }
 
 function hero(pages) {
