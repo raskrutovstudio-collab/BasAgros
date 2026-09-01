@@ -15,13 +15,56 @@
 /* HERO */
 .page-travosmesi .mix-hero {
   overflow: hidden;
-  background:
-    linear-gradient(90deg, #fff 0%, #fff 54%, #eef3ec 54%, #eef3ec 100%);
+  background: #fff;
 }
 
 .page-travosmesi .mix-breadcrumbs {
-  padding-block: .9rem;
-  border-bottom-color: #e3e8e2;
+  padding-block: .8rem;
+  border-bottom: 1px solid #e3e8e2;
+}
+
+.page-travosmesi .mix-breadcrumbs .breadcrumbs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page-travosmesi .mix-breadcrumbs .breadcrumbs li {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+}
+
+.page-travosmesi .mix-breadcrumbs .breadcrumbs a,
+.page-travosmesi .mix-breadcrumbs .breadcrumbs span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0;
+  color: var(--color-muted);
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.page-travosmesi .mix-breadcrumbs .breadcrumbs a:hover {
+  color: var(--mix-green);
+}
+
+.page-travosmesi .mix-breadcrumbs .breadcrumbs li:not(:last-child)::after {
+  margin: 0 .65rem;
+  line-height: 1;
+}
+
+.page-travosmesi .mix-breadcrumbs .breadcrumbs li[aria-current="page"] span {
+  color: var(--mix-text);
 }
 
 .page-travosmesi .mix-hero-grid {
@@ -95,9 +138,9 @@
   position: relative;
   min-height: 38rem;
   margin: 1.5rem 0 1.5rem 1.35rem;
-  border: clamp(.55rem, .9vw, .85rem) solid #dfe8dd;
-  background: #dfe8dd;
-  box-shadow: 0 1.5rem 3.5rem rgba(20, 60, 41, .12);
+  border: clamp(.55rem, .9vw, .85rem) solid #e6ece4;
+  background: #e6ece4;
+  box-shadow: 0 1.25rem 3rem rgba(20, 60, 41, .09);
 }
 
 .page-travosmesi .mix-hero-media::after {
@@ -106,7 +149,7 @@
   inset: auto 0 0 0;
   height: 28%;
   pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(15, 55, 35, .16));
+  background: linear-gradient(180deg, transparent, rgba(15, 55, 35, .12));
 }
 
 .page-travosmesi .mix-hero-image img {
@@ -424,7 +467,7 @@
 
 @media (max-width: 63.99rem) {
   .page-travosmesi .mix-hero {
-    background: linear-gradient(90deg, #fff 0%, #fff 50%, #eef3ec 50%, #eef3ec 100%);
+    background: #fff;
   }
 
   .page-travosmesi .mix-hero-grid {
@@ -505,6 +548,23 @@
     margin: 0 0 1.15rem;
     aspect-ratio: 16 / 10;
     border-width: .5rem;
+  }
+
+  .page-travosmesi .mix-breadcrumbs .breadcrumbs {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .page-travosmesi .mix-breadcrumbs .breadcrumbs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .page-travosmesi .mix-breadcrumbs .breadcrumbs li {
+    flex: 0 0 auto;
+    white-space: nowrap;
   }
 
   .page-travosmesi .mix-section-head,
