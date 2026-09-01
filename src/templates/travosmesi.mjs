@@ -20,19 +20,19 @@ const PRODUCTS = [
   },
   {
     url: '/catalog/travosmesi/rekultivatsionnaya/',
-    slot: 'warehouse',
+    slot: 'travosmes-rekultivatsionnaya',
     title: 'Травосмесь «Рекультивационная»',
     text: 'Отдельная смесь для задач восстановления растительного покрова. Характеристики подтверждаются по предлагаемой позиции.'
   },
   {
     url: '/catalog/travosmesi/gazonnaya/',
-    slot: 'hero',
+    slot: 'travosmes-gazonnaya',
     title: 'Травосмесь «Газонная»',
     text: 'Газонное и озеленительное направление. Конкретный состав и условия поставки согласовываются по заявке.'
   },
   {
     url: '/catalog/travosmesi/rozh-vika-65-35/',
-    slot: 'article-3',
+    slot: 'travosmes-rozh-vika',
     title: 'Озимая кормовая травосмесь «Рожь + Вика» 65/35',
     text: 'Озимая кормовая смесь с указанным соотношением ржи и вики 65/35.'
   }
@@ -76,6 +76,34 @@ const HERO_IMAGE = {
   ]
 };
 
+const CARD_SIZES = '(min-width: 64rem) min(28vw, 420px), (min-width: 48rem) 44vw, calc(100vw - 1.5rem)';
+
+function catalogCard(id, alt) {
+  return {
+    width: 640,
+    height: 520,
+    fallback: `/assets/img/catalog/${id}-640.webp`,
+    alt,
+    sizes: CARD_SIZES,
+    avif: [
+      { src: `/assets/img/catalog/${id}-480.avif`, w: 480 },
+      { src: `/assets/img/catalog/${id}-640.avif`, w: 640 },
+      { src: `/assets/img/catalog/${id}-960.avif`, w: 960 }
+    ],
+    webp: [
+      { src: `/assets/img/catalog/${id}-480.webp`, w: 480 },
+      { src: `/assets/img/catalog/${id}-640.webp`, w: 640 },
+      { src: `/assets/img/catalog/${id}-960.webp`, w: 960 }
+    ]
+  };
+}
+
+const CARD_IMAGES = {
+  'travosmes-rekultivatsionnaya': catalogCard('mix-card-rekult', 'Разнотравный покров на природном участке'),
+  'travosmes-gazonnaya': catalogCard('mix-card-lawn', 'Плотный зелёный газон'),
+  'travosmes-rozh-vika': catalogCard('mix-card-rye', 'Поле злаковой культуры для озимой смеси')
+};
+
 function pictureSources(asset) {
   const avif = asset.avif.map((item) => `${item.src} ${item.w}w`).join(', ');
   const webp = asset.webp.map((item) => `${item.src} ${item.w}w`).join(', ');
@@ -83,7 +111,7 @@ function pictureSources(asset) {
 }
 
 function media(slot, className = '') {
-  const asset = HOME_IMAGES[slot];
+  const asset = CARD_IMAGES[slot] || HOME_IMAGES[slot];
   if (!asset) throw new Error(`Не найден image slot для травосмесей: ${slot}`);
   return `<div class="mix-media ${className}" data-asset-slot="${escapeHtml(slot)}"><picture>${pictureSources(asset)}<img src="${escapeHtml(asset.fallback)}" width="${asset.width}" height="${asset.height}" alt="${escapeHtml(asset.alt)}" loading="lazy" decoding="async"></picture></div>`;
 }

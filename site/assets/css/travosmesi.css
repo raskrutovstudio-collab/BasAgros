@@ -192,9 +192,9 @@
 
 .mix-card:nth-child(1) .mix-card-media img { object-position: center 58%; }
 .mix-card:nth-child(2) .mix-card-media img { object-position: center 54%; }
-.mix-card:nth-child(3) .mix-card-media img { object-position: center 52%; }
-.mix-card:nth-child(4) .mix-card-media img { object-position: center 46%; }
-.mix-card:nth-child(5) .mix-card-media img { object-position: center 52%; }
+.mix-card:nth-child(3) .mix-card-media img { object-position: center 58%; }
+.mix-card:nth-child(4) .mix-card-media img { object-position: center; }
+.mix-card:nth-child(5) .mix-card-media img { object-position: center 38%; }
 
 .mix-card-body {
   display: flex;
