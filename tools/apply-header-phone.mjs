@@ -86,7 +86,7 @@ function patchHomeCss() {
   if (!css.includes(footerStackMarker)) css += footerStackRule;
 
   const footerContactsMarker = '/* Footer direct contact links. */';
-  const footerContactsRule = `\n${footerContactsMarker}\n.home-footer-contact {\n  margin: .35rem 0;\n}\n.home-footer-contact a {\n  display: inline-flex;\n  min-height: 2.75rem;\n  align-items: center;\n  color: #fff;\n  font-size: .8rem;\n  font-weight: 700;\n  text-decoration: none;\n}\n.home-footer-contact-icon {\n  width: 1rem;\n  height: 1rem;\n  flex: 0 0 1rem;\n  margin-right: .45rem;\n}\n.home-footer-contact a:hover {\n  text-decoration: underline;\n  text-underline-offset: .2rem;\n}\n`;
+  const footerContactsRule = `\n${footerContactsMarker}\n.home-footer-contact {\n  margin: 0;\n}\n.home-footer-contact a {\n  display: inline-flex;\n  min-height: 2rem;\n  align-items: center;\n  color: #fff;\n  font-size: .8rem;\n  font-weight: 700;\n  text-decoration: none;\n}\n.home-footer-contact-icon {\n  width: 1rem;\n  height: 1rem;\n  flex: 0 0 1rem;\n  margin-right: .45rem;\n}\n.home-footer-contact a:hover {\n  text-decoration: underline;\n  text-underline-offset: .2rem;\n}\n`;
   if (!css.includes(footerContactsMarker)) css += footerContactsRule;
 
   const footerSingleLineMarker = '/* Keep WhatsApp and email on one line in footer. */';
@@ -94,7 +94,7 @@ function patchHomeCss() {
   if (!css.includes(footerSingleLineMarker)) css += footerSingleLineRule;
 
   const footerIconAlignmentMarker = '/* Footer contact icon alignment. */';
-  const footerIconAlignmentRule = `\n${footerIconAlignmentMarker}\n.home-footer-contact a {\n  min-height: 2.75rem;\n  align-items: center;\n  font-size: .8rem;\n  font-weight: 700;\n}\n.home-footer-contact-icon {\n  display: block;\n  width: 1rem;\n  height: 1rem;\n  flex: 0 0 1rem;\n  margin-right: .45rem;\n}\n`;
+  const footerIconAlignmentRule = `\n${footerIconAlignmentMarker}\n#contacts > p:first-of-type,\n.home-footer-contact {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n.home-footer-phone,\n.home-footer-contact a {\n  min-height: 2rem;\n  align-items: center;\n  font-size: .8rem;\n  font-weight: 700;\n}\n.home-footer-contact-icon {\n  display: block;\n  width: 1rem;\n  height: 1rem;\n  flex: 0 0 1rem;\n  margin-right: .45rem;\n}\n`;
   if (!css.includes(footerIconAlignmentMarker)) css += footerIconAlignmentRule;
 
   fs.writeFileSync(cssPath, css, 'utf8');
@@ -102,4 +102,4 @@ function patchHomeCss() {
 
 patchHtml(siteRoot);
 patchHomeCss();
-console.log('Header navigation, icon-aligned footer contacts, catalog alignment, guide heading, company copy, agroblog cleanup and footer link stacking applied.');
+console.log('Header navigation, compact icon-aligned footer contacts, catalog alignment, guide heading, company copy, agroblog cleanup and footer link stacking applied.');
