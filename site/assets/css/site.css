@@ -200,3 +200,9 @@ dd {
     outline-offset: -.15rem;
   }
 }
+
+/* Keep form placeholder hints visually lighter than entered values. */
+[data-lead-form] input::placeholder,
+[data-lead-form] textarea::placeholder {
+  font-weight: 400;
+}
