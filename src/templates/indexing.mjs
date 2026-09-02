@@ -1,11 +1,13 @@
 const INDEXABLE_URLS = new Set([
   '/',
   '/catalog/travosmesi/',
-  '/catalog/mnogoletnie-kormovye-travy/lyutserna/'
+  '/catalog/mnogoletnie-kormovye-travy/lyutserna/',
+  '/o-kompanii/'
 ]);
 
 const ALWAYS_INDEXABLE_URLS = new Set([
-  '/catalog/travosmesi/'
+  '/catalog/travosmesi/',
+  '/o-kompanii/'
 ]);
 
 export function isIndexablePage(page) {
