@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { GENERATED_MARKER } from '../src/templates/constants.mjs';
-import { HOME_IMAGES } from '../src/data/home-images.mjs';
 import { renderHomeFooter, renderHomeHeader } from '../src/templates/homepage.mjs';
 
 const root = process.cwd();
@@ -12,11 +11,12 @@ const page = pages.find((item) => item.url === '/o-kompanii/');
 if (!page) throw new Error('Маршрут /o-kompanii/ не найден в SEO-карте');
 
 const output = path.join(siteRoot, 'o-kompanii', 'index.html');
-const description = 'BAS Agros поставляет семена кормовых трав, травосмеси и сельскохозяйственные культуры по Казахстану. Подбор под задачу хозяйства, коммерческий расчёт и сопровождение поставки.';
+const description = 'О компании BAS Agros: поставка семян кормовых трав, травосмесей и сельскохозяйственных культур по Казахстану. Работа с хозяйствами, подбор, документы и логистика.';
 const phone = '+7 705 960 89 87';
 const phoneHref = 'tel:+77059608987';
 const whatsappHref = 'https://wa.me/77059608987';
 const email = 'basagros@mail.ru';
+const thematicPeoplePhoto = 'https://images.unsplash.com/photo-1649726955230-6a2b7b4add6e?auto=format&fit=crop&fm=jpg&q=82&w=1600';
 
 function icon(pathData) {
   return `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${pathData}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -29,16 +29,13 @@ const icons = {
   truck: icon('M3 7h11v9H3V7Zm11 4h4l3 3v2h-7v-5ZM7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z'),
   phone: icon('M7.4 3.5 9.7 8 7.9 9.6c1 2.3 2.7 4 5 5l1.7-1.8 4.4 2.3c.5.3.8.8.7 1.4-.3 2.1-1.8 3.5-3.9 3.5C9.2 20 4 14.8 4 8.3c0-2 1.4-3.6 3.5-3.9.6-.1 1.2.2 1.5.7Z'),
   mail: icon('M3 6h18v12H3V6Zm0 1 9 7 9-7'),
-  document: icon('M6 3h9l3 3v15H6V3Zm9 0v4h4M9 11h6m-6 4h6'),
-  quality: icon('M12 3l7 3v5c0 4.5-2.8 8-7 10-4.2-2-7-5.5-7-10V6l7-3Zm-3 8 2 2 4-4')
+  quality: icon('M12 3l7 3v5c0 4.5-2.8 8-7 10-4.2-2-7-5.5-7-10V6l7-3Zm-3 8 2 2 4-4'),
+  handshake: icon('M4 12 8 8l4 2 4-2 4 4-5 5-3-2-3 2-5-5Zm4-4L6 6 3 9l3 3m10-4 2-2 3 3-3 3'),
+  document: icon('M6 3h9l3 3v15H6V3Zm9 0v4h4M9 11h6m-6 4h6')
 };
 
-function img(slot, alt, className = '') {
-  const asset = HOME_IMAGES[slot];
-  if (!asset) throw new Error(`Не найден image slot для страницы о компании: ${slot}`);
-  const avif = asset.avif.map((item) => `${item.src} ${item.w}w`).join(', ');
-  const webp = asset.webp.map((item) => `${item.src} ${item.w}w`).join(', ');
-  return `<div class="about-picture ${className}"><picture><source type="image/avif" srcset="${avif}" sizes="${asset.sizes}"><source type="image/webp" srcset="${webp}" sizes="${asset.sizes}"><img src="${asset.fallback}" width="${asset.width}" height="${asset.height}" alt="${alt}" loading="lazy" decoding="async"></picture></div>`;
+function localImage(src, alt, width = 960, height = 640, loading = 'lazy') {
+  return `<img src="${src}" width="${width}" height="${height}" alt="${alt}" loading="${loading}" decoding="async">`;
 }
 
 const header = renderHomeHeader(page, pages);
@@ -47,28 +44,33 @@ const footer = renderHomeFooter(pages);
 const structuredData = JSON.stringify([
   {
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
+    '@type': 'AboutPage',
     name: page.title,
     url: page.canonical,
     description,
-    inLanguage: 'ru'
+    inLanguage: 'ru',
+    about: {
+      '@type': 'Organization',
+      name: 'BAS Agros',
+      url: 'https://basagros.kz/',
+      telephone: '+77059608987',
+      email,
+      areaServed: 'KZ',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Петропавловск',
+        addressRegion: 'Северо-Казахстанская область',
+        addressCountry: 'KZ'
+      }
+    }
   },
   {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://basagros.kz/' },
-      { '@type': 'ListItem', position: 2, name: 'О компании BAS Agros', item: page.canonical }
+      { '@type': 'ListItem', position: 2, name: 'О компании', item: page.canonical }
     ]
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'BAS Agros',
-    url: 'https://basagros.kz/',
-    telephone: '+77059608987',
-    email,
-    areaServed: 'KZ'
   }
 ]).replace(/</g, '\\u003c');
 
@@ -81,7 +83,7 @@ ${GENERATED_MARKER}
   <title>${page.title}</title>
   <meta name="description" content="${description}">
   <link rel="canonical" href="${page.canonical}">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#F7F8F3">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
@@ -98,49 +100,51 @@ ${GENERATED_MARKER}
   <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home.css?v=20260902-1">
-  <link rel="stylesheet" href="/assets/css/about.css?v=20260902-1">
+  <link rel="stylesheet" href="/assets/css/about-classic.css?v=20260902-1">
   <script type="application/ld+json">${structuredData}</script>
 </head>
 <body class="page-home page-about">
   <a class="skip-link" href="#main">Перейти к содержанию</a>
 ${header}
-  <main id="main">
-    <section class="about-hero" aria-labelledby="about-h1">
+  <main id="main" class="about-classic">
+    <section class="about-classic-hero" aria-labelledby="about-h1">
       <div class="home-wrap">
-        <nav class="about-breadcrumbs" aria-label="Навигация по разделу"><ol><li><a href="/">Главная</a></li><li aria-current="page"><span>О компании</span></li></ol></nav>
-        <div class="about-hero-grid">
-          <div class="about-hero-copy">
-            <p class="about-eyebrow">BAS Agros</p>
+        <nav class="about-breadcrumbs" aria-label="Навигация по разделу"><ol class="breadcrumbs"><li><a href="/">Главная</a></li><li aria-current="page"><span>О компании</span></li></ol></nav>
+        <div class="about-classic-hero__grid">
+          <div class="about-classic-hero__copy">
+            <p class="about-classic-kicker">BAS Agros · Петропавловск</p>
             <h1 id="about-h1">${page.h1}</h1>
-            <p class="about-hero-lead">Поставляем семена кормовых трав, травосмеси и сельскохозяйственные культуры для фермерских и агропромышленных предприятий Казахстана. Основное направление BAS Agros — травы и травосмеси.</p>
-            <div class="home-actions"><a class="home-btn home-btn-primary" href="/catalog/">Перейти в каталог</a><a class="home-btn home-btn-outline" href="#request">Связаться с нами</a></div>
+            <p class="about-classic-hero__lead">BAS Agros — казахстанская компания, специализирующаяся на поставке семян кормовых трав, травосмесей и зернобобовых культур. Работаем с фермерскими хозяйствами, сельхозпредприятиями и профессиональными закупщиками, которым важны понятные условия, подходящий ассортимент и организованная доставка.</p>
+            <div class="about-classic-hero__actions"><a class="home-btn home-btn-primary" href="/catalog/">Перейти в каталог</a><a class="home-btn home-btn-outline" href="#request">Связаться с компанией</a></div>
           </div>
-          <div class="about-hero-media">${img('hero', 'Поля кормовых культур BAS Agros')}</div>
+          <div class="about-classic-hero__media">${localImage('/assets/img/home/about-field-640.webp', 'Поле сельскохозяйственных культур', 640, 520, 'eager')}<div class="about-classic-hero__caption">Семена для кормовой базы, сенокосов, пастбищ и других задач хозяйства</div></div>
         </div>
       </div>
     </section>
 
-    <section class="about-section" aria-label="Ключевые факты о BAS Agros"><div class="home-wrap"><ul class="about-facts"><li>${icons.seed}<strong>Семена трав и травосмеси — основное направление</strong></li><li>${icons.map}<strong>Поставка по всему Казахстану</strong></li><li>${icons.task}<strong>Подбор под задачу хозяйства</strong></li><li>${icons.truck}<strong>Коммерческий расчёт под объём и направление поставки</strong></li></ul></div></section>
+    <section class="about-classic-summary" aria-label="BAS Agros в кратких фактах"><div class="home-wrap"><div class="about-classic-summary__grid"><div class="about-classic-summary__item"><strong>С 2019 года</strong><span>команда развивает направление поставок семян для сельского хозяйства</span></div><div class="about-classic-summary__item"><strong>Петропавловск, СКО</strong><span>здесь сосредоточена операционная работа компании и складская логистика</span></div><div class="about-classic-summary__item"><strong>Основной профиль</strong><span>кормовые травы, травосмеси и зернобобовые культуры</span></div><div class="about-classic-summary__item"><strong>Поставка по Казахстану</strong><span>условия и логистика рассчитываются под конкретный регион и объём</span></div></div></div></section>
 
-    <section class="about-section about-intro" aria-labelledby="about-company-title"><div class="home-wrap about-intro-grid"><div class="about-collage">${img('travosmes-universalnaya', 'Густой посев кормовых культур')}${img('seeds', 'Семена трав крупным планом')}${img('shipping', 'Сельскохозяйственная техника в поле')}</div><div class="about-intro-copy"><p class="about-eyebrow">О компании</p><h2 id="about-company-title">Поставщик семян для сельскохозяйственных задач</h2><p>BAS Agros работает с хозяйствами, которым нужны семена для формирования кормовой базы, сенокосов, пастбищ, медоносных посевов, сидерации и других производственных задач.</p><p>Каталог выстроен так, чтобы клиент мог начать как с конкретной культуры, так и с задачи хозяйства. По заявке менеджер уточняет назначение посева, площадь, необходимый объём и место доставки, после чего готовится коммерческое предложение.</p><p>На сайте публикуются только подтверждённые сведения о компании и продукции. Параметры конкретной партии и поставки уточняются в коммерческом предложении.</p></div></div></section>
+    <section class="about-classic-section about-classic-story" aria-labelledby="about-story-title"><div class="home-wrap about-classic-story__grid"><div class="about-classic-story__intro"><p class="about-classic-kicker">История и специализация</p><h2 id="about-story-title">Компания, выросшая из практической задачи агробизнеса</h2><div class="about-classic-photo">${localImage('/assets/img/home/about-seeds-640.webp', 'Семена сельскохозяйственных культур крупным планом', 640, 480)}</div></div><div class="about-classic-story__copy"><p>BAS Agros развивает направление поставок семян для сельского хозяйства с 2019 года. Юридическое лицо ТОО «БАС АГРОС» зарегистрировано в Казахстане в 2021 году. Компания базируется в Петропавловске — одном из ключевых аграрных центров Северного Казахстана.</p><p>Изначально специализация строилась вокруг кормовых трав: люцерны, эспарцета, костреца, донника, житняка, суданской травы и других культур, востребованных для кормовой базы. Со временем ассортимент расширился зернобобовыми, отдельными сельскохозяйственными культурами и готовыми травосмесями под разные сценарии использования.</p><p class="about-classic-pullquote">Наша задача — не просто передать клиенту прайс, а помочь быстро перейти от потребности хозяйства к понятному варианту закупки.</p><p>В работе с заявкой учитываются назначение посева, площадь, предполагаемый объём, культура или состав смеси, регион доставки и требования к документам. Такой подход особенно важен в B2B-закупках, где цена без контекста партии и логистики редко даёт полную картину.</p><p>Компания работает и с теми, кто уже знает конкретную культуру или сорт, и с хозяйствами, которым сначала нужно определить подходящее направление: кормовая база, сенокос, пастбище, сидерация, медоносный посев, озеленение или восстановление территории.</p></div></div></section>
 
-    <section class="about-section about-audience" aria-labelledby="about-audience-title"><div class="home-wrap"><div class="about-audience-head"><div><p class="about-eyebrow">Клиенты</p><h2 id="about-audience-title">С кем работает BAS Agros</h2></div><p>Основная модель работы — B2B: подбор и поставка семян под параметры конкретного хозяйства или закупки.</p></div><div class="about-audience-grid"><article class="about-audience-card"><span>01</span><h3>Агрохолдинги и сельхозпредприятия</h3><p>Ассортимент семян, коммерческий расчёт, документы и условия поставки.</p></article><article class="about-audience-card"><span>02</span><h3>Крестьянские и фермерские хозяйства</h3><p>Подбор культуры или травосмеси под сенокос, пастбище и кормовую базу.</p></article><article class="about-audience-card"><span>03</span><h3>Профессиональные закупщики</h3><p>Сверка ассортимента, объёма, характеристик партии и логистики.</p></article><article class="about-audience-card"><span>04</span><h3>Озеленители и ландшафтные компании</h3><p>Травосмеси и отдельные виды трав для озеленительных задач.</p></article></div></div></section>
+    <section class="about-classic-section about-classic-team" aria-labelledby="about-team-title"><div class="home-wrap about-classic-team__grid"><div class="about-classic-team__media"><img src="${thematicPeoplePhoto}" width="1600" height="1067" alt="Специалисты сельского хозяйства в поле — тематическое фото" loading="lazy" decoding="async"></div><div class="about-classic-team__copy"><p class="about-classic-kicker">Люди и работа с клиентом</p><h2 id="about-team-title">За каждой заявкой стоит конкретная задача хозяйства</h2><p>В BAS Agros коммуникация строится напрямую: менеджер уточняет параметры закупки, помогает сориентироваться в ассортименте и собирает исходные данные для коммерческого предложения. Для клиента это означает меньше лишних переходов между отделами и более понятный путь от запроса до поставки.</p><p>Мы сознательно не заменяем консультацию автоматическим «калькулятором цены», потому что в семенах многое зависит от культуры, партии, объёма и направления доставки. Финальные условия подтверждаются менеджером по актуальным данным.</p><div class="about-classic-team__facts"><div><strong>Контакт с менеджером</strong><span>телефон, WhatsApp или форма на сайте</span></div><div><strong>Коммерческий расчёт</strong><span>под объём, культуру и регион доставки</span></div><div><strong>Сопровождение заказа</strong><span>от уточнения потребности до согласования поставки</span></div></div></div></div></section>
 
-    <section class="about-section about-directions" aria-labelledby="about-directions-title"><div class="home-wrap"><div class="about-section-head"><div><p class="about-eyebrow">Ассортимент</p><h2 id="about-directions-title">Основные направления каталога</h2></div><p>Структура каталога соответствует утверждённой SEO-карте BAS Agros и разделяет товарные направления по типу культуры и назначению.</p></div><div class="about-direction-grid"><article class="about-direction-card"><a href="/catalog/travosmesi/">${img('travosmes-universalnaya', 'Травостой кормовых культур')}<div class="about-direction-body"><h3>Травосмеси</h3><p>Кормовые, универсальные, рекультивационные, газонные и озимые смеси.</p><b>Перейти →</b></div></a></article><article class="about-direction-card"><a href="/catalog/mnogoletnie-kormovye-travy/">${img('lyutserna', 'Поле люцерны')}<div class="about-direction-body"><h3>Многолетние кормовые травы</h3><p>Люцерна, эспарцет, тимофеевка и другие культуры каталога.</p><b>Перейти →</b></div></a></article><article class="about-direction-card"><a href="/catalog/odnoletnie-kormovye-travy/">${img('fatseliya', 'Цветущее поле фацелии')}<div class="about-direction-body"><h3>Однолетние кормовые травы</h3><p>Суданская трава, фацелия, вика и другие однолетние культуры.</p><b>Перейти →</b></div></a></article><article class="about-direction-card"><a href="/catalog/sorgo/">${img('sorgo', 'Поле сорго')}<div class="about-direction-body"><h3>Сорго</h3><p>Зерновое и суданковое сорго в отдельном направлении каталога.</p><b>Перейти →</b></div></a></article></div></div></section>
+    <section class="about-classic-section about-classic-principles" aria-labelledby="about-principles-title"><div class="home-wrap"><div class="about-classic-principles__head"><div><p class="about-classic-kicker">Подход BAS Agros</p><h2 id="about-principles-title">На чём строим работу</h2></div><p>Для сельхозпредприятия важна не громкая презентация поставщика, а предсказуемость сделки: что именно предлагается, какие документы доступны, как формируется цена и куда будет доставлена партия.</p></div><div class="about-classic-principles__list"><article class="about-classic-principle">${icons.seed}<div><h3>Профильный ассортимент</h3><p>Основной акцент — травы и травосмеси, дополненные другими востребованными сельскохозяйственными культурами.</p></div></article><article class="about-classic-principle">${icons.task}<div><h3>Подбор под задачу</h3><p>Начинаем не только с названия товара, но и с назначения посева, площади и условий конкретного хозяйства.</p></div></article><article class="about-classic-principle">${icons.quality}<div><h3>Документы и качество</h3><p>Характеристики и документы по конкретной партии уточняются до заключения сделки.</p></div></article><article class="about-classic-principle">${icons.truck}<div><h3>Логистика по Казахстану</h3><p>Организуем доставку в регионы; стоимость и формат перевозки зависят от объёма и пункта назначения.</p></div></article></div></div></section>
 
-    <section class="about-section about-process" aria-labelledby="about-process-title"><div class="home-wrap about-process-grid"><div class="about-process-copy"><p class="about-eyebrow">Работа с заявкой</p><h2 id="about-process-title">Как формируется предложение</h2><p>Вместо универсального прайса BAS Agros уточняет параметры конкретной закупки. Это позволяет связать выбранную культуру, объём и направление поставки в одном обращении.</p></div><ol class="about-steps"><li><h3>Задача или культура</h3><p>Клиент указывает конкретный товар либо задачу: сенокос, пастбище, медоносный посев, сидерация или другое направление.</p></li><li><h3>Площадь и объём</h3><p>Учитываются площадь посева и требуемое количество семян. Фиксированный минимальный заказ не заявляется — объём согласуется индивидуально.</p></li><li><h3>Место доставки</h3><p>Населённый пункт используется для расчёта направления поставки и логистики.</p></li><li><h3>Коммерческое предложение</h3><p>После уточнения параметров менеджер формирует предложение по подходящей позиции и условиям поставки.</p></li></ol></div></section>
+    <section class="about-classic-section about-classic-work" aria-labelledby="about-work-title"><div class="home-wrap"><p class="about-classic-kicker">Как мы работаем</p><h2 id="about-work-title">Понятный процесс от запроса до поставки</h2><div class="about-classic-work__grid"><article class="about-classic-work__item"><h3>1. Уточняем потребность</h3><p>Культура или задача, площадь, объём, регион и желаемые сроки.</p></article><article class="about-classic-work__item"><h3>2. Формируем предложение</h3><p>Подбираем подходящие позиции и актуальные условия конкретной закупки.</p></article><article class="about-classic-work__item"><h3>3. Согласовываем поставку</h3><p>Подтверждаем документы, логистику и остальные коммерческие условия.</p></article></div><div class="about-classic-gallery"><figure>${localImage('/assets/img/home/about-machinery-640.webp', 'Сельскохозяйственная техника в поле', 640, 480)}<figcaption>Работаем в контексте реальных задач сельского хозяйства</figcaption></figure><figure>${localImage('/assets/img/home/article-lyutserna-720.webp', 'Поле люцерны', 720, 405)}<figcaption>Кормовые культуры — одно из ключевых направлений</figcaption></figure><figure>${localImage('/assets/img/home/about-seeds-640.webp', 'Семенной материал', 640, 480)}<figcaption>Параметры конкретной партии уточняются перед сделкой</figcaption></figure></div></div></section>
 
-    <section class="about-section about-trust" aria-labelledby="about-trust-title"><div class="home-wrap"><div class="about-section-head"><div><p class="about-eyebrow">Поставка и документы</p><h2 id="about-trust-title">Что можно уточнить до заказа</h2></div><p>Для выбранной позиции и партии согласовываются актуальные параметры продукции, документы и условия поставки.</p></div><div class="about-trust-grid"><article class="about-trust-card"><div class="about-trust-copy">${icons.quality}<h3>Качество и документы</h3><p>Характеристики продукции и перечень сопровождающих документов уточняются по выбранной партии.</p><a class="home-text-link" href="/kachestvo-i-sertifikaty/">Качество и сертификаты →</a></div>${img('quality', 'Работа с образцами семян и документами')}</article><article class="about-trust-card"><div class="about-trust-copy">${icons.truck}<h3>Доставка по Казахстану</h3><p>Для расчёта поставки учитываются культура, объём и населённый пункт доставки.</p><a class="home-text-link" href="/dostavka-i-oplata/">Доставка и оплата →</a></div>${img('shipping', 'Сельскохозяйственная техника в поле')}</article></div></div></section>
+    <section class="about-classic-section about-classic-geo" aria-labelledby="about-geo-title"><div class="home-wrap about-classic-geo__grid"><div><p class="about-classic-kicker">География</p><h2 id="about-geo-title">Из Северного Казахстана — хозяйствам по стране</h2><p>Операционная база BAS Agros находится в Петропавловске, Северо-Казахстанская область. Компания организует отправку семян в другие регионы Казахстана. Для поставок за пределы страны условия рассчитываются отдельно.</p><div class="about-classic-geo__facts"><div><strong>Петропавловск</strong><span>базовый город компании</span></div><div><strong>Казахстан</strong><span>основная география поставок</span></div></div></div><div class="about-classic-geo__media">${localImage('/assets/img/home/hero-field-920.webp', 'Сельскохозяйственные поля Казахстана', 920, 720)}</div></div></section>
 
-    <section class="about-section about-contacts" id="request" aria-labelledby="about-contacts-title"><div class="home-wrap about-contacts-grid"><div><p class="about-eyebrow">Контакты и реквизиты</p><h2 id="about-contacts-title">Связаться с BAS Agros</h2><div class="about-contact-list"><a class="about-contact-link" href="${phoneHref}">${icons.phone}<div><strong>${phone}</strong><span>Телефон для связи</span></div></a><a class="about-contact-link" href="${whatsappHref}" target="_blank" rel="noopener noreferrer">${icons.phone}<div><strong>${phone}</strong><span>WhatsApp</span></div></a><a class="about-contact-link" href="mailto:${email}">${icons.mail}<div><strong>${email}</strong><span>Электронная почта</span></div></a><div class="about-requisites">${icons.document}<div><strong>Реквизиты и карточка предприятия</strong><span>Актуальные реквизиты предоставляются по запросу менеджеру.</span></div></div></div></div><form class="home-form about-form" data-lead-form data-form-name="О компании — связаться с BAS Agros"><label for="about-name">Имя<input id="about-name" name="name" type="text" autocomplete="name"></label><label for="about-phone">Телефон<input id="about-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 *** *** ** **"></label><label class="about-form-wide" for="about-topic">Что вас интересует<input id="about-topic" name="category" type="text" placeholder="Например, травосмеси или люцерна"></label><label class="about-form-wide" for="about-message">Комментарий<textarea id="about-message" name="message" rows="4" placeholder="Укажите культуру, объём и место доставки"></textarea></label><input type="hidden" name="intent" value="company_contact"><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><p class="about-form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p><button class="home-btn home-btn-primary" type="submit">Отправить заявку</button><div class="home-form-status" data-form-status aria-live="polite" aria-atomic="true"></div></form></div></section>
+    <section class="about-classic-section about-classic-requisites" aria-labelledby="about-requisites-title"><div class="home-wrap about-classic-requisites__grid"><div><p class="about-classic-kicker">Компания</p><h2 id="about-requisites-title">BAS Agros в деловом формате</h2><p>ТОО «БАС АГРОС» работает в сфере оптовой торговли зерном, семенами и кормами для животных. На сайте оставляем только сведения, которые можно подтвердить по текущим данным компании.</p></div><dl class="about-classic-requisites__rows"><div class="about-classic-requisites__row"><dt>Наименование</dt><dd>ТОО «БАС АГРОС»</dd></div><div class="about-classic-requisites__row"><dt>Город</dt><dd>Петропавловск, Северо-Казахстанская область</dd></div><div class="about-classic-requisites__row"><dt>Основное направление</dt><dd>Семена кормовых трав, травосмеси и сельскохозяйственные культуры</dd></div><div class="about-classic-requisites__row"><dt>Телефон</dt><dd>${phone}</dd></div><div class="about-classic-requisites__row"><dt>E-mail</dt><dd>${email}</dd></div></dl></div></section>
+
+    <section class="about-classic-section about-classic-contact" id="request" aria-labelledby="about-contact-title"><div class="home-wrap about-classic-contact__grid"><div><p class="about-classic-kicker">Связаться с BAS Agros</p><h2 id="about-contact-title">Обсудим вашу задачу</h2><p>Напишите, какая культура или смесь нужна, укажите примерный объём и регион доставки. Если точной позиции пока нет, опишите задачу хозяйства — менеджер поможет сориентироваться.</p><div class="about-classic-contact__links"><a href="${phoneHref}">${icons.phone}<span>${phone}</span></a><a href="${whatsappHref}" target="_blank" rel="noopener noreferrer">${icons.handshake}<span>WhatsApp: ${phone}</span></a><a href="mailto:${email}">${icons.mail}<span>${email}</span></a></div></div><form class="about-classic-form" data-lead-form data-form-name="О компании — заявка"><input type="hidden" name="page_url" value="/o-kompanii/"><input type="hidden" name="form_intent" value="company_contact"><label>Имя<input type="text" name="name" autocomplete="name" placeholder="Как к вам обращаться" required></label><label>Телефон<input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 *** *** ** **" required></label><label class="about-classic-form__wide">Что требуется<textarea name="message" placeholder="Культура, объём, регион доставки или задача хозяйства"></textarea></label><button class="home-btn home-btn-primary" type="submit">Отправить заявку</button><p class="home-form-status" data-form-status aria-live="polite"></p><p class="about-classic-form__note">Отправляя форму, вы соглашаетесь на обработку данных для ответа на обращение.</p></form></div></section>
   </main>
 ${footer}
   <script src="/assets/js/site-config.js" defer></script>
-  <script src="/assets/js/home.js?v=20260902-1" defer></script>
+  <script src="/assets/js/home.js?v=20260831-7" defer></script>
   <script src="/assets/js/lead-form.js" defer></script>
 </body>
 </html>`;
 
 fs.mkdirSync(path.dirname(output), { recursive: true });
 fs.writeFileSync(output, html, 'utf8');
-console.log('About page built: /o-kompanii/');
+console.log('Classic corporate about page built: /o-kompanii/');
