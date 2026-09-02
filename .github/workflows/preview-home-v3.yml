@@ -1,0 +1,99 @@
+name: Publish Home V3 Preview
+
+on:
+  push:
+    branches:
+      - design/home-v3
+    paths:
+      - src/templates/homepage.mjs
+      - src/data/homepage.json
+      - src/data/home-images.mjs
+      - site/assets/css/home-square.css
+      - site/assets/js/home.js
+      - .github/workflows/preview-home-v3.yml
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-production
+  cancel-in-progress: false
+
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current approved site
+        uses: actions/checkout@v4
+        with:
+          ref: work/cursor
+          path: prod
+
+      - name: Checkout isolated V3 branch
+        uses: actions/checkout@v4
+        with:
+          ref: design/home-v3
+          path: v3
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            prod/package-lock.json
+            v3/package-lock.json
+
+      - name: Build approved site root
+        working-directory: prod
+        run: |
+          npm ci
+          npm run quality:all
+
+      - name: Build V3 preview
+        working-directory: v3
+        run: |
+          npm ci
+          npm run quality:all
+
+      - name: Inject V3 homepage into preview subpath
+        run: |
+          rm -rf prod/site/preview/home-v3
+          mkdir -p prod/site/preview/home-v3
+          cp v3/site/index.html prod/site/preview/home-v3/index.html
+          cp -R v3/site/assets prod/site/preview/home-v3/assets
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path('prod/site/preview/home-v3')
+          index = root / 'index.html'
+          html = index.read_text(encoding='utf-8')
+          html = html.replace('"/assets/', '"assets/')
+          html = html.replace("'/assets/", "'assets/")
+          html = html.replace(', /assets/', ', assets/')
+          index.write_text(html, encoding='utf-8')
+
+          css_root = root / 'assets' / 'css'
+          for css in css_root.glob('*.css'):
+              text = css.read_text(encoding='utf-8')
+              text = text.replace('/assets/', '../')
+              css.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Upload combined Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: prod/site
+
+  deploy-preview:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}preview/home-v3/
+    runs-on: ubuntu-latest
+    needs: build-preview
+    steps:
+      - name: Deploy current site plus isolated V3 preview
+        id: deployment
+        uses: actions/deploy-pages@v4
