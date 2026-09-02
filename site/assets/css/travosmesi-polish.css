@@ -298,6 +298,27 @@
   margin-top: 1.5rem;
 }
 
+@media (min-width: 48rem) {
+  .page-travosmesi .mix-criteria .mix-two-col {
+    align-items: stretch;
+  }
+
+  .page-travosmesi .mix-criteria .mix-two-col > div {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+  }
+
+  .page-travosmesi .mix-criteria-actions {
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+
+  .page-travosmesi .mix-criteria-list {
+    height: 100%;
+  }
+}
+
 .page-travosmesi .mix-criteria-list {
   display: grid;
   gap: .65rem;
