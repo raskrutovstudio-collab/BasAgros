@@ -89,12 +89,13 @@ function normalizeInternalUrl(href, fromUrl) {
     try {
       const parsed = new URL(href);
       if (parsed.hostname !== 'basagros.kz') return null;
-      href = parsed.pathname;
+      href = `${parsed.pathname}${parsed.hash}`;
     } catch {
       return href;
     }
   }
   if (href.startsWith('#')) return href;
+  href = href.split('#', 1)[0];
   if (!href.startsWith('/')) {
     const base = fromUrl === '/' ? '/' : fromUrl;
     href = path.posix.normalize(`${base}${href}`);
@@ -273,6 +274,7 @@ for (const page of pages) {
       fail(`${page.url}: пустая ссылка или href="#"`);
       continue;
     }
+    const fragment = raw.includes('#') ? raw.slice(raw.indexOf('#') + 1) : '';
     const href = normalizeInternalUrl(raw, page.url);
     if (href === null || href.startsWith('#')) continue;
     if (FORBIDDEN_URLS.includes(href)) fail(`${page.url}: запрещённый URL ${href}`);
@@ -283,6 +285,16 @@ for (const page of pages) {
       fail(`${page.url}: ссылка на sitemap ${href}`);
     }
     if (byUrl.has(href)) {
+      if (fragment) {
+        const targetHtml = fs.readFileSync(routeToFile(href), 'utf8');
+        const escapedFragment = fragment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const fragmentPattern = new RegExp(`\\b(?:id|name)=["']${escapedFragment}["']`, 'i');
+        if (!fragmentPattern.test(targetHtml)) {
+          brokenLinks += 1;
+          fail(`${page.url}: на странице ${href} нет якоря #${fragment}`);
+          continue;
+        }
+      }
       resolved.push(href);
       continue;
     }

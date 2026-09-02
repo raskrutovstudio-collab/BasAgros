@@ -91,7 +91,11 @@ function mediaSlot(slot, className = '') {
   return `<div class="home-media ${className}" data-asset-slot="${escapeHtml(slot)}"><picture><source type="image/avif" srcset="${avif}" sizes="${escapeHtml(asset.sizes)}"><source type="image/webp" srcset="${webp}" sizes="${escapeHtml(asset.sizes)}"><img src="${escapeHtml(asset.fallback)}" width="${asset.width}" height="${asset.height}" alt="${escapeHtml(asset.alt)}"${asset.priority ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async"></picture></div>`;
 }
 function navList(items, pages) {
-  return items.map(([url, label]) => { if (!url.startsWith('#')) requirePage(pages, url); return `<li>${link(url, label)}</li>`; }).join('');
+  return items.map(([url, label]) => {
+    if (url.startsWith('/#')) requirePage(pages, '/');
+    else if (!url.startsWith('#')) requirePage(pages, url);
+    return `<li>${link(url, label)}</li>`;
+  }).join('');
 }
 
 export function homepageDescription() { return homepage.description.text; }
@@ -99,7 +103,8 @@ export function homepageFaq() {
   return block('faq').items.map((item) => [item.title, item.text]);
 }
 export function renderHomeHeader(page, pages) {
-  return `<header class="home-header"><div class="home-wrap home-header-inner"><a class="home-brand" href="/" aria-label="BAS Agros — главная">${logo()}</a><button class="home-menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" data-menu-toggle><span class="visually-hidden">Открыть меню</span><span aria-hidden="true"></span></button><nav class="home-nav" id="home-navigation" aria-label="Основная навигация" data-mobile-nav><ul>${navList(HEADER, pages)}</ul><div class="home-nav-actions">${phoneLink('home-btn home-btn-outline')}${link('#request', 'Получить предложение', 'home-btn home-btn-primary', 'data-home-modal-intent="commercial_offer"')}</div></nav></div></header>`;
+  const headerItems = HEADER.map(([url, label]) => [url === '#solutions' && page.url !== '/' ? '/#solutions' : url, label]);
+  return `<header class="home-header"><div class="home-wrap home-header-inner"><a class="home-brand" href="/" aria-label="BAS Agros — главная">${logo()}</a><button class="home-menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" data-menu-toggle><span class="visually-hidden">Открыть меню</span><span aria-hidden="true"></span></button><nav class="home-nav" id="home-navigation" aria-label="Основная навигация" data-mobile-nav><ul>${navList(headerItems, pages)}</ul><div class="home-nav-actions">${phoneLink('home-btn home-btn-outline')}${link('#request', 'Получить предложение', 'home-btn home-btn-primary', 'data-home-modal-intent="commercial_offer"')}</div></nav></div></header>`;
 }
 export function renderHomeFooter(pages) {
   const cols = Object.entries(FOOTER).map(([heading, urls]) => `<nav aria-label="${heading}"><h2>${heading}</h2><ul>${urls.map((url) => { const p = requirePage(pages, url); return `<li>${link(p.url, p.page_name)}</li>`; }).join('')}</ul></nav>`).join('');

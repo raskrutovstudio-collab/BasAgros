@@ -1,5 +1,6 @@
 const INDEXABLE_URLS = new Set([
   '/',
+  '/catalog/travosmesi/',
   '/catalog/mnogoletnie-kormovye-travy/lyutserna/'
 ]);
 

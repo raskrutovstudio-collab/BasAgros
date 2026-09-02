@@ -175,10 +175,10 @@ function renderTravosmesiDocument({ page, pages, main }) {
   const structuredData = JSON.stringify(travosmesiStructuredData(page, pages)).replace(/</g, '\\u003c');
   const header = renderHomeHeader(page, pages)
     .replace('href="#request"', 'href="#mix-request"')
-    .replace(' data-home-modal-intent="commercial_offer"', '');
+    .replace('data-home-modal-intent="commercial_offer"', 'data-mix-modal-intent="quote"');
   const footer = renderHomeFooter(pages)
     .replaceAll('href="#request"', 'href="#mix-request"')
-    .replaceAll(' data-home-modal-intent="commercial_offer"', '');
+    .replaceAll('data-home-modal-intent="commercial_offer"', 'data-mix-modal-intent="quote"');
   return `<!doctype html>
 ${GENERATED_MARKER}
 <html lang="ru">
@@ -206,7 +206,7 @@ ${GENERATED_MARKER}
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home.css?v=20260831-9">
   <link rel="stylesheet" href="/assets/css/travosmesi.css?v=20260901-6">
-  <link rel="stylesheet" href="/assets/css/travosmesi-polish.css?v=20260901-5">
+  <link rel="stylesheet" href="/assets/css/travosmesi-polish.css?v=20260902-1">
   <link rel="stylesheet" href="/assets/css/travosmesi-refine.css?v=20260901-2">
   <link rel="stylesheet" href="/assets/css/travosmesi-viewport.css?v=20260901-2">
   <script type="application/ld+json">${structuredData}</script>
