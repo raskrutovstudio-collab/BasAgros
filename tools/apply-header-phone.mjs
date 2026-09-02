@@ -93,6 +93,10 @@ function patchHomeCss() {
   const footerSingleLineRule = `\n${footerSingleLineMarker}\n.home-footer-contact a {\n  white-space: nowrap;\n}\n@media (min-width: 48rem) and (max-width: 63.99rem) {\n  .home-footer-grid {\n    grid-template-columns: 1.25fr .9fr 1.15fr;\n    column-gap: 1.5rem;\n  }\n}\n`;
   if (!css.includes(footerSingleLineMarker)) css += footerSingleLineRule;
 
+  const footerIconAlignmentMarker = '/* Footer contact icon alignment. */';
+  const footerIconAlignmentRule = `\n${footerIconAlignmentMarker}\n.home-footer-contact a {\n  min-height: 2.75rem;\n  align-items: center;\n  font-size: .8rem;\n  font-weight: 700;\n}\n.home-footer-contact-icon {\n  display: block;\n  width: 1rem;\n  height: 1rem;\n  flex: 0 0 1rem;\n  margin-right: .45rem;\n}\n`;
+  if (!css.includes(footerIconAlignmentMarker)) css += footerIconAlignmentRule;
+
   fs.writeFileSync(cssPath, css, 'utf8');
 }
 
