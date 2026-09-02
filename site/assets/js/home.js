@@ -267,3 +267,39 @@
     returnFocus = null;
   });
 })();
+
+(() => {
+  if (!document.body.classList.contains('page-home-main')) return;
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reveals = [...document.querySelectorAll('[data-lux-reveal]')];
+
+  if (!reducedMotion && reveals.length && 'IntersectionObserver' in window) {
+    document.body.classList.add('js-lux-ready');
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
+      }
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    reveals.forEach((element) => observer.observe(element));
+  }
+
+  const cropStage = document.querySelector('[data-crop-stage]');
+  if (!cropStage) return;
+
+  const triggers = [...cropStage.querySelectorAll('[data-crop-trigger]')];
+  const previews = [...cropStage.querySelectorAll('[data-crop-preview]')];
+
+  function activateCrop(index) {
+    triggers.forEach((trigger) => trigger.classList.toggle('is-active', trigger.dataset.cropTrigger === String(index)));
+    previews.forEach((preview) => preview.classList.toggle('is-active', preview.dataset.cropPreview === String(index)));
+  }
+
+  triggers.forEach((trigger) => {
+    const index = trigger.dataset.cropTrigger;
+    trigger.addEventListener('mouseenter', () => activateCrop(index));
+    trigger.addEventListener('focus', () => activateCrop(index));
+  });
+})();
