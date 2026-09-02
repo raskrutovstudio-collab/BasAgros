@@ -10,7 +10,9 @@ const phoneButton = `<a href="tel:+77059608987" class="home-btn home-btn-outline
 const firstNavItem = '<li><a href="/">Главная</a></li>';
 const lastNavItem = '<li><a href="#contacts">Контакты</a></li>';
 const footerLocation = '<p>Поставка семян по Казахстану.</p>';
-const footerContacts = '<p class="home-footer-contact"><a href="https://wa.me/77059608987" target="_blank" rel="noopener" aria-label="Написать BAS Agros в WhatsApp">WhatsApp: +7 705 960 89 87</a></p><p class="home-footer-contact"><a href="mailto:basagros@mail.ru">E-mail: basagros@mail.ru</a></p>';
+const footerWhatsappIcon = '<svg class="home-footer-contact-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M12 3.25a8.4 8.4 0 0 0-7.24 12.67L3.6 20.4l4.58-1.1A8.4 8.4 0 1 0 12 3.25Zm0 1.8a6.6 6.6 0 1 1-3.36 12.28l-.3-.18-2.16.52.55-2.1-.2-.32A6.6 6.6 0 0 1 12 5.05Zm-2.1 2.7c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.08s.9 2.42 1.02 2.59c.13.16 1.76 2.68 4.26 3.76.6.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.48-.61 1.69-1.19.2-.58.2-1.08.14-1.18-.06-.1-.23-.16-.48-.29-.25-.12-1.48-.73-1.71-.81-.23-.09-.4-.13-.57.12-.16.25-.64.81-.79.98-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23a7.5 7.5 0 0 1-1.39-1.72c-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.36-.77-1.86-.2-.49-.41-.42-.57-.43Z" fill="currentColor"/></svg>';
+const footerEmailIcon = '<svg class="home-footer-contact-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M3.5 5.5h17v13h-17v-13Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m4.2 6.3 7.8 6 7.8-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const footerContacts = `<p class="home-footer-contact"><a href="https://wa.me/77059608987" target="_blank" rel="noopener noreferrer" aria-label="Написать BAS Agros в WhatsApp">${footerWhatsappIcon}<span>WhatsApp: +7 705 960 89 87</span></a></p><p class="home-footer-contact"><a href="mailto:basagros@mail.ru" aria-label="Написать BAS Agros на электронную почту">${footerEmailIcon}<span>E-mail: basagros@mail.ru</span></a></p>`;
 
 function patchHtml(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -84,11 +86,11 @@ function patchHomeCss() {
   if (!css.includes(footerStackMarker)) css += footerStackRule;
 
   const footerContactsMarker = '/* Footer direct contact links. */';
-  const footerContactsRule = `\n${footerContactsMarker}\n.home-footer-contact {\n  margin: .35rem 0;\n}\n.home-footer-contact a {\n  display: inline-flex;\n  min-height: 2rem;\n  align-items: center;\n  color: #fff;\n  font-size: .82rem;\n  font-weight: 650;\n  text-decoration: none;\n}\n.home-footer-contact a:hover {\n  text-decoration: underline;\n  text-underline-offset: .2rem;\n}\n`;
+  const footerContactsRule = `\n${footerContactsMarker}\n.home-footer-contact {\n  margin: .35rem 0;\n}\n.home-footer-contact a {\n  display: inline-flex;\n  min-height: 2.75rem;\n  align-items: center;\n  color: #fff;\n  font-size: .8rem;\n  font-weight: 700;\n  text-decoration: none;\n}\n.home-footer-contact-icon {\n  width: 1rem;\n  height: 1rem;\n  flex: 0 0 1rem;\n  margin-right: .45rem;\n}\n.home-footer-contact a:hover {\n  text-decoration: underline;\n  text-underline-offset: .2rem;\n}\n`;
   if (!css.includes(footerContactsMarker)) css += footerContactsRule;
 
   const footerSingleLineMarker = '/* Keep WhatsApp and email on one line in footer. */';
-  const footerSingleLineRule = `\n${footerSingleLineMarker}\n.home-footer-contact a {\n  white-space: nowrap;\n  font-size: .78rem;\n}\n@media (min-width: 48rem) and (max-width: 63.99rem) {\n  .home-footer-grid {\n    grid-template-columns: 1.25fr .9fr 1.15fr;\n    column-gap: 1.5rem;\n  }\n}\n`;
+  const footerSingleLineRule = `\n${footerSingleLineMarker}\n.home-footer-contact a {\n  white-space: nowrap;\n}\n@media (min-width: 48rem) and (max-width: 63.99rem) {\n  .home-footer-grid {\n    grid-template-columns: 1.25fr .9fr 1.15fr;\n    column-gap: 1.5rem;\n  }\n}\n`;
   if (!css.includes(footerSingleLineMarker)) css += footerSingleLineRule;
 
   fs.writeFileSync(cssPath, css, 'utf8');
@@ -96,4 +98,4 @@ function patchHomeCss() {
 
 patchHtml(siteRoot);
 patchHomeCss();
-console.log('Header navigation, direct contacts, single-line footer contacts, catalog alignment, guide heading, company copy, agroblog cleanup and footer link stacking applied.');
+console.log('Header navigation, icon-aligned footer contacts, catalog alignment, guide heading, company copy, agroblog cleanup and footer link stacking applied.');
