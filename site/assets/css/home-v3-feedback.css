@@ -474,3 +474,15 @@
   .page-home-main .home-category:nth-child(n){grid-template-rows:10.5rem auto!important}.page-home-main .home-category-body{min-height:9rem!important}
   .page-home-main .home-delivery-panel{padding:1.35rem!important}.page-home-main .home-quality{min-height:24rem!important}
 }
+
+/* Final hero image tuning: keep the new tractor vivid on the right. */
+.page-home-main .home-hero-main img{
+  object-position:center center!important;
+  filter:brightness(.92) saturate(1.08) contrast(1.08)!important;
+  transform:scale(1.01)!important
+}
+.page-home-main .home-hero-shade{
+  background:
+    linear-gradient(90deg,rgba(3,4,3,.95) 0%,rgba(3,4,3,.82) 33%,rgba(3,4,3,.4) 48%,rgba(3,4,3,.06) 63%,rgba(3,4,3,0) 100%),
+    linear-gradient(0deg,rgba(3,4,3,.55) 0%,rgba(3,4,3,.02) 48%,rgba(3,4,3,.12) 100%)!important
+}

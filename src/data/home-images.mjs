@@ -18,7 +18,7 @@ function pair(id, wide, tall, mobileWide, mobileTall) {
 
 export const HOME_IMAGES = {
   hero: {
-    ...pair('hero-v3-machinery', 1672, 941, 900, 506),
+    ...pair('hero-v4-machinery', 1672, 941, 900, 506),
     alt: 'Сельскохозяйственная техника выполняет посев в поле на закате',
     sizes: '100vw',
     priority: true
