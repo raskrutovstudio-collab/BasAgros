@@ -330,95 +330,57 @@
 (() => {
   if (!document.body.classList.contains('page-home-main')) return;
   const section = document.querySelector('.home-audience');
-  const list = section?.querySelector('.home-audience-list');
-  const rows = list ? [...list.querySelectorAll('.home-audience-row')] : [];
-  if (!section || !list || rows.length !== 4 || section.dataset.audienceEnhanced === 'true') return;
+  const list = section?.querySelector('[data-audience-list]');
+  const scenes = list ? [...list.querySelectorAll('[data-audience-scene]')] : [];
+  if (!section || !list || scenes.length !== 4) return;
 
-  const details = [
-    {
-      heading: 'Сенокос, пастбища, кормовая база',
-      text: 'Подбор начинается с назначения посева: сенокос, пастбище или формирование кормовой базы. Затем уточняются площадь, регион и планируемый объём поставки.',
-      features: [
-        ['Назначение посева', 'Сенокос, пастбище или кормовая база.'],
-        ['Подходящая категория', 'Травосмеси и кормовые травы из каталога.'],
-        ['Параметры поставки', 'Площадь, объём и регион для коммерческого расчёта.']
-      ]
-    },
-    {
-      heading: 'Посевы, севооборот, сидерация',
-      text: 'Начните с производственной задачи — посева, севооборота или сидерации. BAS Agros помогает перейти к подходящей категории и культуре в каталоге.',
-      features: [
-        ['Производственная задача', 'Посев, севооборот или сидерация.'],
-        ['Категория культуры', 'Переход к подходящему направлению каталога.'],
-        ['Параметры заявки', 'Культура, объём и регион поставки.']
-      ]
-    },
-    {
-      heading: 'Медоносные посевы',
-      text: 'Для медоносного направления можно перейти к фацелии и другим подтверждённым культурам каталога и оставить параметры площади и поставки.',
-      features: [
-        ['Направление', 'Культуры для медоносных посевов.'],
-        ['Каталог', 'Фацелия и релевантные культуры.'],
-        ['Параметры поставки', 'Площадь, объём и регион.']
-      ]
-    },
-    {
-      heading: 'Категории и объём поставки',
-      text: 'Для закупки нескольких позиций можно указать нужные категории, объём и регион поставки — на этой основе готовится коммерческий расчёт.',
-      features: [
-        ['Категории', 'Нужные группы и культуры из каталога.'],
-        ['Планируемый объём', 'Параметры закупки для расчёта.'],
-        ['Регион поставки', 'Направление для организации логистики.']
-      ]
-    }
-  ];
+  const desktop = window.matchMedia('(min-width: 64rem)');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  let activeIndex = -1;
 
-  const featureIcons = [
-    '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 38c3-12 8-20 14-28m0 28c0-12 4-21 12-29M9 28c6-1 11 1 15 6m2-12c4 0 8 2 11 6"/></svg>',
-    '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 35V19m9 16V11m10 24V16m9 19V8M6 35h36"/></svg>',
-    '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 7 38 13v10c0 9-5 15-14 19-9-4-14-10-14-19V13l14-6Z"/><path d="m18 24 4 4 8-9"/></svg>'
-  ];
+  const setActive = (nextIndex) => {
+    activeIndex = nextIndex;
+    list.classList.toggle('is-exploring', nextIndex >= 0);
+    scenes.forEach((scene, index) => {
+      const active = index === nextIndex;
+      const trigger = scene.querySelector('[data-audience-trigger]');
+      const detail = scene.querySelector('[data-audience-detail]');
+      scene.classList.toggle('is-active', active);
+      trigger?.setAttribute('aria-expanded', String(active));
+      if (detail) detail.hidden = !active;
+    });
+  };
 
-  rows.forEach((row, index) => {
-    const person = row.querySelector('.home-audience-person');
-    const task = row.querySelector(':scope > p');
-    const result = row.querySelector('.home-audience-result');
-    if (!person || !task || !result) return;
-
-    const title = person.querySelector('strong')?.textContent?.trim() || '';
-    const iconMarkup = person.querySelector('.home-icon')?.outerHTML || '';
-    const taskText = task.textContent.trim();
-    const solution = result.getAttribute('aria-label') || result.textContent.trim();
-    const href = result.getAttribute('href') || '#solutions';
-    const detail = details[index];
-
-    row.dataset.audienceIndex = String(index);
-    row.tabIndex = 0;
-    row.setAttribute('aria-label', `${title}: ${taskText}`);
-    row.innerHTML = `
-      <div class="home-audience-card" aria-hidden="false">
-        <span class="home-audience-card-icon">${iconMarkup}</span>
-        <div class="home-audience-card-copy">
-          <strong>${title}</strong>
-          <p>${taskText}</p>
-        </div>
-        <a class="home-audience-card-solution" href="${href}"><small>Решение BAS Agros</small><span>${solution}</span><b aria-hidden="true">→</b></a>
-      </div>
-      <div class="home-audience-detail">
-        <div class="home-audience-detail-inner">
-          <p class="home-audience-detail-pill">${iconMarkup}<span>${title}</span></p>
-          <h3>${detail.heading}</h3>
-          <p class="home-audience-detail-lead">${detail.text}</p>
-          <ul class="home-audience-detail-features">
-            ${detail.features.map((feature, featureIndex) => `<li>${featureIcons[featureIndex]}<div><strong>${feature[0]}</strong><span>${feature[1]}</span></div></li>`).join('')}
-          </ul>
-          <div class="home-audience-detail-actions">
-            <a class="home-audience-detail-primary" href="${href}">Смотреть решения <span aria-hidden="true">→</span></a>
-            <a class="home-audience-detail-secondary" href="#request" data-home-modal-intent="selection">Подобрать культуры <span aria-hidden="true">→</span></a>
-          </div>
-        </div>
-      </div>`;
+  scenes.forEach((scene, index) => {
+    const trigger = scene.querySelector('[data-audience-trigger]');
+    scene.addEventListener('pointerenter', () => {
+      if (desktop.matches && finePointer.matches) setActive(index);
+    });
+    trigger?.addEventListener('focus', () => {
+      if (desktop.matches) setActive(index);
+    });
+    trigger?.addEventListener('click', () => {
+      if (desktop.matches && finePointer.matches) {
+        setActive(index);
+        return;
+      }
+      setActive(activeIndex === index ? -1 : index);
+    });
+    scene.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      setActive(-1);
+      trigger?.focus();
+    });
   });
 
-  section.dataset.audienceEnhanced = 'true';
+  list.addEventListener('pointerleave', () => {
+    if (!desktop.matches || !finePointer.matches || list.contains(document.activeElement)) return;
+    setActive(-1);
+  });
+  list.addEventListener('focusout', () => {
+    window.setTimeout(() => {
+      if (desktop.matches && !list.contains(document.activeElement)) setActive(-1);
+    }, 0);
+  });
+  desktop.addEventListener('change', () => setActive(-1));
 })();

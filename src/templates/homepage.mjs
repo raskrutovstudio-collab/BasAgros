@@ -167,28 +167,100 @@ function renderSolutions(pages) {
 
 function renderAudience(pages) {
   const data = block('audience');
-  const rows = data.items.map((item) => {
+  const scenes = [
+    {
+      image: 'audience-livestock',
+      heading: 'Сенокос, пастбища и кормовая база',
+      lead: 'Подбор семян под назначение посева, площадь, регион и планируемый объём поставки.',
+      features: [
+        ['Назначение посева', 'Сенокос, пастбище или кормовая база'],
+        ['Подходящая категория', 'Травосмеси и кормовые травы'],
+        ['Параметры поставки', 'Площадь, объём и регион']
+      ]
+    },
+    {
+      image: 'audience-farming',
+      heading: 'Культуры под производственную задачу',
+      lead: 'Переход к подходящей категории начинается с задачи хозяйства и параметров планируемой поставки.',
+      features: [
+        ['Задача хозяйства', 'Посевы, севооборот или сидерация'],
+        ['Направление каталога', 'Культуры и категории под задачу'],
+        ['Параметры заявки', 'Культура, объём и регион']
+      ]
+    },
+    {
+      image: 'audience-apiary',
+      heading: 'Культуры для медоносных посевов',
+      lead: 'Подбор направления для пасечного хозяйства с учётом площади посева и параметров поставки.',
+      features: [
+        ['Назначение', 'Медоносный посев'],
+        ['Подтверждённые культуры', 'Фацелия и связанные позиции каталога'],
+        ['Параметры поставки', 'Площадь, объём и регион']
+      ]
+    },
+    {
+      image: 'audience-wholesale',
+      heading: 'Категории и объём для расчёта',
+      lead: 'Для оптовой закупки укажите нужные категории, планируемый объём и направление поставки.',
+      features: [
+        ['Категории', 'Нужные группы и культуры'],
+        ['Планируемый объём', 'Параметры закупки для расчёта'],
+        ['Регион поставки', 'Направление для организации логистики']
+      ]
+    }
+  ];
+  const featureIcons = ['compass', 'categories', 'delivery'];
+  const rows = data.items.map((item, index) => {
     requirePage(pages, item.url);
-    return `<li class="home-audience-row" data-lux-reveal>
-      <div class="home-audience-person">${icon(item.icon)}<strong>${escapeHtml(item.title)}</strong></div>
-      <span class="home-audience-connector" aria-hidden="true"></span>
-      <p>${escapeHtml(item.text)}</p>
-      <span class="home-audience-connector" aria-hidden="true"></span>
-      ${link(item.url, 'Открыть →', 'home-audience-result', `aria-label="${escapeHtml(item.result)}"`)}
-    </li>`;
-  }).join('');
-  return `<section class="home-section home-audience" aria-labelledby="audience-title">
-    <div class="home-wrap">
-      <div class="home-audience-intro" data-lux-reveal>
-        <div><p class="home-kicker">B2B-сценарии</p><h2 id="audience-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p></div>
-        <div class="home-audience-symbols" aria-hidden="true">
-          <span>${icon('livestock')}</span><span>${icon('farm')}</span><span>${icon('bee')}</span><span>${icon('box')}</span>
-          <strong>Подбор под задачу хозяйства</strong>
+    const scene = scenes[index];
+    return `<li class="audience-scene audience-scene-${index + 1}" data-audience-scene>
+      <picture class="audience-scene-media" aria-hidden="true">
+        <source srcset="/assets/img/home/${scene.image}-800.webp 800w, /assets/img/home/${scene.image}-1440.webp 1440w" sizes="(min-width: 64rem) 80vw, 100vw" type="image/webp">
+        <img src="/assets/img/home/${scene.image}-800.webp" width="800" height="533" loading="lazy" decoding="async" alt="">
+      </picture>
+      <span class="audience-scene-shade" aria-hidden="true"></span>
+      <button class="audience-scene-trigger" id="audience-trigger-${index}" type="button" aria-expanded="false" aria-controls="audience-detail-${index}" data-audience-trigger>
+        <span class="audience-scene-icon">${icon(item.icon)}</span>
+        <span class="audience-scene-copy"><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.text)}</small></span>
+        <span class="audience-scene-arrow" aria-hidden="true">→</span>
+      </button>
+      <div class="audience-scene-teaser">
+        <div><span>Задача</span><p>${escapeHtml(item.text)}</p></div>
+        <div><span>Решение</span><p>${escapeHtml(item.result)}</p></div>
+        ${link(item.url, 'Перейти к подбору →', 'audience-scene-teaser-link')}
+      </div>
+      ${link(item.url, '→', 'audience-scene-fallback', `aria-label="${escapeHtml(item.result)}"`)}
+      <div class="audience-scene-detail" id="audience-detail-${index}" role="region" aria-labelledby="audience-trigger-${index}" data-audience-detail hidden>
+        <div class="audience-scene-detail-inner">
+          <p class="audience-scene-eyebrow">${icon(item.icon)}<span>${escapeHtml(item.title)}</span></p>
+          <h3>${escapeHtml(scene.heading)}</h3>
+          <p class="audience-scene-lead">${escapeHtml(scene.lead)}</p>
+          <ul class="audience-scene-features">
+            ${scene.features.map((feature, featureIndex) => `<li>${icon(featureIcons[featureIndex])}<div><strong>${escapeHtml(feature[0])}</strong><span>${escapeHtml(feature[1])}</span></div></li>`).join('')}
+          </ul>
+          <div class="audience-scene-actions">
+            ${link(item.url, 'Смотреть решения →', 'audience-scene-primary')}
+            <a class="audience-scene-secondary" href="#request" data-home-modal-intent="selection">Подобрать культуры →</a>
+          </div>
         </div>
       </div>
-      <div class="home-audience-labels" aria-hidden="true"><span>Кому</span><span>Задача</span><span>Решение BAS Agros</span></div>
-      <ul class="home-audience-list">${rows}</ul>
-      ${link(data.links[0].url, `${data.links[0].label} →`, 'home-text-link')}
+    </li>`;
+  }).join('');
+  return `<section class="home-section home-audience" id="audience" aria-labelledby="audience-title">
+    <div class="home-wrap">
+      <div class="audience-stage-head" data-lux-reveal>
+        <p class="home-kicker">B2B-сценарии</p>
+        <h2 id="audience-title">${escapeHtml(data.heading)}</h2>
+        <p>${escapeHtml(data.text)}</p>
+      </div>
+      <div class="audience-stage" data-audience-stage>
+        <ul class="audience-stage-list" data-audience-list>${rows}</ul>
+        <svg class="audience-stage-wave" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs><filter id="audience-wave-glow" x="-20%" y="-80%" width="140%" height="250%"><feGaussianBlur stdDeviation="4" result="blur"></feGaussianBlur><feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs>
+          <path d="M0 91 C148 91 205 54 332 61 C475 69 520 111 650 94 C782 76 830 56 963 69 C1095 82 1168 59 1440 70" pathLength="1"></path>
+          <circle cx="88" cy="83" r="5"></circle><circle cx="727" cy="91" r="5"></circle><circle cx="1012" cy="70" r="5"></circle><circle cx="1297" cy="66" r="5"></circle>
+        </svg>
+      </div>
     </div>
   </section>`;
 }
