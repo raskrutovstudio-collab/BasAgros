@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { GENERATED_MARKER } from '../src/templates/constants.mjs';
 import { isIndexablePage } from '../src/templates/indexing.mjs';
-import { renderDocument } from '../src/templates/layout.mjs';
+import { renderPageDocument } from '../src/templates/layout.mjs';
 import { renderMain } from '../src/templates/render-body.mjs';
 import { assertKnownTypes } from '../src/templates/types.mjs';
 
@@ -74,7 +74,7 @@ for (const page of pages.slice().sort((a, b) => a.page_id.localeCompare(b.page_i
   const filePath = routeToFile(page.url);
   expectedFiles.add(path.resolve(filePath));
   assertWritable(filePath);
-  const html = renderDocument({
+  const html = renderPageDocument({
     page,
     pages,
     byId,
