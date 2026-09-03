@@ -17,7 +17,9 @@ on:
       - site/assets/css/home-v3-polish.css
       - site/assets/css/home-v3-feedback.css
       - site/assets/css/home-v3-audience.css
+      - site/assets/css/home-v3-catalog-sculpted.css
       - site/assets/js/home.js
+      - site/assets/js/site-config.js
       - .github/workflows/preview-home-v3.yml
 
 permissions:
