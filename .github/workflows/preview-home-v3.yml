@@ -11,6 +11,7 @@ on:
       - site/assets/css/home-square.css
       - site/assets/css/home-v3-qa.css
       - site/assets/css/home-v3-polish.css
+      - site/assets/css/home-v3-feedback.css
       - site/assets/js/home.js
       - .github/workflows/preview-home-v3.yml
 
@@ -72,7 +73,7 @@ jobs:
           root = Path('prod/site/preview/home-v3')
           index = root / 'index.html'
           html = index.read_text(encoding='utf-8')
-          html = html.replace('</head>', '<link rel="stylesheet" href="assets/css/home-v3-qa.css?v=20260903-3"><link rel="stylesheet" href="assets/css/home-v3-polish.css?v=20260903-3"></head>')
+          html = html.replace('</head>', '<link rel="stylesheet" href="assets/css/home-v3-qa.css?v=20260903-4"><link rel="stylesheet" href="assets/css/home-v3-polish.css?v=20260903-4"><link rel="stylesheet" href="assets/css/home-v3-feedback.css?v=20260903-4"></head>')
           html = html.replace('"/assets/', '"assets/')
           html = html.replace("'/assets/", "'assets/")
           html = html.replace(', /assets/', ', assets/')
