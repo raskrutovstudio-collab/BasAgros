@@ -15,6 +15,7 @@ on:
       - site/assets/css/home-v3-qa.css
       - site/assets/css/home-v3-polish.css
       - site/assets/css/home-v3-feedback.css
+      - site/assets/css/home-v3-audience.css
       - site/assets/js/home.js
       - .github/workflows/preview-home-v3.yml
 
