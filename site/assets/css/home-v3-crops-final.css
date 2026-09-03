@@ -1,0 +1,46 @@
+/* HOME V3 — final isolated correction for Popular crops. Loaded last. */
+.page-home-main .home-crops.home-crops-lux-ready .home-crop-lux-outline path{fill:none!important;stroke:rgba(232,197,109,.78)!important}
+.page-home-main .home-crops.home-crops-lux-ready .home-crop-lux-outline{background:transparent!important;color:transparent!important}
+
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a>.home-crop-lux-copy{
+  position:absolute!important;z-index:20!important;left:1.05rem!important;right:1.05rem!important;bottom:1rem!important;top:auto!important;
+  display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-areas:"title arrow" "desc arrow"!important;
+  align-items:end!important;gap:.45rem .7rem!important;width:auto!important;height:auto!important;max-width:none!important;
+  margin:0!important;padding:0!important;overflow:visible!important;background:transparent!important;color:inherit!important;
+  transform:none!important;white-space:normal!important;text-overflow:clip!important
+}
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a>.home-crop-lux-copy>.home-crop-lux-title{
+  grid-area:title!important;display:block!important;position:static!important;margin:0!important;padding:0!important;
+  max-width:15rem!important;color:#fffaf0!important;font:750 clamp(1.08rem,1.2vw,1.36rem)/1.03 Inter,Manrope,system-ui,sans-serif!important;
+  letter-spacing:-.035em!important;text-transform:none!important;white-space:normal!important
+}
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a>.home-crop-lux-copy>.home-crop-lux-desc{
+  grid-area:desc!important;display:block!important;position:static!important;margin:0!important;padding:0!important;
+  max-width:15rem!important;color:rgba(226,177,59,.84)!important;font:500 .7rem/1.4 Inter,Manrope,system-ui,sans-serif!important;
+  letter-spacing:0!important;text-transform:none!important;white-space:normal!important
+}
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a>.home-crop-lux-copy>.home-crop-lux-arrow{
+  grid-area:arrow!important;display:grid!important;position:static!important;place-items:center!important;align-self:end!important;
+  width:1.95rem!important;height:1.95rem!important;margin:0!important;padding:0!important;border:1px solid rgba(232,197,109,.36)!important;
+  border-radius:50%!important;background:rgba(8,9,8,.45)!important;color:#efc763!important;font:400 .86rem/1 Arial,sans-serif!important
+}
+
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list .home-media,
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list .home-media picture{
+  position:absolute!important;top:0!important;left:0!important;right:0!important;width:100%!important;height:67%!important;
+  margin:0!important;padding:0!important;overflow:hidden!important;background:transparent!important;border:0!important
+}
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li:nth-child(n+5) .home-media,
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li:nth-child(n+5) .home-media picture{height:68%!important}
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important}
+
+.page-home-main .home-crops.home-crops-lux-ready .home-crop-lux-outline{position:absolute!important;z-index:9!important;top:0!important;left:0!important;width:100%!important;height:67%!important;pointer-events:none!important}
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li:nth-child(n+5) .home-crop-lux-outline{height:68%!important}
+
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a{overflow:hidden!important;background:linear-gradient(180deg,#10110e,#080908 74%)!important}
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a::after{content:"";position:absolute;z-index:6;left:0;right:0;top:57%;height:18%;background:linear-gradient(180deg,transparent,rgba(8,9,8,.72) 58%,#080908 100%);pointer-events:none}
+
+@media (min-width:64rem){
+  .page-home-main .home-crops.home-crops-lux-ready .home-crops-list{grid-template-rows:19rem 16rem!important;gap:.9rem!important}
+  .page-home-main .home-crops.home-crops-lux-ready .home-crops-shell{padding:2.7rem!important;gap:2.8rem!important}
+}
