@@ -294,6 +294,33 @@
   .page-home-main .home-purpose-tab,.page-home-main .home-crops-list img,.page-home-main .home-strength-media img{transition:none}
 }
 
+/* Hero viewport fit: keep the complete offer and direction navigator above the fold. */
+@media (min-width:64rem){
+  .page-home-main .home-hero,
+  .page-home-main .home-hero-stage{
+    height:calc(100svh - 4.5rem)!important;
+    min-height:40rem!important;
+    max-height:50rem!important
+  }
+  .page-home-main .home-hero-content{
+    display:flex!important;flex:1 1 auto;align-items:center;
+    padding-top:1.35rem!important;padding-bottom:1.1rem!important
+  }
+  .page-home-main .home-hero-copy{max-width:51rem!important;padding:0!important}
+  .page-home-main .home-hero h1{
+    max-width:18ch!important;font-size:clamp(3rem,4vw,4.25rem)!important;
+    line-height:.94!important;text-wrap:pretty!important
+  }
+  .page-home-main .home-hero h1::after{width:min(28%,12rem)!important;margin-top:.9rem!important}
+  .page-home-main .home-lead{
+    max-width:46rem!important;margin:.75rem 0 1rem!important;
+    font-size:.92rem!important;line-height:1.48!important
+  }
+  .page-home-main .home-hero-copy .home-btn{min-height:3rem!important;padding:.65rem 1.15rem!important}
+  .page-home-main .home-hero-index{flex:0 0 auto;margin-bottom:.75rem!important;padding:.55rem!important}
+  .page-home-main .home-hero-index a{min-height:3rem!important;padding:.55rem .7rem!important}
+}
+
 /* BAS AGROS — HOME V3 / user review 2026-09-03
  * Compact rhythm, rounded material language and lower information density.
  */
