@@ -9,6 +9,7 @@ on:
       - src/templates/layout.mjs
       - src/data/homepage.json
       - src/data/home-images.mjs
+      - tools/build-site.mjs
       - site/assets/img/home/hero-v3-machinery-*.avif
       - site/assets/img/home/hero-v3-machinery-*.webp
       - site/assets/css/home-square.css
