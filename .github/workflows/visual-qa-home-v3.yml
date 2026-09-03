@@ -1,0 +1,73 @@
+name: Visual QA Home V3
+
+on:
+  push:
+    branches:
+      - design/home-v3
+    paths:
+      - .github/workflows/visual-qa-home-v3.yml
+      - src/templates/homepage.mjs
+      - src/data/homepage.json
+      - src/data/home-images.mjs
+      - site/assets/css/home-square.css
+      - site/assets/js/home.js
+
+permissions:
+  contents: read
+
+tasks: {}
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout V3
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build V3
+        run: |
+          npm ci
+          npm run quality:all
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Capture full-page screenshots
+        run: |
+          mkdir -p qa/screenshots
+          python3 -m http.server 8765 --directory site >/tmp/basagros-v3-http.log 2>&1 &
+          cat > /tmp/capture-home-v3.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          const sizes = [
+            ['1440', 1440, 1000],
+            ['1280', 1280, 900],
+            ['768', 768, 1024],
+            ['430', 430, 932],
+            ['390', 390, 844]
+          ];
+          const browser = await chromium.launch({ headless: true });
+          for (const [name, width, height] of sizes) {
+            const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
+            await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
+            await page.screenshot({ path: `qa/screenshots/home-v3-${name}.png`, fullPage: true });
+            await page.close();
+          }
+          await browser.close();
+          EOF
+          node /tmp/capture-home-v3.mjs
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: home-v3-visual-qa
+          path: qa/screenshots/*.png
+          if-no-files-found: error
+          retention-days: 1
