@@ -16,10 +16,9 @@ window.SITE_CONFIG = Object.freeze({
 
 /*
   Desktop audience accordion smoothing.
-  The visual layout still comes from home-v3-audience.css; this only keeps
-  grid tracks in explicit pixel values so interrupted 1 -> 2 -> 3 -> 4
-  hover transitions continue from the current rendered width instead of
-  snapping when :has() switches the active grid template.
+  Keep the grid tracks in explicit pixel values so interrupted transitions
+  continue from the exact rendered position instead of snapping between
+  discrete :has() grid templates.
 */
 (() => {
   if (!document.body.classList.contains('page-home-main')) return;
@@ -74,6 +73,7 @@ window.SITE_CONFIG = Object.freeze({
       return;
     }
 
+    const from = readTracks();
     const target = targetTracks(index);
     list.style.transition = 'none';
 
@@ -82,7 +82,6 @@ window.SITE_CONFIG = Object.freeze({
       return;
     }
 
-    const from = readTracks();
     const startedAt = performance.now();
 
     const tick = (now) => {
@@ -121,14 +120,72 @@ window.SITE_CONFIG = Object.freeze({
   }, { passive: true });
 })();
 
-/* HOME V3 catalogue art direction. Kept runtime-loaded so the experiment stays isolated to page-home-main. */
+/* HOME V3 catalogue art direction. */
 (() => {
   if (!document.body.classList.contains('page-home-main')) return;
   if (document.querySelector('link[data-home-v3-catalog-sculpted]')) return;
 
   const stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
-  stylesheet.href = '/assets/css/home-v3-catalog-sculpted.css?v=20260904-1';
+  stylesheet.href = '/assets/css/home-v3-catalog-sculpted.css?v=20260904-2';
   stylesheet.dataset.homeV3CatalogSculpted = '';
   document.head.append(stylesheet);
+})();
+
+/*
+  Stable audience hover routing.
+  home.js originally activates scenes on pointerenter. Because the cards move
+  while expanding, moving geometry can fire fresh pointerenter events even when
+  the user did not actually move into another card. Capture those scene-level
+  pointerenter events and switch only from real pointermove events.
+*/
+(() => {
+  if (!document.body.classList.contains('page-home-main')) return;
+
+  const list = document.querySelector('[data-audience-list]');
+  const scenes = list ? [...list.querySelectorAll('[data-audience-scene]')] : [];
+  if (!list || scenes.length !== 4) return;
+
+  const desktop = window.matchMedia('(min-width: 64rem)');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  let queuedIndex = -1;
+  let pointerFrame = 0;
+
+  const currentIndex = () => scenes.findIndex((scene) => scene.classList.contains('is-active'));
+
+  const activate = (nextIndex) => {
+    if (nextIndex < 0 || nextIndex === currentIndex()) return;
+
+    list.classList.add('is-exploring');
+    scenes.forEach((scene, index) => {
+      const active = index === nextIndex;
+      const trigger = scene.querySelector('[data-audience-trigger]');
+      const detail = scene.querySelector('[data-audience-detail]');
+      scene.classList.toggle('is-active', active);
+      trigger?.setAttribute('aria-expanded', String(active));
+      if (detail) detail.hidden = !active;
+    });
+  };
+
+  list.addEventListener('pointerenter', (event) => {
+    if (!desktop.matches || !finePointer.matches) return;
+    const scene = event.target.closest?.('[data-audience-scene]');
+    if (scene && list.contains(scene)) event.stopPropagation();
+  }, true);
+
+  list.addEventListener('pointermove', (event) => {
+    if (!desktop.matches || !finePointer.matches) return;
+    const scene = event.target.closest?.('[data-audience-scene]');
+    if (!scene || !list.contains(scene)) return;
+
+    const nextIndex = scenes.indexOf(scene);
+    if (nextIndex < 0 || nextIndex === currentIndex()) return;
+
+    queuedIndex = nextIndex;
+    if (pointerFrame) return;
+    pointerFrame = requestAnimationFrame(() => {
+      pointerFrame = 0;
+      activate(queuedIndex);
+    });
+  }, { passive: true });
 })();
