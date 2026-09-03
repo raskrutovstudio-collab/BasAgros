@@ -258,7 +258,7 @@ function renderAudience(pages) {
         <svg class="audience-stage-wave" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true" focusable="false">
           <defs><filter id="audience-wave-glow" x="-20%" y="-80%" width="140%" height="250%"><feGaussianBlur stdDeviation="4" result="blur"></feGaussianBlur><feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs>
           <path d="M0 91 C148 91 205 54 332 61 C475 69 520 111 650 94 C782 76 830 56 963 69 C1095 82 1168 59 1440 70" pathLength="1"></path>
-          <circle cx="88" cy="83" r="5"></circle><circle cx="727" cy="91" r="5"></circle><circle cx="1012" cy="70" r="5"></circle><circle cx="1297" cy="66" r="5"></circle>
+          <circle cx="88" cy="83" r="5"></circle><circle cx="690" cy="88" r="5"></circle><circle cx="970" cy="70" r="5"></circle><circle cx="1280" cy="66" r="5"></circle>
         </svg>
       </div>
     </div>
