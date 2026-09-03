@@ -1,91 +1,108 @@
-/* HOME V3 — terrain contour refinement.
-   Loaded after home-v3-catalog-sculpted.css. The visible gold frame follows
-   the actual photo silhouette: rolling top horizon + lower field wave. */
+/* HOME V3 — true terrain clipping.
+   The photograph itself is clipped to the same SVG path that draws the gold
+   outline. No rectangular media frame remains. */
+
+.home-catalog-terrain-defs{
+  position:absolute;
+  width:0;
+  height:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-media{
+  position:relative!important;
+  overflow:visible!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-media>.home-media{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#090a09!important;
+  box-shadow:none!important;
+  transform:translateZ(0);
+}
+
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-media picture,
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-media img{
+  width:100%!important;
+  height:100%!important;
+}
+
+/* Disable legacy rectangular/decorative overlays from older iterations. */
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-media::before,
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-media::after,
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category::after,
+.home-catalog-media-cap,
+.home-catalog-media-wave{
+  display:none!important;
+}
+
+.home-catalog-media-outline{
+  position:absolute;
+  z-index:8;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  overflow:visible;
+  pointer-events:none;
+}
+
+.home-catalog-media-outline-line{
+  fill:none;
+  stroke:rgba(230,184,79,.7);
+  stroke-width:.58;
+  vector-effect:non-scaling-stroke;
+  stroke-linejoin:round;
+  stroke-linecap:round;
+  filter:drop-shadow(0 0 2px rgba(255,214,103,.24));
+  transition:stroke .5s ease,filter .6s ease,opacity .5s ease;
+}
+
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category.is-active .home-catalog-media-outline-line{
+  stroke:rgba(255,216,111,.98);
+  filter:drop-shadow(0 0 4px rgba(255,214,103,.5));
+}
+
+/* Keep UI labels and the arrow above the clipped photograph. */
+.home-catalog-card-number,
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-arrow{
+  z-index:10!important;
+}
 
 @media (min-width:64rem){
-  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-media{
-    border:0!important;
-    border-radius:0!important;
-    box-shadow:
-      inset 1px 0 rgba(230,184,79,.56),
-      inset -1px 0 rgba(230,184,79,.56)!important;
-    filter:drop-shadow(0 0 .7rem rgba(221,169,44,.035));
-  }
-
-  .page-home-main .home-catalog.home-catalog-lux-ready .home-category.is-active .home-category-media{
-    box-shadow:
-      inset 1px 0 rgba(255,216,111,.94),
-      inset -1px 0 rgba(255,216,111,.94)!important;
-    filter:drop-shadow(0 0 .8rem rgba(255,210,94,.12)) drop-shadow(0 0 1.65rem rgba(220,164,37,.07));
-  }
-
-  .home-catalog-media-cap{
-    position:absolute;
-    z-index:8;
-    top:-1px;
-    left:-1px;
-    display:block;
-    width:calc(100% + 2px);
-    height:clamp(2.25rem,2.9vw,3rem);
-    overflow:visible;
-    pointer-events:none;
-  }
-
-  .home-catalog-media-cap-fill{
-    fill:#050605;
-  }
-
-  .home-catalog-media-cap-line{
-    fill:none;
-    stroke:rgba(230,184,79,.68);
-    stroke-width:.68;
-    vector-effect:non-scaling-stroke;
-    filter:drop-shadow(0 0 2px rgba(255,214,103,.24));
-    transition:stroke .5s ease,filter .6s ease;
-  }
-
-  .page-home-main .home-catalog.home-catalog-lux-ready .home-category.is-active .home-catalog-media-cap-line{
-    stroke:rgba(255,216,111,.98);
-    filter:drop-shadow(0 0 4px rgba(255,214,103,.48));
-  }
-
-  /* The media curves are intentionally staggered so the four cards form one
-     continuous field-horizon silhouette instead of four repeated tiles. */
-  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-1{--card-shift:.42rem}
-  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-2{--card-shift:-.28rem}
-  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-3{--card-shift:.28rem}
-  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-4{--card-shift:.5rem}
-
+  /* Tight landscape rhythm: the horizon should read continuously across cards. */
   .page-home-main .home-catalog.home-catalog-lux-ready .home-category-grid{
-    gap:clamp(.1rem,.2vw,.22rem)!important;
+    gap:clamp(.08rem,.16vw,.18rem)!important;
   }
+
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-1{--card-shift:.38rem}
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-2{--card-shift:-.25rem}
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-3{--card-shift:.23rem}
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-4{--card-shift:.43rem}
 
   .page-home-main .home-catalog.home-catalog-lux-ready .home-category-body{
-    border-radius:0 0 1.1rem 1.1rem!important;
+    border-radius:0 0 1.05rem 1.05rem!important;
   }
 
-  /* Neutral state: no residual glow/scale after the pointer leaves the stage. */
   .page-home-main .home-catalog.home-catalog-lux-ready .home-category:not(.is-active)::before{
     opacity:0!important;
   }
 }
 
 @media (max-width:63.99rem){
-  .home-catalog-media-cap{
-    position:absolute;
-    z-index:8;
-    top:-1px;
-    left:-1px;
-    display:block;
-    width:calc(100% + 2px);
-    height:2.35rem;
-    pointer-events:none;
-  }
-  .home-catalog-media-cap-fill{fill:#050605}
-  .home-catalog-media-cap-line{
-    fill:none;
-    stroke:rgba(230,184,79,.62);
-    stroke-width:.7;
-    vector-effect:non-scaling-stroke;
+  .home-catalog-media-outline-line{
+    stroke-width:.66;
   }
 }
