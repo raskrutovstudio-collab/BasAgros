@@ -1,0 +1,220 @@
+/* BAS AGROS — HOME V3 / editorial polish pass */
+
+/* Typography: remove the aggressive all-caps treatment from display copy. */
+.page-home-main h1,
+.page-home-main h2,
+.page-home-main h3,
+.page-home-main .home-audience-person strong,
+.page-home-main .home-crops-list a{
+  font-family:Inter,Manrope,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  text-transform:none!important;
+  font-weight:700!important;
+  letter-spacing:-.04em!important;
+}
+.page-home-main .home-kicker,
+.page-home-main .home-eyebrow{
+  letter-spacing:.16em;
+  font-size:.69rem;
+}
+
+/* Hero: fewer line breaks, more editorial space, less poster-like. */
+.page-home-main .home-hero-copy{max-width:55rem}
+.page-home-main .home-hero h1{
+  max-width:15ch!important;
+  font-size:clamp(3.25rem,4.9vw,4.85rem)!important;
+  line-height:.97!important;
+  letter-spacing:-.052em!important;
+  text-wrap:balance;
+}
+.page-home-main .home-hero h1::after{margin-top:1.35rem;width:min(34%,15rem)}
+.page-home-main .home-lead{max-width:40rem;color:rgba(242,236,223,.7)}
+.page-home-main .home-actions{gap:.7rem}
+.page-home-main .home-btn{min-height:3.35rem;padding:.75rem 1.35rem}
+
+/* Section headers: calm, premium hierarchy. */
+.page-home-main .home-section-head h2,
+.page-home-main .home-about h2,
+.page-home-main .home-guide h2,
+.page-home-main .home-service h2,
+.page-home-main .home-faq h2,
+.page-home-main .home-request h2{
+  max-width:18ch!important;
+  font-size:clamp(2.45rem,3.55vw,3.8rem)!important;
+  line-height:1!important;
+  letter-spacing:-.045em!important;
+}
+.page-home-main .home-section-head{align-items:end}
+.page-home-main .home-section-head>div>p:not(.home-kicker){max-width:42rem;line-height:1.65}
+
+/* Solutions: imagery leads, copy stays restrained. */
+.page-home-main .home-solution-scene{border-radius:.25rem}
+.page-home-main .home-solution-copy h3{
+  max-width:14ch;
+  font-size:clamp(1.95rem,2.7vw,2.85rem)!important;
+  line-height:.98!important;
+}
+.page-home-main .home-solution-copy>p:not(.home-kicker){max-width:27rem}
+
+/* B2B scenarios become four clear decision cards instead of a spreadsheet-like table. */
+.page-home-main .home-audience-labels{display:none!important}
+.page-home-main .home-audience-list{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:.85rem;
+  margin:0 0 2rem!important;
+  border:0!important;
+}
+.page-home-main .home-audience-row{
+  display:flex!important;
+  min-width:0;
+  min-height:17rem;
+  flex-direction:column;
+  align-items:flex-start!important;
+  gap:1rem!important;
+  padding:1.4rem!important;
+  border:1px solid rgba(201,151,45,.2)!important;
+  background:linear-gradient(150deg,rgba(20,24,19,.94),rgba(7,9,7,.98));
+}
+.page-home-main .home-audience-person{
+  display:grid!important;
+  grid-template-columns:2.65rem 1fr!important;
+  gap:.8rem!important;
+  align-items:start!important;
+}
+.page-home-main .home-audience-person strong{
+  font-size:1.25rem!important;
+  line-height:1.04!important;
+}
+.page-home-main .home-audience-row>p{
+  margin:0!important;
+  color:rgba(242,236,223,.55)!important;
+  font-size:.87rem;
+  line-height:1.55;
+}
+.page-home-main .home-audience-connector{display:none!important}
+.page-home-main .home-audience-result{
+  margin-top:auto;
+  color:var(--gold-hi)!important;
+  font-size:.88rem;
+  line-height:1.4;
+}
+
+/* Catalogue: symmetric premium 2x2 composition, easier to scan. */
+.page-home-main .home-category-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:1rem!important;
+}
+.page-home-main .home-category-1,
+.page-home-main .home-category-2,
+.page-home-main .home-category-3,
+.page-home-main .home-category-4{
+  grid-column:auto!important;
+  grid-row:auto!important;
+  grid-template-columns:1fr!important;
+  grid-template-rows:auto 1fr;
+}
+.page-home-main .home-category,
+.page-home-main .home-category-4{border-radius:.25rem}
+.page-home-main .home-category-media,
+.page-home-main .home-category-1 .home-category-media,
+.page-home-main .home-category-2 .home-category-media,
+.page-home-main .home-category-3 .home-category-media,
+.page-home-main .home-category-4 .home-category-media{
+  min-height:18.5rem!important;
+}
+.page-home-main .home-category h3{
+  max-width:15ch!important;
+  font-size:clamp(1.8rem,2.4vw,2.65rem)!important;
+  line-height:1!important;
+}
+.page-home-main .home-category-body{justify-content:flex-start!important;min-height:13rem}
+.page-home-main .home-category-body>p:not(.home-kicker){line-height:1.55}
+
+/* Crop index: visual navigation, not another heading wall. */
+.page-home-main .home-crops-list a,
+.page-home-main .home-crops-list a:hover,
+.page-home-main .home-crops-list a.is-active{
+  font-size:clamp(1.45rem,2.25vw,2.15rem)!important;
+  line-height:1.06!important;
+  letter-spacing:-.035em!important;
+}
+.page-home-main .home-crops-visual{border-radius:.25rem}
+
+/* Forms and editorial panels. */
+.page-home-main .home-guide-form-shell,
+.page-home-main .home-request .home-form,
+.page-home-main .home-service-panel{border-radius:.25rem}
+.page-home-main .home-about-copy>p:not(.home-kicker){line-height:1.72}
+.page-home-main .home-article h3{font-size:clamp(1.45rem,1.9vw,2rem)!important;line-height:1.05!important}
+
+@media (max-width:63.99rem){
+  .page-home-main .home-hero h1{
+    max-width:14ch!important;
+    font-size:clamp(3rem,7vw,4.25rem)!important;
+  }
+  .page-home-main .home-audience-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .page-home-main .home-audience-row{min-height:14rem}
+  .page-home-main .home-category-media,
+  .page-home-main .home-category-1 .home-category-media,
+  .page-home-main .home-category-2 .home-category-media,
+  .page-home-main .home-category-3 .home-category-media,
+  .page-home-main .home-category-4 .home-category-media{min-height:16rem!important}
+}
+
+@media (max-width:47.99rem){
+  body.page-home-main{padding-bottom:calc(4.65rem + env(safe-area-inset-bottom))!important}
+  .page-home-main .home-hero h1{
+    max-width:13.5ch!important;
+    font-size:clamp(2.35rem,10.3vw,3.05rem)!important;
+    line-height:.98!important;
+    letter-spacing:-.048em!important;
+  }
+  .page-home-main .home-hero-content{padding-top:4.35rem!important}
+  .page-home-main .home-eyebrow{font-size:.64rem}
+  .page-home-main .home-lead{font-size:.9rem;line-height:1.55}
+  .page-home-main .home-section-head h2,
+  .page-home-main .home-about h2,
+  .page-home-main .home-guide h2,
+  .page-home-main .home-service h2,
+  .page-home-main .home-faq h2,
+  .page-home-main .home-request h2{
+    max-width:15ch!important;
+    font-size:clamp(2rem,8.7vw,2.6rem)!important;
+    line-height:1.02!important;
+  }
+  .page-home-main .home-solution-copy h3{font-size:clamp(1.8rem,8vw,2.35rem)!important}
+  .page-home-main .home-audience-list{grid-template-columns:1fr}
+  .page-home-main .home-audience-row{min-height:0;padding:1.2rem!important}
+  .page-home-main .home-category-grid{grid-template-columns:1fr!important}
+  .page-home-main .home-category-media,
+  .page-home-main .home-category-1 .home-category-media,
+  .page-home-main .home-category-2 .home-category-media,
+  .page-home-main .home-category-3 .home-category-media,
+  .page-home-main .home-category-4 .home-category-media{min-height:14rem!important}
+  .page-home-main .home-category-body{min-height:0;padding:1.2rem!important}
+  .page-home-main .home-category h3{font-size:2rem!important}
+  .page-home-main .home-crops-list a,
+  .page-home-main .home-crops-list a:hover,
+  .page-home-main .home-crops-list a.is-active{font-size:1.55rem!important}
+
+  /* Restyle the legacy mobile quickbar to match V3 instead of showing a white strip. */
+  .page-home-main .mobile-quickbar{
+    min-height:4.15rem!important;
+    padding:.28rem .35rem calc(.28rem + env(safe-area-inset-bottom))!important;
+    border-top:1px solid rgba(232,197,109,.24)!important;
+    background:rgba(5,7,5,.94)!important;
+    box-shadow:0 -.4rem 1.5rem rgba(0,0,0,.34)!important;
+    backdrop-filter:blur(16px) saturate(125%)!important;
+    -webkit-backdrop-filter:blur(16px) saturate(125%)!important;
+  }
+  .page-home-main .mobile-quickbar__item{
+    min-height:3.45rem!important;
+    border-radius:0!important;
+    color:rgba(242,236,223,.7)!important;
+    font-size:.67rem!important;
+    font-weight:700!important;
+  }
+  .page-home-main .mobile-quickbar__item + .mobile-quickbar__item{border-left:1px solid rgba(232,197,109,.14)!important}
+  .page-home-main .mobile-quickbar__item svg{color:var(--gold-hi)!important}
+  .page-home-main .mobile-quickbar__item:active{background:rgba(201,151,45,.09)!important}
+}
