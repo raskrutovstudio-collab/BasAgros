@@ -1,0 +1,337 @@
+/* BAS Agros — HOME V3 / sculpted kinetic catalogue
+   Isolated to design/home-v3. Loaded after the existing catalogue styles. */
+
+.page-home-main .home-catalog{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+.page-home-main .home-catalog::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:-8%;
+  right:-8%;
+  bottom:4.2rem;
+  height:17rem;
+  border-top:1px solid rgba(232,197,109,.34);
+  border-radius:50% 46% 0 0 / 24% 20% 0 0;
+  box-shadow:0 -1px 1.8rem rgba(232,197,109,.06);
+  transform:rotate(-1.25deg);
+  pointer-events:none;
+}
+.page-home-main .home-catalog::after{
+  content:"";
+  position:absolute;
+  z-index:-2;
+  left:50%;
+  bottom:-12rem;
+  width:min(88rem,92vw);
+  height:27rem;
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(201,151,45,.09),rgba(201,151,45,.025) 38%,transparent 70%);
+  transform:translateX(-50%);
+  filter:blur(1.2rem);
+  pointer-events:none;
+}
+
+@media (min-width:64rem){
+  .page-home-main .home-category-grid{
+    --catalog-gap:clamp(.65rem,1vw,1rem);
+    position:relative;
+    isolation:isolate;
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:var(--catalog-gap)!important;
+    align-items:end!important;
+    min-height:39rem;
+    padding:4.2rem 0 3.1rem;
+    overflow:visible!important;
+    perspective:1200px;
+  }
+  .page-home-main .home-category-grid::before{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    left:-4vw;
+    right:-4vw;
+    bottom:2.5rem;
+    height:8.5rem;
+    border-top:1px solid rgba(232,197,109,.2);
+    border-radius:48% 52% 0 0 / 28% 24% 0 0;
+    transform:rotate(.7deg);
+    pointer-events:none;
+  }
+
+  .page-home-main .home-category,
+  .page-home-main .home-category-featured{
+    --catalog-y:0rem;
+    --catalog-radius-tl:2.5rem;
+    --catalog-radius-tr:2.5rem;
+    position:relative!important;
+    isolation:isolate;
+    display:flex!important;
+    flex-direction:column;
+    min-width:0;
+    min-height:31.5rem;
+    overflow:visible!important;
+    border:1px solid rgba(232,197,109,.24)!important;
+    border-radius:var(--catalog-radius-tl) var(--catalog-radius-tr) 1.35rem 1.35rem!important;
+    background:linear-gradient(155deg,rgba(19,19,15,.995),rgba(7,8,7,.995) 72%)!important;
+    box-shadow:0 1.8rem 4.8rem rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.018)!important;
+    transform:translateY(var(--catalog-y));
+    transform-origin:50% 88%;
+    transition:
+      transform 760ms cubic-bezier(.16,.84,.24,1),
+      border-color 560ms ease,
+      box-shadow 760ms cubic-bezier(.16,.84,.24,1),
+      filter 560ms ease!important;
+    will-change:transform;
+  }
+  .page-home-main .home-category::before{
+    content:"";
+    position:absolute;
+    z-index:-2;
+    inset:-1.15rem;
+    border-radius:calc(var(--catalog-radius-tl) + 1rem) calc(var(--catalog-radius-tr) + 1rem) 2rem 2rem;
+    background:
+      radial-gradient(ellipse at 50% 8%,rgba(232,197,109,.34),rgba(201,151,45,.12) 27%,transparent 63%),
+      radial-gradient(ellipse at 50% 102%,rgba(232,197,109,.14),transparent 58%);
+    opacity:0;
+    filter:blur(1.25rem);
+    transform:scale(.96);
+    transition:opacity 620ms ease,transform 820ms cubic-bezier(.16,.84,.24,1),filter 620ms ease;
+    pointer-events:none;
+  }
+  .page-home-main .home-category::after{
+    content:"";
+    position:absolute;
+    z-index:8;
+    left:12%;
+    right:12%;
+    bottom:-1px;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(232,197,109,.15) 18%,var(--gold-hi) 50%,rgba(232,197,109,.15) 82%,transparent);
+    opacity:0;
+    filter:drop-shadow(0 0 .65rem rgba(232,197,109,.7));
+    transform:scaleX(.38);
+    transition:opacity 460ms ease,transform 760ms cubic-bezier(.16,.84,.24,1);
+    pointer-events:none;
+  }
+
+  /* Each panel has an intentionally different silhouette — not four repeated tiles. */
+  .page-home-main .home-category-1{
+    --catalog-y:1.55rem;
+    --catalog-radius-tl:4.6rem 1.55rem;
+    --catalog-radius-tr:2.1rem 1.15rem;
+    min-height:30rem;
+  }
+  .page-home-main .home-category-2{
+    --catalog-y:-1.15rem;
+    --catalog-radius-tl:6.4rem 2.9rem;
+    --catalog-radius-tr:4.7rem 2.1rem;
+    min-height:35rem;
+    z-index:3;
+  }
+  .page-home-main .home-category-3{
+    --catalog-y:.85rem;
+    --catalog-radius-tl:2rem 1.1rem;
+    --catalog-radius-tr:5.1rem 1.75rem;
+    min-height:31.2rem;
+  }
+  .page-home-main .home-category-4{
+    --catalog-y:1.35rem;
+    --catalog-radius-tl:4.8rem 1.7rem;
+    --catalog-radius-tr:2.65rem 1.15rem;
+    min-height:30.2rem;
+  }
+
+  .page-home-main .home-category-media{
+    position:relative!important;
+    z-index:2;
+    display:block!important;
+    height:14.2rem!important;
+    min-height:14.2rem!important;
+    overflow:hidden!important;
+    border-radius:inherit!important;
+    border-bottom-left-radius:48% 13%!important;
+    border-bottom-right-radius:52% 15%!important;
+    background:#0b0c0a;
+    clip-path:none!important;
+  }
+  .page-home-main .home-category-2 .home-category-media{height:16.6rem!important;min-height:16.6rem!important;border-bottom-left-radius:56% 16%!important;border-bottom-right-radius:44% 13%!important}
+  .page-home-main .home-category-3 .home-category-media{border-bottom-left-radius:41% 12%!important;border-bottom-right-radius:59% 17%!important}
+  .page-home-main .home-category-4 .home-category-media{border-bottom-left-radius:58% 16%!important;border-bottom-right-radius:42% 12%!important}
+
+  .page-home-main .home-category-media .home-media,
+  .page-home-main .home-category-media picture,
+  .page-home-main .home-category-media img{
+    width:100%!important;
+    height:100%!important;
+  }
+  .page-home-main .home-category-media img{
+    display:block;
+    object-fit:cover!important;
+    filter:brightness(.58) saturate(.72) contrast(1.045)!important;
+    transform:scale(1.035);
+    transition:transform 1050ms cubic-bezier(.16,.84,.24,1),filter 760ms ease!important;
+  }
+  .page-home-main .home-category-media::after{
+    background:
+      linear-gradient(0deg,rgba(6,7,6,.58),transparent 54%),
+      linear-gradient(135deg,rgba(232,197,109,.13),transparent 45%)!important;
+    transition:opacity 650ms ease!important;
+  }
+  .page-home-main .home-category-arrow{
+    z-index:5;
+    width:3rem!important;
+    height:3rem!important;
+    border:1px solid rgba(232,197,109,.72)!important;
+    background:rgba(7,8,7,.78)!important;
+    color:var(--gold-hi)!important;
+    box-shadow:0 0 0 .35rem rgba(201,151,45,.025),0 .55rem 1.4rem rgba(0,0,0,.35);
+    transition:transform 680ms cubic-bezier(.16,.84,.24,1),background 480ms ease,box-shadow 620ms ease!important;
+  }
+
+  .page-home-main .home-category-body{
+    position:relative!important;
+    z-index:3;
+    display:flex!important;
+    flex:1 1 auto;
+    flex-direction:column;
+    margin-top:-2rem!important;
+    padding:3.2rem clamp(1.25rem,1.65vw,1.75rem) 1.45rem!important;
+    overflow:hidden;
+    border-radius:50% 50% 1.25rem 1.25rem / 7% 8% 1.25rem 1.25rem!important;
+    background:
+      radial-gradient(circle at 50% 0,rgba(201,151,45,.085),transparent 9rem),
+      linear-gradient(180deg,rgba(17,18,15,.995),rgba(7,8,7,.999))!important;
+  }
+  .page-home-main .home-category-body::before{
+    top:2rem!important;
+    left:clamp(1.25rem,1.65vw,1.75rem)!important;
+    width:3rem!important;
+    background:linear-gradient(90deg,var(--gold-hi),rgba(232,197,109,.12))!important;
+    transition:width 760ms cubic-bezier(.16,.84,.24,1),filter 520ms ease!important;
+  }
+  .page-home-main .home-category-body h3{
+    margin:.45rem 0 0!important;
+    font-size:clamp(1.45rem,1.85vw,2rem)!important;
+    line-height:1.05!important;
+    letter-spacing:-.035em!important;
+    text-wrap:balance;
+    transition:transform 680ms cubic-bezier(.16,.84,.24,1),color 480ms ease;
+  }
+  .page-home-main .home-category-body>p:not(.home-kicker){
+    display:block!important;
+    max-height:0;
+    margin:.7rem 0 0!important;
+    overflow:hidden;
+    color:rgba(243,240,232,.64)!important;
+    opacity:0;
+    transform:translateY(.5rem);
+    transition:max-height 760ms cubic-bezier(.16,.84,.24,1),opacity 480ms ease,transform 680ms cubic-bezier(.16,.84,.24,1)!important;
+  }
+  .page-home-main .home-category-link{
+    margin-top:auto!important;
+    padding-top:1rem;
+    color:var(--gold-hi)!important;
+    text-decoration:none!important;
+    transition:letter-spacing 520ms ease,filter 520ms ease!important;
+  }
+
+  @media (hover:hover) and (pointer:fine){
+    .page-home-main .home-category:hover,
+    .page-home-main .home-category:focus-within{
+      z-index:10;
+      transform:translateY(calc(var(--catalog-y) - .9rem)) scale(1.022)!important;
+      border-color:rgba(232,197,109,.9)!important;
+      box-shadow:
+        0 2.6rem 6.5rem rgba(0,0,0,.52),
+        0 0 0 1px rgba(232,197,109,.16),
+        0 0 2.8rem rgba(201,151,45,.16),
+        inset 0 1px rgba(255,255,255,.035)!important;
+      filter:saturate(1.04);
+    }
+    .page-home-main .home-category:hover::before,
+    .page-home-main .home-category:focus-within::before{
+      opacity:1;
+      transform:scale(1.035);
+      filter:blur(1.45rem);
+    }
+    .page-home-main .home-category:hover::after,
+    .page-home-main .home-category:focus-within::after{
+      opacity:1;
+      transform:scaleX(1);
+    }
+    .page-home-main .home-category:hover .home-category-media img,
+    .page-home-main .home-category:focus-within .home-category-media img{
+      filter:brightness(.84) saturate(.9) contrast(1.05)!important;
+      transform:scale(1.09);
+    }
+    .page-home-main .home-category:hover .home-category-arrow,
+    .page-home-main .home-category:focus-within .home-category-arrow{
+      transform:translate(.12rem,-.18rem) rotate(5deg) scale(1.08)!important;
+      background:linear-gradient(135deg,#a9761f,#e8c56d)!important;
+      color:#070807!important;
+      box-shadow:0 0 0 .45rem rgba(201,151,45,.06),0 0 1.8rem rgba(232,197,109,.32);
+    }
+    .page-home-main .home-category:hover .home-category-body::before,
+    .page-home-main .home-category:focus-within .home-category-body::before{
+      width:5.5rem!important;
+      filter:drop-shadow(0 0 .55rem rgba(232,197,109,.68));
+    }
+    .page-home-main .home-category:hover .home-category-body h3,
+    .page-home-main .home-category:focus-within .home-category-body h3{
+      transform:translateY(-.12rem);
+      color:#fffaf0!important;
+    }
+    .page-home-main .home-category:hover .home-category-body>p:not(.home-kicker),
+    .page-home-main .home-category:focus-within .home-category-body>p:not(.home-kicker){
+      max-height:6.8rem;
+      opacity:1;
+      transform:translateY(0);
+    }
+    .page-home-main .home-category:hover .home-category-link,
+    .page-home-main .home-category:focus-within .home-category-link{
+      letter-spacing:.012em;
+      filter:drop-shadow(0 0 .45rem rgba(232,197,109,.22));
+    }
+
+    /* Neighbours recede slightly, making the hovered card feel illuminated rather than merely enlarged. */
+    .page-home-main .home-category-grid:has(.home-category:hover) .home-category:not(:hover){
+      filter:brightness(.78) saturate(.72);
+      transform:translateY(calc(var(--catalog-y) + .18rem)) scale(.992)!important;
+    }
+  }
+}
+
+/* Tablet/mobile keep the approved accessible stacked cards; only add restrained glow. */
+@media (max-width:63.99rem){
+  .page-home-main .home-category,
+  .page-home-main .home-category-featured{
+    position:relative;
+    overflow:hidden!important;
+    border-radius:1.35rem!important;
+  }
+  .page-home-main .home-category::before{
+    content:"";
+    position:absolute;
+    z-index:6;
+    inset:0;
+    border:1px solid transparent;
+    border-radius:inherit;
+    box-shadow:inset 0 0 1.5rem rgba(232,197,109,.035);
+    pointer-events:none;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .page-home-main .home-category,
+  .page-home-main .home-category::before,
+  .page-home-main .home-category::after,
+  .page-home-main .home-category-media img,
+  .page-home-main .home-category-arrow,
+  .page-home-main .home-category-body h3,
+  .page-home-main .home-category-body>p:not(.home-kicker){transition:none!important}
+}
