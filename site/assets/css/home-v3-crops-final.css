@@ -22,26 +22,35 @@
 }
 
 .page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a>.home-crop-lux-copy{
-  position:absolute!important;z-index:20!important;left:1.05rem!important;right:1.05rem!important;bottom:1rem!important;top:auto!important;
+  position:absolute!important;z-index:20!important;left:1.05rem!important;right:1.05rem!important;bottom:1.72rem!important;top:auto!important;
   display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-areas:"title arrow" "desc arrow"!important;
-  align-items:end!important;gap:.45rem .7rem!important;width:auto!important;height:auto!important;max-width:none!important;
-  margin:0!important;padding:0!important;overflow:visible!important;background:transparent!important;color:inherit!important;
+  align-items:end!important;gap:.5rem .7rem!important;width:auto!important;height:auto!important;max-width:none!important;
+  margin:0!important;padding:.72rem .78rem .68rem!important;overflow:visible!important;color:inherit!important;
+  background:linear-gradient(90deg,rgba(5,6,5,.72),rgba(5,6,5,.46) 72%,rgba(5,6,5,.18))!important;
+  border-radius:.8rem!important;
+  box-shadow:0 .6rem 1.8rem rgba(0,0,0,.14)!important;
+  backdrop-filter:blur(2px)!important;-webkit-backdrop-filter:blur(2px)!important;
   transform:none!important;white-space:normal!important;text-overflow:clip!important
+}
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a>.home-crop-lux-copy::before{
+  content:""!important;position:absolute!important;left:.78rem!important;top:.72rem!important;width:1.75rem!important;height:1px!important;
+  background:linear-gradient(90deg,rgba(232,197,109,.95),rgba(232,197,109,0))!important;transform:translateY(-.34rem)!important;pointer-events:none!important
 }
 .page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a>.home-crop-lux-copy>.home-crop-lux-title{
   grid-area:title!important;display:block!important;position:static!important;margin:0!important;padding:0!important;
   max-width:15rem!important;color:#fffaf0!important;font:750 clamp(1.08rem,1.2vw,1.36rem)/1.03 Inter,Manrope,system-ui,sans-serif!important;
-  letter-spacing:-.035em!important;text-transform:none!important;white-space:normal!important
+  letter-spacing:-.035em!important;text-transform:none!important;white-space:normal!important;text-shadow:0 1px .7rem rgba(0,0,0,.5)!important
 }
 .page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a>.home-crop-lux-copy>.home-crop-lux-desc{
   grid-area:desc!important;display:block!important;position:static!important;margin:0!important;padding:0!important;
-  max-width:15rem!important;color:rgba(226,177,59,.84)!important;font:500 .7rem/1.4 Inter,Manrope,system-ui,sans-serif!important;
-  letter-spacing:0!important;text-transform:none!important;white-space:normal!important
+  max-width:15rem!important;color:rgba(244,240,230,.72)!important;font:500 .71rem/1.42 Inter,Manrope,system-ui,sans-serif!important;
+  letter-spacing:.005em!important;text-transform:none!important;white-space:normal!important;text-shadow:0 1px .65rem rgba(0,0,0,.54)!important
 }
 .page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a>.home-crop-lux-copy>.home-crop-lux-arrow{
   grid-area:arrow!important;display:grid!important;position:static!important;place-items:center!important;align-self:end!important;
-  width:1.95rem!important;height:1.95rem!important;margin:0!important;padding:0!important;border:1px solid rgba(232,197,109,.36)!important;
-  border-radius:50%!important;background:rgba(8,9,8,.45)!important;color:#efc763!important;font:400 .86rem/1 Arial,sans-serif!important
+  width:1.95rem!important;height:1.95rem!important;margin:0!important;padding:0!important;border:1px solid rgba(232,197,109,.44)!important;
+  border-radius:50%!important;background:rgba(8,9,8,.58)!important;color:#efc763!important;font:400 .86rem/1 Arial,sans-serif!important;
+  box-shadow:0 0 0 1px rgba(0,0,0,.16),0 .35rem .9rem rgba(0,0,0,.24)!important
 }
 
 /* The photo now occupies the whole sculpted card. The lower section is the same
@@ -72,7 +81,7 @@
   z-index:6!important;
   left:0!important;right:0!important;top:42%!important;bottom:0!important;height:auto!important;
   display:block!important;
-  background:linear-gradient(180deg,rgba(8,9,8,0) 0%,rgba(8,9,8,.28) 20%,rgba(8,9,8,.72) 52%,rgba(8,9,8,.94) 78%,#080908 100%)!important;
+  background:linear-gradient(180deg,rgba(8,9,8,0) 0%,rgba(8,9,8,.22) 20%,rgba(8,9,8,.58) 52%,rgba(8,9,8,.83) 78%,rgba(8,9,8,.94) 100%)!important;
   pointer-events:none!important
 }
 
@@ -81,7 +90,16 @@
 .page-home-main .home-crops.home-crops-lux-ready .home-crops-list .home-media::after{
   background:
     radial-gradient(circle at 35% 18%,rgba(244,197,83,.08),transparent 30%),
-    linear-gradient(180deg,rgba(3,4,3,.02),rgba(3,4,3,.01) 48%,rgba(4,5,4,.12) 100%)!important
+    linear-gradient(180deg,rgba(3,4,3,.02),rgba(3,4,3,.01) 48%,rgba(4,5,4,.1) 100%)!important
+}
+
+/* The gold contour is architecture, not copy: soften it slightly in the text zone. */
+.page-home-main .home-crops.home-crops-lux-ready .home-crop-lux-outline path{
+  stroke:rgba(224,174,54,.68)!important
+}
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li:hover .home-crop-lux-outline path,
+.page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li.is-active .home-crop-lux-outline path{
+  stroke:rgba(255,217,116,.96)!important
 }
 
 @media (min-width:64rem){
@@ -95,4 +113,5 @@
     width:auto!important;max-width:none!important;white-space:normal!important;font-size:clamp(2.55rem,8vw,3.6rem)!important
   }
   .page-home-main .home-crops.home-crops-lux-ready .home-crops-side h2 em{white-space:nowrap!important}
+  .page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a>.home-crop-lux-copy{bottom:1.45rem!important}
 }
