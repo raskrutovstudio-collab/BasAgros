@@ -156,7 +156,7 @@ ${GENERATED_MARKER}
   <link rel="stylesheet" href="/assets/css/home-v3-qa.css?v=20260903-5">
   <link rel="stylesheet" href="/assets/css/home-v3-polish.css?v=20260903-5">
   <link rel="stylesheet" href="/assets/css/home-v3-feedback.css?v=20260903-5">
-  <link rel="stylesheet" href="/assets/css/home-v3-audience.css?v=20260903-5">
+  <link rel="stylesheet" href="/assets/css/home-v3-audience.css?v=20260903-6">
   <script type="application/ld+json">${structuredData}</script>
 </head>
 <body class="page-home page-home-main">
