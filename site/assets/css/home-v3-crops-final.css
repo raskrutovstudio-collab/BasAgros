@@ -115,3 +115,74 @@
   .page-home-main .home-crops.home-crops-lux-ready .home-crops-side h2 em{white-space:nowrap!important}
   .page-home-main .home-crops.home-crops-lux-ready .home-crops-list>li>a>.home-crop-lux-copy{bottom:1.45rem!important}
 }
+
+/* QUALITY PANEL — keep every copy element in normal vertical flow. */
+.page-home-main .home-quality .home-quality-copy{
+  position:absolute!important;
+  z-index:5!important;
+  top:auto!important;
+  right:clamp(2rem,3.2vw,3.25rem)!important;
+  bottom:clamp(2rem,3.2vw,3.25rem)!important;
+  left:clamp(2rem,3.2vw,3.25rem)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:flex-end!important;
+  gap:0!important;
+  min-width:0!important;
+  padding:0!important;
+}
+.page-home-main .home-quality .home-quality-copy>.home-icon{
+  flex:0 0 auto!important;
+  margin:0 0 1rem!important;
+}
+.page-home-main .home-quality .home-quality-copy>.home-kicker{
+  position:static!important;
+  margin:0 0 .8rem!important;
+  line-height:1.25!important;
+}
+.page-home-main .home-quality .home-quality-copy>h2{
+  position:static!important;
+  display:block!important;
+  width:auto!important;
+  max-width:11ch!important;
+  margin:0!important;
+  padding:0!important;
+  color:#fffaf0!important;
+  font-size:clamp(3rem,4vw,4.55rem)!important;
+  line-height:.94!important;
+  letter-spacing:-.05em!important;
+  overflow-wrap:normal!important;
+  text-wrap:balance!important;
+}
+.page-home-main .home-quality .home-quality-copy>p:not(.home-kicker){
+  position:static!important;
+  display:block!important;
+  width:auto!important;
+  max-width:32rem!important;
+  margin:1.15rem 0 0!important;
+  padding:0!important;
+  color:rgba(244,240,230,.68)!important;
+  font-size:.92rem!important;
+  line-height:1.55!important;
+  transform:none!important;
+}
+.page-home-main .home-quality .home-quality-copy>.home-text-link{
+  position:static!important;
+  display:inline-flex!important;
+  width:max-content!important;
+  margin:1.35rem 0 0!important;
+  padding:0 0 .25rem!important;
+}
+
+@media (max-width:75rem) and (min-width:64rem){
+  .page-home-main .home-quality .home-quality-copy>h2{font-size:clamp(2.7rem,4vw,3.7rem)!important;max-width:12ch!important}
+  .page-home-main .home-quality .home-quality-copy>p:not(.home-kicker){font-size:.86rem!important;line-height:1.5!important}
+}
+
+@media (max-width:63.99rem){
+  .page-home-main .home-quality .home-quality-copy{
+    right:1.4rem!important;bottom:1.4rem!important;left:1.4rem!important
+  }
+  .page-home-main .home-quality .home-quality-copy>h2{font-size:clamp(2.45rem,9vw,3.5rem)!important;max-width:11ch!important}
+}
