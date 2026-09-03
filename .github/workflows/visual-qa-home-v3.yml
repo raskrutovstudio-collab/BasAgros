@@ -15,8 +15,6 @@ on:
 permissions:
   contents: read
 
-tasks: {}
-
 jobs:
   screenshots:
     runs-on: ubuntu-latest
@@ -44,7 +42,7 @@ jobs:
         run: |
           mkdir -p qa/screenshots
           python3 -m http.server 8765 --directory site >/tmp/basagros-v3-http.log 2>&1 &
-          cat > /tmp/capture-home-v3.mjs <<'EOF'
+          cat > capture-home-v3.mjs <<'EOF'
           import { chromium } from 'playwright';
           const sizes = [
             ['1440', 1440, 1000],
@@ -62,7 +60,7 @@ jobs:
           }
           await browser.close();
           EOF
-          node /tmp/capture-home-v3.mjs
+          node capture-home-v3.mjs
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
