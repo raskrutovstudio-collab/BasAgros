@@ -127,7 +127,7 @@ window.SITE_CONFIG = Object.freeze({
 
   const stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
-  stylesheet.href = new URL('assets/css/home-v3-catalog-sculpted.css?v=20260904-4', window.location.href).href;
+  stylesheet.href = new URL('assets/css/home-v3-catalog-sculpted.css?v=20260904-5', window.location.href).href;
   stylesheet.dataset.homeV3CatalogSculpted = '';
   document.head.append(stylesheet);
 })();
@@ -231,6 +231,13 @@ window.SITE_CONFIG = Object.freeze({
     </div>`;
   head.append(tools);
 
+  const wavePaths = [
+    'M0 30 C18 24 33 26 47 35 C63 45 80 46 100 33',
+    'M0 38 C15 29 28 28 42 36 C58 47 72 50 100 31',
+    'M0 32 C18 25 34 27 49 36 C65 46 82 47 100 35',
+    'M0 35 C17 27 31 29 46 37 C62 46 79 48 100 34'
+  ];
+
   cards.forEach((card, index) => {
     card.dataset.catalogCard = String(index);
     const media = card.querySelector('.home-category-media');
@@ -240,6 +247,14 @@ window.SITE_CONFIG = Object.freeze({
       number.textContent = String(index + 1).padStart(2, '0');
       number.setAttribute('aria-hidden', 'true');
       media.prepend(number);
+    }
+    if (media && !media.querySelector('.home-catalog-media-wave')) {
+      const path = wavePaths[index] || wavePaths[0];
+      media.insertAdjacentHTML('beforeend', `
+        <svg class="home-catalog-media-wave" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path class="home-catalog-media-wave-fill" d="${path} L100 60 L0 60 Z"></path>
+          <path class="home-catalog-media-wave-line" d="${path}"></path>
+        </svg>`);
     }
   });
 
