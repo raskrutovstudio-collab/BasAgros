@@ -19,6 +19,7 @@ on:
       - site/assets/css/home-v3-audience.css
       - site/assets/css/home-v3-catalog-sculpted.css
       - site/assets/css/home-v3-catalog-terrain.css
+      - site/assets/css/home-v3-crops-lux.css
       - site/assets/js/home.js
       - site/assets/js/site-config.js
       - site/assets/js/home-v3-catalog-terrain.js
