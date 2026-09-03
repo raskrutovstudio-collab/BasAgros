@@ -7,9 +7,18 @@
   transition:none!important;
 }
 
+.page-home-main{width:100%;overflow-x:hidden!important}
 .page-home-main .home-wrap{
   width:min(calc(100% - clamp(2rem,6vw,6rem)),82rem);
+  max-width:100%;
 }
+.page-home-main .home-section,
+.page-home-main .home-hero,
+.page-home-main .home-footer{max-width:100%;overflow-x:hidden}
+.page-home-main .home-form>*{min-width:0}
+.page-home-main .home-form input,
+.page-home-main .home-form select,
+.page-home-main .home-form textarea{min-width:0;max-width:100%}
 
 .page-home-main .home-header,
 .page-home-main .home-header-inner{min-height:4.5rem}
@@ -17,7 +26,7 @@
 
 .page-home-main .home-hero,
 .page-home-main .home-hero-stage{
-  min-height:min(52rem,calc(100svh - 4.5rem));
+  min-height:min(50rem,calc(100svh - 4.5rem));
 }
 .page-home-main .home-hero-main img{
   object-position:center 48%;
@@ -30,41 +39,41 @@
 }
 .page-home-main .home-hero-content{
   display:block;
-  padding-top:clamp(7rem,12vh,9rem);
-  padding-bottom:clamp(3rem,6vh,4.75rem);
+  padding-top:clamp(6.5rem,11vh,8.5rem);
+  padding-bottom:clamp(2.75rem,5vh,4rem);
 }
 .page-home-main .home-hero-copy{
   grid-column:auto;
-  max-width:52rem;
+  max-width:49rem;
   margin:0;
 }
 .page-home-main .home-hero h1{
   max-width:10.5ch;
-  font-size:clamp(3.65rem,6.15vw,6rem);
-  line-height:.88;
-  letter-spacing:-.038em;
+  font-size:clamp(3.55rem,5.7vw,5.55rem);
+  line-height:.9;
+  letter-spacing:-.036em;
 }
 .page-home-main .home-lead{
-  max-width:39rem;
-  font-size:1rem;
+  max-width:38rem;
+  font-size:.98rem;
   line-height:1.62;
 }
 .page-home-main .home-hero-rail{display:none}
 .page-home-main .home-hero-index{
   grid-template-columns:10rem 1fr;
-  background:rgba(4,5,4,.9);
+  background:rgba(4,5,4,.92);
 }
 .page-home-main .home-hero-index a{
-  min-height:4.4rem;
-  padding:.8rem 1rem;
-  font-size:.78rem;
+  min-height:4.15rem;
+  padding:.75rem .9rem;
+  font-size:.76rem;
 }
 
 .page-home-main .home-section{
-  padding:clamp(4.75rem,7vw,7.25rem) 0;
+  padding:clamp(4.5rem,6.5vw,6.75rem) 0;
 }
 .page-home-main .home-section-head{
-  margin-bottom:clamp(2.5rem,4vw,4rem);
+  margin-bottom:clamp(2.35rem,3.8vw,3.6rem);
 }
 .page-home-main .home-section-head h2,
 .page-home-main .home-about h2,
@@ -72,36 +81,85 @@
 .page-home-main .home-service h2,
 .page-home-main .home-faq h2,
 .page-home-main .home-request h2{
-  font-size:clamp(2.7rem,4.25vw,4.6rem);
-  line-height:.94;
+  font-size:clamp(2.6rem,4vw,4.35rem);
+  line-height:.95;
 }
 
-.page-home-main .home-solution-grid{gap:1rem}
+.page-home-main .home-solution-grid{gap:.9rem}
 .page-home-main .home-solution-scene{
-  min-height:clamp(25rem,36vw,34rem);
+  min-height:clamp(23rem,33vw,31rem);
   box-shadow:0 22px 65px rgba(0,0,0,.28);
 }
 .page-home-main .home-solution-copy h3{
-  font-size:clamp(2.25rem,3.6vw,3.8rem);
-  line-height:.92;
+  font-size:clamp(2.15rem,3.25vw,3.45rem);
+  line-height:.93;
 }
 
-.page-home-main .home-category-grid,
-.page-home-main .home-article-grid{gap:1rem}
-.page-home-main .home-crops-stage{gap:clamp(2rem,5vw,5rem)}
-.page-home-main .home-crops-list a{
-  min-height:4.6rem;
-  font-size:clamp(1.75rem,3.4vw,3.25rem);
+/* Never render pale placeholders inside the dark premium system. */
+.page-home-main .home-media-placeholder{
+  display:grid!important;
+  place-items:center;
+  min-height:100%;
+  background:
+    radial-gradient(circle at 72% 24%,rgba(201,151,45,.14),transparent 34%),
+    linear-gradient(145deg,#151811,#090b09 68%,#050605)!important;
+  color:var(--gold-hi)!important;
+  border-color:rgba(201,151,45,.2)!important;
 }
-.page-home-main .home-crops-visual{min-height:34rem}
+.page-home-main .home-media-placeholder::before{
+  content:"BAS AGROS";
+  position:absolute;
+  left:1.1rem;
+  bottom:1rem;
+  font-family:"Roboto Condensed",Arial,sans-serif;
+  font-size:.68rem;
+  font-weight:800;
+  letter-spacing:.14em;
+  color:rgba(232,197,109,.58);
+}
+.page-home-main .home-media-placeholder .home-icon{width:3.2rem;height:3.2rem;color:rgba(232,197,109,.62)}
+.page-home-main .home-media-placeholder>span{display:none!important}
+
+.page-home-main .home-category-grid,
+.page-home-main .home-article-grid{gap:.9rem}
+.page-home-main .home-category-1 .home-category-media{min-height:29rem}
+.page-home-main .home-category-2 .home-category-media,
+.page-home-main .home-category-3 .home-category-media{min-height:15rem}
+.page-home-main .home-category-4 .home-category-media{min-height:19rem}
+.page-home-main .home-category-body{padding:clamp(1.25rem,2.2vw,2rem)}
+.page-home-main .home-category h3{font-size:clamp(1.85rem,2.9vw,3.2rem);line-height:.94}
+.page-home-main .home-category-arrow{width:2.55rem;height:2.55rem}
+
+.page-home-main .home-crops-stage{gap:clamp(2rem,5vw,5rem)}
+.page-home-main .home-crops-list a,
+.page-home-main .home-crops-list a:hover,
+.page-home-main .home-crops-list a.is-active{
+  min-height:4.45rem;
+  padding:.75rem 0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+  color:rgba(242,236,223,.48)!important;
+  font-size:clamp(1.65rem,3.05vw,2.95rem);
+}
+.page-home-main .home-crops-list a:hover,
+.page-home-main .home-crops-list a.is-active{
+  color:var(--ivory)!important;
+  padding-left:.55rem!important;
+}
+.page-home-main .home-crops-list a b{background:transparent!important;color:var(--gold-hi)!important}
+.page-home-main .home-crops-visual{min-height:30rem;background:#0b0d0b}
 
 .page-home-main .home-guide-grid,
 .page-home-main .home-about-grid,
 .page-home-main .home-service-stage,
 .page-home-main .home-faq-grid,
 .page-home-main .home-request-grid{
-  gap:clamp(2.5rem,6vw,6rem);
+  gap:clamp(2.4rem,5.5vw,5.5rem);
 }
+.page-home-main .home-about-collage{min-height:31rem}
+.page-home-main .home-quality{min-height:30rem}
+.page-home-main .home-article-media{background:#0b0d0b}
 
 .page-home-main .home-form input,
 .page-home-main .home-form select,
@@ -112,20 +170,25 @@
 
 @media (max-width:63.99rem){
   .page-home-main .home-wrap{width:min(calc(100% - 2.5rem),82rem)}
+  .page-home-main .home-nav{max-width:100vw!important;left:0!important;right:0!important}
   .page-home-main .home-hero,
   .page-home-main .home-hero-stage{min-height:auto}
   .page-home-main .home-hero-content{
-    padding-top:clamp(5.5rem,12vw,7rem);
-    padding-bottom:2.5rem;
+    padding-top:clamp(5.25rem,11vw,6.75rem);
+    padding-bottom:2.3rem;
   }
   .page-home-main .home-hero h1{
     max-width:11ch;
-    font-size:clamp(3.35rem,9vw,5.2rem);
+    font-size:clamp(3.15rem,8.4vw,4.85rem);
   }
   .page-home-main .home-hero-index{grid-template-columns:1fr}
   .page-home-main .home-hero-index>p{display:none}
-  .page-home-main .home-solution-scene{min-height:26rem}
-  .page-home-main .home-crops-visual{min-height:28rem}
+  .page-home-main .home-solution-scene{min-height:24rem}
+  .page-home-main .home-category-1 .home-category-media{min-height:24rem}
+  .page-home-main .home-category-2 .home-category-media,
+  .page-home-main .home-category-3 .home-category-media{min-height:17rem}
+  .page-home-main .home-crops-visual{min-height:25rem}
+  .page-home-main .home-about-collage{min-height:26rem}
 }
 
 @media (max-width:47.99rem){
@@ -134,54 +197,52 @@
   .page-home-main .home-header-inner{min-height:4.25rem}
   .page-home-main .home-logo-image{width:7rem;height:2.45rem}
   .page-home-main .home-hero-content{
-    padding-top:5rem;
-    padding-bottom:2rem;
+    padding-top:4.6rem;
+    padding-bottom:1.8rem;
   }
   .page-home-main .home-hero h1{
-    max-width:10ch;
-    font-size:clamp(2.85rem,13vw,4.25rem);
-    line-height:.9;
+    max-width:10.5ch;
+    font-size:clamp(2.55rem,11.5vw,3.65rem);
+    line-height:.92;
   }
   .page-home-main .home-lead{
     max-width:31rem;
-    margin:1.15rem 0 1.4rem;
-    font-size:.94rem;
+    margin:1rem 0 1.25rem;
+    font-size:.92rem;
   }
-  .page-home-main .home-actions{
-    display:grid;
-    grid-template-columns:1fr;
-  }
-  .page-home-main .home-actions .home-btn{
-    width:100%;
-    min-height:3.25rem;
-  }
-  .page-home-main .home-hero-index ul{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
+  .page-home-main .home-actions{display:grid;grid-template-columns:1fr}
+  .page-home-main .home-actions .home-btn{width:100%;min-height:3.1rem}
+  .page-home-main .home-hero-index ul{grid-template-columns:repeat(2,minmax(0,1fr))}
   .page-home-main .home-hero-index li:nth-child(odd){border-left:0}
   .page-home-main .home-hero-index a{
-    min-height:4rem;
-    padding:.7rem .75rem;
-    font-size:.73rem;
+    min-height:3.8rem;
+    padding:.65rem .7rem;
+    font-size:.69rem;
   }
-  .page-home-main .home-section{padding:4.25rem 0}
+  .page-home-main .home-section{padding:3.85rem 0}
   .page-home-main .home-section-head h2,
   .page-home-main .home-about h2,
   .page-home-main .home-guide h2,
   .page-home-main .home-service h2,
   .page-home-main .home-faq h2,
   .page-home-main .home-request h2{
-    font-size:clamp(2.25rem,10vw,3.15rem);
-    line-height:.96;
+    font-size:clamp(2.1rem,9.2vw,2.85rem);
+    line-height:.97;
   }
-  .page-home-main .home-solution-scene{min-height:23rem}
-  .page-home-main .home-solution-copy h3{font-size:clamp(2.15rem,11vw,3.15rem)}
+  .page-home-main .home-solution-scene{min-height:21rem}
+  .page-home-main .home-solution-copy h3{font-size:clamp(2rem,10vw,2.9rem)}
   .page-home-main .home-category-1 .home-category-media,
   .page-home-main .home-category-4 .home-category-media,
-  .page-home-main .home-category-media{min-height:17rem}
-  .page-home-main .home-crops-visual{min-height:21rem}
-  .page-home-main .home-crops-list a{
-    min-height:4.25rem;
-    font-size:clamp(1.55rem,8vw,2.35rem);
+  .page-home-main .home-category-media{min-height:15rem}
+  .page-home-main .home-category-body{padding:1.2rem}
+  .page-home-main .home-category h3{font-size:clamp(1.75rem,8.5vw,2.5rem)}
+  .page-home-main .home-crops-visual{min-height:19rem}
+  .page-home-main .home-crops-list a,
+  .page-home-main .home-crops-list a:hover,
+  .page-home-main .home-crops-list a.is-active{
+    min-height:3.9rem;
+    font-size:clamp(1.45rem,7.4vw,2.15rem);
   }
+  .page-home-main .home-about-collage{min-height:21rem}
+  .page-home-main .home-quality{min-height:26rem}
 }
