@@ -308,7 +308,7 @@
   }
   .page-home-main .home-hero-copy{max-width:51rem!important;padding:0!important}
   .page-home-main .home-hero h1{
-    max-width:18ch!important;font-size:clamp(3rem,4vw,4.25rem)!important;
+    max-width:16ch!important;font-size:clamp(2.85rem,3.65vw,3.8rem)!important;
     line-height:.94!important;text-wrap:pretty!important
   }
   .page-home-main .home-hero h1::after{width:min(28%,12rem)!important;margin-top:.9rem!important}
