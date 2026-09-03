@@ -101,9 +101,6 @@ window.SITE_CONFIG = Object.freeze({
     frame = requestAnimationFrame(tick);
   };
 
-  // Lock the initial desktop geometry to the exact same proportions before
-  // home.js starts toggling .is-active. Inline tracks then shield the layout
-  // from discrete selector-template swaps while all existing visuals remain intact.
   animateTracks(activeSceneIndex(), true);
 
   const observer = new MutationObserver(() => {
@@ -122,4 +119,16 @@ window.SITE_CONFIG = Object.freeze({
   window.addEventListener('resize', () => {
     if (desktop.matches) animateTracks(activeSceneIndex(), true);
   }, { passive: true });
+})();
+
+/* HOME V3 catalogue art direction. Kept runtime-loaded so the experiment stays isolated to page-home-main. */
+(() => {
+  if (!document.body.classList.contains('page-home-main')) return;
+  if (document.querySelector('link[data-home-v3-catalog-sculpted]')) return;
+
+  const stylesheet = document.createElement('link');
+  stylesheet.rel = 'stylesheet';
+  stylesheet.href = '/assets/css/home-v3-catalog-sculpted.css?v=20260904-1';
+  stylesheet.dataset.homeV3CatalogSculpted = '';
+  document.head.append(stylesheet);
 })();
