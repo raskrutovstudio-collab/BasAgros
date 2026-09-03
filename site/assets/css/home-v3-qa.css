@@ -1,0 +1,187 @@
+/* BAS AGROS — HOME V3 browser-reviewed correction layer */
+
+.page-home-main.js-lux-ready [data-lux-reveal],
+.page-home-main.js-lux-ready [data-lux-reveal].is-revealed{
+  opacity:1!important;
+  transform:none!important;
+  transition:none!important;
+}
+
+.page-home-main .home-wrap{
+  width:min(calc(100% - clamp(2rem,6vw,6rem)),82rem);
+}
+
+.page-home-main .home-header,
+.page-home-main .home-header-inner{min-height:4.5rem}
+.page-home-main .home-logo-image{width:7.9rem;height:2.7rem}
+
+.page-home-main .home-hero,
+.page-home-main .home-hero-stage{
+  min-height:min(52rem,calc(100svh - 4.5rem));
+}
+.page-home-main .home-hero-main img{
+  object-position:center 48%;
+  filter:brightness(.52) saturate(.76) contrast(1.05);
+}
+.page-home-main .home-hero-shade{
+  background:
+    linear-gradient(90deg,rgba(4,5,4,.93) 0%,rgba(4,5,4,.76) 46%,rgba(4,5,4,.24) 76%,rgba(4,5,4,.32) 100%),
+    linear-gradient(0deg,rgba(4,5,4,.88) 0%,rgba(4,5,4,.18) 48%,rgba(4,5,4,.25) 100%);
+}
+.page-home-main .home-hero-content{
+  display:block;
+  padding-top:clamp(7rem,12vh,9rem);
+  padding-bottom:clamp(3rem,6vh,4.75rem);
+}
+.page-home-main .home-hero-copy{
+  grid-column:auto;
+  max-width:52rem;
+  margin:0;
+}
+.page-home-main .home-hero h1{
+  max-width:10.5ch;
+  font-size:clamp(3.65rem,6.15vw,6rem);
+  line-height:.88;
+  letter-spacing:-.038em;
+}
+.page-home-main .home-lead{
+  max-width:39rem;
+  font-size:1rem;
+  line-height:1.62;
+}
+.page-home-main .home-hero-rail{display:none}
+.page-home-main .home-hero-index{
+  grid-template-columns:10rem 1fr;
+  background:rgba(4,5,4,.9);
+}
+.page-home-main .home-hero-index a{
+  min-height:4.4rem;
+  padding:.8rem 1rem;
+  font-size:.78rem;
+}
+
+.page-home-main .home-section{
+  padding:clamp(4.75rem,7vw,7.25rem) 0;
+}
+.page-home-main .home-section-head{
+  margin-bottom:clamp(2.5rem,4vw,4rem);
+}
+.page-home-main .home-section-head h2,
+.page-home-main .home-about h2,
+.page-home-main .home-guide h2,
+.page-home-main .home-service h2,
+.page-home-main .home-faq h2,
+.page-home-main .home-request h2{
+  font-size:clamp(2.7rem,4.25vw,4.6rem);
+  line-height:.94;
+}
+
+.page-home-main .home-solution-grid{gap:1rem}
+.page-home-main .home-solution-scene{
+  min-height:clamp(25rem,36vw,34rem);
+  box-shadow:0 22px 65px rgba(0,0,0,.28);
+}
+.page-home-main .home-solution-copy h3{
+  font-size:clamp(2.25rem,3.6vw,3.8rem);
+  line-height:.92;
+}
+
+.page-home-main .home-category-grid,
+.page-home-main .home-article-grid{gap:1rem}
+.page-home-main .home-crops-stage{gap:clamp(2rem,5vw,5rem)}
+.page-home-main .home-crops-list a{
+  min-height:4.6rem;
+  font-size:clamp(1.75rem,3.4vw,3.25rem);
+}
+.page-home-main .home-crops-visual{min-height:34rem}
+
+.page-home-main .home-guide-grid,
+.page-home-main .home-about-grid,
+.page-home-main .home-service-stage,
+.page-home-main .home-faq-grid,
+.page-home-main .home-request-grid{
+  gap:clamp(2.5rem,6vw,6rem);
+}
+
+.page-home-main .home-form input,
+.page-home-main .home-form select,
+.page-home-main .home-form textarea{
+  background:#0d100d;
+  color:var(--ivory);
+}
+
+@media (max-width:63.99rem){
+  .page-home-main .home-wrap{width:min(calc(100% - 2.5rem),82rem)}
+  .page-home-main .home-hero,
+  .page-home-main .home-hero-stage{min-height:auto}
+  .page-home-main .home-hero-content{
+    padding-top:clamp(5.5rem,12vw,7rem);
+    padding-bottom:2.5rem;
+  }
+  .page-home-main .home-hero h1{
+    max-width:11ch;
+    font-size:clamp(3.35rem,9vw,5.2rem);
+  }
+  .page-home-main .home-hero-index{grid-template-columns:1fr}
+  .page-home-main .home-hero-index>p{display:none}
+  .page-home-main .home-solution-scene{min-height:26rem}
+  .page-home-main .home-crops-visual{min-height:28rem}
+}
+
+@media (max-width:47.99rem){
+  .page-home-main .home-wrap{width:calc(100% - 2rem)}
+  .page-home-main .home-header,
+  .page-home-main .home-header-inner{min-height:4.25rem}
+  .page-home-main .home-logo-image{width:7rem;height:2.45rem}
+  .page-home-main .home-hero-content{
+    padding-top:5rem;
+    padding-bottom:2rem;
+  }
+  .page-home-main .home-hero h1{
+    max-width:10ch;
+    font-size:clamp(2.85rem,13vw,4.25rem);
+    line-height:.9;
+  }
+  .page-home-main .home-lead{
+    max-width:31rem;
+    margin:1.15rem 0 1.4rem;
+    font-size:.94rem;
+  }
+  .page-home-main .home-actions{
+    display:grid;
+    grid-template-columns:1fr;
+  }
+  .page-home-main .home-actions .home-btn{
+    width:100%;
+    min-height:3.25rem;
+  }
+  .page-home-main .home-hero-index ul{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .page-home-main .home-hero-index li:nth-child(odd){border-left:0}
+  .page-home-main .home-hero-index a{
+    min-height:4rem;
+    padding:.7rem .75rem;
+    font-size:.73rem;
+  }
+  .page-home-main .home-section{padding:4.25rem 0}
+  .page-home-main .home-section-head h2,
+  .page-home-main .home-about h2,
+  .page-home-main .home-guide h2,
+  .page-home-main .home-service h2,
+  .page-home-main .home-faq h2,
+  .page-home-main .home-request h2{
+    font-size:clamp(2.25rem,10vw,3.15rem);
+    line-height:.96;
+  }
+  .page-home-main .home-solution-scene{min-height:23rem}
+  .page-home-main .home-solution-copy h3{font-size:clamp(2.15rem,11vw,3.15rem)}
+  .page-home-main .home-category-1 .home-category-media,
+  .page-home-main .home-category-4 .home-category-media,
+  .page-home-main .home-category-media{min-height:17rem}
+  .page-home-main .home-crops-visual{min-height:21rem}
+  .page-home-main .home-crops-list a{
+    min-height:4.25rem;
+    font-size:clamp(1.55rem,8vw,2.35rem);
+  }
+}
