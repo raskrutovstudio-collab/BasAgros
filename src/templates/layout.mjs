@@ -157,6 +157,7 @@ ${GENERATED_MARKER}
   <link rel="stylesheet" href="/assets/css/home-v3-polish.css?v=20260903-5">
   <link rel="stylesheet" href="/assets/css/home-v3-feedback.css?v=20260903-5">
   <link rel="stylesheet" href="/assets/css/home-v3-audience.css?v=20260903-8">
+  <link rel="stylesheet" href="/assets/css/home-v3-catalog-terrain.css?v=20260904-1">
   <script type="application/ld+json">${structuredData}</script>
 </head>
 <body class="page-home page-home-main">
@@ -168,6 +169,7 @@ ${main}
 ${renderHomeFooter(pages)}
   <script src="/assets/js/site-config.js?v=20260903-2" defer></script>
   <script src="/assets/js/home.js?v=20260903-4" defer></script>
+  <script src="/assets/js/home-v3-catalog-terrain.js?v=20260904-1" defer></script>
   <script src="/assets/js/lead-form.js" defer></script>
 </body>
 </html>
