@@ -120,14 +120,14 @@ window.SITE_CONFIG = Object.freeze({
   }, { passive: true });
 })();
 
-/* HOME V3 catalogue art direction. */
+/* HOME V3 catalogue art direction. Preview-safe relative asset URL. */
 (() => {
   if (!document.body.classList.contains('page-home-main')) return;
   if (document.querySelector('link[data-home-v3-catalog-sculpted]')) return;
 
   const stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
-  stylesheet.href = '/assets/css/home-v3-catalog-sculpted.css?v=20260904-2';
+  stylesheet.href = new URL('assets/css/home-v3-catalog-sculpted.css?v=20260904-4', window.location.href).href;
   stylesheet.dataset.homeV3CatalogSculpted = '';
   document.head.append(stylesheet);
 })();
@@ -188,4 +188,130 @@ window.SITE_CONFIG = Object.freeze({
       activate(queuedIndex);
     });
   }, { passive: true });
+})();
+
+/* Reference-driven catalogue component. Enhances the existing semantic markup. */
+(() => {
+  if (!document.body.classList.contains('page-home-main')) return;
+
+  const section = document.querySelector('.home-catalog');
+  const head = section?.querySelector('.home-section-head');
+  const grid = section?.querySelector('.home-category-grid');
+  const cards = grid ? [...grid.querySelectorAll('.home-category')] : [];
+  if (!section || !head || !grid || cards.length !== 4 || section.classList.contains('home-catalog-lux-ready')) return;
+
+  const desktop = window.matchMedia('(min-width: 64rem)');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let activeIndex = 1;
+  let switchTimer = 0;
+  let pointerFrame = 0;
+  let queuedIndex = 1;
+
+  section.classList.add('home-catalog-lux-ready');
+
+  const intro = head.firstElementChild;
+  intro?.classList.add('home-catalog-lux-intro');
+  const heading = head.querySelector('h2');
+  if (heading) heading.innerHTML = '<span>Каталог семян.</span><em>Четыре направления</em>';
+
+  const catalogLink = head.querySelector('.home-text-link');
+  if (intro && catalogLink) intro.append(catalogLink);
+
+  const tools = document.createElement('div');
+  tools.className = 'home-catalog-lux-tools';
+  tools.innerHTML = `
+    <div class="home-catalog-lux-hint" aria-hidden="true">
+      <span class="home-catalog-lux-mouse"></span>
+      <span>Наводите курсор на карточки<br>или используйте стрелки<br>для просмотра направлений</span>
+    </div>
+    <div class="home-catalog-lux-arrows">
+      <button class="home-catalog-lux-arrow" type="button" data-catalog-prev aria-label="Предыдущее направление">←</button>
+      <button class="home-catalog-lux-arrow" type="button" data-catalog-next aria-label="Следующее направление">→</button>
+    </div>`;
+  head.append(tools);
+
+  cards.forEach((card, index) => {
+    card.dataset.catalogCard = String(index);
+    const media = card.querySelector('.home-category-media');
+    if (media && !media.querySelector('.home-catalog-card-number')) {
+      const number = document.createElement('span');
+      number.className = 'home-catalog-card-number';
+      number.textContent = String(index + 1).padStart(2, '0');
+      number.setAttribute('aria-hidden', 'true');
+      media.prepend(number);
+    }
+  });
+
+  const progress = document.createElement('div');
+  progress.className = 'home-catalog-lux-progress';
+  progress.setAttribute('aria-label', 'Навигация по направлениям каталога');
+  progress.innerHTML = cards.map((_, index) => `<button class="home-catalog-lux-step" type="button" data-catalog-step="${index}" aria-label="Показать направление ${index + 1}">${String(index + 1).padStart(2, '0')}</button>`).join('');
+  grid.after(progress);
+
+  const steps = [...progress.querySelectorAll('[data-catalog-step]')];
+
+  const setActive = (nextIndex, { scroll = false } = {}) => {
+    const normalized = (nextIndex + cards.length) % cards.length;
+    if (normalized === activeIndex && cards[normalized].classList.contains('is-active')) {
+      if (scroll && !desktop.matches) cards[normalized].scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+      return;
+    }
+
+    activeIndex = normalized;
+    grid.classList.add('is-switching');
+    window.clearTimeout(switchTimer);
+    switchTimer = window.setTimeout(() => grid.classList.remove('is-switching'), 760);
+
+    cards.forEach((card, index) => {
+      const active = index === normalized;
+      card.classList.toggle('is-active', active);
+      card.setAttribute('aria-current', active ? 'true' : 'false');
+    });
+    steps.forEach((step, index) => {
+      const active = index === normalized;
+      step.classList.toggle('is-active', active);
+      if (active) step.setAttribute('aria-current', 'true');
+      else step.removeAttribute('aria-current');
+    });
+
+    if (scroll && !desktop.matches) {
+      cards[normalized].scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+    }
+  };
+
+  setActive(1);
+
+  tools.querySelector('[data-catalog-prev]')?.addEventListener('click', () => setActive(activeIndex - 1, { scroll: true }));
+  tools.querySelector('[data-catalog-next]')?.addEventListener('click', () => setActive(activeIndex + 1, { scroll: true }));
+
+  steps.forEach((step, index) => step.addEventListener('click', () => setActive(index, { scroll: true })));
+
+  grid.addEventListener('pointermove', (event) => {
+    if (!desktop.matches || !finePointer.matches) return;
+    const card = event.target.closest?.('[data-catalog-card]');
+    if (!card || !grid.contains(card)) return;
+    const nextIndex = Number(card.dataset.catalogCard);
+    if (!Number.isInteger(nextIndex) || nextIndex === activeIndex) return;
+    queuedIndex = nextIndex;
+    if (pointerFrame) return;
+    pointerFrame = requestAnimationFrame(() => {
+      pointerFrame = 0;
+      setActive(queuedIndex);
+    });
+  }, { passive: true });
+
+  grid.addEventListener('focusin', (event) => {
+    const card = event.target.closest?.('[data-catalog-card]');
+    if (!card) return;
+    const nextIndex = Number(card.dataset.catalogCard);
+    if (Number.isInteger(nextIndex)) setActive(nextIndex, { scroll: !desktop.matches });
+  });
+
+  section.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    if (event.target.matches('input,textarea,select')) return;
+    event.preventDefault();
+    setActive(activeIndex + (event.key === 'ArrowRight' ? 1 : -1), { scroll: true });
+  });
 })();
