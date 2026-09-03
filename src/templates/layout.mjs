@@ -156,7 +156,7 @@ ${GENERATED_MARKER}
   <link rel="stylesheet" href="/assets/css/home-v3-qa.css?v=20260903-5">
   <link rel="stylesheet" href="/assets/css/home-v3-polish.css?v=20260903-5">
   <link rel="stylesheet" href="/assets/css/home-v3-feedback.css?v=20260903-5">
-  <link rel="stylesheet" href="/assets/css/home-v3-audience.css?v=20260903-3">
+  <link rel="stylesheet" href="/assets/css/home-v3-audience.css?v=20260903-4">
   <script type="application/ld+json">${structuredData}</script>
 </head>
 <body class="page-home page-home-main">
@@ -167,7 +167,7 @@ ${main}
   </main>
 ${renderHomeFooter(pages)}
   <script src="/assets/js/site-config.js" defer></script>
-  <script src="/assets/js/home.js?v=20260903-1" defer></script>
+  <script src="/assets/js/home.js?v=20260903-2" defer></script>
   <script src="/assets/js/lead-form.js" defer></script>
 </body>
 </html>
@@ -209,13 +209,9 @@ ${GENERATED_MARKER}
   <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home.css?v=20260831-9">
-  <link rel="stylesheet" href="/assets/css/travosmesi.css?v=20260901-6">
-  <link rel="stylesheet" href="/assets/css/travosmesi-polish.css?v=20260902-2">
-  <link rel="stylesheet" href="/assets/css/travosmesi-refine.css?v=20260901-2">
-  <link rel="stylesheet" href="/assets/css/travosmesi-viewport.css?v=20260901-2">
   <script type="application/ld+json">${structuredData}</script>
 </head>
-<body class="page-home page-category page-travosmesi">
+<body class="page-home page-travosmesi-hub">
   <a class="skip-link" href="#main">Перейти к содержанию</a>
 ${header}
   <main id="main">
@@ -233,7 +229,11 @@ ${footer}
 function renderProductDocument({ page, pages, main }) {
   const title = productTitle(page);
   const description = productDescription(page);
-  const structuredData = JSON.stringify(productStructuredData(page)).replace(/</g, '\\u003c');
+  const robots = productRobots(page);
+  const structuredData = JSON.stringify(productStructuredData(page, pages)).replace(/</g, '\\u003c');
+  const isLyutserna = page.url === '/catalog/mnogoletnie-kormovye-travy/lyutserna/';
+  const socialImage = isLyutserna ? 'https://basagros.kz/assets/img/products/lyutserna/lyutserna-social-1200x630.jpg' : 'https://basagros.kz/assets/img/social/home-fields-1200x630.jpg';
+  const socialImageAlt = isLyutserna ? 'Люцерна — семена BAS Agros' : 'BAS Agros — семена и травосмеси';
   return `<!doctype html>
 ${GENERATED_MARKER}
 <html lang="ru">
@@ -243,30 +243,29 @@ ${GENERATED_MARKER}
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}">
   <link rel="canonical" href="${escapeHtml(page.canonical)}">
-  <meta name="robots" content="${escapeHtml(productRobots(page))}">
+  <meta name="robots" content="${escapeHtml(robots)}">
   <meta name="theme-color" content="#F7F8F3">
-  <meta property="og:type" content="product">
+  <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:title" content="${escapeHtml(title)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${escapeHtml(page.canonical)}">
   <meta property="og:site_name" content="BAS Agros">
-  <meta property="og:image" content="https://basagros.kz/assets/img/social/lucerne-seeds-1200x630.jpg">
-  <meta property="og:image:secure_url" content="https://basagros.kz/assets/img/social/lucerne-seeds-1200x630.jpg">
+  <meta property="og:image" content="${socialImage}">
+  <meta property="og:image:secure_url" content="${socialImage}">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Цветущая люцерна и семена люцерны">
+  <meta property="og:image:alt" content="${socialImageAlt}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(title)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
-  <meta name="twitter:image" content="https://basagros.kz/assets/img/social/lucerne-seeds-1200x630.jpg">
-  <meta name="twitter:image:alt" content="Цветущая люцерна и семена люцерны">
+  <meta name="twitter:image" content="${socialImage}">
+  <meta name="twitter:image:alt" content="${socialImageAlt}">
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
-  <link rel="stylesheet" href="/assets/css/home.css?v=20260828-1">
-  <link rel="stylesheet" href="/assets/css/product.css?v=20260831-6">
+  <link rel="stylesheet" href="/assets/css/home.css?v=20260831-9">
   <script type="application/ld+json">${structuredData}</script>
 </head>
 <body class="page-home page-product">
@@ -277,23 +276,16 @@ ${main}
   </main>
 ${renderHomeFooter(pages)}
   <script src="/assets/js/site-config.js" defer></script>
-  <script src="/assets/js/home.js?v=20260828-2" defer></script>
-  <script src="/assets/js/product.js?v=20260828-2" defer></script>
+  <script src="/assets/js/home.js?v=20260831-7" defer></script>
   <script src="/assets/js/lead-form.js" defer></script>
 </body>
 </html>
 `;
 }
 
-export function renderDocument({ page, pages, byId, main }) {
-  if (page.template_type === 'homepage') {
-    return renderHomeDocument({ page, pages, main });
-  }
-  if (isTravosmesiHub(page)) {
-    return renderTravosmesiDocument({ page, pages, main });
-  }
-  if (isEtalonProduct(page)) {
-    return renderProductDocument({ page, pages, main });
-  }
+export function renderPageDocument({ page, pages, byId, main }) {
+  if (page.url === '/') return renderHomeDocument({ page, pages, main });
+  if (isTravosmesiHub(page)) return renderTravosmesiDocument({ page, pages, main });
+  if (isEtalonProduct(page)) return renderProductDocument({ page, pages, main });
   return renderShellDocument({ page, pages, byId, main });
 }
