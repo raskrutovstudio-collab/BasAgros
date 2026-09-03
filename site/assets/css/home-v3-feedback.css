@@ -178,6 +178,122 @@
   .page-home-main .home-audience-row,.page-home-main .home-crops-list li::before,.page-home-main .home-category{transition:none!important}
 }
 
+/* Interactive purpose selector — adapted from the approved black/gold reference. */
+.page-home-main .home-solutions{overflow:hidden}
+.page-home-main .home-purpose-selector{
+  display:grid;grid-template-columns:minmax(16rem,22rem) minmax(0,1fr);min-height:36rem;overflow:hidden;
+  border:1px solid rgba(232,197,109,.22);border-radius:var(--radius-panel);background:#080a08;
+  box-shadow:0 2rem 6rem rgba(0,0,0,.24)
+}
+.page-home-main .home-purpose-nav{position:relative;z-index:3;padding:clamp(1.35rem,2.5vw,2.2rem);background:linear-gradient(155deg,#11130f,#070807)}
+.page-home-main .home-purpose-nav>p{max-width:9ch;margin:0 0 1.5rem;color:var(--gold-hi);font-family:var(--font-display);font-size:clamp(1.6rem,2.2vw,2.2rem);font-weight:700;line-height:.96;text-transform:uppercase}
+.page-home-main .home-purpose-tabs{display:grid;gap:.55rem}
+.page-home-main .home-purpose-tab{
+  position:relative;display:grid;grid-template-columns:2.6rem minmax(0,1fr) 1.2rem;gap:.8rem;align-items:center;width:100%;min-height:5rem;padding:.75rem .8rem;
+  border:1px solid rgba(232,197,109,.13);border-radius:1rem;background:rgba(255,255,255,.018);color:var(--ivory);text-align:left;cursor:pointer;
+  transition:background .35s ease,border-color .35s ease,transform .35s cubic-bezier(.2,.75,.2,1),color .35s ease
+}
+.page-home-main .home-purpose-tab .home-icon{width:2rem;height:2rem;color:var(--gold-hi)}
+.page-home-main .home-purpose-tab strong{display:block;font-size:.92rem;line-height:1.2}
+.page-home-main .home-purpose-tab small{display:block;margin-top:.25rem;color:rgba(244,239,221,.54);font-size:.72rem;line-height:1.35}
+.page-home-main .home-purpose-tab>b{color:var(--gold-hi);font-size:1rem;transition:transform .35s ease}
+.page-home-main .home-purpose-tab:hover{border-color:rgba(232,197,109,.38);transform:translateX(.2rem)}
+.page-home-main .home-purpose-tab.is-active{border-color:var(--gold);background:linear-gradient(120deg,var(--gold-deep),#d5a642);color:#090a08;box-shadow:0 .9rem 2.4rem rgba(201,151,45,.18)}
+.page-home-main .home-purpose-tab.is-active .home-icon,.page-home-main .home-purpose-tab.is-active>b{color:#090a08}
+.page-home-main .home-purpose-tab.is-active small{color:rgba(9,10,8,.7)}
+.page-home-main .home-purpose-tab.is-active>b{transform:translateX(.18rem)}
+.page-home-main .home-purpose-tab:focus-visible{outline:3px solid rgba(232,197,109,.34);outline-offset:3px}
+.page-home-main .home-purpose-panels{position:relative;min-width:0;min-height:36rem}
+.page-home-main .home-purpose-panel{position:absolute;inset:0;isolation:isolate;overflow:hidden;padding:clamp(1.6rem,4vw,3.8rem)}
+.page-home-main .home-purpose-panel[hidden]{display:none}
+.page-home-main .home-purpose-media,.page-home-main .home-purpose-media picture{position:absolute;z-index:-2;inset:0;width:100%;height:100%}
+.page-home-main .home-purpose-media img{width:100%;height:100%;object-fit:cover;filter:brightness(.58) saturate(.72);transform:scale(1.06);animation:purpose-enter .75s cubic-bezier(.2,.75,.2,1) both}
+.page-home-main .home-purpose-shade{position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(6,8,6,.88),rgba(6,8,6,.32) 66%,rgba(6,8,6,.12)),linear-gradient(0deg,rgba(6,8,6,.9),transparent 57%)}
+.page-home-main .home-purpose-copy{max-width:35rem;animation:purpose-copy-enter .55s .08s cubic-bezier(.2,.75,.2,1) both}
+.page-home-main .home-purpose-copy h3{max-width:10ch;margin:.35rem 0 .75rem;color:#fff;font-family:var(--font-display);font-size:clamp(2.8rem,5vw,5.3rem);line-height:.9;text-transform:uppercase;text-wrap:balance}
+.page-home-main .home-purpose-copy>p:not(.home-kicker){max-width:28rem;margin:0 0 1.3rem;color:rgba(255,255,255,.76);font-size:1rem;line-height:1.6}
+.page-home-main .home-purpose-copy .home-btn{width:max-content;background:rgba(7,8,7,.34)!important;backdrop-filter:blur(8px)}
+.page-home-main .home-purpose-benefits{position:absolute;right:clamp(1.5rem,3vw,3rem);bottom:clamp(1.4rem,2.5vw,2.4rem);left:clamp(1.5rem,3vw,3rem);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin:0;padding:1.05rem 0 0;border-top:1px solid rgba(232,197,109,.28);list-style:none}
+.page-home-main .home-purpose-benefits li{display:flex;gap:.55rem;align-items:center;color:rgba(255,255,255,.78);font-size:.74rem;line-height:1.3}
+.page-home-main .home-purpose-benefits .home-icon{width:1.8rem;height:1.8rem;flex:0 0 auto;color:var(--gold-hi)}
+@keyframes purpose-enter{from{opacity:.38;transform:scale(1.12)}to{opacity:1;transform:scale(1.06)}}
+@keyframes purpose-copy-enter{from{opacity:0;transform:translateY(1rem)}to{opacity:1;transform:translateY(0)}}
+
+/* Crop filmstrip — compact, touch-friendly and intentionally not another card grid. */
+.page-home-main .home-crops-shell{display:grid;grid-template-columns:minmax(13rem,18rem) minmax(0,1fr);gap:clamp(1.25rem,3vw,2.5rem);padding:clamp(1.2rem,2.5vw,2rem);border:1px solid rgba(232,197,109,.18);border-radius:var(--radius-panel);background:linear-gradient(145deg,#0d0f0c,#070807);box-shadow:0 1.5rem 4.5rem rgba(0,0,0,.2)}
+.page-home-main .home-crops-side{display:flex;flex-direction:column;padding:.5rem}
+.page-home-main .home-crops-side h2{margin:.3rem 0 .8rem;font-size:clamp(2.2rem,3.3vw,3.5rem);line-height:.92}
+.page-home-main .home-crops-side>p:not(.home-kicker){margin:0;color:var(--color-muted);font-size:.9rem;line-height:1.55}
+.page-home-main .home-crops-controls{display:flex;gap:.55rem;margin-top:auto;padding-top:1.3rem}
+.page-home-main .home-crops-controls button{display:grid;place-items:center;width:2.75rem;height:2.75rem;border:1px solid rgba(232,197,109,.36);border-radius:50%;background:transparent;color:var(--gold-hi);font-size:1.05rem;cursor:pointer;transition:background .3s ease,color .3s ease,transform .3s ease}
+.page-home-main .home-crops-controls button:hover{background:var(--gold);color:#080908;transform:scale(1.05)}
+.page-home-main .home-crops-rail-wrap{min-width:0}
+.page-home-main .home-crops-list{
+  display:flex!important;grid-template-columns:none!important;gap:.7rem!important;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:none;
+  margin:0!important;padding:0 0 .8rem!important;border:0!important;list-style:none!important
+}
+.page-home-main .home-crops-list::-webkit-scrollbar{display:none}
+.page-home-main .home-crops-list li{position:relative;flex:0 0 clamp(10.5rem,18vw,13rem);min-height:17.5rem!important;overflow:hidden;border-radius:1.1rem!important;scroll-snap-align:start}
+.page-home-main .home-crops-list li::before,.page-home-main .home-crops-list li::after{display:none!important}
+.page-home-main .home-crops-list a,.page-home-main .home-crops-list a:hover{
+  position:absolute!important;inset:0;display:flex!important;align-items:flex-end!important;justify-content:space-between!important;padding:1rem!important;overflow:hidden;background:#111!important;color:#fff!important;text-decoration:none
+}
+.page-home-main .home-crops-list .home-media,.page-home-main .home-crops-list picture{position:absolute;z-index:0;inset:0;width:100%;height:100%;border-radius:0!important}
+.page-home-main .home-crops-list .home-media::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,5,4,.92),rgba(4,5,4,.02) 66%)}
+.page-home-main .home-crops-list img{width:100%;height:100%;object-fit:cover;filter:brightness(.72) saturate(.78);transition:transform .65s cubic-bezier(.2,.75,.2,1),filter .45s ease}
+.page-home-main .home-crops-list a:hover img{transform:scale(1.07);filter:brightness(.86) saturate(.9)}
+.page-home-main .home-crops-list a>span,.page-home-main .home-crops-list a>b{position:relative;z-index:2}
+.page-home-main .home-crops-list a>span{max-width:8.5rem;white-space:normal;font-family:var(--font-display);font-size:1.12rem;line-height:1;text-transform:uppercase}
+.page-home-main .home-crops-list a>b{color:var(--gold-hi)}
+.page-home-main .home-crops-catalog{display:block;width:max-content;margin:.15rem auto 0;color:var(--gold-hi);font-size:.82rem;text-decoration:none;text-transform:uppercase;letter-spacing:.06em}
+
+/* Editorial strength banner — the second approved reference, translated to BAS Agros. */
+.page-home-main .home-strength{position:relative;display:grid;grid-template-columns:minmax(22rem,.78fr) minmax(0,1.35fr);min-height:31rem;overflow:hidden;border:1px solid rgba(232,197,109,.22);border-radius:var(--radius-panel);background:#070807;box-shadow:0 2rem 6rem rgba(0,0,0,.24)}
+.page-home-main .home-strength::after{content:"";position:absolute;right:0;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold-deep),var(--gold-hi),transparent 88%)}
+.page-home-main .home-strength-copy{position:relative;z-index:3;padding:clamp(2rem,4vw,4rem)}
+.page-home-main .home-strength-copy h2{max-width:11ch;margin:.4rem 0 1.2rem;color:#fff;font-family:var(--font-display);font-size:clamp(3rem,5vw,5rem);line-height:.9;text-transform:uppercase;text-wrap:balance}
+.page-home-main .home-strength-copy ul{display:grid;gap:.65rem;margin:0 0 1.7rem;padding:0;list-style:none}
+.page-home-main .home-strength-copy li{display:flex;gap:.75rem;align-items:center;color:rgba(255,255,255,.77);font-size:.9rem}
+.page-home-main .home-strength-copy li span{color:var(--gold-hi);font-weight:800}
+.page-home-main .home-strength-media{position:absolute;z-index:1;inset:0 0 0 38%;border-radius:0!important;clip-path:polygon(12% 0,100% 0,100% 100%,0 100%)}
+.page-home-main .home-strength-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,8,7,.48),transparent 44%),linear-gradient(0deg,rgba(7,8,7,.2),transparent 45%)}
+.page-home-main .home-strength-media picture{display:block;width:100%;height:100%}
+.page-home-main .home-strength-media img{width:100%;height:100%;object-fit:cover;filter:brightness(.64) sepia(.12) saturate(.75);transform:scale(1.04);transition:transform 1.2s cubic-bezier(.2,.75,.2,1),filter .8s ease}
+.page-home-main .home-strength:hover .home-strength-media img{transform:scale(1.085);filter:brightness(.72) sepia(.1) saturate(.86)}
+
+@media (max-width:63.99rem){
+  .page-home-main .home-purpose-selector{grid-template-columns:1fr;min-height:0}
+  .page-home-main .home-purpose-nav>p{max-width:none}
+  .page-home-main .home-purpose-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .page-home-main .home-purpose-panels{min-height:33rem}
+  .page-home-main .home-strength{grid-template-columns:1fr;min-height:34rem}
+  .page-home-main .home-strength-media{inset:0 0 0 32%;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%)}
+  .page-home-main .home-strength-copy{max-width:29rem}
+}
+
+@media (max-width:47.99rem){
+  .page-home-main .home-purpose-nav{padding:1rem}
+  .page-home-main .home-purpose-tabs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .page-home-main .home-purpose-tab{flex:0 0 82%;scroll-snap-align:start}
+  .page-home-main .home-purpose-panels{min-height:32rem}
+  .page-home-main .home-purpose-panel{padding:1.4rem}
+  .page-home-main .home-purpose-copy h3{font-size:2.8rem}
+  .page-home-main .home-purpose-benefits{grid-template-columns:repeat(2,minmax(0,1fr));bottom:1.25rem}
+  .page-home-main .home-crops-shell{grid-template-columns:1fr;padding:1rem}
+  .page-home-main .home-crops-controls{margin-top:.8rem}
+  .page-home-main .home-crops-list li{flex-basis:76%;min-height:16rem!important}
+  .page-home-main .home-strength{min-height:38rem}
+  .page-home-main .home-strength-copy{display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem}
+  .page-home-main .home-strength-copy h2{font-size:3rem}
+  .page-home-main .home-strength-media{inset:0 0 35% 0;clip-path:none}
+  .page-home-main .home-strength-media::after{background:linear-gradient(0deg,#070807 0%,rgba(7,8,7,.08) 68%)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .page-home-main .home-purpose-media img,.page-home-main .home-purpose-copy{animation:none}
+  .page-home-main .home-purpose-tab,.page-home-main .home-crops-list img,.page-home-main .home-strength-media img{transition:none}
+}
+
 /* BAS AGROS — HOME V3 / user review 2026-09-03
  * Compact rhythm, rounded material language and lower information density.
  */

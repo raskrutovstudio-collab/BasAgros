@@ -138,22 +138,30 @@ function renderHero(page, pages) {
 
 function renderSolutions(pages) {
   const data = block('solutions');
-  const chapters = data.items.map((item, index) => {
+  const purposeIcons = ['leaf', 'farm', 'bee', 'compass'];
+  const tabs = data.items.map((item, index) => {
     requirePage(pages, item.url);
-    return `<li class="home-solution-chapter home-solution-chapter-${index + 1}" data-lux-reveal>
-      <a href="${escapeHtml(item.url)}" class="home-solution-scene">
-        <div class="home-solution-media">${mediaSlot(item.slot)}</div>
-        <div class="home-solution-shade" aria-hidden="true"></div>
-        <div class="home-solution-copy">
-          <p class="home-kicker">По назначению</p>
-          <h3>${escapeHtml(item.title)}</h3>
-          <span class="home-solution-link">Открыть <b aria-hidden="true">↗</b></span>
-        </div>
-      </a>
-    </li>`;
+    return `<button class="home-purpose-tab${index === 0 ? ' is-active' : ''}" type="button" role="tab" id="purpose-tab-${index}" aria-controls="purpose-panel-${index}" aria-selected="${index === 0 ? 'true' : 'false'}" tabindex="${index === 0 ? '0' : '-1'}" data-purpose-tab="${index}">${icon(purposeIcons[index])}<span><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.text)}</small></span><b aria-hidden="true">→</b></button>`;
   }).join('');
+  const benefits = [
+    ['leaf', 'Категории под задачу'],
+    ['compass', 'Помощь с выбором'],
+    ['quality', 'Параметры партии'],
+    ['delivery', 'Поставка по Казахстану']
+  ];
+  const panels = data.items.map((item, index) => `<article class="home-purpose-panel${index === 0 ? ' is-active' : ''}" role="tabpanel" id="purpose-panel-${index}" aria-labelledby="purpose-tab-${index}"${index === 0 ? '' : ' hidden'} data-purpose-panel="${index}">
+    ${mediaSlot(item.slot, 'home-purpose-media')}
+    <div class="home-purpose-shade" aria-hidden="true"></div>
+    <div class="home-purpose-copy"><p class="home-kicker">Решение BAS Agros</p><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>${link(item.url, 'Смотреть направление →', 'home-btn home-btn-outline')}</div>
+    <ul class="home-purpose-benefits">${benefits.map(([name, label]) => `<li>${icon(name)}<span>${escapeHtml(label)}</span></li>`).join('')}</ul>
+  </article>`).join('');
   return `<section class="home-section home-solutions" id="solutions" aria-labelledby="solutions-title">
-    <div class="home-wrap">${sectionHead(data, 'solutions-title', '', 'Подбор по назначению')}<ul class="home-solution-grid">${chapters}</ul></div>
+    <div class="home-wrap">${sectionHead(data, 'solutions-title', '', 'Подбор по назначению')}
+      <div class="home-purpose-selector" data-purpose-selector data-lux-reveal>
+        <aside class="home-purpose-nav"><p>Подберём под вашу задачу</p><div class="home-purpose-tabs" role="tablist" aria-orientation="vertical">${tabs}</div></aside>
+        <div class="home-purpose-panels">${panels}</div>
+      </div>
+    </div>
   </section>`;
 }
 
@@ -212,16 +220,16 @@ function cropSlot(title) {
 }
 function renderCrops(pages) {
   const data = block('crops');
-  const items = data.items.map((item, index) => {
+  const items = data.items.map((item) => {
     requirePage(pages, item.url);
-    return `<li><a href="${escapeHtml(item.url)}" data-crop-trigger="${index}"${index === 0 ? ' class="is-active"' : ''}><span>${escapeHtml(item.title)}</span><b aria-hidden="true">↗</b></a></li>`;
+    return `<li><a href="${escapeHtml(item.url)}">${mediaSlot(cropSlot(item.title))}<span>${escapeHtml(item.title)}</span><b aria-hidden="true">↗</b></a></li>`;
   }).join('');
-  const previews = data.items.map((item, index) => `<div class="home-crop-preview${index === 0 ? ' is-active' : ''}" data-crop-preview="${index}">${mediaSlot(cropSlot(item.title))}<span>${escapeHtml(item.title)}</span></div>`).join('');
   return `<section class="home-section home-crops" aria-labelledby="crops-title">
-    <div class="home-wrap">${sectionHead(data, 'crops-title', '', 'Культуры')}
-      <div class="home-crops-stage" data-crop-stage>
-        <ul class="home-crops-list">${items}</ul>
-        <div class="home-crops-visual" aria-hidden="true">${previews}</div>
+    <div class="home-wrap home-crops-shell" data-lux-reveal>
+      <div class="home-crops-side"><p class="home-kicker">Подобранные культуры</p><h2 id="crops-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p><div class="home-crops-controls"><button type="button" data-crop-prev aria-label="Предыдущие культуры">←</button><button type="button" data-crop-next aria-label="Следующие культуры">→</button></div></div>
+      <div class="home-crops-rail-wrap">
+        <ul class="home-crops-list" data-crop-rail>${items}</ul>
+        ${link('/catalog/', 'Смотреть полный каталог →', 'home-crops-catalog')}
       </div>
     </div>
   </section>`;
@@ -260,11 +268,10 @@ function renderAbout(pages) {
   data.links.forEach((x) => requirePage(pages, x.url));
   return `<section class="home-section home-about" aria-labelledby="about-title">
     <div class="home-wrap">
-      <div class="home-about-grid">
-        <div class="home-about-copy" data-lux-reveal><p class="home-kicker">BAS Agros</p><h2 id="about-title">${escapeHtml(data.heading)}</h2>${paragraphs(data.text)}<div class="home-actions">${link(data.links[0].url, data.links[0].label, 'home-btn home-btn-ghost')}${link(data.links[1].url, data.links[1].label, 'home-btn home-btn-primary')}</div></div>
-        <div class="home-about-collage" data-lux-reveal>${mediaSlot('warehouse', 'home-about-main')}${mediaSlot('seeds', 'home-about-seeds')}${mediaSlot('shipping', 'home-about-shipping')}</div>
+      <div class="home-strength" data-strength-banner data-lux-reveal>
+        <div class="home-strength-copy"><p class="home-kicker">Травы и травосмеси</p><h2 id="about-title">Семена для задач сельского хозяйства</h2><ul>${data.items.map((item) => `<li><span aria-hidden="true">✓</span>${escapeHtml(item.title)}</li>`).join('')}</ul>${link(data.links[1].url, 'Перейти в каталог трав →', 'home-btn home-btn-outline')}</div>
+        ${mediaSlot('article-2', 'home-strength-media')}
       </div>
-      <ul class="home-trust">${data.items.map((item) => `<li data-lux-reveal>${trustIcon(item.title)}<div><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></div></li>`).join('')}</ul>
     </div>
   </section>`;
 }

@@ -286,20 +286,43 @@
     reveals.forEach((element) => observer.observe(element));
   }
 
-  const cropStage = document.querySelector('[data-crop-stage]');
-  if (!cropStage) return;
+  const purposeSelector = document.querySelector('[data-purpose-selector]');
+  if (purposeSelector) {
+    const tabs = [...purposeSelector.querySelectorAll('[data-purpose-tab]')];
+    const panels = [...purposeSelector.querySelectorAll('[data-purpose-panel]')];
 
-  const triggers = [...cropStage.querySelectorAll('[data-crop-trigger]')];
-  const previews = [...cropStage.querySelectorAll('[data-crop-preview]')];
+    function activatePurpose(index, focus = false) {
+      tabs.forEach((tab) => {
+        const active = tab.dataset.purposeTab === String(index);
+        tab.classList.toggle('is-active', active);
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        if (active && focus) tab.focus();
+      });
+      panels.forEach((panel) => {
+        const active = panel.dataset.purposePanel === String(index);
+        panel.hidden = !active;
+        panel.classList.toggle('is-active', active);
+      });
+    }
 
-  function activateCrop(index) {
-    triggers.forEach((trigger) => trigger.classList.toggle('is-active', trigger.dataset.cropTrigger === String(index)));
-    previews.forEach((preview) => preview.classList.toggle('is-active', preview.dataset.cropPreview === String(index)));
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activatePurpose(index));
+      tab.addEventListener('keydown', (event) => {
+        if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowDown' ? 1 : -1) + tabs.length) % tabs.length;
+        activatePurpose(next, true);
+      });
+    });
   }
 
-  triggers.forEach((trigger) => {
-    const index = trigger.dataset.cropTrigger;
-    trigger.addEventListener('mouseenter', () => activateCrop(index));
-    trigger.addEventListener('focus', () => activateCrop(index));
-  });
+  const cropRail = document.querySelector('[data-crop-rail]');
+  const previousCrop = document.querySelector('[data-crop-prev]');
+  const nextCrop = document.querySelector('[data-crop-next]');
+  if (cropRail && previousCrop && nextCrop) {
+    const scrollRail = (direction) => cropRail.scrollBy({ left: direction * Math.max(260, cropRail.clientWidth * .72), behavior: reducedMotion ? 'auto' : 'smooth' });
+    previousCrop.addEventListener('click', () => scrollRail(-1));
+    nextCrop.addEventListener('click', () => scrollRail(1));
+  }
 })();
