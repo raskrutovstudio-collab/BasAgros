@@ -145,10 +145,9 @@ function renderSolutions(pages) {
         <div class="home-solution-media">${mediaSlot(item.slot)}</div>
         <div class="home-solution-shade" aria-hidden="true"></div>
         <div class="home-solution-copy">
-          <p class="home-kicker">Решение под задачу</p>
+          <p class="home-kicker">По назначению</p>
           <h3>${escapeHtml(item.title)}</h3>
-          <p>${escapeHtml(item.text)}</p>
-          <span class="home-solution-link">Смотреть направление <b aria-hidden="true">↗</b></span>
+          <span class="home-solution-link">Открыть <b aria-hidden="true">↗</b></span>
         </div>
       </a>
     </li>`;
@@ -167,11 +166,18 @@ function renderAudience(pages) {
       <span class="home-audience-connector" aria-hidden="true"></span>
       <p>${escapeHtml(item.text)}</p>
       <span class="home-audience-connector" aria-hidden="true"></span>
-      ${link(item.url, item.result, 'home-audience-result')}
+      ${link(item.url, 'Открыть →', 'home-audience-result', `aria-label="${escapeHtml(item.result)}"`)}
     </li>`;
   }).join('');
   return `<section class="home-section home-audience" aria-labelledby="audience-title">
-    <div class="home-wrap">${sectionHead(data, 'audience-title', '', 'B2B-сценарии')}
+    <div class="home-wrap">
+      <div class="home-audience-intro" data-lux-reveal>
+        <div><p class="home-kicker">B2B-сценарии</p><h2 id="audience-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p></div>
+        <div class="home-audience-symbols" aria-hidden="true">
+          <span>${icon('livestock')}</span><span>${icon('farm')}</span><span>${icon('bee')}</span><span>${icon('box')}</span>
+          <strong>Подбор под задачу хозяйства</strong>
+        </div>
+      </div>
       <div class="home-audience-labels" aria-hidden="true"><span>Кому</span><span>Задача</span><span>Решение BAS Agros</span></div>
       <ul class="home-audience-list">${rows}</ul>
       ${link(data.links[0].url, `${data.links[0].label} →`, 'home-text-link')}

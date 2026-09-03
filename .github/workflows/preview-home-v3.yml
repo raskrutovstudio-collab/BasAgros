@@ -6,8 +6,11 @@ on:
       - design/home-v3
     paths:
       - src/templates/homepage.mjs
+      - src/templates/layout.mjs
       - src/data/homepage.json
       - src/data/home-images.mjs
+      - site/assets/img/home/hero-v3-machinery-*.avif
+      - site/assets/img/home/hero-v3-machinery-*.webp
       - site/assets/css/home-square.css
       - site/assets/css/home-v3-qa.css
       - site/assets/css/home-v3-polish.css
@@ -73,7 +76,6 @@ jobs:
           root = Path('prod/site/preview/home-v3')
           index = root / 'index.html'
           html = index.read_text(encoding='utf-8')
-          html = html.replace('</head>', '<link rel="stylesheet" href="assets/css/home-v3-qa.css?v=20260903-4"><link rel="stylesheet" href="assets/css/home-v3-polish.css?v=20260903-4"><link rel="stylesheet" href="assets/css/home-v3-feedback.css?v=20260903-4"></head>')
           html = html.replace('"/assets/', '"assets/')
           html = html.replace("'/assets/", "'assets/")
           html = html.replace(', /assets/', ', assets/')

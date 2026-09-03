@@ -18,9 +18,9 @@ function pair(id, wide, tall, mobileWide, mobileTall) {
 
 export const HOME_IMAGES = {
   hero: {
-    ...pair('ref-hero-field', 920, 720, 720, 480),
-    alt: 'Кормовые поля и холмы',
-    sizes: '(min-width: 64rem) min(46vw, 920px), calc(100vw - 1.5rem)',
+    ...pair('hero-v3-machinery', 1672, 941, 900, 506),
+    alt: 'Сельскохозяйственная техника выполняет посев в поле на закате',
+    sizes: '100vw',
     priority: true
   },
   espartset: {

@@ -177,3 +177,157 @@
 @media (prefers-reduced-motion:reduce){
   .page-home-main .home-audience-row,.page-home-main .home-crops-list li::before,.page-home-main .home-category{transition:none!important}
 }
+
+/* BAS AGROS — HOME V3 / user review 2026-09-03
+ * Compact rhythm, rounded material language and lower information density.
+ */
+.page-home-main{
+  --radius-card:1.45rem;
+  --radius-panel:1.9rem;
+  --radius-small:.9rem;
+}
+
+/* Shared geometry: remove the rigid square look across the page. */
+.page-home-main .home-solution-scene,
+.page-home-main .home-audience-row,
+.page-home-main .home-category,
+.page-home-main .home-crops-list li,
+.page-home-main .home-guide-form-shell,
+.page-home-main .home-about-collage,
+.page-home-main .home-trust,
+.page-home-main .home-delivery-panel,
+.page-home-main .home-quality,
+.page-home-main .home-article,
+.page-home-main .home-article-media,
+.page-home-main .home-faq details,
+.page-home-main .home-request .home-form,
+.page-home-main .home-modal-panel{border-radius:var(--radius-card)!important}
+.page-home-main .home-media,
+.page-home-main .home-form input,
+.page-home-main .home-form select,
+.page-home-main .home-form textarea{border-radius:var(--radius-small)!important}
+
+/* 1. HERO — real responsive LCP image, less empty space above the offer. */
+.page-home-main .home-hero,
+.page-home-main .home-hero-stage{min-height:min(46rem,calc(100svh - 4.5rem))!important}
+.page-home-main .home-hero-main{background:#050605!important}
+.page-home-main .home-hero-main picture,
+.page-home-main .home-hero-main>img{opacity:1!important}
+.page-home-main .home-hero-main img{
+  object-position:center center!important;
+  filter:brightness(.72) saturate(.76) contrast(1.08)!important;
+  transform:scale(1.01)!important;
+  animation:none!important
+}
+.page-home-main .home-hero-shade{
+  background:
+    linear-gradient(90deg,rgba(3,4,3,.94) 0%,rgba(3,4,3,.81) 37%,rgba(3,4,3,.17) 68%,rgba(3,4,3,.08) 100%),
+    linear-gradient(0deg,rgba(3,4,3,.86) 0%,rgba(3,4,3,.04) 48%,rgba(3,4,3,.25) 100%)!important
+}
+.page-home-main .home-hero-content{
+  padding-top:clamp(2.5rem,5vh,4rem)!important;
+  padding-bottom:clamp(1.8rem,3.5vh,2.8rem)!important
+}
+.page-home-main .home-hero h1{max-width:12ch!important;font-size:clamp(3.35rem,5vw,5rem)!important;line-height:.93!important}
+.page-home-main .home-lead{margin:1.1rem 0 1.35rem!important}
+
+/* 2. Directions — inset glass navigator instead of a full-width template strip. */
+.page-home-main .home-hero-index{
+  width:min(calc(100% - clamp(2rem,6vw,6rem)),82rem)!important;
+  grid-template-columns:9.5rem 1fr!important;
+  gap:.75rem;margin:0 auto 1.2rem!important;padding:.72rem!important;
+  border:1px solid rgba(232,197,109,.24)!important;border-radius:1.5rem!important;
+  background:rgba(9,10,8,.72)!important;box-shadow:0 1.2rem 4rem rgba(0,0,0,.28);
+  backdrop-filter:blur(18px) saturate(115%)!important
+}
+.page-home-main .home-hero-index>p{padding:.65rem .6rem!important;line-height:1.35}
+.page-home-main .home-hero-index ul{gap:.55rem!important}
+.page-home-main .home-hero-index li{
+  overflow:hidden;border:1px solid rgba(232,197,109,.15)!important;border-radius:1rem!important;
+  background:rgba(255,255,255,.025)
+}
+.page-home-main .home-hero-index a{min-height:3.45rem!important;padding:.65rem .8rem!important}
+
+/* 3. Purpose cards — four concise visual entry points. */
+.page-home-main .home-solutions .home-section-head{margin-bottom:2rem!important}
+.page-home-main .home-solution-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:1rem!important}
+.page-home-main .home-solution-chapter:nth-child(n){grid-column:auto!important}
+.page-home-main .home-solution-scene{min-height:21rem!important;box-shadow:0 1.2rem 3.5rem rgba(0,0,0,.22)!important}
+.page-home-main .home-solution-copy{right:1.35rem!important;bottom:1.35rem!important;left:1.35rem!important}
+.page-home-main .home-solution-copy h3{font-size:clamp(1.7rem,2.25vw,2.45rem)!important;line-height:.98!important}
+.page-home-main .home-solution-link{margin-top:.85rem;font-size:.86rem}
+.page-home-main .home-solution-media img{filter:brightness(.66) saturate(.75) contrast(1.06)!important}
+
+/* 4. Audience — a visual intro panel plus compact decision cards. */
+.page-home-main .home-audience{overflow:hidden}
+.page-home-main .home-audience-intro{
+  position:relative;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(18rem,.65fr);gap:3rem;align-items:center;
+  margin-bottom:1.2rem;padding:clamp(1.6rem,3.5vw,3.2rem);overflow:hidden;
+  border:1px solid rgba(232,197,109,.22);border-radius:var(--radius-panel);
+  background:radial-gradient(circle at 86% 20%,rgba(201,151,45,.2),transparent 19rem),linear-gradient(145deg,#15150f,#080908 70%)
+}
+.page-home-main .home-audience-intro::after{
+  content:"";position:absolute;right:-7rem;bottom:-9rem;width:24rem;height:24rem;border:1px solid rgba(232,197,109,.1);border-radius:50%;pointer-events:none
+}
+.page-home-main .home-audience-intro h2{max-width:15ch!important;margin:0;color:var(--ivory);font-size:clamp(2.6rem,4vw,4.35rem);line-height:.95;letter-spacing:-.045em}
+.page-home-main .home-audience-intro>div>p:not(.home-kicker){max-width:44rem;margin:1rem 0 0;color:var(--muted);line-height:1.65}
+.page-home-main .home-audience-symbols{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;align-items:center}
+.page-home-main .home-audience-symbols span{display:grid;aspect-ratio:1;place-items:center;border:1px solid rgba(232,197,109,.2);border-radius:50%;background:rgba(6,7,6,.58);color:var(--gold-hi)}
+.page-home-main .home-audience-symbols .home-icon{width:2rem;height:2rem}
+.page-home-main .home-audience-symbols strong{grid-column:1/-1;color:rgba(242,236,223,.72);font-size:.8rem;letter-spacing:.09em;text-align:center;text-transform:uppercase}
+.page-home-main .home-audience-list{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:1rem!important;margin-bottom:1.3rem!important}
+.page-home-main .home-audience-row{
+  min-height:12.5rem!important;padding:1.25rem!important;gap:.65rem!important;
+  background:linear-gradient(155deg,rgba(18,20,17,.98),rgba(7,8,7,.99))!important
+}
+.page-home-main .home-audience-row::before{width:6rem!important;height:6rem!important;opacity:.07!important}
+.page-home-main .home-audience-row::after{right:1.25rem!important;bottom:3.25rem!important;left:1.25rem!important}
+.page-home-main .home-audience-person{grid-template-columns:2.25rem 1fr!important;gap:.65rem!important}
+.page-home-main .home-audience-person .home-icon{width:2rem!important;height:2rem!important}
+.page-home-main .home-audience-person strong{font-size:1.05rem!important;line-height:1.08!important}
+.page-home-main .home-audience-row>p{max-width:12rem!important;font-size:.78rem!important;line-height:1.4!important}
+.page-home-main .home-audience-result{margin-top:auto;font-size:.78rem!important}
+
+/* 5. Catalogue — lower cards, less copy, clearer scanning. */
+.page-home-main .home-category-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:1rem!important}
+.page-home-main .home-category:nth-child(n){grid-column:auto!important;grid-row:auto!important;grid-template-columns:1fr!important;grid-template-rows:11.5rem auto!important}
+.page-home-main .home-category-media,
+.page-home-main .home-category-1 .home-category-media,
+.page-home-main .home-category-2 .home-category-media,
+.page-home-main .home-category-3 .home-category-media,
+.page-home-main .home-category-4 .home-category-media{min-height:11.5rem!important}
+.page-home-main .home-category-body{min-height:10.5rem!important;padding:1.2rem!important}
+.page-home-main .home-category h3{max-width:13ch!important;font-size:clamp(1.35rem,1.7vw,1.75rem)!important;line-height:1.02!important}
+.page-home-main .home-category-body>p:not(.home-kicker){display:none!important}
+.page-home-main .home-category-link{margin-top:auto;font-size:.78rem}
+
+/* 6. Delivery/quality — fixed vertical rhythm, no 40rem empty panels. */
+.page-home-main .home-service{padding-top:2.5rem!important}
+.page-home-main .home-service-stage{gap:1rem!important}
+.page-home-main .home-delivery-panel,
+.page-home-main .home-quality{min-height:30rem!important}
+.page-home-main .home-delivery-panel{padding:clamp(1.6rem,2.6vw,2.5rem)!important}
+.page-home-main .home-delivery-steps{margin:1.25rem 0!important;gap:.2rem 1rem!important}
+.page-home-main .home-delivery-steps li{padding:.75rem 0!important}
+.page-home-main .home-quality-copy{right:clamp(1.6rem,2.6vw,2.5rem)!important;bottom:clamp(1.6rem,2.6vw,2.5rem)!important;left:clamp(1.6rem,2.6vw,2.5rem)!important}
+
+@media (max-width:63.99rem){
+  .page-home-main .home-hero-index{grid-template-columns:1fr!important}
+  .page-home-main .home-hero-index>p{display:none}
+  .page-home-main .home-solution-grid,.page-home-main .home-category-grid,.page-home-main .home-audience-list{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .page-home-main .home-audience-intro{grid-template-columns:1fr}.page-home-main .home-audience-symbols{max-width:22rem}
+  .page-home-main .home-delivery-panel,.page-home-main .home-quality{min-height:0!important}.page-home-main .home-quality{min-height:27rem!important}
+}
+@media (max-width:47.99rem){
+  .page-home-main{--radius-card:1.15rem;--radius-panel:1.35rem}
+  .page-home-main .home-hero-content{padding-top:2.4rem!important;padding-bottom:1.5rem!important}
+  .page-home-main .home-hero h1{font-size:clamp(2.45rem,10.8vw,3.45rem)!important}
+  .page-home-main .home-hero-index{width:calc(100% - 2rem)!important;padding:.55rem!important}
+  .page-home-main .home-hero-index ul{grid-template-columns:1fr 1fr!important}.page-home-main .home-hero-index a{font-size:.67rem!important}
+  .page-home-main .home-solution-grid,.page-home-main .home-category-grid,.page-home-main .home-audience-list{grid-template-columns:1fr!important}
+  .page-home-main .home-solution-scene{min-height:17rem!important}
+  .page-home-main .home-audience-intro{gap:1.6rem;padding:1.35rem}.page-home-main .home-audience-symbols{max-width:18rem}
+  .page-home-main .home-audience-row{min-height:0!important}
+  .page-home-main .home-category:nth-child(n){grid-template-rows:10.5rem auto!important}.page-home-main .home-category-body{min-height:9rem!important}
+  .page-home-main .home-delivery-panel{padding:1.35rem!important}.page-home-main .home-quality{min-height:24rem!important}
+}
