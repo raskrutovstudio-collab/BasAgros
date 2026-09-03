@@ -11,6 +11,7 @@ on:
       - src/data/home-images.mjs
       - site/assets/css/home-square.css
       - site/assets/css/home-v3-qa.css
+      - site/assets/css/home-v3-polish.css
       - site/assets/js/home.js
 
 permissions:
@@ -34,13 +35,13 @@ jobs:
           npm ci
           npm run quality:all
 
-      - name: Inject QA stylesheet
+      - name: Inject QA stylesheets
         run: |
           python - <<'PY'
           from pathlib import Path
           p = Path('site/index.html')
           html = p.read_text(encoding='utf-8')
-          html = html.replace('</head>', '<link rel="stylesheet" href="/assets/css/home-v3-qa.css?v=20260903-2"></head>')
+          html = html.replace('</head>', '<link rel="stylesheet" href="/assets/css/home-v3-qa.css?v=20260903-3"><link rel="stylesheet" href="/assets/css/home-v3-polish.css?v=20260903-3"></head>')
           p.write_text(html, encoding='utf-8')
           PY
 
