@@ -1,0 +1,179 @@
+/* BAS AGROS — HOME V3 / recovered screenshot feedback pass
+ * Isolated design/home-v3 layer. Loaded last in preview only.
+ */
+
+/* 1. HEADER — strictly carbon / bronze / gold. Remove any legacy green leak. */
+.page-home-main .home-header{
+  border-bottom-color:rgba(232,197,109,.22)!important;
+  background:linear-gradient(180deg,rgba(5,6,5,.97),rgba(7,8,7,.93))!important;
+  box-shadow:0 .7rem 2.4rem rgba(0,0,0,.22)!important;
+}
+.page-home-main .home-header,
+.page-home-main .home-header a,
+.page-home-main .home-header button{color:var(--ivory)!important}
+.page-home-main .home-header .home-brand{color:var(--gold-hi)!important}
+.page-home-main .home-header .home-btn-primary{color:#080908!important}
+.page-home-main .home-header .home-btn-outline{
+  border-color:rgba(232,197,109,.42)!important;
+  background:rgba(201,151,45,.035)!important;
+  color:var(--ivory)!important;
+}
+.page-home-main .home-header .home-btn-outline:hover{border-color:var(--gold-hi)!important;color:var(--gold-hi)!important}
+.page-home-main .home-nav li a:hover{color:var(--gold-hi)!important}
+
+/* 2. HERO — replace generic meadow with agricultural machinery scene from approved local assets. */
+.page-home-main .home-hero-main{
+  background:
+    linear-gradient(90deg,rgba(4,5,4,.96) 0%,rgba(4,5,4,.76) 38%,rgba(4,5,4,.16) 70%,rgba(4,5,4,.25) 100%),
+    url('/assets/img/home/about-machinery-640.webp') center 46%/cover no-repeat!important;
+}
+.page-home-main .home-hero-main picture,
+.page-home-main .home-hero-main>img{opacity:0!important}
+.page-home-main .home-hero-shade{
+  background:
+    linear-gradient(90deg,rgba(4,5,4,.97) 0%,rgba(4,5,4,.76) 41%,rgba(4,5,4,.08) 72%,rgba(4,5,4,.22) 100%),
+    linear-gradient(0deg,rgba(4,5,4,.92),transparent 47%),
+    radial-gradient(circle at 72% 39%,rgba(232,197,109,.18),transparent 28rem)!important
+}
+.page-home-main .home-hero::after{
+  content:"";position:absolute;z-index:1;right:-8rem;top:9%;width:29rem;height:29rem;border:1px solid rgba(232,197,109,.09);border-radius:50%;
+  box-shadow:0 0 0 5rem rgba(201,151,45,.018),0 0 0 10rem rgba(201,151,45,.01);pointer-events:none
+}
+.page-home-main .home-hero h1{text-shadow:0 .15rem 2rem rgba(0,0,0,.35)}
+.page-home-main .home-hero-content{position:relative;z-index:3}
+.page-home-main .home-hero-index{z-index:3}
+
+/* 3. B2B AUDIENCE — make cards feel like premium decision modules, not plain text boxes. */
+.page-home-main .home-audience-list{gap:1rem!important}
+.page-home-main .home-audience-row{
+  position:relative!important;isolation:isolate;overflow:hidden;min-height:19rem!important;padding:1.55rem!important;
+  border-color:rgba(232,197,109,.22)!important;
+  background:
+    radial-gradient(circle at 88% 7%,rgba(201,151,45,.13),transparent 9rem),
+    linear-gradient(155deg,rgba(20,22,18,.98),rgba(7,8,7,.99))!important;
+  box-shadow:0 1.5rem 4rem rgba(0,0,0,.18);
+  transition:transform .45s cubic-bezier(.2,.75,.2,1),border-color .45s ease,box-shadow .45s ease!important
+}
+.page-home-main .home-audience-row::before{
+  content:"";position:absolute;z-index:-1;right:-1.1rem;top:-.6rem;width:8.8rem;height:8.8rem;background:center/contain no-repeat;opacity:.11;
+  filter:sepia(1) saturate(.6) brightness(1.65);transform:rotate(-4deg);transition:opacity .45s ease,transform .65s cubic-bezier(.2,.75,.2,1)
+}
+.page-home-main .home-audience-row:nth-child(1)::before{background-image:url('/assets/img/audience-cow.png')}
+.page-home-main .home-audience-row:nth-child(2)::before{background-image:url('/assets/img/audience-tractor.png')}
+.page-home-main .home-audience-row:nth-child(3)::before{background-image:url('/assets/img/audience-bee.png')}
+.page-home-main .home-audience-row:nth-child(4)::before{background-image:url('/assets/img/audience-box.png')}
+.page-home-main .home-audience-row::after{
+  content:"";position:absolute;left:1.55rem;right:1.55rem;bottom:3.85rem;height:1px;background:linear-gradient(90deg,var(--gold-deep),transparent);opacity:.55
+}
+.page-home-main .home-audience-row:hover{transform:translateY(-.45rem);border-color:rgba(232,197,109,.52)!important;box-shadow:0 2rem 5.2rem rgba(0,0,0,.33)}
+.page-home-main .home-audience-row:hover::before{opacity:.2;transform:translate(-.25rem,.25rem) rotate(0) scale(1.07)}
+.page-home-main .home-audience-person .home-icon{color:var(--gold-hi)!important;filter:drop-shadow(0 0 .8rem rgba(232,197,109,.12))}
+.page-home-main .home-audience-person strong{max-width:11.5rem;color:var(--ivory)!important}
+.page-home-main .home-audience-row>p{max-width:14rem!important}
+.page-home-main .home-audience-result{position:relative;z-index:2;padding-right:1.5rem;text-decoration:none!important}
+.page-home-main .home-audience-result::after{content:"↗";position:absolute;right:0;color:var(--gold-hi)}
+
+/* 4. CATALOGUE — one coherent dark-gold material language, no isolated green/black slab. */
+.page-home-main .home-category,
+.page-home-main .home-category-featured{
+  border:1px solid rgba(232,197,109,.2)!important;
+  background:linear-gradient(150deg,#11120f,#080908 72%)!important;
+  box-shadow:0 1.4rem 4rem rgba(0,0,0,.16)!important;
+  transition:transform .45s cubic-bezier(.2,.75,.2,1),border-color .4s ease,box-shadow .4s ease!important
+}
+.page-home-main .home-category:hover{transform:translateY(-.35rem);border-color:rgba(232,197,109,.46)!important;box-shadow:0 2rem 5rem rgba(0,0,0,.3)!important}
+.page-home-main .home-category-media::after{
+  content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,6,5,.44),transparent 55%),linear-gradient(135deg,rgba(201,151,45,.1),transparent 48%);pointer-events:none
+}
+.page-home-main .home-category-body{position:relative;background:linear-gradient(180deg,rgba(16,18,15,.98),rgba(8,9,8,.99))!important}
+.page-home-main .home-category-body::before{content:"";position:absolute;top:0;left:clamp(1.2rem,3vw,2.8rem);width:4rem;height:1px;background:var(--gold-hi);opacity:.68}
+.page-home-main .home-category-featured .home-kicker{color:var(--gold-hi)!important}
+
+/* 5. POPULAR CROPS — six equal photo cards. Titles stay one line on desktop. */
+.page-home-main .home-crops-stage{display:block!important}
+.page-home-main .home-crops-list{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:1rem!important;margin:0!important;padding:0!important;border:0!important;list-style:none!important
+}
+.page-home-main .home-crops-list li{
+  position:relative;isolation:isolate;min-width:0;min-height:15rem;margin:0!important;overflow:hidden;border:1px solid rgba(232,197,109,.2)!important;background:#0c0e0c!important
+}
+.page-home-main .home-crops-list li::before{
+  content:"";position:absolute;z-index:-2;inset:0;background:center/cover no-repeat;filter:brightness(.58) saturate(.7);transform:scale(1.015);transition:transform .8s cubic-bezier(.2,.75,.2,1),filter .6s ease
+}
+.page-home-main .home-crops-list li:nth-child(1)::before{background-image:url('/assets/img/home/product-lyutserna-640.webp')}
+.page-home-main .home-crops-list li:nth-child(2)::before{background-image:url('/assets/img/home/product-espartset-640.webp')}
+.page-home-main .home-crops-list li:nth-child(3)::before{background-image:url('/assets/img/home/ref-forage-640.webp')}
+.page-home-main .home-crops-list li:nth-child(4)::before{background-image:url('/assets/img/home/product-universalnaya-640.webp')}
+.page-home-main .home-crops-list li:nth-child(5)::before{background-image:url('/assets/img/home/product-fatseliya-640.webp')}
+.page-home-main .home-crops-list li:nth-child(6)::before{background-image:url('/assets/img/home/product-kormovaya-640.webp')}
+.page-home-main .home-crops-list li::after{
+  content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(0deg,rgba(4,5,4,.94) 0%,rgba(4,5,4,.54) 33%,rgba(4,5,4,.08) 68%),linear-gradient(135deg,rgba(201,151,45,.1),transparent 48%)
+}
+.page-home-main .home-crops-list li:hover::before{transform:scale(1.07);filter:brightness(.72) saturate(.82)}
+.page-home-main .home-crops-list a,
+.page-home-main .home-crops-list a:hover,
+.page-home-main .home-crops-list a.is-active{
+  position:absolute!important;z-index:2;inset:0;display:flex!important;align-items:flex-end!important;justify-content:space-between!important;min-height:0!important;
+  padding:1.35rem!important;background:transparent!important;color:var(--ivory)!important;text-decoration:none!important;
+  font-size:clamp(1rem,1.35vw,1.28rem)!important;line-height:1!important;letter-spacing:-.025em!important
+}
+.page-home-main .home-crops-list a span{display:block;min-width:0;max-width:calc(100% - 2rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.page-home-main .home-crops-list a b{position:static!important;flex:0 0 auto;color:var(--gold-hi)!important;font-size:1rem;transform:none!important}
+.page-home-main .home-crops-list li:hover a b{transform:translate(.15rem,-.15rem)!important}
+.page-home-main .home-crops-visual{display:none!important}
+
+/* 6. DELIVERY + QUALITY — same visual weight, deliberate spacing and baselines. */
+.page-home-main .home-service-stage{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:1rem!important;align-items:stretch!important
+}
+.page-home-main .home-delivery-panel,
+.page-home-main .home-quality{
+  min-height:40rem!important;border:1px solid rgba(232,197,109,.23)!important;background:linear-gradient(150deg,#11130f,#080908 76%)!important;box-shadow:0 1.7rem 5rem rgba(0,0,0,.17)
+}
+.page-home-main .home-delivery-panel{display:flex;flex-direction:column;padding:clamp(2rem,3.2vw,3.25rem)!important}
+.page-home-main .home-delivery-panel>p:not(.home-kicker){max-width:31rem;margin:.9rem 0 0!important;line-height:1.6}
+.page-home-main .home-delivery-steps{margin:2rem 0 1.8rem!important}
+.page-home-main .home-delivery-steps li{padding:1rem 0!important}
+.page-home-main .home-delivery-panel>.home-text-link{margin-top:auto}
+.page-home-main .home-quality{position:relative;overflow:hidden}
+.page-home-main .home-quality-media img{filter:brightness(.49) saturate(.58) contrast(1.06)!important}
+.page-home-main .home-quality-shade{
+  background:linear-gradient(0deg,rgba(5,6,5,.98) 0%,rgba(5,6,5,.82) 36%,rgba(5,6,5,.18) 75%),linear-gradient(120deg,rgba(201,151,45,.13),transparent 55%)!important
+}
+.page-home-main .home-quality-copy{right:clamp(2rem,3.2vw,3.25rem)!important;bottom:clamp(2rem,3.2vw,3.25rem)!important;left:clamp(2rem,3.2vw,3.25rem)!important}
+.page-home-main .home-quality-copy .home-icon{margin-bottom:1rem!important}
+.page-home-main .home-quality-copy>p:not(.home-kicker){max-width:31rem!important;line-height:1.6}
+
+/* Slightly richer global movement without gimmicks. */
+@media (hover:hover) and (pointer:fine){
+  .page-home-main .home-btn-primary{background-size:160% 100%!important;background-position:0 0;transition:background-position .55s ease,transform .3s ease,box-shadow .3s ease!important}
+  .page-home-main .home-btn-primary:hover{background-position:100% 0;transform:translateY(-2px)}
+  .page-home-main .home-text-link{transition:color .3s ease,letter-spacing .35s ease}
+  .page-home-main .home-text-link:hover{letter-spacing:.015em}
+}
+
+@media (max-width:63.99rem){
+  .page-home-main .home-crops-list{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .page-home-main .home-crops-list li{min-height:13.5rem}
+  .page-home-main .home-service-stage{grid-template-columns:1fr!important}
+  .page-home-main .home-delivery-panel,.page-home-main .home-quality{min-height:0!important}
+  .page-home-main .home-quality{min-height:34rem!important}
+  .page-home-main .home-audience-row{min-height:16rem!important}
+}
+
+@media (max-width:47.99rem){
+  .page-home-main .home-hero-main{background-position:62% center!important}
+  .page-home-main .home-audience-row{min-height:0!important}
+  .page-home-main .home-audience-row::before{width:6.5rem;height:6.5rem;opacity:.08}
+  .page-home-main .home-crops-list{grid-template-columns:1fr!important}
+  .page-home-main .home-crops-list li{min-height:12.5rem}
+  .page-home-main .home-crops-list a,.page-home-main .home-crops-list a:hover,.page-home-main .home-crops-list a.is-active{font-size:1.12rem!important}
+  .page-home-main .home-crops-list a span{white-space:normal;overflow:visible;text-overflow:clip}
+  .page-home-main .home-delivery-panel{padding:1.4rem!important}
+  .page-home-main .home-quality{min-height:30rem!important}
+  .page-home-main .home-quality-copy{right:1.4rem!important;bottom:1.4rem!important;left:1.4rem!important}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .page-home-main .home-audience-row,.page-home-main .home-crops-list li::before,.page-home-main .home-category{transition:none!important}
+}
