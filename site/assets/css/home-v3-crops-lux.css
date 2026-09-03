@@ -1,0 +1,413 @@
+/* BAS Agros — HOME V3 / Popular crops luxury showcase
+   Reference: dark-gold framed stage, sculpted image cards and soft kinetic glow. */
+
+.page-home-main .home-crops{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden!important;
+  padding:clamp(3.4rem,5.4vw,5.8rem) 0!important;
+  background:
+    radial-gradient(ellipse at 74% 38%,rgba(204,151,39,.07),transparent 27rem),
+    radial-gradient(ellipse at 24% 82%,rgba(204,151,39,.045),transparent 29rem),
+    linear-gradient(180deg,#060706,#070807 70%,#050605)!important;
+}
+
+.page-home-main .home-crops::before,
+.page-home-main .home-crops::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:34rem;
+  height:20rem;
+  border:1px solid rgba(225,176,57,.12);
+  border-radius:50%;
+  pointer-events:none;
+}
+.page-home-main .home-crops::before{left:-19rem;bottom:-8rem;transform:rotate(18deg);box-shadow:0 0 0 2rem rgba(225,176,57,.018),0 0 0 4rem rgba(225,176,57,.01)}
+.page-home-main .home-crops::after{right:-22rem;top:7rem;transform:rotate(-18deg);box-shadow:0 0 0 2.4rem rgba(225,176,57,.014),0 0 0 5rem rgba(225,176,57,.008)}
+
+.page-home-main .home-crops-shell{
+  position:relative;
+  isolation:isolate;
+  display:grid!important;
+  grid-template-columns:minmax(15rem,19rem) minmax(0,1fr)!important;
+  gap:clamp(2rem,3.6vw,4rem)!important;
+  width:min(92rem,calc(100% - 2.4rem))!important;
+  min-height:clamp(38rem,47vw,44rem);
+  padding:clamp(2.5rem,3.5vw,3.5rem)!important;
+  overflow:hidden;
+  border:1px solid rgba(225,176,57,.48)!important;
+  border-radius:2rem!important;
+  background:
+    radial-gradient(circle at 55% 40%,rgba(225,176,57,.04),transparent 25rem),
+    linear-gradient(145deg,rgba(13,14,11,.995),rgba(7,8,7,.995) 62%,rgba(10,10,7,.99))!important;
+  box-shadow:0 2.5rem 7rem rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.012)!important;
+}
+
+.page-home-main .home-crops-shell::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:-12%;
+  right:-12%;
+  bottom:-7.5rem;
+  height:14rem;
+  opacity:.42;
+  background:repeating-radial-gradient(ellipse at 50% 112%,transparent 0 16px,rgba(223,169,44,.16) 17px 18px,transparent 19px 27px);
+  mask-image:linear-gradient(to top,#000 0 56%,transparent 94%);
+  transform:perspective(800px) rotateX(65deg) scaleX(1.15);
+  pointer-events:none;
+}
+
+.page-home-main .home-crops-side{
+  position:relative;
+  z-index:3;
+  display:flex!important;
+  flex-direction:column;
+  align-self:stretch;
+  padding:.2rem 0!important;
+}
+.page-home-main .home-crops-side .home-kicker{margin:0 0 2.4rem!important}
+.page-home-main .home-crops-side h2{
+  margin:0!important;
+  max-width:8ch;
+  color:#f7f2e8!important;
+  font-size:clamp(3rem,4vw,4.35rem)!important;
+  line-height:.91!important;
+  letter-spacing:-.055em!important;
+  text-wrap:balance;
+}
+.page-home-main .home-crops-side h2::first-line{color:#f7f2e8}
+.page-home-main .home-crops-side>p:not(.home-kicker){
+  max-width:15rem;
+  margin:1.45rem 0 0!important;
+  color:rgba(244,240,230,.44)!important;
+  font-size:.9rem!important;
+  line-height:1.65!important;
+}
+.page-home-main .home-crops-side h2 .home-crops-gold,
+.page-home-main .home-crops-side h2 em{color:#d8a941!important;font-style:normal}
+
+.page-home-main .home-crops-controls{
+  display:flex!important;
+  gap:.75rem!important;
+  margin-top:auto!important;
+  padding-top:2rem!important;
+}
+.page-home-main .home-crops-controls button{
+  display:grid!important;
+  place-items:center!important;
+  width:3.35rem!important;
+  height:3.35rem!important;
+  padding:0!important;
+  border:1px solid rgba(225,176,57,.42)!important;
+  border-radius:50%!important;
+  background:rgba(8,9,8,.72)!important;
+  color:#efc763!important;
+  font-size:1.25rem!important;
+  cursor:pointer;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.01);
+  transition:transform .48s cubic-bezier(.16,.84,.24,1),border-color .4s ease,background .4s ease,box-shadow .5s ease!important;
+}
+.page-home-main .home-crops-controls button:hover,
+.page-home-main .home-crops-controls button:focus-visible{
+  transform:translateY(-2px) scale(1.04)!important;
+  border-color:rgba(255,218,116,.95)!important;
+  background:rgba(201,151,45,.12)!important;
+  box-shadow:0 0 1.6rem rgba(225,176,57,.13)!important;
+}
+
+.page-home-main .home-crops-rail-wrap{
+  position:relative;
+  z-index:3;
+  display:flex;
+  min-width:0;
+  flex-direction:column;
+}
+
+/* Desktop composition: four cards above, two wider cards below. */
+@media (min-width:64rem){
+  .page-home-main .home-crops-list{
+    display:grid!important;
+    grid-template-columns:repeat(12,minmax(0,1fr))!important;
+    grid-template-rows:minmax(17rem,1fr) minmax(14.7rem,.84fr)!important;
+    gap:.85rem!important;
+    overflow:visible!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  .page-home-main .home-crops-list li{
+    position:relative!important;
+    isolation:isolate;
+    min-width:0!important;
+    min-height:0!important;
+    height:auto!important;
+    overflow:visible!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    scroll-snap-align:none!important;
+    transition:transform .78s cubic-bezier(.16,.84,.24,1),filter .55s ease!important;
+  }
+  .page-home-main .home-crops-list li:nth-child(1){grid-column:1/span 3;grid-row:1}
+  .page-home-main .home-crops-list li:nth-child(2){grid-column:4/span 3;grid-row:1}
+  .page-home-main .home-crops-list li:nth-child(3){grid-column:7/span 3;grid-row:1}
+  .page-home-main .home-crops-list li:nth-child(4){grid-column:10/span 3;grid-row:1}
+  .page-home-main .home-crops-list li:nth-child(5){grid-column:1/span 5;grid-row:2}
+  .page-home-main .home-crops-list li:nth-child(6){grid-column:6/span 5;grid-row:2}
+}
+
+.page-home-main .home-crops-list li::before,
+.page-home-main .home-crops-list li::after{display:none!important}
+
+.page-home-main .home-crops-list a,
+.page-home-main .home-crops-list a:hover,
+.page-home-main .home-crops-list a.is-active{
+  --crop-mx:50%;
+  --crop-my:28%;
+  position:absolute!important;
+  z-index:1;
+  inset:0;
+  display:block!important;
+  min-height:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border:1px solid rgba(225,176,57,.46)!important;
+  border-radius:1.45rem!important;
+  background:
+    radial-gradient(circle at var(--crop-mx) var(--crop-my),rgba(255,211,105,.075),transparent 9rem),
+    linear-gradient(180deg,#12130f,#090a08 72%)!important;
+  color:#fff!important;
+  text-decoration:none!important;
+  box-shadow:0 1.2rem 3.2rem rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.015)!important;
+  transform:translateZ(0);
+  transition:border-color .52s ease,box-shadow .68s ease,background .55s ease!important;
+}
+
+.page-home-main .home-crops-list a::before{
+  content:"";
+  position:absolute;
+  z-index:5;
+  inset:-28%;
+  background:conic-gradient(from 215deg at var(--crop-mx) var(--crop-my),transparent 0 38%,rgba(255,214,111,.12) 45%,transparent 52% 100%);
+  opacity:0;
+  transform:rotate(-8deg);
+  transition:opacity .52s ease,transform .9s cubic-bezier(.16,.84,.24,1);
+  pointer-events:none;
+}
+
+.page-home-main .home-crops-list .home-media,
+.page-home-main .home-crops-list picture{
+  position:absolute!important;
+  z-index:1;
+  top:0;
+  left:0;
+  width:100%!important;
+  height:67%!important;
+  overflow:visible!important;
+  border-radius:0!important;
+}
+.page-home-main .home-crops-list li:nth-child(n+5) .home-media,
+.page-home-main .home-crops-list li:nth-child(n+5) picture{height:66%!important}
+
+.page-home-main .home-crops-list .home-media::after{
+  content:"";
+  position:absolute;
+  z-index:3;
+  inset:0;
+  background:
+    radial-gradient(circle at 35% 18%,rgba(244,197,83,.1),transparent 30%),
+    linear-gradient(180deg,rgba(3,4,3,.04),rgba(3,4,3,.02) 44%,rgba(4,5,4,.4) 100%)!important;
+  pointer-events:none;
+}
+
+.page-home-main .home-crops-list img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  filter:brightness(.63) saturate(.78) contrast(1.035)!important;
+  transform:scale(1.035);
+  transition:transform 1s cubic-bezier(.16,.84,.24,1),filter .72s ease!important;
+}
+
+.home-crop-lux-outline{
+  position:absolute;
+  z-index:4;
+  top:0;
+  left:0;
+  width:100%;
+  height:67%;
+  overflow:visible;
+  pointer-events:none;
+}
+.page-home-main .home-crops-list li:nth-child(n+5) .home-crop-lux-outline{height:66%}
+.home-crop-lux-outline path{
+  fill:none;
+  stroke:rgba(225,176,57,.72);
+  stroke-width:.68;
+  vector-effect:non-scaling-stroke;
+  filter:drop-shadow(0 0 2px rgba(244,194,70,.2));
+  transition:stroke .52s ease,filter .62s ease;
+}
+
+.page-home-main .home-crop-lux-copy{
+  position:absolute;
+  z-index:6;
+  right:1.2rem;
+  bottom:1.1rem;
+  left:1.2rem;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"title arrow" "desc arrow";
+  align-items:end;
+  column-gap:.75rem;
+}
+.page-home-main .home-crop-lux-title{
+  grid-area:title;
+  display:block;
+  max-width:13rem;
+  color:#fffaf0;
+  font-family:Inter,Manrope,system-ui,sans-serif;
+  font-size:clamp(1.22rem,1.42vw,1.55rem);
+  font-weight:750;
+  line-height:1.02;
+  letter-spacing:-.035em;
+  text-transform:none;
+  text-wrap:balance;
+}
+.page-home-main .home-crop-lux-desc{
+  grid-area:desc;
+  display:block;
+  max-width:14rem;
+  margin-top:.58rem;
+  color:rgba(225,176,57,.78);
+  font-family:Inter,Manrope,system-ui,sans-serif;
+  font-size:.75rem;
+  font-weight:500;
+  line-height:1.45;
+  letter-spacing:0;
+  opacity:.88;
+}
+.page-home-main .home-crop-lux-arrow{
+  grid-area:arrow;
+  display:grid;
+  place-items:center;
+  align-self:end;
+  width:2.15rem;
+  height:2.15rem;
+  border:1px solid rgba(225,176,57,.36);
+  border-radius:50%;
+  color:#efc763;
+  font-family:Arial,sans-serif;
+  font-size:.95rem;
+  transition:transform .58s cubic-bezier(.16,.84,.24,1),border-color .4s ease,background .4s ease,box-shadow .5s ease;
+}
+
+.page-home-main .home-crops-list li.is-active,
+.page-home-main .home-crops-list li:hover{
+  z-index:8;
+  transform:translateY(-.45rem) scale(1.012)!important;
+}
+.page-home-main .home-crops-list li.is-active a,
+.page-home-main .home-crops-list li:hover a{
+  border-color:rgba(255,216,111,.96)!important;
+  box-shadow:0 1.8rem 4.6rem rgba(0,0,0,.38),0 0 2rem rgba(225,176,57,.1),inset 0 0 2rem rgba(225,176,57,.025)!important;
+}
+.page-home-main .home-crops-list li.is-active a::before,
+.page-home-main .home-crops-list li:hover a::before{opacity:1;transform:rotate(0deg)}
+.page-home-main .home-crops-list li.is-active img,
+.page-home-main .home-crops-list li:hover img{transform:scale(1.085);filter:brightness(.84) saturate(.94) contrast(1.035)!important}
+.page-home-main .home-crops-list li.is-active .home-crop-lux-outline path,
+.page-home-main .home-crops-list li:hover .home-crop-lux-outline path{
+  stroke:rgba(255,217,116,.99);
+  filter:drop-shadow(0 0 5px rgba(255,211,95,.48));
+}
+.page-home-main .home-crops-list li.is-active .home-crop-lux-arrow,
+.page-home-main .home-crops-list li:hover .home-crop-lux-arrow{
+  transform:translate(.1rem,-.1rem) rotate(4deg);
+  border-color:rgba(255,217,116,.92);
+  background:rgba(201,151,45,.12);
+  box-shadow:0 0 1rem rgba(225,176,57,.12);
+}
+
+@media (hover:hover) and (pointer:fine){
+  .page-home-main .home-crops-list:has(li:hover) li:not(:hover){filter:brightness(.76) saturate(.78)}
+}
+
+.page-home-main .home-crops-catalog{
+  display:inline-flex!important;
+  align-items:center;
+  align-self:flex-end;
+  width:max-content!important;
+  margin:1.15rem 0 0!important;
+  padding-bottom:.38rem;
+  border-bottom:1px solid rgba(225,176,57,.58);
+  color:#e8bd58!important;
+  font-size:.8rem!important;
+  font-weight:600;
+  letter-spacing:.05em!important;
+  text-decoration:none!important;
+  text-transform:uppercase;
+  transition:letter-spacing .42s ease,color .35s ease;
+}
+.page-home-main .home-crops-catalog:hover{color:#ffd978!important;letter-spacing:.065em!important}
+
+/* Tablet/mobile: keep the same material language as a horizontal showcase. */
+@media (max-width:63.99rem){
+  .page-home-main .home-crops-shell{
+    grid-template-columns:1fr!important;
+    min-height:0;
+    padding:1.35rem!important;
+    border-radius:1.4rem!important;
+  }
+  .page-home-main .home-crops-side{padding:.3rem!important}
+  .page-home-main .home-crops-side .home-kicker{margin-bottom:1rem!important}
+  .page-home-main .home-crops-side h2{max-width:10ch;font-size:clamp(2.65rem,8vw,3.8rem)!important}
+  .page-home-main .home-crops-side>p:not(.home-kicker){margin-top:.8rem!important}
+  .page-home-main .home-crops-controls{margin-top:.8rem!important;padding-top:.4rem!important}
+  .page-home-main .home-crops-list{
+    display:grid!important;
+    grid-auto-flow:column!important;
+    grid-auto-columns:minmax(17rem,76vw)!important;
+    grid-template-columns:none!important;
+    grid-template-rows:none!important;
+    gap:.7rem!important;
+    overflow-x:auto!important;
+    margin:0!important;
+    padding:1rem .2rem 1.2rem!important;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+  .page-home-main .home-crops-list::-webkit-scrollbar{display:none}
+  .page-home-main .home-crops-list li{
+    position:relative!important;
+    min-height:25rem!important;
+    scroll-snap-align:center;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+  }
+  .page-home-main .home-crops-list a,
+  .page-home-main .home-crops-list a:hover{position:absolute!important;inset:0}
+  .page-home-main .home-crops-list .home-media,
+  .page-home-main .home-crops-list picture,
+  .home-crop-lux-outline{height:66%!important}
+  .page-home-main .home-crops-catalog{align-self:flex-start;margin:.25rem .2rem 0!important}
+}
+
+@media (max-width:35rem){
+  .page-home-main .home-crops{padding:2.8rem 0!important}
+  .page-home-main .home-crops-shell{width:min(100% - 1.2rem,92rem)!important;padding:1rem!important}
+  .page-home-main .home-crops-list{grid-auto-columns:minmax(16.4rem,84vw)!important}
+  .page-home-main .home-crop-lux-copy{right:1rem;bottom:1rem;left:1rem}
+  .page-home-main .home-crop-lux-title{font-size:1.35rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .page-home-main .home-crops-list li,
+  .page-home-main .home-crops-list a,
+  .page-home-main .home-crops-list a::before,
+  .page-home-main .home-crops-list img,
+  .home-crop-lux-outline path,
+  .home-crop-lux-arrow{transition-duration:.01ms!important}
+}
