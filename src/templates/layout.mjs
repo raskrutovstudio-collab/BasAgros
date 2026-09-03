@@ -167,7 +167,7 @@ ${main}
   </main>
 ${renderHomeFooter(pages)}
   <script src="/assets/js/site-config.js" defer></script>
-  <script src="/assets/js/home.js?v=20260903-3" defer></script>
+  <script src="/assets/js/home.js?v=20260903-4" defer></script>
   <script src="/assets/js/lead-form.js" defer></script>
 </body>
 </html>

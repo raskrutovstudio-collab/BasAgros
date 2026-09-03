@@ -337,6 +337,7 @@
   const desktop = window.matchMedia('(min-width: 64rem)');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   let activeIndex = -1;
+  let suppressPointer = false;
 
   const setActive = (nextIndex) => {
     activeIndex = nextIndex;
@@ -354,7 +355,7 @@
   scenes.forEach((scene, index) => {
     const trigger = scene.querySelector('[data-audience-trigger]');
     scene.addEventListener('pointerenter', () => {
-      if (desktop.matches && finePointer.matches) setActive(index);
+      if (!suppressPointer && desktop.matches && finePointer.matches) setActive(index);
     });
     trigger?.addEventListener('focus', () => {
       if (desktop.matches) setActive(index);
@@ -368,8 +369,10 @@
     });
     scene.addEventListener('keydown', (event) => {
       if (event.key !== 'Escape') return;
+      suppressPointer = true;
       setActive(-1);
       trigger?.focus();
+      window.setTimeout(() => { suppressPointer = false; }, 900);
     });
   });
 
