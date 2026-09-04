@@ -1,5 +1,5 @@
 name: Publish Home V3 Preview
-# redeploy-marker: 2026-09-04T18:01+06:00
+# redeploy-marker: 2026-09-04T18:14+06:00
 
 on:
   push:
@@ -29,10 +29,12 @@ on:
       - site/assets/css/home-v3-header-hotfix.css
       - site/assets/css/home-v3-purpose-icons.css
       - site/assets/css/home-v3-final-tuning.css
+      - site/assets/css/home-v3-final-ui.css
       - site/assets/js/home.js
       - site/assets/js/site-config.js
       - site/assets/js/home-v3-catalog-terrain.js
       - site/assets/js/home-v3-review-fixes.js
+      - site/assets/js/home-v3-final-ui.js
       - .github/workflows/preview-home-v3.yml
 
 permissions:
@@ -97,6 +99,12 @@ jobs:
           final_tuning = '<link rel="stylesheet" href="assets/css/home-v3-final-tuning.css?v=20260904-1">'
           if 'home-v3-final-tuning.css' not in html:
               html = html.replace('</head>', f'  {final_tuning}\n</head>')
+          final_ui = '<link rel="stylesheet" href="assets/css/home-v3-final-ui.css?v=20260904-1">'
+          if 'home-v3-final-ui.css' not in html:
+              html = html.replace('</head>', f'  {final_ui}\n</head>')
+          final_ui_js = '<script src="assets/js/home-v3-final-ui.js?v=20260904-1" defer></script>'
+          if 'home-v3-final-ui.js' not in html:
+              html = html.replace('</body>', f'  {final_ui_js}\n</body>')
           html = html.replace('src="assets/js/site-config.js"', 'src="assets/js/site-config.js?v=20260904-3"')
           index.write_text(html, encoding='utf-8')
 
