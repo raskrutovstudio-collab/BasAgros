@@ -1,0 +1,79 @@
+/* HOME V3 — final visual tuning: taller catalogue imagery + gold FAQ titles. */
+
+/* Catalogue: give the sculpted landscape photos more vertical presence while
+   preserving one shared baseline and enough room for the text panel below. */
+@media (min-width:64rem){
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-grid{
+    min-height:clamp(30rem,34vw,33rem)!important;
+  }
+
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-1,
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-2,
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-3,
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-4{
+    --card-h:28rem!important;
+    --media-h:61%!important;
+    height:var(--card-h)!important;
+  }
+
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category.is-active,
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category:not(.is-active):hover{
+    height:var(--card-h)!important;
+  }
+
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-media{
+    flex-basis:var(--media-h)!important;
+  }
+
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-body{
+    min-height:10.6rem!important;
+  }
+}
+
+/* FAQ: questions are metallic gold by default, with a restrained continuous
+   highlight sweep. The + / − control stays solid gold for legibility. */
+.page-home-main .home-faq summary{
+  color:#e8c56d!important;
+  background:linear-gradient(
+    100deg,
+    #a9781f 0%,
+    #d5a83c 18%,
+    #ffe59a 34%,
+    #c58e25 49%,
+    #f5d36f 66%,
+    #b47d1c 82%,
+    #e8c56d 100%
+  )!important;
+  background-size:240% 100%!important;
+  background-position:0% 50%!important;
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  animation:homeFaqGoldFlow 7.5s ease-in-out infinite!important;
+  text-shadow:0 0 1.2rem rgba(232,197,109,.055)!important;
+  transition:filter .45s ease,text-shadow .45s ease!important;
+}
+
+.page-home-main .home-faq details:hover summary,
+.page-home-main .home-faq details[open] summary{
+  filter:brightness(1.1) saturate(1.07)!important;
+  text-shadow:0 0 1.4rem rgba(232,197,109,.12)!important;
+}
+
+.page-home-main .home-faq summary span::before,
+.page-home-main .home-faq summary span::after{
+  background:#e8c56d!important;
+  box-shadow:0 0 .55rem rgba(232,197,109,.18)!important;
+}
+
+@keyframes homeFaqGoldFlow{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .page-home-main .home-faq summary{
+    animation:none!important;
+    background-position:42% 50%!important;
+  }
+}
