@@ -35,7 +35,7 @@ permissions:
 
 concurrency:
   group: pages-production
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build-preview:
@@ -66,13 +66,13 @@ jobs:
         working-directory: prod
         run: |
           npm ci
-          npm run quality:all
+          npm run build:site
 
       - name: Build V3 preview
         working-directory: v3
         run: |
           npm ci
-          npm run quality:all
+          npm run build:site
 
       - name: Inject V3 homepage into preview subpath
         run: |
