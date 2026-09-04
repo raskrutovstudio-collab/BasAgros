@@ -6,6 +6,15 @@
     height:5.5rem!important;
   }
 
+  .page-home-main .home-header .home-header-inner{
+    width:min(calc(100% - 3rem),96rem)!important;
+    max-width:none!important;
+    margin-inline:auto!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:clamp(1.35rem,2vw,2.25rem)!important;
+  }
+
   .page-home-main .home-header .home-brand{
     position:relative!important;
     display:flex!important;
@@ -32,9 +41,72 @@
     background:url('../img/bas-agros-logo.svg') center/contain no-repeat!important;
   }
 
-  .page-home-main .home-header-inner{
+  /* Use the entire middle lane instead of keeping the links packed to the right. */
+  .page-home-main .home-header .home-nav{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
     align-items:center!important;
-    gap:clamp(1.15rem,1.8vw,1.8rem)!important;
+    flex:1 1 auto!important;
+    width:auto!important;
+    min-width:0!important;
+    gap:clamp(1.1rem,1.65vw,1.7rem)!important;
+    margin:0!important;
+  }
+
+  .page-home-main .home-header .home-nav>ul{
+    display:grid!important;
+    grid-template-columns:repeat(7,minmax(max-content,1fr))!important;
+    align-items:center!important;
+    justify-items:center!important;
+    width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+    gap:clamp(.35rem,.7vw,.75rem)!important;
+    list-style:none!important;
+  }
+
+  .page-home-main .home-header .home-nav>ul>li{
+    margin:0!important;
+    padding:0!important;
+    min-width:0!important;
+  }
+
+  .page-home-main .home-header .home-nav>ul>li>a{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    white-space:nowrap!important;
+  }
+
+  .page-home-main .home-header .home-nav-actions{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    flex:0 0 auto!important;
+    gap:.7rem!important;
+    margin:0!important;
+  }
+}
+
+@media (min-width:64rem) and (max-width:78rem){
+  .page-home-main .home-header .home-header-inner{
+    width:min(calc(100% - 1.5rem),96rem)!important;
+    gap:.9rem!important;
+  }
+  .page-home-main .home-header .home-brand{
+    flex-basis:5.6rem!important;
+    width:5.6rem!important;
+  }
+  .page-home-main .home-header .home-brand::before{
+    width:4.9rem!important;
+    height:4.25rem!important;
+  }
+  .page-home-main .home-header .home-nav{
+    gap:.8rem!important;
+  }
+  .page-home-main .home-header .home-nav>ul{
+    gap:.2rem!important;
   }
 }
 
