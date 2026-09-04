@@ -1,0 +1,50 @@
+/* HOME V3 — header/logo emergency fix. Loaded last in preview. */
+@media (min-width:64rem){
+  .page-home-main .home-header,
+  .page-home-main .home-header-inner{
+    min-height:5.5rem!important;
+    height:5.5rem!important;
+  }
+
+  .page-home-main .home-header .home-brand{
+    position:relative!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    flex:0 0 6.4rem!important;
+    width:6.4rem!important;
+    height:5.5rem!important;
+    min-height:5.5rem!important;
+    overflow:visible!important;
+    background:transparent!important;
+  }
+
+  /* Hide the corrupted PNG; render the approved transparent vector asset instead. */
+  .page-home-main .home-header .home-logo-image{
+    display:none!important;
+  }
+  .page-home-main .home-header .home-brand::before{
+    content:""!important;
+    display:block!important;
+    width:5.4rem!important;
+    height:4.7rem!important;
+    flex:0 0 auto!important;
+    background:url('../img/bas-agros-logo.svg') center/contain no-repeat!important;
+  }
+
+  .page-home-main .home-header-inner{
+    align-items:center!important;
+    gap:clamp(1.15rem,1.8vw,1.8rem)!important;
+  }
+}
+
+@media (max-width:63.99rem){
+  .page-home-main .home-header .home-logo-image{display:none!important}
+  .page-home-main .home-header .home-brand::before{
+    content:""!important;
+    display:block!important;
+    width:4.3rem!important;
+    height:3.75rem!important;
+    background:url('../img/bas-agros-logo.svg') center/contain no-repeat!important;
+  }
+}
