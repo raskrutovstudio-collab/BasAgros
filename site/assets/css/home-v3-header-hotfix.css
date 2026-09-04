@@ -110,6 +110,34 @@
   }
 }
 
+/* Footer uses the same source logo() helper, so hide the broken PNG there too
+   and render the transparent approved SVG as a standalone brand mark. */
+.page-home-main .home-footer .home-footer-brand .home-brand{
+  position:relative!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  width:7.5rem!important;
+  height:6.4rem!important;
+  min-height:0!important;
+  overflow:visible!important;
+  background:transparent!important;
+}
+.page-home-main .home-footer .home-footer-brand .home-brand .home-logo-image{
+  display:none!important;
+}
+.page-home-main .home-footer .home-footer-brand .home-brand::before{
+  content:""!important;
+  display:block!important;
+  width:7rem!important;
+  height:6.1rem!important;
+  flex:0 0 auto!important;
+  background:url('../img/bas-agros-logo.svg') center/contain no-repeat!important;
+}
+.page-home-main .home-footer .home-footer-brand>p{
+  margin-top:.9rem!important;
+}
+
 @media (max-width:63.99rem){
   .page-home-main .home-header .home-logo-image{display:none!important}
   .page-home-main .home-header .home-brand::before{
@@ -118,5 +146,14 @@
     width:4.3rem!important;
     height:3.75rem!important;
     background:url('../img/bas-agros-logo.svg') center/contain no-repeat!important;
+  }
+
+  .page-home-main .home-footer .home-footer-brand .home-brand{
+    width:6rem!important;
+    height:5.25rem!important;
+  }
+  .page-home-main .home-footer .home-footer-brand .home-brand::before{
+    width:5.7rem!important;
+    height:5rem!important;
   }
 }
