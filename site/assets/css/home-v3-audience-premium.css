@@ -1,0 +1,19 @@
+/* HOME V3 — premium B2B audience icon rendering + slightly faster motion. */
+.page-home-main #audience .audience-scene-icon .home-icon{display:none!important}
+.page-home-main #audience .audience-scene-icon::after{content:"";display:block;width:72%;height:72%;background-position:center;background-repeat:no-repeat;background-size:contain;filter:drop-shadow(0 0 .45rem rgba(232,197,109,.22));transition:transform .72s cubic-bezier(.2,.72,.2,1),filter .72s ease;pointer-events:none}
+.page-home-main #audience .audience-scene:hover .audience-scene-icon::after,.page-home-main #audience .audience-scene.is-active .audience-scene-icon::after{transform:scale(1.055);filter:drop-shadow(0 0 .75rem rgba(232,197,109,.30))}
+.page-home-main #audience .audience-scene-eyebrow .home-icon{display:none!important}
+.page-home-main #audience .audience-scene-eyebrow::before{content:"";display:block;width:2.2rem;height:2.2rem;flex:0 0 auto;background-position:center;background-repeat:no-repeat;background-size:contain;filter:drop-shadow(0 0 .35rem rgba(232,197,109,.2))}
+.page-home-main #audience .audience-scene-1 .audience-scene-icon::after,.page-home-main #audience .audience-scene-1 .audience-scene-eyebrow::before{background-image:url('../img/home/audience-livestock-premium.png')}
+.page-home-main #audience .audience-scene-2 .audience-scene-icon::after,.page-home-main #audience .audience-scene-2 .audience-scene-eyebrow::before{background-image:url('../img/home/audience-farming-premium.png')}
+.page-home-main #audience .audience-scene-3 .audience-scene-icon::after,.page-home-main #audience .audience-scene-3 .audience-scene-eyebrow::before{background-image:url('../img/home/audience-apiary-premium.png')}
+.page-home-main #audience .audience-scene-4 .audience-scene-icon::after,.page-home-main #audience .audience-scene-4 .audience-scene-eyebrow::before{background-image:url('../img/home/audience-wholesale-premium.png')}
+@media (min-width:64rem){
+  .page-home-main #audience .audience-stage-list{transition:grid-template-columns 1750ms cubic-bezier(.22,.68,.18,1)!important}
+  .page-home-main #audience .audience-scene-media img{transition:transform 1950ms cubic-bezier(.22,.68,.18,1),filter 1400ms ease!important}
+  .page-home-main #audience .audience-scene-shade{transition:background 1150ms ease!important}
+  .page-home-main #audience .audience-scene-icon{transition:top 1600ms cubic-bezier(.22,.68,.18,1),width 1040ms ease,height 1040ms ease,left 1600ms cubic-bezier(.22,.68,.18,1)!important}
+  .page-home-main #audience .audience-scene-copy{transition:top 1600ms cubic-bezier(.22,.68,.18,1),opacity 360ms ease!important}
+  .page-home-main #audience .audience-stage-wave{transition:top 1600ms cubic-bezier(.22,.68,.18,1),opacity 820ms ease!important}
+}
+@media (prefers-reduced-motion:reduce){.page-home-main #audience .audience-scene-icon::after{transition:none!important}}
