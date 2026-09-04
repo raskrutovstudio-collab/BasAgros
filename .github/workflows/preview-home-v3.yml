@@ -1,4 +1,5 @@
 name: Publish Home V3 Preview
+# redeploy-marker: 2026-09-04T15:46+06:00
 
 on:
   push:
@@ -57,22 +58,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-          cache-dependency-path: |
-            prod/package-lock.json
-            v3/package-lock.json
 
-      - name: Build approved site root
-        working-directory: prod
-        run: |
-          npm ci
-          npm run build:site
-
-      - name: Build V3 preview
+      - name: Generate V3 HTML from current templates
         working-directory: v3
-        run: |
-          npm ci
-          npm run build:site
+        run: node tools/build-site.mjs
 
       - name: Inject V3 homepage into preview subpath
         run: |
@@ -89,6 +78,8 @@ jobs:
           html = html.replace('"/assets/', '"assets/')
           html = html.replace("'/assets/", "'assets/")
           html = html.replace(', /assets/', ', assets/')
+          html = html.replace('home-v3-review-fixes.css?v=20260904-1', 'home-v3-review-fixes.css?v=20260904-2')
+          html = html.replace('src="assets/js/site-config.js"', 'src="assets/js/site-config.js?v=20260904-2"')
           index.write_text(html, encoding='utf-8')
 
           css_root = root / 'assets' / 'css'
