@@ -1,5 +1,5 @@
 name: Publish Home V3 Preview
-# redeploy-marker: 2026-09-04T16:08+06:00
+# redeploy-marker: 2026-09-04T16:52+06:00
 
 on:
   push:
@@ -13,6 +13,7 @@ on:
       - tools/build-site.mjs
       - site/assets/img/home/hero-v3-machinery-*.avif
       - site/assets/img/home/hero-v3-machinery-*.webp
+      - site/assets/img/home/purpose-icons/**
       - site/assets/css/home-square.css
       - site/assets/css/home-v3-qa.css
       - site/assets/css/home-v3-polish.css
@@ -24,6 +25,7 @@ on:
       - site/assets/css/home-v3-crops-final.css
       - site/assets/css/home-v3-review-fixes.css
       - site/assets/css/home-v3-header-hotfix.css
+      - site/assets/css/home-v3-purpose-icons.css
       - site/assets/js/home.js
       - site/assets/js/site-config.js
       - site/assets/js/home-v3-catalog-terrain.js
@@ -80,9 +82,12 @@ jobs:
           html = html.replace("'/assets/", "'assets/")
           html = html.replace(', /assets/', ', assets/')
           html = html.replace('home-v3-review-fixes.css?v=20260904-1', 'home-v3-review-fixes.css?v=20260904-3')
-          hotfix = '<link rel="stylesheet" href="assets/css/home-v3-header-hotfix.css?v=20260904-1">'
+          hotfix = '<link rel="stylesheet" href="assets/css/home-v3-header-hotfix.css?v=20260904-2">'
           if 'home-v3-header-hotfix.css' not in html:
               html = html.replace('</head>', f'  {hotfix}\n</head>')
+          purpose_icons = '<link rel="stylesheet" href="assets/css/home-v3-purpose-icons.css?v=20260904-1">'
+          if 'home-v3-purpose-icons.css' not in html:
+              html = html.replace('</head>', f'  {purpose_icons}\n</head>')
           html = html.replace('src="assets/js/site-config.js"', 'src="assets/js/site-config.js?v=20260904-3"')
           index.write_text(html, encoding='utf-8')
 
