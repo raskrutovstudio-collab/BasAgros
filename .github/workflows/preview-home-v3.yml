@@ -1,5 +1,5 @@
 name: Publish Home V3 Preview
-# redeploy-marker: 2026-09-04T16:52+06:00
+# redeploy-marker: 2026-09-04T17:55+06:00
 
 on:
   push:
@@ -14,11 +14,13 @@ on:
       - site/assets/img/home/hero-v3-machinery-*.avif
       - site/assets/img/home/hero-v3-machinery-*.webp
       - site/assets/img/home/purpose-icons/**
+      - site/assets/img/home/audience-icons/**
       - site/assets/css/home-square.css
       - site/assets/css/home-v3-qa.css
       - site/assets/css/home-v3-polish.css
       - site/assets/css/home-v3-feedback.css
       - site/assets/css/home-v3-audience.css
+      - site/assets/css/home-v3-audience-icons.css
       - site/assets/css/home-v3-catalog-sculpted.css
       - site/assets/css/home-v3-catalog-terrain.css
       - site/assets/css/home-v3-crops-lux.css
@@ -88,6 +90,9 @@ jobs:
           purpose_icons = '<link rel="stylesheet" href="assets/css/home-v3-purpose-icons.css?v=20260904-1">'
           if 'home-v3-purpose-icons.css' not in html:
               html = html.replace('</head>', f'  {purpose_icons}\n</head>')
+          audience_icons = '<link rel="stylesheet" href="assets/css/home-v3-audience-icons.css?v=20260904-1">'
+          if 'home-v3-audience-icons.css' not in html:
+              html = html.replace('</head>', f'  {audience_icons}\n</head>')
           html = html.replace('src="assets/js/site-config.js"', 'src="assets/js/site-config.js?v=20260904-3"')
           index.write_text(html, encoding='utf-8')
 
