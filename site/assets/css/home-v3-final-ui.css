@@ -1,0 +1,168 @@
+/* HOME V3 — final UI alignment: hero width, header controls, iconless B2B, crop-like catalogue. */
+
+/* HERO — use the same wide visual lane as the strongest homepage sections. */
+@media (min-width:64rem){
+  .page-home-main .home-hero .home-wrap,
+  .page-home-main .home-hero-content,
+  .page-home-main .home-hero-index{
+    width:min(calc(100% - 3rem),96rem)!important;
+    max-width:none!important;
+    margin-inline:auto!important;
+  }
+}
+
+/* HEADER — eight nav items including Home. */
+@media (min-width:64rem){
+  .page-home-main .home-header .home-nav>ul{
+    grid-template-columns:repeat(8,minmax(max-content,1fr))!important;
+  }
+
+  /* Phone becomes the premium filled control. */
+  .page-home-main .home-header .home-nav-actions>a[href^="tel:"]{
+    border:1px solid rgba(236,199,102,.92)!important;
+    background:linear-gradient(118deg,#8f641a 0%,#c8942f 25%,#efd177 49%,#c28d29 73%,#825916 100%)!important;
+    color:#080908!important;
+    box-shadow:inset 0 1px rgba(255,248,213,.44),0 .65rem 1.6rem rgba(190,137,29,.14)!important;
+  }
+  .page-home-main .home-header .home-nav-actions>a[href^="tel:"] svg{
+    color:#080908!important;
+  }
+
+  /* Proposal CTA takes the former phone treatment. */
+  .page-home-main .home-header .home-nav-actions>.home-btn-primary{
+    border:1px solid rgba(232,197,109,.38)!important;
+    background:rgba(7,8,7,.62)!important;
+    color:#f3eee2!important;
+    box-shadow:inset 0 1px rgba(255,255,255,.025)!important;
+  }
+  .page-home-main .home-header .home-nav-actions>.home-btn-primary:hover,
+  .page-home-main .home-header .home-nav-actions>.home-btn-primary:focus-visible{
+    border-color:rgba(243,207,112,.78)!important;
+    background:rgba(221,169,50,.08)!important;
+    color:#fff8e9!important;
+  }
+}
+
+/* B2B — remove all old icon chrome and reclaim the space. */
+.page-home-main #audience .audience-scene-icon,
+.page-home-main #audience .audience-scene-eyebrow .home-icon,
+.page-home-main #audience .audience-scene-features .home-icon{
+  display:none!important;
+}
+.page-home-main #audience .audience-scene-copy{
+  top:52%!important;
+}
+.page-home-main #audience .audience-scene-1 .audience-scene-copy{
+  top:51%!important;
+}
+.page-home-main #audience .audience-scene-eyebrow{
+  gap:0!important;
+}
+.page-home-main #audience .audience-scene-features li{
+  grid-template-columns:minmax(0,1fr)!important;
+}
+.page-home-main #audience .audience-stage-wave{
+  opacity:.62!important;
+}
+
+/* CATALOGUE — make the four cards read like the Popular crops family: image is
+   the card surface, copy floats over a dark lower gradient, no circular badges. */
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-arrow{
+  display:none!important;
+}
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category{
+  --card-h:30rem!important;
+  --media-h:100%!important;
+  height:var(--card-h)!important;
+  overflow:hidden!important;
+}
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-media{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:100%!important;
+  flex-basis:100%!important;
+}
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-media>.home-media,
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-media picture,
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-media img{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+}
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-media img{
+  object-fit:cover!important;
+  filter:brightness(.68) saturate(.9) contrast(1.03)!important;
+}
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  z-index:4!important;
+  inset:38% 0 0!important;
+  background:linear-gradient(180deg,rgba(5,6,5,0) 0%,rgba(5,6,5,.25) 18%,rgba(5,6,5,.7) 58%,rgba(5,6,5,.94) 100%)!important;
+  pointer-events:none!important;
+}
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-body{
+  position:absolute!important;
+  z-index:7!important;
+  left:1rem!important;
+  right:1rem!important;
+  bottom:1.15rem!important;
+  min-height:0!important;
+  padding:.95rem 1rem .9rem!important;
+  border:0!important;
+  border-radius:.8rem!important;
+  background:linear-gradient(90deg,rgba(5,6,5,.78),rgba(5,6,5,.5) 72%,rgba(5,6,5,.2))!important;
+  box-shadow:0 .7rem 1.8rem rgba(0,0,0,.18)!important;
+  backdrop-filter:blur(2px)!important;
+  -webkit-backdrop-filter:blur(2px)!important;
+}
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-body>.home-kicker{
+  margin:0 0 .45rem!important;
+  font-size:.62rem!important;
+}
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-body>h3{
+  max-width:14ch!important;
+  margin:0!important;
+  color:#fffaf0!important;
+  font-size:clamp(1.45rem,1.65vw,1.9rem)!important;
+  line-height:1!important;
+}
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-body>p:not(.home-kicker){
+  display:block!important;
+  max-width:20rem!important;
+  margin:.55rem 0 0!important;
+  color:rgba(244,240,230,.68)!important;
+  font-size:.72rem!important;
+  line-height:1.42!important;
+}
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category-link{
+  display:inline-flex!important;
+  margin-top:.75rem!important;
+  color:#efc763!important;
+  font-size:.76rem!important;
+  font-weight:800!important;
+  text-decoration:none!important;
+}
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category.is-active,
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category:not(.is-active):hover{
+  height:var(--card-h)!important;
+}
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category.is-active .home-category-media img,
+.page-home-main .home-catalog.home-catalog-lux-ready .home-category:hover .home-category-media img{
+  transform:scale(1.055)!important;
+  filter:brightness(.76) saturate(.98) contrast(1.03)!important;
+}
+
+@media (max-width:63.99rem){
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category{
+    --card-h:24rem!important;
+  }
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-body{
+    left:.8rem!important;right:.8rem!important;bottom:.85rem!important;
+  }
+}
