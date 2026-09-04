@@ -46,6 +46,37 @@
   }
 }
 
+/* Agroblog cards — the old 4:3 wrapper held a 16:9 image and created a false
+   dark band below every photo. Give the wrapper the same ratio and force the
+   actual media/picture to fill it, then tighten the copy to the image edge. */
+.page-home-main .home-articles .home-article-media{
+  aspect-ratio:16/9!important;
+}
+.page-home-main .home-articles .home-article-media>.home-media,
+.page-home-main .home-articles .home-article-media>.home-media>picture{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+}
+.page-home-main .home-articles .home-article-media>.home-media img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+}
+.page-home-main .home-articles .home-article>div:last-child{
+  padding:.85rem 0 1.15rem!important;
+}
+.page-home-main .home-articles .home-article h3{
+  margin:0!important;
+}
+.page-home-main .home-articles .home-article p{
+  margin:.45rem 0 0!important;
+}
+
 @media (max-width:47.99rem){
   .page-home-main .home-guide-form-shell .home-form-compact{
     padding:.9rem!important;
@@ -53,6 +84,9 @@
   }
   .page-home-main .home-faq{
     padding-block:3.5rem!important;
+  }
+  .page-home-main .home-articles .home-article>div:last-child{
+    padding:.7rem 0 1rem!important;
   }
 }
 
