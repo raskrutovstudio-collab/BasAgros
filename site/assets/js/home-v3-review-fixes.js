@@ -20,3 +20,30 @@
     document.querySelector(`.home-category-${index + 1} .home-catalog-media-outline-line`)?.setAttribute('d', path);
   });
 })();
+
+(() => {
+  if (!document.body.classList.contains('page-home-main')) return;
+
+  const heading = document.querySelector('#home-h1');
+  if (!heading) return;
+
+  const original = 'Семена трав и травосмесей в Казахстане';
+  const desktop = window.matchMedia('(min-width: 64rem)');
+
+  const render = () => {
+    if (desktop.matches) {
+      heading.innerHTML = [
+        '<span style="display:block;white-space:nowrap">Семена трав</span>',
+        '<span style="display:block;white-space:nowrap">и травосмесей</span>',
+        '<span style="display:block;white-space:nowrap">в Казахстане</span>'
+      ].join('');
+      heading.setAttribute('aria-label', original);
+    } else {
+      heading.textContent = original;
+      heading.removeAttribute('aria-label');
+    }
+  };
+
+  render();
+  desktop.addEventListener?.('change', render);
+})();
