@@ -77,6 +77,214 @@
   margin:.45rem 0 0!important;
 }
 
+/* 04.09 — final visual tuning pass. */
+
+/* Header: visually double the logo without increasing the 4.5rem header. */
+.page-home-main .home-header,
+.page-home-main .home-header-inner{
+  min-height:4.5rem!important;
+  height:4.5rem!important;
+}
+.page-home-main .home-brand{
+  position:relative;
+  width:8.6rem;
+  height:4.5rem;
+  overflow:visible;
+}
+.page-home-main .home-logo-image{
+  position:absolute!important;
+  top:50%;
+  left:0;
+  width:8.25rem!important;
+  height:3.05rem!important;
+  max-width:none!important;
+  transform:translateY(-50%) scale(1.62);
+  transform-origin:left center;
+  object-fit:contain!important;
+  object-position:left center!important;
+  pointer-events:none;
+}
+
+/* Hero direction navigator: use the same metallic-gold material as the primary CTA. */
+.page-home-main .home-hero-index ul{
+  gap:.42rem!important;
+  padding:.42rem!important;
+}
+.page-home-main .home-hero-index li{
+  position:relative!important;
+  isolation:isolate;
+  overflow:hidden!important;
+  border:1px solid rgba(239,199,98,.72)!important;
+  border-radius:1rem!important;
+  background:linear-gradient(118deg,#8e6217 0%,#c8942e 26%,#f0cf76 49%,#c18a25 72%,#7d5514 100%)!important;
+  background-size:165% 100%!important;
+  box-shadow:inset 0 1px rgba(255,245,203,.32),0 .45rem 1.3rem rgba(159,111,22,.12)!important;
+  transition:background-position .9s ease,transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s ease,filter .45s ease!important;
+}
+.page-home-main .home-hero-index li::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  top:-80%;
+  bottom:-80%;
+  left:-38%;
+  width:26%;
+  background:linear-gradient(90deg,transparent,rgba(255,250,220,.55),transparent);
+  transform:rotate(18deg) translateX(-240%);
+  animation:homeDirectionSheen 5.6s 1.1s ease-in-out infinite;
+  pointer-events:none;
+}
+.page-home-main .home-hero-index li a,
+.page-home-main .home-hero-index li>span{
+  position:relative;
+  z-index:2;
+  color:#090a08!important;
+  text-shadow:0 1px rgba(255,255,255,.14);
+}
+.page-home-main .home-hero-index li:hover{
+  filter:brightness(1.07) saturate(1.04);
+  transform:translateY(-2px);
+  background-position:100% 0!important;
+  box-shadow:inset 0 1px rgba(255,249,218,.42),0 .8rem 2rem rgba(201,151,45,.24)!important;
+}
+@keyframes homeDirectionSheen{
+  0%,64%{transform:rotate(18deg) translateX(-250%);opacity:0}
+  69%{opacity:.8}
+  82%{transform:rotate(18deg) translateX(620%);opacity:.32}
+  100%{transform:rotate(18deg) translateX(620%);opacity:0}
+}
+
+/* Purpose selector: match the wide B2B stage and replace tiny generic icons
+   with more deliberate agricultural pictograms. */
+.page-home-main .home-solutions>.home-wrap{
+  width:min(calc(100% - clamp(2rem,5vw,5rem)),96rem)!important;
+  max-width:none!important;
+}
+.page-home-main .home-purpose-selector{
+  grid-template-columns:minmax(19rem,24rem) minmax(0,1fr)!important;
+  min-height:38rem!important;
+}
+.page-home-main .home-purpose-nav{
+  padding:clamp(1.65rem,2.7vw,2.55rem)!important;
+}
+.page-home-main .home-purpose-tab{
+  grid-template-columns:3.25rem minmax(0,1fr) 1.2rem!important;
+  min-height:5.35rem!important;
+  gap:.85rem!important;
+}
+.page-home-main .home-purpose-tab>.home-icon{display:none!important}
+.page-home-main .home-purpose-tab::before{
+  content:"";
+  display:block;
+  width:2.75rem;
+  height:2.75rem;
+  border:1px solid rgba(232,197,109,.34);
+  border-radius:50%;
+  background-color:rgba(201,151,45,.045);
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:1.7rem 1.7rem;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.018),0 0 1.1rem rgba(232,197,109,.04);
+  transition:transform .65s cubic-bezier(.16,.84,.24,1),background-color .45s ease,border-color .45s ease,filter .45s ease;
+}
+.page-home-main .home-purpose-tab:nth-child(1)::before{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23efc85f' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 25c6-3 11-9 15-18M12 22c-1-5-1-9 1-13M17 17c-1-4 0-8 3-11M8 14c3 0 6 1 8 3M14 9c3 0 5 1 7 2'/%3E%3Cpath d='M6 26h20M22 8l4 4M23 18l4-2'/%3E%3C/svg%3E")
+}
+.page-home-main .home-purpose-tab:nth-child(2)::before{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23efc85f' stroke-width='1.45' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 22h22M7 22V11l5-3 4 3 4-3 5 3v11'/%3E%3Cpath d='M10 22v-6h4v6M20 22v-6h3v6M7 13h18'/%3E%3Ccircle cx='11' cy='12' r='1'/%3E%3C/svg%3E")
+}
+.page-home-main .home-purpose-tab:nth-child(3)::before{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23efc85f' stroke-width='1.45' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='16' cy='17' rx='4.2' ry='6.3'/%3E%3Cpath d='M13 14h6M13 18h6M12 15c-4-5-8-2-7 2 1 3 4 4 7 2M20 15c4-5 8-2 7 2-1 3-4 4-7 2M16 10V7M11 25c2-4 8-4 10 0'/%3E%3C/svg%3E")
+}
+.page-home-main .home-purpose-tab:nth-child(4)::before{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23efc85f' stroke-width='1.45' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 26V15M16 18c-5 0-8-3-8-7 5 0 8 3 8 7ZM16 15c0-5 3-8 8-8 0 5-3 8-8 8Z'/%3E%3Cpath d='M8 26c3-2 13-2 16 0M5 22c1 2 3 3 5 4M27 22c-1 2-3 3-5 4'/%3E%3C/svg%3E")
+}
+.page-home-main .home-purpose-tab:hover::before{transform:scale(1.08) rotate(-3deg);border-color:rgba(255,218,116,.72);background-color:rgba(201,151,45,.08)}
+.page-home-main .home-purpose-tab.is-active::before{
+  border-color:rgba(9,10,8,.38);
+  background-color:rgba(255,255,255,.13);
+  filter:brightness(.12) saturate(0);
+  transform:scale(1.04);
+}
+
+/* Audience motion: twice as deliberate as the previous quick switch. */
+@media (min-width:64rem){
+  .page-home-main #audience.home-audience{
+    padding-block:clamp(3.85rem,4.8vw,5.25rem)!important;
+  }
+  .page-home-main .audience-stage-list{
+    transition:grid-template-columns 2160ms cubic-bezier(.22,.68,.18,1)!important;
+  }
+  .page-home-main .audience-scene-media img{
+    transition:transform 2400ms cubic-bezier(.22,.68,.18,1),filter 1700ms ease!important;
+  }
+  .page-home-main .audience-scene-shade{transition:background 1400ms ease!important}
+  .page-home-main .audience-scene-icon{
+    transition:top 1960ms cubic-bezier(.22,.68,.18,1),width 1240ms ease,height 1240ms ease,left 1960ms cubic-bezier(.22,.68,.18,1)!important;
+  }
+  .page-home-main .audience-scene-copy{
+    transition:top 1960ms cubic-bezier(.22,.68,.18,1),opacity 440ms ease!important;
+  }
+  .page-home-main .audience-stage-wave{
+    transition:top 1960ms cubic-bezier(.22,.68,.18,1),opacity 1000ms ease!important;
+  }
+
+  /* Catalogue motion: same geometry, approximately twice the transition time. */
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category{
+    transition:flex-grow 1.72s cubic-bezier(.16,.84,.24,1),height 1.72s cubic-bezier(.16,.84,.24,1),transform 1.72s cubic-bezier(.16,.84,.24,1),filter 1s ease!important;
+  }
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category::before{
+    transition:opacity 1.2s ease,transform 1.72s cubic-bezier(.16,.84,.24,1),filter 1.2s ease!important;
+  }
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-media{
+    transition:flex-basis 1.72s cubic-bezier(.16,.84,.24,1),border-color 1s ease,filter 1.2s ease!important;
+  }
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-media img{
+    transition:transform 2s cubic-bezier(.16,.84,.24,1),filter 1.44s ease!important;
+  }
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-body h3{
+    transition:font-size 1.56s cubic-bezier(.16,.84,.24,1),transform 1.24s cubic-bezier(.16,.84,.24,1)!important;
+  }
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-body>p:not(.home-kicker){
+    transition:max-height 1.52s cubic-bezier(.16,.84,.24,1),opacity .96s ease,transform 1.24s cubic-bezier(.16,.84,.24,1)!important;
+  }
+}
+
+/* Selection form: one radius language for shell, inner frame and fields.
+   The pill CTA intentionally keeps its own radius. */
+.page-home-main .home-guide-form-shell,
+.page-home-main .home-guide-form-shell .home-form-compact,
+.page-home-main .home-guide-form-shell input,
+.page-home-main .home-guide-form-shell select,
+.page-home-main .home-guide-form-shell textarea{
+  border-radius:1rem!important;
+}
+
+/* Compact the vertical rhythm only where the page currently feels loose. */
+@media (min-width:64rem){
+  .page-home-main .home-solutions,
+  .page-home-main .home-guide,
+  .page-home-main .home-about,
+  .page-home-main .home-service,
+  .page-home-main .home-articles,
+  .page-home-main .home-request{
+    padding-block:clamp(3.9rem,4.8vw,5.25rem)!important;
+  }
+  .page-home-main .home-section-head{
+    margin-bottom:clamp(1.9rem,2.8vw,2.8rem)!important;
+  }
+}
+
+@media (max-width:63.99rem){
+  .page-home-main .home-logo-image{
+    width:7rem!important;
+    height:2.7rem!important;
+    transform:translateY(-50%) scale(1.35);
+  }
+  .page-home-main .home-brand{width:7.5rem}
+  .page-home-main .home-purpose-selector{grid-template-columns:1fr!important;min-height:0!important}
+}
+
 @media (max-width:47.99rem){
   .page-home-main .home-guide-form-shell .home-form-compact{
     padding:.9rem!important;
@@ -88,10 +296,17 @@
   .page-home-main .home-articles .home-article>div:last-child{
     padding:.7rem 0 1rem!important;
   }
+  .page-home-main .home-logo-image{
+    width:5.8rem!important;
+    height:2.25rem!important;
+    transform:translateY(-50%) scale(1.15);
+  }
+  .page-home-main .home-brand{width:5.9rem}
 }
 
 @media (prefers-reduced-motion:reduce){
   .page-home-main .home-catalog.home-catalog-lux-ready .home-category{
     transition-duration:.01ms!important;
   }
+  .page-home-main .home-hero-index li::after{animation:none!important}
 }
