@@ -21,9 +21,11 @@ on:
       - site/assets/css/home-v3-catalog-terrain.css
       - site/assets/css/home-v3-crops-lux.css
       - site/assets/css/home-v3-crops-final.css
+      - site/assets/css/home-v3-review-fixes.css
       - site/assets/js/home.js
       - site/assets/js/site-config.js
       - site/assets/js/home-v3-catalog-terrain.js
+      - site/assets/js/home-v3-review-fixes.js
       - .github/workflows/preview-home-v3.yml
 
 permissions:
