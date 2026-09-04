@@ -158,7 +158,7 @@ function renderSolutions(pages) {
   return `<section class="home-section home-solutions" id="solutions" aria-labelledby="solutions-title">
     <div class="home-wrap">${sectionHead(data, 'solutions-title', '', 'Подбор по назначению')}
       <div class="home-purpose-selector" data-purpose-selector data-lux-reveal>
-        <aside class="home-purpose-nav"><p>Подберём под вашу задачу</p><div class="home-purpose-tabs" role="tablist" aria-orientation="vertical">${tabs}</div></aside>
+        <aside class="home-purpose-nav"><p>Выберите задачу хозяйства</p><div class="home-purpose-tabs" role="tablist" aria-orientation="vertical">${tabs}</div></aside>
         <div class="home-purpose-panels">${panels}</div>
       </div>
     </div>

@@ -1,0 +1,63 @@
+/* HOME V3 — screenshot review corrections, 04.09.2026. */
+
+/* The selection form belongs to the carbon/gold system, without a green inset. */
+.page-home-main .home-guide-form-shell .home-form-compact{
+  border:1px solid rgba(232,197,109,.16)!important;
+  background:
+    radial-gradient(circle at 88% 8%,rgba(201,151,45,.055),transparent 16rem),
+    linear-gradient(145deg,#0d0f0c,#070807 78%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 1.25rem 3rem rgba(0,0,0,.18);
+}
+
+/* Keep the four catalogue segments on one baseline. Hover changes emphasis and
+   width, but no longer lifts one segment away from the shared terrain line. */
+@media (min-width:64rem){
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-1,
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-2,
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-3,
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-4{
+    --card-h:25.5rem;
+    --media-h:54%;
+    --card-shift:0rem;
+    height:var(--card-h)!important;
+    transform:none!important;
+  }
+
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category.is-active,
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category:not(.is-active):hover{
+    height:var(--card-h)!important;
+    transform:none!important;
+  }
+
+  /* The previous section used almost 200 px of empty air above the questions. */
+  .page-home-main .home-faq{
+    padding-block:clamp(4.5rem,5.2vw,5.5rem)!important;
+  }
+  .page-home-main .home-faq-grid{
+    gap:clamp(3rem,6vw,6rem)!important;
+    align-items:start;
+  }
+  .page-home-main .home-faq summary{
+    min-height:4.25rem!important;
+    padding:.55rem 0!important;
+  }
+  .page-home-main .home-faq details>p{
+    margin:0 3rem 1rem 0!important;
+  }
+}
+
+@media (max-width:47.99rem){
+  .page-home-main .home-guide-form-shell .home-form-compact{
+    padding:.9rem!important;
+    border-color:rgba(232,197,109,.14)!important;
+  }
+  .page-home-main .home-faq{
+    padding-block:3.5rem!important;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category{
+    transition-duration:.01ms!important;
+  }
+}
