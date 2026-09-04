@@ -29,7 +29,6 @@
     transform:none!important;
   }
 
-  /* The previous section used almost 200 px of empty air above the questions. */
   .page-home-main .home-faq{
     padding-block:clamp(4.5rem,5.2vw,5.5rem)!important;
   }
@@ -46,9 +45,6 @@
   }
 }
 
-/* Agroblog cards — the old 4:3 wrapper held a 16:9 image and created a false
-   dark band below every photo. Give the wrapper the same ratio and force the
-   actual media/picture to fill it, then tighten the copy to the image edge. */
 .page-home-main .home-articles .home-article-media{
   aspect-ratio:16/9!important;
 }
@@ -75,34 +71,6 @@
 }
 .page-home-main .home-articles .home-article p{
   margin:.45rem 0 0!important;
-}
-
-/* 04.09 — final visual tuning pass. */
-
-/* Header: visually double the logo without increasing the 4.5rem header. */
-.page-home-main .home-header,
-.page-home-main .home-header-inner{
-  min-height:4.5rem!important;
-  height:4.5rem!important;
-}
-.page-home-main .home-brand{
-  position:relative;
-  width:8.6rem;
-  height:4.5rem;
-  overflow:visible;
-}
-.page-home-main .home-logo-image{
-  position:absolute!important;
-  top:50%;
-  left:0;
-  width:8.25rem!important;
-  height:3.05rem!important;
-  max-width:none!important;
-  transform:translateY(-50%) scale(1.62);
-  transform-origin:left center;
-  object-fit:contain!important;
-  object-position:left center!important;
-  pointer-events:none;
 }
 
 /* Hero direction navigator: use the same metallic-gold material as the primary CTA. */
@@ -154,8 +122,6 @@
   100%{transform:rotate(18deg) translateX(620%);opacity:0}
 }
 
-/* Purpose selector: match the wide B2B stage and replace tiny generic icons
-   with more deliberate agricultural pictograms. */
 .page-home-main .home-solutions>.home-wrap{
   width:min(calc(100% - clamp(2rem,5vw,5rem)),96rem)!important;
   max-width:none!important;
@@ -207,7 +173,6 @@
   transform:scale(1.04);
 }
 
-/* Audience motion: twice as deliberate as the previous quick switch. */
 @media (min-width:64rem){
   .page-home-main #audience.home-audience{
     padding-block:clamp(3.85rem,4.8vw,5.25rem)!important;
@@ -228,8 +193,6 @@
   .page-home-main .audience-stage-wave{
     transition:top 1960ms cubic-bezier(.22,.68,.18,1),opacity 1000ms ease!important;
   }
-
-  /* Catalogue motion: same geometry, approximately twice the transition time. */
   .page-home-main .home-catalog.home-catalog-lux-ready .home-category{
     transition:flex-grow 1.72s cubic-bezier(.16,.84,.24,1),height 1.72s cubic-bezier(.16,.84,.24,1),transform 1.72s cubic-bezier(.16,.84,.24,1),filter 1s ease!important;
   }
@@ -250,8 +213,6 @@
   }
 }
 
-/* Selection form: one radius language for shell, inner frame and fields.
-   The pill CTA intentionally keeps its own radius. */
 .page-home-main .home-guide-form-shell,
 .page-home-main .home-guide-form-shell .home-form-compact,
 .page-home-main .home-guide-form-shell input,
@@ -260,7 +221,6 @@
   border-radius:1rem!important;
 }
 
-/* Compact the vertical rhythm only where the page currently feels loose. */
 @media (min-width:64rem){
   .page-home-main .home-solutions,
   .page-home-main .home-guide,
@@ -275,13 +235,63 @@
   }
 }
 
-@media (max-width:63.99rem){
-  .page-home-main .home-logo-image{
-    width:7rem!important;
-    height:2.7rem!important;
-    transform:translateY(-50%) scale(1.35);
+/* Approved PNG logo: keep the original header height and enlarge only the logo.
+   The uploaded artwork has a flat gold background outside the black hexagon,
+   so the image is clipped to the actual hexagonal badge instead of showing a box. */
+@media (min-width:64rem){
+  .page-home-main .home-header,
+  .page-home-main .home-header-inner{
+    min-height:5.5rem!important;
+    height:5.5rem!important;
   }
-  .page-home-main .home-brand{width:7.5rem}
+  .page-home-main .home-header .home-brand{
+    position:relative!important;
+    display:flex!important;
+    align-items:center!important;
+    flex:0 0 6.25rem!important;
+    width:6.25rem!important;
+    height:5.5rem!important;
+    min-height:5.5rem!important;
+    overflow:visible!important;
+  }
+  .page-home-main .home-header .home-logo-image{
+    position:static!important;
+    display:block!important;
+    width:auto!important;
+    height:5.05rem!important;
+    max-width:5.8rem!important;
+    max-height:5.05rem!important;
+    margin:0!important;
+    transform:none!important;
+    object-fit:contain!important;
+    object-position:center!important;
+    clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);
+    background:transparent!important;
+    filter:drop-shadow(0 0 .5rem rgba(230,176,50,.08));
+    pointer-events:none;
+  }
+}
+
+@media (max-width:63.99rem){
+  .page-home-main .home-header .home-brand{
+    position:relative!important;
+    display:flex!important;
+    align-items:center!important;
+    width:5rem!important;
+    height:4.5rem!important;
+    min-height:4.5rem!important;
+  }
+  .page-home-main .home-header .home-logo-image{
+    position:static!important;
+    width:auto!important;
+    height:4rem!important;
+    max-width:4.6rem!important;
+    max-height:4rem!important;
+    transform:none!important;
+    object-fit:contain!important;
+    clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);
+    background:transparent!important;
+  }
   .page-home-main .home-purpose-selector{grid-template-columns:1fr!important;min-height:0!important}
 }
 
@@ -296,12 +306,17 @@
   .page-home-main .home-articles .home-article>div:last-child{
     padding:.7rem 0 1rem!important;
   }
-  .page-home-main .home-logo-image{
-    width:5.8rem!important;
-    height:2.25rem!important;
-    transform:translateY(-50%) scale(1.15);
+  .page-home-main .home-header .home-brand{
+    width:4.4rem!important;
+    height:4rem!important;
+    min-height:4rem!important;
   }
-  .page-home-main .home-brand{width:5.9rem}
+  .page-home-main .home-header .home-logo-image{
+    height:3.55rem!important;
+    max-width:4.05rem!important;
+    max-height:3.55rem!important;
+    transform:none!important;
+  }
 }
 
 @media (prefers-reduced-motion:reduce){
