@@ -1,5 +1,5 @@
 name: Publish Home V3 Preview
-# redeploy-marker: 2026-09-04T17:55+06:00
+# redeploy-marker: 2026-09-04T18:01+06:00
 
 on:
   push:
@@ -28,6 +28,7 @@ on:
       - site/assets/css/home-v3-review-fixes.css
       - site/assets/css/home-v3-header-hotfix.css
       - site/assets/css/home-v3-purpose-icons.css
+      - site/assets/css/home-v3-final-tuning.css
       - site/assets/js/home.js
       - site/assets/js/site-config.js
       - site/assets/js/home-v3-catalog-terrain.js
@@ -93,6 +94,9 @@ jobs:
           audience_icons = '<link rel="stylesheet" href="assets/css/home-v3-audience-icons.css?v=20260904-1">'
           if 'home-v3-audience-icons.css' not in html:
               html = html.replace('</head>', f'  {audience_icons}\n</head>')
+          final_tuning = '<link rel="stylesheet" href="assets/css/home-v3-final-tuning.css?v=20260904-1">'
+          if 'home-v3-final-tuning.css' not in html:
+              html = html.replace('</head>', f'  {final_tuning}\n</head>')
           html = html.replace('src="assets/js/site-config.js"', 'src="assets/js/site-config.js?v=20260904-3"')
           index.write_text(html, encoding='utf-8')
 
