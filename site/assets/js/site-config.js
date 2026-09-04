@@ -29,7 +29,7 @@ window.SITE_CONFIG = Object.freeze({
 
   const desktop = window.matchMedia('(min-width: 64rem)');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const duration = 1080;
+  const duration = 2160;
   const baseWeights = [2.08, 1, 1, 1];
   let frame = 0;
 
@@ -276,7 +276,7 @@ window.SITE_CONFIG = Object.freeze({
     activeIndex = normalized;
     grid.classList.add('is-switching');
     window.clearTimeout(switchTimer);
-    switchTimer = window.setTimeout(() => grid.classList.remove('is-switching'), 760);
+    switchTimer = window.setTimeout(() => grid.classList.remove('is-switching'), 1520);
 
     cards.forEach((card, index) => {
       const active = index === normalized;
