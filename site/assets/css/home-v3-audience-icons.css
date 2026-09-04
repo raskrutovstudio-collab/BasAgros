@@ -1,0 +1,85 @@
+/* HOME V3 — premium audience pictograms + slightly faster stage motion. */
+
+.page-home-main #audience .audience-scene-icon{
+  overflow:hidden!important;
+  background:
+    radial-gradient(circle at 38% 28%,rgba(232,197,109,.10),transparent 44%),
+    rgba(7,8,7,.90)!important;
+  box-shadow:
+    0 0 1.35rem rgba(232,197,109,.14),
+    inset 0 0 0 1px rgba(255,255,255,.026)!important;
+}
+.page-home-main #audience .audience-scene-icon>.home-icon{display:none!important}
+.page-home-main #audience .audience-scene-icon::after{
+  content:""!important;
+  display:block!important;
+  width:2.25rem!important;
+  height:2.25rem!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  background-size:contain!important;
+  filter:drop-shadow(0 0 .42rem rgba(232,197,109,.30)) saturate(1.05)!important;
+  transform:scale(.96)!important;
+  transition:transform .68s cubic-bezier(.16,.84,.24,1),filter .55s ease!important;
+}
+.page-home-main #audience .audience-scene-1 .audience-scene-icon::after{background-image:url('../img/home/audience-icons/audience-livestock-premium.png')!important}
+.page-home-main #audience .audience-scene-2 .audience-scene-icon::after{background-image:url('../img/home/audience-icons/audience-farming-premium.png')!important}
+.page-home-main #audience .audience-scene-3 .audience-scene-icon::after{background-image:url('../img/home/audience-icons/audience-apiary-premium.png')!important}
+.page-home-main #audience .audience-scene-4 .audience-scene-icon::after{background-image:url('../img/home/audience-icons/audience-wholesale-premium.png')!important}
+.page-home-main #audience .audience-scene:hover .audience-scene-icon::after,
+.page-home-main #audience .audience-scene.is-active .audience-scene-icon::after{
+  transform:scale(1.07)!important;
+  filter:drop-shadow(0 0 .62rem rgba(255,210,92,.40)) saturate(1.10) brightness(1.04)!important;
+}
+
+/* The previous tuning pass doubled the original motion. Bring it back by
+   roughly 20–25% while keeping the same soft premium easing. */
+@media (min-width:64rem){
+  .page-home-main #audience .audience-stage-list{
+    transition:grid-template-columns 1700ms cubic-bezier(.22,.68,.18,1)!important;
+  }
+  .page-home-main #audience .audience-scene-media img{
+    transition:transform 1900ms cubic-bezier(.22,.68,.18,1),filter 1350ms ease!important;
+  }
+  .page-home-main #audience .audience-scene-shade{
+    transition:background 1100ms ease!important;
+  }
+  .page-home-main #audience .audience-scene-icon{
+    transition:top 1550ms cubic-bezier(.22,.68,.18,1),width 980ms ease,height 980ms ease,left 1550ms cubic-bezier(.22,.68,.18,1),border-color .55s ease,box-shadow .65s ease!important;
+  }
+  .page-home-main #audience .audience-scene-copy{
+    transition:top 1550ms cubic-bezier(.22,.68,.18,1),opacity 360ms ease!important;
+  }
+  .page-home-main #audience .audience-stage-wave{
+    transition:top 1550ms cubic-bezier(.22,.68,.18,1),opacity 800ms ease!important;
+  }
+
+  .page-home-main #audience .audience-stage-list.is-exploring .audience-scene:not(.is-active) .audience-scene-icon::after{
+    width:1.75rem!important;
+    height:1.75rem!important;
+    transform:scale(.94)!important;
+  }
+  .page-home-main #audience .audience-stage-list.is-exploring .audience-scene.is-active .audience-scene-icon::after{
+    width:2.35rem!important;
+    height:2.35rem!important;
+  }
+}
+
+@media (max-width:63.99rem){
+  .page-home-main #audience .audience-scene-icon::after{
+    width:2rem!important;
+    height:2rem!important;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .page-home-main #audience .audience-stage-list,
+  .page-home-main #audience .audience-scene-media img,
+  .page-home-main #audience .audience-scene-shade,
+  .page-home-main #audience .audience-scene-icon,
+  .page-home-main #audience .audience-scene-copy,
+  .page-home-main #audience .audience-stage-wave,
+  .page-home-main #audience .audience-scene-icon::after{
+    transition-duration:.01ms!important;
+  }
+}
