@@ -2,6 +2,13 @@
    Guarantees that the catalogue rail exposes all 4 directions on phones and
    adds the persistent mobile quick-action bar. */
 @media (max-width:47.99rem){
+  /* First screen: remove the excessive empty band under the mobile header.
+     The hero begins below the 4.25rem header already, so another 16–22svh of
+     internal top padding was unnecessary. */
+  .page-home-main .home-hero-content{
+    padding-top:clamp(3.15rem,7.5svh,4rem)!important;
+  }
+
   .page-home-main .home-catalog.home-catalog-lux-ready{
     overflow:hidden!important;
   }
