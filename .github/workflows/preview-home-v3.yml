@@ -1,5 +1,5 @@
 name: Publish Home V3 Preview
-# redeploy-marker: 2026-09-04T18:14+06:00
+# redeploy-marker: 2026-09-07T11:18+06:00
 
 on:
   push:
@@ -25,6 +25,8 @@ on:
       - site/assets/css/home-v3-catalog-terrain.css
       - site/assets/css/home-v3-crops-lux.css
       - site/assets/css/home-v3-crops-final.css
+      - site/assets/css/home-v3-mobile.css
+      - site/assets/css/home-v3-mobile-pass2.css
       - site/assets/css/home-v3-review-fixes.css
       - site/assets/css/home-v3-header-hotfix.css
       - site/assets/css/home-v3-purpose-icons.css
@@ -99,9 +101,12 @@ jobs:
           final_tuning = '<link rel="stylesheet" href="assets/css/home-v3-final-tuning.css?v=20260904-1">'
           if 'home-v3-final-tuning.css' not in html:
               html = html.replace('</head>', f'  {final_tuning}\n</head>')
-          final_ui = '<link rel="stylesheet" href="assets/css/home-v3-final-ui.css?v=20260904-1">'
+          final_ui = '<link rel="stylesheet" href="assets/css/home-v3-final-ui.css?v=20260907-1">'
           if 'home-v3-final-ui.css' not in html:
               html = html.replace('</head>', f'  {final_ui}\n</head>')
+          mobile_pass2 = '<link rel="stylesheet" href="assets/css/home-v3-mobile-pass2.css?v=20260907-1">'
+          if 'home-v3-mobile-pass2.css' not in html:
+              html = html.replace('</head>', f'  {mobile_pass2}\n</head>')
           final_ui_js = '<script src="assets/js/home-v3-final-ui.js?v=20260904-1" defer></script>'
           if 'home-v3-final-ui.js' not in html:
               html = html.replace('</body>', f'  {final_ui_js}\n</body>')
