@@ -2,9 +2,15 @@
    Guarantees that the catalogue rail exposes all 4 directions on phones and
    adds the persistent mobile quick-action bar. */
 @media (max-width:47.99rem){
-  /* First screen: desktop hero uses flex-end to anchor its composition to the
-     bottom. On phones that created a large empty sky band above the content.
-     Mobile must start the composition directly below the sticky header. */
+  /* First screen: desktop hero uses flex-end and a viewport-height minimum.
+     Once the mobile copy is top-aligned, that minimum leaves a large empty tail
+     after the direction cards. Let content define the hero height on phones. */
+  .page-home-main .home-hero,
+  .page-home-main .home-hero-stage{
+    min-height:0!important;
+    height:auto!important;
+  }
+
   .page-home-main .home-hero-stage{
     justify-content:flex-start!important;
   }
@@ -12,6 +18,14 @@
   .page-home-main .home-hero-content{
     padding-top:clamp(2rem,4.5svh,2.75rem)!important;
     padding-bottom:1rem!important;
+  }
+
+  .page-home-main .home-hero-index{
+    margin-bottom:0!important;
+  }
+
+  .page-home-main .home-solutions{
+    padding-top:3.1rem!important;
   }
 
   .page-home-main .home-catalog.home-catalog-lux-ready{
