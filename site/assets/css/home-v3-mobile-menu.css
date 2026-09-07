@@ -1,0 +1,201 @@
+/* BAS Agros HOME V3 — reliable full mobile navigation.
+   Loaded last in the homepage bundle. No runtime-injected layout CSS. */
+@media (max-width:63.99rem){
+  body.page-home-main.menu-open{
+    overflow:hidden!important;
+    touch-action:none;
+  }
+
+  .page-home-main .home-header{
+    z-index:20000!important;
+  }
+
+  .page-home-main .home-header-inner{
+    position:relative!important;
+    z-index:2!important;
+  }
+
+  .page-home-main .home-menu-toggle{
+    position:relative!important;
+    z-index:20002!important;
+    display:block!important;
+    flex:0 0 2.75rem!important;
+    width:2.75rem!important;
+    height:2.75rem!important;
+    border:1px solid rgba(232,197,109,.38)!important;
+    border-radius:50%!important;
+    background:#0a0b09!important;
+    color:#e8c56d!important;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.02)!important;
+  }
+
+  .page-home-main .home-nav{
+    position:fixed!important;
+    z-index:20001!important;
+    top:4.5rem!important;
+    right:0!important;
+    bottom:0!important;
+    left:0!important;
+    display:flex!important;
+    flex-direction:column!important;
+    width:100vw!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:1.15rem 1rem calc(1.2rem + env(safe-area-inset-bottom))!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain!important;
+    background:
+      radial-gradient(circle at 88% 2%,rgba(207,159,48,.16),transparent 15rem),
+      linear-gradient(180deg,#080908 0%,#050605 100%)!important;
+    border:0!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    transform:translateY(-.45rem)!important;
+    transition:opacity .22s ease,transform .22s ease,visibility .22s ease!important;
+  }
+
+  .page-home-main .home-nav.is-open,
+  .page-home-main .home-menu-toggle[aria-expanded="true"] + .home-nav,
+  .page-home-main body.menu-open .home-nav{
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+    transform:none!important;
+  }
+
+  .page-home-main .home-nav::before{
+    content:"Меню";
+    display:block;
+    margin:0 0 .9rem!important;
+    padding:0 0 .8rem!important;
+    border-bottom:1px solid rgba(232,197,109,.2)!important;
+    color:#e8c56d!important;
+    font-size:.68rem!important;
+    font-weight:800!important;
+    letter-spacing:.16em!important;
+    text-transform:uppercase!important;
+  }
+
+  .page-home-main .home-nav>ul{
+    display:block!important;
+    width:100%!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    list-style:none!important;
+  }
+
+  .page-home-main .home-nav>ul>li{
+    position:relative!important;
+    display:block!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    border-bottom:1px solid rgba(232,197,109,.16)!important;
+    background:transparent!important;
+  }
+
+  .page-home-main .home-nav>ul>li>a{
+    position:relative!important;
+    display:flex!important;
+    min-height:3.75rem!important;
+    align-items:center!important;
+    width:100%!important;
+    padding:.5rem 2.25rem .5rem 0!important;
+    color:#f5f0e6!important;
+    background:transparent!important;
+    font-size:clamp(1.08rem,4.7vw,1.35rem)!important;
+    font-weight:700!important;
+    line-height:1.12!important;
+    letter-spacing:-.025em!important;
+    text-decoration:none!important;
+    white-space:normal!important;
+  }
+
+  .page-home-main .home-nav>ul>li>a::after{
+    content:"↗"!important;
+    position:absolute!important;
+    right:.1rem!important;
+    top:50%!important;
+    color:#cda43f!important;
+    font-size:1rem!important;
+    font-weight:400!important;
+    transform:translateY(-50%)!important;
+  }
+
+  .page-home-main .home-nav>ul>li>a[aria-current="page"]{
+    color:#e8c56d!important;
+  }
+
+  .page-home-main .home-nav>ul>li>a:focus-visible{
+    outline:2px solid #e8c56d!important;
+    outline-offset:-2px!important;
+  }
+
+  .page-home-main .home-nav-actions{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:.6rem!important;
+    width:100%!important;
+    margin:1rem 0 0!important;
+    padding:1rem 0 0!important;
+    border-top:1px solid rgba(232,197,109,.2)!important;
+  }
+
+  .page-home-main .home-nav-actions .home-btn{
+    display:flex!important;
+    width:100%!important;
+    min-height:3.25rem!important;
+    margin:0!important;
+    padding:.75rem 1rem!important;
+    border-radius:.8rem!important;
+    font-size:.78rem!important;
+    font-weight:800!important;
+    line-height:1.2!important;
+  }
+
+  .page-home-main .home-nav-actions>a[href^="tel:"]{
+    border:1px solid rgba(232,197,109,.4)!important;
+    background:transparent!important;
+    color:#f4efe3!important;
+  }
+
+  .page-home-main .home-nav-actions>.home-btn-primary{
+    border:1px solid #c99b35!important;
+    background:linear-gradient(120deg,#9a6b19,#e0ba52 52%,#a77720)!important;
+    color:#080908!important;
+  }
+
+  .page-home-main .home-nav-actions .home-btn svg{
+    flex:0 0 auto!important;
+  }
+
+  body.menu-open .home-mobile-quickbar,
+  body.menu-open .home-back-to-top{
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+  }
+}
+
+@media (max-width:47.99rem){
+  .page-home-main .home-nav{
+    top:4.25rem!important;
+  }
+}
+
+@media (min-width:64rem){
+  .page-home-main .home-nav{
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+    transform:none!important;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .page-home-main .home-nav{
+    transition:none!important;
+  }
+}
