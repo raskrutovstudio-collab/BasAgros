@@ -1,0 +1,63 @@
+/* BAS Agros HOME V3 — mobile pass 4.
+   Guarantees that the catalogue rail exposes all 4 directions on phones. */
+@media (max-width:47.99rem){
+  .page-home-main .home-catalog.home-catalog-lux-ready{
+    overflow:hidden!important;
+  }
+
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-grid{
+    display:flex!important;
+    grid-auto-flow:unset!important;
+    grid-auto-columns:unset!important;
+    align-items:stretch!important;
+    width:calc(100% + .75rem)!important;
+    max-width:none!important;
+    min-height:0!important;
+    margin:0 -.75rem 0 0!important;
+    padding:1rem .75rem 1.15rem 0!important;
+    gap:.65rem!important;
+    overflow-x:auto!important;
+    overflow-y:visible!important;
+    overscroll-behavior-inline:contain!important;
+    scroll-snap-type:x mandatory!important;
+    scroll-padding-inline:0 .75rem!important;
+    -webkit-overflow-scrolling:touch!important;
+    scrollbar-width:none!important;
+  }
+
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category-grid::-webkit-scrollbar{
+    display:none!important;
+  }
+
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category{
+    display:block!important;
+    flex:0 0 min(84vw,18.75rem)!important;
+    width:min(84vw,18.75rem)!important;
+    min-width:min(84vw,18.75rem)!important;
+    max-width:none!important;
+    height:24.75rem!important;
+    min-height:24.75rem!important;
+    margin:0!important;
+    opacity:1!important;
+    visibility:visible!important;
+    transform:none!important;
+    scroll-snap-align:start!important;
+    scroll-snap-stop:always!important;
+  }
+
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category.is-active{
+    height:24.75rem!important;
+    min-height:24.75rem!important;
+    transform:none!important;
+  }
+
+  /* Give the fourth card real trailing room, so it can snap fully into view. */
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-category:last-child{
+    margin-right:.9rem!important;
+  }
+
+  .page-home-main .home-catalog.home-catalog-lux-ready .home-catalog-lux-progress{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    width:100%!important;
+  }
+}
