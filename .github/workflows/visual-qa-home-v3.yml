@@ -7,12 +7,30 @@ on:
     paths:
       - .github/workflows/visual-qa-home-v3.yml
       - src/templates/homepage.mjs
+      - src/templates/layout.mjs
       - src/data/homepage.json
       - src/data/home-images.mjs
       - site/assets/css/home-square.css
       - site/assets/css/home-v3-qa.css
       - site/assets/css/home-v3-polish.css
+      - site/assets/css/home-v3-feedback.css
+      - site/assets/css/home-v3-audience.css
+      - site/assets/css/home-v3-audience-icons.css
+      - site/assets/css/home-v3-catalog-sculpted.css
+      - site/assets/css/home-v3-catalog-terrain.css
+      - site/assets/css/home-v3-crops-lux.css
+      - site/assets/css/home-v3-crops-final.css
+      - site/assets/css/home-v3-mobile.css
+      - site/assets/css/home-v3-mobile-pass2.css
+      - site/assets/css/home-v3-review-fixes.css
+      - site/assets/css/home-v3-header-hotfix.css
+      - site/assets/css/home-v3-purpose-icons.css
+      - site/assets/css/home-v3-final-tuning.css
+      - site/assets/css/home-v3-final-ui.css
       - site/assets/js/home.js
+      - site/assets/js/home-v3-catalog-terrain.js
+      - site/assets/js/home-v3-review-fixes.js
+      - site/assets/js/home-v3-final-ui.js
 
 permissions:
   contents: read
@@ -33,15 +51,27 @@ jobs:
       - name: Build V3
         run: |
           npm ci
-          npm run quality:all
+          node tools/build-site.mjs
 
-      - name: Inject QA stylesheets
+      - name: Inject current preview layers
         run: |
           python - <<'PY'
           from pathlib import Path
           p = Path('site/index.html')
           html = p.read_text(encoding='utf-8')
-          html = html.replace('</head>', '<link rel="stylesheet" href="/assets/css/home-v3-qa.css?v=20260903-3"><link rel="stylesheet" href="/assets/css/home-v3-polish.css?v=20260903-3"></head>')
+          styles = [
+            'home-v3-header-hotfix.css',
+            'home-v3-purpose-icons.css',
+            'home-v3-audience-icons.css',
+            'home-v3-final-tuning.css',
+            'home-v3-final-ui.css',
+            'home-v3-mobile-pass2.css',
+          ]
+          for name in styles:
+              if name not in html:
+                  html = html.replace('</head>', f'<link rel="stylesheet" href="/assets/css/{name}?qa=20260907"></head>')
+          if 'home-v3-final-ui.js' not in html:
+              html = html.replace('</body>', '<script src="/assets/js/home-v3-final-ui.js?qa=20260907" defer></script></body>')
           p.write_text(html, encoding='utf-8')
           PY
 
@@ -50,50 +80,129 @@ jobs:
           npm install --no-save playwright@1.55.0
           npx playwright install --with-deps chromium
 
-      - name: Capture full-page screenshots
+      - name: Run mobile layout QA and screenshots
         run: |
           mkdir -p qa/screenshots
           python3 -m http.server 8765 --directory site >/tmp/basagros-v3-http.log 2>&1 &
+          sleep 1
           cat > capture-home-v3.mjs <<'EOF'
+          import fs from 'node:fs';
           import { chromium } from 'playwright';
+
           const sizes = [
-            ['1440', 1440, 1000],
-            ['1280', 1280, 900],
-            ['768', 768, 1024],
-            ['430', 430, 932],
-            ['390', 390, 844]
+            ['360', 360, 800],
+            ['390', 390, 844],
+            ['430', 430, 932]
           ];
           const browser = await chromium.launch({ headless: true });
+          const reports = [];
+
           for (const [name, width, height] of sizes) {
             const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
+            const consoleErrors = [];
+            page.on('console', (msg) => { if (msg.type() === 'error') consoleErrors.push(msg.text()); });
+            page.on('pageerror', (err) => consoleErrors.push(String(err)));
             await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
-            await page.evaluate(async () => {
-              const distance = Math.max(350, Math.floor(window.innerHeight * 0.7));
-              for (let y = 0; y < document.documentElement.scrollHeight; y += distance) {
-                window.scrollTo(0, y);
-                await new Promise((resolve) => setTimeout(resolve, 90));
+            await page.waitForTimeout(500);
+
+            const menu = page.locator('[data-menu-toggle]');
+            if (await menu.count()) {
+              await menu.click();
+              await page.waitForTimeout(120);
+              await menu.click();
+            }
+
+            for (const tab of await page.locator('[data-purpose-tab]').all()) {
+              await tab.click();
+              await page.waitForTimeout(90);
+            }
+
+            for (const trigger of await page.locator('#audience .audience-scene-trigger').all()) {
+              await trigger.click();
+              await page.waitForTimeout(90);
+            }
+
+            const report = await page.evaluate(() => {
+              const vw = document.documentElement.clientWidth;
+              const rootOverflow = Math.max(0, document.documentElement.scrollWidth - vw);
+              const visible = (el) => {
+                const s = getComputedStyle(el);
+                const r = el.getBoundingClientRect();
+                return s.display !== 'none' && s.visibility !== 'hidden' && r.width > 0 && r.height > 0;
+              };
+              const scrollAncestor = (el) => {
+                let p = el.parentElement;
+                while (p && p !== document.body) {
+                  const s = getComputedStyle(p);
+                  if ((s.overflowX === 'auto' || s.overflowX === 'scroll') && p.scrollWidth > p.clientWidth + 2) return true;
+                  p = p.parentElement;
+                }
+                return false;
+              };
+              const overflow = [];
+              for (const el of document.body.querySelectorAll('*')) {
+                if (!visible(el) || scrollAncestor(el)) continue;
+                const r = el.getBoundingClientRect();
+                if (r.left < -2 || r.right > vw + 2) {
+                  overflow.push({tag:el.tagName.toLowerCase(), cls:String(el.className || '').slice(0,100), left:+r.left.toFixed(1), right:+r.right.toFixed(1)});
+                  if (overflow.length >= 30) break;
+                }
               }
-              window.scrollTo(0, document.documentElement.scrollHeight);
-              await new Promise((resolve) => setTimeout(resolve, 400));
-              const images = [...document.images];
-              await Promise.all(images.map((img) => img.complete ? Promise.resolve() : new Promise((resolve) => {
-                img.addEventListener('load', resolve, { once: true });
-                img.addEventListener('error', resolve, { once: true });
-              })));
-              window.scrollTo(0, 0);
+              const clipped = [];
+              for (const el of document.querySelectorAll('h1,h2,h3,p,a,button,strong,small,summary,label')) {
+                if (!visible(el)) continue;
+                const s = getComputedStyle(el);
+                if (s.overflow === 'hidden' && (el.scrollWidth > el.clientWidth + 2 || el.scrollHeight > el.clientHeight + 2)) {
+                  clipped.push({tag:el.tagName.toLowerCase(), cls:String(el.className || '').slice(0,100), text:(el.textContent || '').trim().slice(0,80)});
+                  if (clipped.length >= 30) break;
+                }
+              }
+              const sections = [...document.querySelectorAll('main > section, main > div > section')].filter(visible).map((el) => {
+                const r = el.getBoundingClientRect();
+                return {id:el.id || '', cls:String(el.className || '').slice(0,70), height:+r.height.toFixed(0)};
+              });
+              const fixed = [...document.querySelectorAll('body *')].filter((el) => visible(el) && getComputedStyle(el).position === 'fixed').map((el) => {
+                const r = el.getBoundingClientRect();
+                return {cls:String(el.className || '').slice(0,90), left:+r.left.toFixed(0), top:+r.top.toFixed(0), right:+r.right.toFixed(0), bottom:+r.bottom.toFixed(0)};
+              });
+              return {viewport:vw, rootOverflow, overflow, clipped, sections, fixed, pageHeight:document.documentElement.scrollHeight};
             });
-            await page.waitForTimeout(300);
-            await page.screenshot({ path: `qa/screenshots/home-v3-${name}.png`, fullPage: true });
+
+            report.name = name;
+            report.consoleErrors = consoleErrors.slice(0, 20);
+            reports.push(report);
+            console.log(`QA ${name}: rootOverflow=${report.rootOverflow}px overflowNodes=${report.overflow.length} clipped=${report.clipped.length} pageHeight=${report.pageHeight}px errors=${report.consoleErrors.length}`);
+            if (report.overflow.length) console.log('OVERFLOW', JSON.stringify(report.overflow));
+            if (report.clipped.length) console.log('CLIPPED', JSON.stringify(report.clipped));
+            console.log('SECTIONS', JSON.stringify(report.sections));
+            console.log('FIXED', JSON.stringify(report.fixed));
+
+            await page.evaluate(async () => {
+              const step = Math.max(320, Math.floor(innerHeight * .65));
+              for (let y=0; y<document.documentElement.scrollHeight; y+=step) {
+                scrollTo(0,y); await new Promise(r=>setTimeout(r,55));
+              }
+              scrollTo(0,0);
+            });
+            await page.waitForTimeout(250);
+            await page.screenshot({ path:`qa/screenshots/home-v3-${name}.png`, fullPage:true });
             await page.close();
           }
+
           await browser.close();
+          fs.writeFileSync('qa/mobile-report.json', JSON.stringify(reports, null, 2));
+          const hard = reports.some(r => r.rootOverflow > 2 || r.overflow.length > 0 || r.consoleErrors.length > 0);
+          if (hard) process.exitCode = 2;
           EOF
           node capture-home-v3.mjs
 
-      - name: Upload screenshots
+      - name: Upload mobile QA
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: home-v3-visual-qa
-          path: qa/screenshots/*.png
+          name: home-v3-mobile-qa
+          path: |
+            qa/screenshots/*.png
+            qa/mobile-report.json
           if-no-files-found: error
-          retention-days: 1
+          retention-days: 2
