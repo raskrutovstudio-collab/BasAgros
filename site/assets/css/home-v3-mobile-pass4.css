@@ -1,5 +1,6 @@
 /* BAS Agros HOME V3 — mobile pass 4.
-   Guarantees that the catalogue rail exposes all 4 directions on phones. */
+   Guarantees that the catalogue rail exposes all 4 directions on phones and
+   adds the persistent mobile quick-action bar. */
 @media (max-width:47.99rem){
   .page-home-main .home-catalog.home-catalog-lux-ready{
     overflow:hidden!important;
@@ -60,4 +61,117 @@
     grid-template-columns:repeat(4,minmax(0,1fr))!important;
     width:100%!important;
   }
+
+  /* Sticky quickbar: Call / WhatsApp / Catalogue. */
+  body.page-home-main{
+    padding-bottom:calc(5.65rem + env(safe-area-inset-bottom))!important;
+  }
+
+  .home-mobile-quickbar{
+    position:fixed;
+    z-index:12000;
+    right:.55rem;
+    bottom:calc(.45rem + env(safe-area-inset-bottom));
+    left:.55rem;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    min-height:4.6rem;
+    padding:.38rem;
+    border:1px solid rgba(232,197,109,.32);
+    border-radius:1.15rem;
+    background:linear-gradient(180deg,rgba(12,13,11,.94),rgba(5,6,5,.985));
+    box-shadow:0 -.4rem 1.8rem rgba(0,0,0,.38),0 .8rem 2rem rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.035);
+    backdrop-filter:blur(20px) saturate(120%);
+    -webkit-backdrop-filter:blur(20px) saturate(120%);
+  }
+
+  .home-mobile-quickbar-item{
+    position:relative;
+    display:flex;
+    min-width:0;
+    min-height:3.8rem;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:.28rem;
+    padding:.45rem .25rem;
+    border:0;
+    border-radius:.85rem;
+    color:#f4efe3;
+    text-align:center;
+    text-decoration:none;
+    font-size:.66rem;
+    font-weight:800;
+    letter-spacing:.01em;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  .home-mobile-quickbar-item + .home-mobile-quickbar-item::before{
+    content:"";
+    position:absolute;
+    top:.55rem;
+    bottom:.55rem;
+    left:0;
+    width:1px;
+    background:rgba(232,197,109,.14);
+  }
+
+  .home-mobile-quickbar-item svg{
+    width:1.45rem;
+    height:1.45rem;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.55;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    color:#e8c56d;
+  }
+
+  .home-mobile-quickbar-item--accent{
+    background:linear-gradient(135deg,#a97920 0%,#ddb64e 48%,#b18127 100%);
+    color:#090a08;
+    box-shadow:inset 0 1px rgba(255,248,216,.42),0 .4rem 1rem rgba(186,137,35,.18);
+  }
+
+  .home-mobile-quickbar-item--accent::before{
+    display:none;
+  }
+
+  .home-mobile-quickbar-item--accent + .home-mobile-quickbar-item::before{
+    display:none;
+  }
+
+  .home-mobile-quickbar-item--accent svg{
+    color:#090a08;
+  }
+
+  .home-mobile-quickbar-item:focus-visible{
+    outline:2px solid #f2d578;
+    outline-offset:-2px;
+  }
+
+  /* Keep back-to-top safely above the quickbar. */
+  .page-home-main .home-back-to-top{
+    right:.8rem!important;
+    bottom:calc(5.7rem + env(safe-area-inset-bottom))!important;
+    width:2.55rem!important;
+    height:2.55rem!important;
+  }
+
+  /* Quickbar should disappear while the full-screen mobile menu is open. */
+  body.menu-open .home-mobile-quickbar{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+  }
+}
+
+@media (min-width:48rem){
+  .home-mobile-quickbar{display:none!important}
+}
+
+@media (max-width:22.99rem){
+  .home-mobile-quickbar{right:.35rem;left:.35rem;padding:.3rem}
+  .home-mobile-quickbar-item{font-size:.61rem}
+  .home-mobile-quickbar-item svg{width:1.3rem;height:1.3rem}
 }
