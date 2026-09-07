@@ -1,5 +1,5 @@
 name: Publish Home V3 Preview
-# redeploy-marker: 2026-09-07T12:10+06:00
+# redeploy-marker: 2026-09-07T12:30+06:00
 
 on:
   push:
@@ -11,35 +11,9 @@ on:
       - src/data/homepage.json
       - src/data/home-images.mjs
       - tools/build-site.mjs
-      - site/assets/img/home/hero-v3-machinery-*.avif
-      - site/assets/img/home/hero-v3-machinery-*.webp
-      - site/assets/img/home/purpose-icons/**
-      - site/assets/img/home/audience-icons/**
-      - site/assets/css/home-square.css
-      - site/assets/css/home-v3-qa.css
-      - site/assets/css/home-v3-polish.css
-      - site/assets/css/home-v3-feedback.css
-      - site/assets/css/home-v3-audience.css
-      - site/assets/css/home-v3-audience-icons.css
-      - site/assets/css/home-v3-catalog-sculpted.css
-      - site/assets/css/home-v3-catalog-terrain.css
-      - site/assets/css/home-v3-crops-lux.css
-      - site/assets/css/home-v3-crops-final.css
-      - site/assets/css/home-v3-mobile.css
-      - site/assets/css/home-v3-mobile-pass2.css
-      - site/assets/css/home-v3-mobile-pass3.css
-      - site/assets/css/home-v3-mobile-pass4.css
-      - site/assets/css/home-v3-review-fixes.css
-      - site/assets/css/home-v3-header-hotfix.css
-      - site/assets/css/home-v3-purpose-icons.css
-      - site/assets/css/home-v3-final-tuning.css
-      - site/assets/css/home-v3-final-ui.css
-      - site/assets/js/home.js
-      - site/assets/js/site-config.js
-      - site/assets/js/home-v3-catalog-terrain.js
-      - site/assets/js/home-v3-review-fixes.js
-      - site/assets/js/home-v3-final-ui.js
-      - site/assets/js/home-v3-mobile-pass3.js
+      - site/assets/img/home/**
+      - site/assets/css/**
+      - site/assets/js/**
       - .github/workflows/preview-home-v3.yml
 
 permissions:
@@ -72,7 +46,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Generate V3 HTML from current templates
+      - name: Generate optimized V3 HTML and bundles
         working-directory: v3
         run: node tools/build-site.mjs
 
@@ -91,28 +65,6 @@ jobs:
           html = html.replace('"/assets/', '"assets/')
           html = html.replace("'/assets/", "'assets/")
           html = html.replace(', /assets/', ', assets/')
-          html = html.replace('home-v3-review-fixes.css?v=20260904-1', 'home-v3-review-fixes.css?v=20260904-3')
-          styles = [
-              ('home-v3-header-hotfix.css', '20260904-2'),
-              ('home-v3-purpose-icons.css', '20260904-1'),
-              ('home-v3-audience-icons.css', '20260904-1'),
-              ('home-v3-final-tuning.css', '20260904-1'),
-              ('home-v3-final-ui.css', '20260907-2'),
-              ('home-v3-mobile-pass2.css', '20260907-1'),
-              ('home-v3-mobile-pass3.css', '20260907-1'),
-              ('home-v3-mobile-pass4.css', '20260907-1'),
-          ]
-          for name, version in styles:
-              if name not in html:
-                  html = html.replace('</head>', f'  <link rel="stylesheet" href="assets/css/{name}?v={version}">\n</head>')
-          scripts = [
-              ('home-v3-final-ui.js', '20260904-1'),
-              ('home-v3-mobile-pass3.js', '20260907-2'),
-          ]
-          for name, version in scripts:
-              if name not in html:
-                  html = html.replace('</body>', f'  <script src="assets/js/{name}?v={version}" defer></script>\n</body>')
-          html = html.replace('src="assets/js/site-config.js"', 'src="assets/js/site-config.js?v=20260904-3"')
           index.write_text(html, encoding='utf-8')
 
           css_root = root / 'assets' / 'css'
