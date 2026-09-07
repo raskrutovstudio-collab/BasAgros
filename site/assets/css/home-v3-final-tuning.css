@@ -77,3 +77,22 @@
     background-position:42% 50%!important;
   }
 }
+
+/* Mobile quality card: the photo must follow the same soft geometry as the
+   card instead of showing square image corners inside a rounded container. */
+@media (max-width:47.99rem){
+  .page-home-main .home-quality{
+    overflow:hidden!important;
+    border-radius:var(--m-card,1.25rem)!important;
+  }
+
+  .page-home-main .home-quality-media{
+    overflow:hidden!important;
+    border-radius:calc(var(--m-card,1.25rem) - .18rem)!important;
+  }
+
+  .page-home-main .home-quality-media picture,
+  .page-home-main .home-quality-media img{
+    border-radius:inherit!important;
+  }
+}
