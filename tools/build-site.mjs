@@ -107,9 +107,59 @@ function bundleFiles(directory, names, outputName, separator) {
   writeUtf8(output, `${chunks.join(separator)}\n`);
 }
 
+function hardenHomeAccessibility(html) {
+  /* PageSpeed Agentic View builds an accessibility tree. A tabpanel is a
+     widget container, not an article landmark, so keep the visual class but
+     use a neutral div for the ARIA role. */
+  html = html.replace(/<article class="home-purpose-panel[\s\S]*?<\/article>/g, (panel) =>
+    panel.replace(/^<article/, '<div').replace(/<\/article>$/, '</div>')
+  );
+
+  /* The header brand already has an explicit accessible name. Mirror that on
+     the footer brand because the logo image may be visually replaced/hidden by
+     CSS and therefore cannot be relied on as the link name. */
+  html = html.replace(
+    /<a class="home-brand" href="\/">(?!\s*<span class="visually-hidden")/g,
+    '<a class="home-brand" href="/" aria-label="BAS Agros — главная">'
+  );
+
+  return html;
+}
+
+function assertAgentAccessibility(html) {
+  if (/<article[^>]*role="tabpanel"/i.test(html)) {
+    throw new Error('Agent accessibility gate: role="tabpanel" нельзя оставлять на <article>');
+  }
+
+  const tabPanels = [...html.matchAll(/<([a-z0-9-]+)[^>]*class="[^"]*home-purpose-panel[^"]*"[^>]*role="tabpanel"[^>]*>/gi)];
+  if (!tabPanels.length) {
+    throw new Error('Agent accessibility gate: не найдены purpose tabpanel');
+  }
+  for (const match of tabPanels) {
+    const tag = match[1].toLowerCase();
+    const markup = match[0];
+    if (tag !== 'div') throw new Error(`Agent accessibility gate: tabpanel должен быть div, получен <${tag}>`);
+    if (!/aria-labelledby="purpose-tab-\d+"/.test(markup)) {
+      throw new Error('Agent accessibility gate: tabpanel без aria-labelledby');
+    }
+  }
+
+  const brandLinks = [...html.matchAll(/<a class="home-brand"[^>]*>/g)];
+  if (brandLinks.length < 2) {
+    throw new Error('Agent accessibility gate: ожидались ссылки-логотипы в header и footer');
+  }
+  for (const match of brandLinks) {
+    if (!/aria-label="BAS Agros — главная"/.test(match[0])) {
+      throw new Error('Agent accessibility gate: ссылка .home-brand без доступного имени');
+    }
+  }
+}
+
 function optimizeHomeDocument() {
   const file = path.join(siteRoot, 'index.html');
   let html = fs.readFileSync(file, 'utf8');
+
+  html = hardenHomeAccessibility(html);
 
   for (const name of HOME_CSS) {
     const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -127,6 +177,8 @@ function optimizeHomeDocument() {
   ].join('\n');
   html = html.replace('</head>', `${preload}\n</head>`);
   html = html.replace('</body>', '  <script src="/assets/js/home-v3.bundle.js?v=20260907-1" defer></script>\n</body>');
+
+  assertAgentAccessibility(html);
   fs.writeFileSync(file, html, 'utf8');
 }
 
@@ -206,4 +258,4 @@ fs.writeFileSync(
   'utf8'
 );
 
-console.log(`Сборка сайта: ${pages.length} HTML-страниц из seo-routes.json; sitemap: ${sitemapUrls.length} URL; HOME CSS/JS bundled`);
+console.log(`Сборка сайта: ${pages.length} HTML-страниц из seo-routes.json; sitemap: ${sitemapUrls.length} URL; HOME CSS/JS bundled; agent accessibility gate: PASS`);
