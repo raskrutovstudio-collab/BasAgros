@@ -1,5 +1,5 @@
 name: Publish Home V3 Preview
-# redeploy-marker: 2026-09-07T11:38+06:00
+# redeploy-marker: 2026-09-07T12:10+06:00
 
 on:
   push:
@@ -28,6 +28,7 @@ on:
       - site/assets/css/home-v3-mobile.css
       - site/assets/css/home-v3-mobile-pass2.css
       - site/assets/css/home-v3-mobile-pass3.css
+      - site/assets/css/home-v3-mobile-pass4.css
       - site/assets/css/home-v3-review-fixes.css
       - site/assets/css/home-v3-header-hotfix.css
       - site/assets/css/home-v3-purpose-icons.css
@@ -99,13 +100,14 @@ jobs:
               ('home-v3-final-ui.css', '20260907-2'),
               ('home-v3-mobile-pass2.css', '20260907-1'),
               ('home-v3-mobile-pass3.css', '20260907-1'),
+              ('home-v3-mobile-pass4.css', '20260907-1'),
           ]
           for name, version in styles:
               if name not in html:
                   html = html.replace('</head>', f'  <link rel="stylesheet" href="assets/css/{name}?v={version}">\n</head>')
           scripts = [
               ('home-v3-final-ui.js', '20260904-1'),
-              ('home-v3-mobile-pass3.js', '20260907-1'),
+              ('home-v3-mobile-pass3.js', '20260907-2'),
           ]
           for name, version in scripts:
               if name not in html:
