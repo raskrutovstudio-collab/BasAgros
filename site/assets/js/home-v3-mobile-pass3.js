@@ -1,6 +1,29 @@
 (() => {
   if (!document.body.classList.contains('page-home-main')) return;
   const mobile = window.matchMedia('(max-width: 47.99rem)');
+
+  /* Persistent mobile quick actions. Kept in the existing deferred homepage
+     bundle so it adds no extra network request. */
+  if (!document.querySelector('.home-mobile-quickbar')) {
+    const quickbar = document.createElement('nav');
+    quickbar.className = 'home-mobile-quickbar';
+    quickbar.setAttribute('aria-label', 'Быстрые действия');
+    quickbar.innerHTML = `
+      <a class="home-mobile-quickbar-item" href="tel:+77059608987" aria-label="Позвонить в BAS Agros">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.3 3.5 9.6 8l-1.8 1.6c1 2.3 2.7 4 5 5l1.7-1.8 4.4 2.3c.5.3.8.8.7 1.4-.3 2.1-1.8 3.5-3.9 3.5C9.2 20 4 14.8 4 8.3c0-2 1.4-3.6 3.5-3.9.6-.1 1.2.2 1.5.7Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Позвонить</span>
+      </a>
+      <a class="home-mobile-quickbar-item home-mobile-quickbar-item--accent" href="https://wa.me/77059608987?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D1%83%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D1%82%D1%8C%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B5%20%D1%81%D0%B5%D0%BC%D1%8F%D0%BD%20BAS%20Agros" target="_blank" rel="noopener" aria-label="Написать BAS Agros в WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.3 4.7A9.1 9.1 0 0 0 5 15.7L3.8 20l4.4-1.2A9.1 9.1 0 0 0 19.3 4.7Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.7 8.3c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.6.7c-.2.2-.2.4 0 .7.7 1.3 1.8 2.4 3.2 3 .3.1.5.1.7-.1l.8-1c.2-.2.4-.3.7-.2l1.8.8c.3.1.4.3.4.5 0 .5-.3 1.4-.8 1.9-.6.6-1.5.9-2.4.8-1.4-.2-3.1-.8-5-2.5-1.4-1.4-2.5-3-2.8-4.3-.3-1.1-.1-2 .5-2.8Z" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>WhatsApp</span>
+      </a>
+      <a class="home-mobile-quickbar-item" href="/catalog/" aria-label="Открыть каталог семян BAS Agros">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="6" height="6" rx="1.2"/><rect x="14" y="4" width="6" height="6" rx="1.2"/><rect x="4" y="14" width="6" height="6" rx="1.2"/><rect x="14" y="14" width="6" height="6" rx="1.2"/></svg>
+        <span>Каталог</span>
+      </a>`;
+    document.body.append(quickbar);
+  }
+
   const button = document.querySelector('.home-back-to-top');
 
   if (button) {
