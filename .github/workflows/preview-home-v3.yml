@@ -1,5 +1,5 @@
 name: Publish Home V3 Preview
-# redeploy-marker: 2026-09-07T11:18+06:00
+# redeploy-marker: 2026-09-07T11:38+06:00
 
 on:
   push:
@@ -27,6 +27,7 @@ on:
       - site/assets/css/home-v3-crops-final.css
       - site/assets/css/home-v3-mobile.css
       - site/assets/css/home-v3-mobile-pass2.css
+      - site/assets/css/home-v3-mobile-pass3.css
       - site/assets/css/home-v3-review-fixes.css
       - site/assets/css/home-v3-header-hotfix.css
       - site/assets/css/home-v3-purpose-icons.css
@@ -37,6 +38,7 @@ on:
       - site/assets/js/home-v3-catalog-terrain.js
       - site/assets/js/home-v3-review-fixes.js
       - site/assets/js/home-v3-final-ui.js
+      - site/assets/js/home-v3-mobile-pass3.js
       - .github/workflows/preview-home-v3.yml
 
 permissions:
@@ -89,27 +91,25 @@ jobs:
           html = html.replace("'/assets/", "'assets/")
           html = html.replace(', /assets/', ', assets/')
           html = html.replace('home-v3-review-fixes.css?v=20260904-1', 'home-v3-review-fixes.css?v=20260904-3')
-          hotfix = '<link rel="stylesheet" href="assets/css/home-v3-header-hotfix.css?v=20260904-2">'
-          if 'home-v3-header-hotfix.css' not in html:
-              html = html.replace('</head>', f'  {hotfix}\n</head>')
-          purpose_icons = '<link rel="stylesheet" href="assets/css/home-v3-purpose-icons.css?v=20260904-1">'
-          if 'home-v3-purpose-icons.css' not in html:
-              html = html.replace('</head>', f'  {purpose_icons}\n</head>')
-          audience_icons = '<link rel="stylesheet" href="assets/css/home-v3-audience-icons.css?v=20260904-1">'
-          if 'home-v3-audience-icons.css' not in html:
-              html = html.replace('</head>', f'  {audience_icons}\n</head>')
-          final_tuning = '<link rel="stylesheet" href="assets/css/home-v3-final-tuning.css?v=20260904-1">'
-          if 'home-v3-final-tuning.css' not in html:
-              html = html.replace('</head>', f'  {final_tuning}\n</head>')
-          final_ui = '<link rel="stylesheet" href="assets/css/home-v3-final-ui.css?v=20260907-1">'
-          if 'home-v3-final-ui.css' not in html:
-              html = html.replace('</head>', f'  {final_ui}\n</head>')
-          mobile_pass2 = '<link rel="stylesheet" href="assets/css/home-v3-mobile-pass2.css?v=20260907-1">'
-          if 'home-v3-mobile-pass2.css' not in html:
-              html = html.replace('</head>', f'  {mobile_pass2}\n</head>')
-          final_ui_js = '<script src="assets/js/home-v3-final-ui.js?v=20260904-1" defer></script>'
-          if 'home-v3-final-ui.js' not in html:
-              html = html.replace('</body>', f'  {final_ui_js}\n</body>')
+          styles = [
+              ('home-v3-header-hotfix.css', '20260904-2'),
+              ('home-v3-purpose-icons.css', '20260904-1'),
+              ('home-v3-audience-icons.css', '20260904-1'),
+              ('home-v3-final-tuning.css', '20260904-1'),
+              ('home-v3-final-ui.css', '20260907-2'),
+              ('home-v3-mobile-pass2.css', '20260907-1'),
+              ('home-v3-mobile-pass3.css', '20260907-1'),
+          ]
+          for name, version in styles:
+              if name not in html:
+                  html = html.replace('</head>', f'  <link rel="stylesheet" href="assets/css/{name}?v={version}">\n</head>')
+          scripts = [
+              ('home-v3-final-ui.js', '20260904-1'),
+              ('home-v3-mobile-pass3.js', '20260907-1'),
+          ]
+          for name, version in scripts:
+              if name not in html:
+                  html = html.replace('</body>', f'  <script src="assets/js/{name}?v={version}" defer></script>\n</body>')
           html = html.replace('src="assets/js/site-config.js"', 'src="assets/js/site-config.js?v=20260904-3"')
           index.write_text(html, encoding='utf-8')
 
