@@ -10,6 +10,25 @@
     z-index:20000!important;
   }
 
+  /* backdrop-filter/filter/transform on an ancestor turns a fixed descendant
+     into an ancestor-relative box. The mobile header uses backdrop-filter, so
+     disable all containing-block creators while the full-screen menu is open. */
+  body.page-home-main.menu-open .home-header{
+    overflow:visible!important;
+    transform:none!important;
+    filter:none!important;
+    contain:none!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+
+  body.page-home-main.menu-open .home-header-inner{
+    overflow:visible!important;
+    transform:none!important;
+    filter:none!important;
+    contain:none!important;
+  }
+
   .page-home-main .home-header-inner{
     position:relative!important;
     z-index:2!important;
@@ -34,14 +53,17 @@
     z-index:20001!important;
     top:4.5rem!important;
     right:0!important;
-    bottom:0!important;
+    bottom:auto!important;
     left:0!important;
     display:flex!important;
     flex-direction:column!important;
     width:100vw!important;
     max-width:none!important;
+    height:calc(100dvh - 4.5rem)!important;
+    min-height:calc(100svh - 4.5rem)!important;
     margin:0!important;
     padding:1.15rem 1rem calc(1.2rem + env(safe-area-inset-bottom))!important;
+    overflow-x:hidden!important;
     overflow-y:auto!important;
     overscroll-behavior:contain!important;
     background:
@@ -57,7 +79,8 @@
 
   .page-home-main .home-nav.is-open,
   .page-home-main .home-menu-toggle[aria-expanded="true"] + .home-nav,
-  .page-home-main body.menu-open .home-nav{
+  body.page-home-main.menu-open .home-nav{
+    display:flex!important;
     opacity:1!important;
     visibility:visible!important;
     pointer-events:auto!important;
@@ -182,6 +205,8 @@
 @media (max-width:47.99rem){
   .page-home-main .home-nav{
     top:4.25rem!important;
+    height:calc(100dvh - 4.25rem)!important;
+    min-height:calc(100svh - 4.25rem)!important;
   }
 }
 
