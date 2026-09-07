@@ -6,6 +6,7 @@ on:
       - design/home-v3
     paths:
       - .github/workflows/performance-qa-home-v3.yml
+      - tools/build-site.mjs
       - src/templates/homepage.mjs
       - src/templates/layout.mjs
       - src/data/homepage.json
@@ -30,35 +31,20 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Build V3
+      - name: Build optimized V3
         run: |
           npm ci
           node tools/build-site.mjs
 
-      - name: Inject current preview layers
+      - name: Verify bundling
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          p = Path('site/index.html')
-          html = p.read_text(encoding='utf-8')
-          styles = [
-            'home-v3-header-hotfix.css',
-            'home-v3-purpose-icons.css',
-            'home-v3-audience-icons.css',
-            'home-v3-final-tuning.css',
-            'home-v3-final-ui.css',
-            'home-v3-mobile-pass2.css',
-            'home-v3-mobile-pass3.css',
-            'home-v3-mobile-pass4.css',
-          ]
-          for name in styles:
-              if name not in html:
-                  html = html.replace('</head>', f'<link rel="stylesheet" href="/assets/css/{name}?perf=20260907"></head>')
-          for name in ['home-v3-final-ui.js','home-v3-mobile-pass3.js']:
-              if name not in html:
-                  html = html.replace('</body>', f'<script src="/assets/js/{name}?perf=20260907" defer></script></body>')
-          p.write_text(html, encoding='utf-8')
-          PY
+          test -f site/assets/css/home-v3.bundle.css
+          test -f site/assets/js/home-v3.bundle.js
+          test "$(grep -o 'home-v3.bundle.css' site/index.html | wc -l)" -eq 1
+          test "$(grep -o 'home-v3.bundle.js' site/index.html | wc -l)" -eq 1
+          echo "CSS requests in homepage: $(grep -o '<link[^>]*stylesheet' site/index.html | wc -l)"
+          echo "JS requests in homepage: $(grep -o '<script[^>]*src=' site/index.html | wc -l)"
+          wc -c site/assets/css/home-v3.bundle.css site/assets/js/home-v3.bundle.js
 
       - name: Install Lighthouse and Chromium
         run: |
@@ -95,28 +81,10 @@ jobs:
           const lhr = JSON.parse(fs.readFileSync(p,'utf8'));
           const a = lhr.audits;
           const score = Math.round((lhr.categories.performance.score || 0) * 100);
-          const metric = id => ({
-            id,
-            title:a[id]?.title,
-            display:a[id]?.displayValue,
-            numeric:a[id]?.numericValue,
-            score:a[id]?.score
-          });
+          const metric = id => ({id,title:a[id]?.title,display:a[id]?.displayValue,numeric:a[id]?.numericValue,score:a[id]?.score});
           const metrics = ['first-contentful-paint','largest-contentful-paint','total-blocking-time','cumulative-layout-shift','speed-index','interactive'].map(metric);
-          const opportunityIds = [
-            'render-blocking-resources','unused-css-rules','unused-javascript','modern-image-formats',
-            'uses-responsive-images','uses-optimized-images','offscreen-images','uses-text-compression',
-            'server-response-time','network-requests','mainthread-work-breakdown','bootup-time','dom-size'
-          ];
-          const opportunities = opportunityIds.map(id => a[id]).filter(Boolean).map(x => ({
-            id:x.id,title:x.title,display:x.displayValue,score:x.score,
-            savingsMs:x.details?.overallSavingsMs || 0,
-            savingsBytes:x.details?.overallSavingsBytes || 0,
-            items:(x.details?.items || []).slice(0,8).map(item => ({
-              url:item.url,totalBytes:item.totalBytes,wastedBytes:item.wastedBytes,wastedMs:item.wastedMs,
-              transferSize:item.transferSize,resourceSize:item.resourceSize,duration:item.duration
-            }))
-          })).sort((x,y)=>(y.savingsMs-x.savingsMs)||(y.savingsBytes-x.savingsBytes));
+          const ids = ['render-blocking-resources','unused-css-rules','unused-javascript','modern-image-formats','uses-responsive-images','uses-optimized-images','offscreen-images','uses-text-compression','server-response-time','network-requests','mainthread-work-breakdown','bootup-time','dom-size'];
+          const opportunities = ids.map(id=>a[id]).filter(Boolean).map(x=>({id:x.id,title:x.title,display:x.displayValue,score:x.score,savingsMs:x.details?.overallSavingsMs||0,savingsBytes:x.details?.overallSavingsBytes||0,items:(x.details?.items||[]).slice(0,10)})).sort((x,y)=>(y.savingsMs-x.savingsMs)||(y.savingsBytes-x.savingsBytes));
           const summary={score,metrics,opportunities};
           fs.writeFileSync('qa/performance/summary.json',JSON.stringify(summary,null,2));
           console.log('PERFORMANCE_SCORE',score);
