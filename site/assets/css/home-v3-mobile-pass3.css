@@ -1,0 +1,170 @@
+/* BAS Agros HOME V3 — mobile QA pass 3.
+   Applied after every other V3 stylesheet. Phone-only corrections from the
+   360 / 390 / 430 px full-page Chromium audit. */
+
+@media (max-width:47.99rem){
+  /* B2B scenarios: compact accordion. The lead already explains each scenario,
+     so feature cards keep only their useful labels on a phone. */
+  .page-home-main #audience .audience-scene-trigger,
+  .page-home-main #audience .audience-scene + .audience-scene .audience-scene-trigger{
+    min-height:6.75rem!important;
+    transition:min-height .58s cubic-bezier(.2,.75,.2,1)!important;
+  }
+  .page-home-main #audience .audience-scene.is-active .audience-scene-trigger{
+    min-height:12.75rem!important;
+  }
+  .page-home-main #audience .audience-scene-copy,
+  .page-home-main #audience .audience-scene-1 .audience-scene-copy{
+    left:.95rem!important;
+    right:2.9rem!important;
+  }
+  .page-home-main #audience .audience-scene-copy strong,
+  .page-home-main #audience .audience-scene-1 .audience-scene-copy strong{
+    max-width:24ch!important;
+    font-size:.98rem!important;
+    line-height:1.08!important;
+  }
+  .page-home-main #audience .audience-scene.is-active .audience-scene-copy{
+    top:55%!important;
+  }
+  .page-home-main #audience .audience-scene.is-active .audience-scene-copy strong{
+    font-size:1.28rem!important;
+  }
+  .page-home-main #audience .audience-scene-detail{
+    padding:.9rem 1rem 1rem!important;
+  }
+  .page-home-main #audience .audience-scene-detail h3{
+    max-width:16ch!important;
+    font-size:clamp(1.65rem,7.8vw,2rem)!important;
+  }
+  .page-home-main #audience .audience-scene-lead{
+    margin-top:.55rem!important;
+    font-size:.8rem!important;
+    line-height:1.43!important;
+  }
+  .page-home-main #audience .audience-scene-features{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:.45rem!important;
+    margin-top:.75rem!important;
+    padding-top:.75rem!important;
+  }
+  .page-home-main #audience .audience-scene-features li{
+    display:block!important;
+    min-width:0!important;
+    padding:.68rem .72rem!important;
+    border:1px solid rgba(232,197,109,.14)!important;
+    border-radius:.72rem!important;
+    background:rgba(255,255,255,.018)!important;
+  }
+  .page-home-main #audience .audience-scene-features li:last-child:nth-child(odd){
+    grid-column:1/-1!important;
+  }
+  .page-home-main #audience .audience-scene-features strong{
+    display:block!important;
+    font-size:.69rem!important;
+    line-height:1.22!important;
+  }
+  .page-home-main #audience .audience-scene-features span{
+    display:none!important;
+  }
+  .page-home-main #audience .audience-scene-actions{
+    grid-template-columns:1fr 1fr!important;
+    gap:.45rem!important;
+    margin-top:.75rem!important;
+  }
+  .page-home-main #audience .audience-scene-primary,
+  .page-home-main #audience .audience-scene-secondary{
+    min-height:2.75rem!important;
+    padding:.55rem .6rem!important;
+    font-size:.66rem!important;
+  }
+
+  /* The selection form is useful, but it should not consume another full screen
+     just for two short numeric fields. Keep the one-column layout on narrow
+     phones and pair area + volume from 390 px upward. */
+  .page-home-main .home-guide-form-shell{
+    padding:.9rem!important;
+  }
+  .page-home-main .home-guide-form-shell .home-form{
+    gap:.68rem!important;
+  }
+  .page-home-main .home-guide-form-shell .home-form input,
+  .page-home-main .home-guide-form-shell .home-form select{
+    min-height:2.95rem!important;
+  }
+
+  /* Commercial form: same tighter field rhythm. */
+  .page-home-main .home-request .home-form{
+    gap:.7rem!important;
+    padding:.9rem!important;
+  }
+  .page-home-main .home-request .home-form input,
+  .page-home-main .home-request .home-form select{
+    min-height:2.95rem!important;
+  }
+  .page-home-main .home-request .home-form textarea{
+    min-height:5.7rem!important;
+  }
+
+  /* Delivery + quality needed less dead air between the two premium panels. */
+  .page-home-main .home-service-stage{
+    gap:.65rem!important;
+  }
+  .page-home-main .home-delivery-panel{
+    padding:1.1rem!important;
+  }
+  .page-home-main .home-delivery-steps{
+    margin:.75rem 0!important;
+  }
+  .page-home-main .home-delivery-steps li{
+    padding:.55rem 0!important;
+  }
+
+  /* Slightly shorter footer without reducing tap targets. */
+  .page-home-main .home-footer{
+    padding-top:3rem!important;
+  }
+  .page-home-main .home-footer-grid{
+    gap:1.45rem .9rem!important;
+  }
+}
+
+@media (min-width:24.375rem) and (max-width:47.99rem){
+  /* 390–767: pair only fields that remain legible at half width. */
+  .page-home-main .home-guide-form-shell .home-form,
+  .page-home-main .home-request .home-form{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  .page-home-main .home-guide-form-shell label[for="guide-task"],
+  .page-home-main .home-guide-form-shell label[for="guide-category"],
+  .page-home-main .home-guide-form-shell label[for="guide-delivery-locality"],
+  .page-home-main .home-guide-form-shell label[for="guide-phone"],
+  .page-home-main .home-guide-form-shell .home-btn,
+  .page-home-main .home-guide-form-shell .home-guide-consent,
+  .page-home-main .home-guide-form-shell [data-form-status]{
+    grid-column:1/-1!important;
+  }
+
+  .page-home-main .home-request label[for="request-category"],
+  .page-home-main .home-request label[for="request-delivery-locality"],
+  .page-home-main .home-request .home-field-wide,
+  .page-home-main .home-request .home-btn,
+  .page-home-main .home-request .home-guide-consent,
+  .page-home-main .home-request [data-form-status]{
+    grid-column:1/-1!important;
+  }
+}
+
+@media (max-width:22.99rem){
+  .page-home-main #audience .audience-scene-actions{
+    grid-template-columns:1fr!important;
+  }
+  .page-home-main #audience .audience-scene-features{
+    grid-template-columns:1fr!important;
+  }
+  .page-home-main #audience .audience-scene-features li{
+    grid-column:auto!important;
+  }
+}
