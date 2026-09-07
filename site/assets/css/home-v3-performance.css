@@ -1,0 +1,27 @@
+/* HOME V3 performance layer — rendering optimizations only; no visual redesign. */
+@supports (content-visibility:auto){
+  .page-home-main main > .home-section:not(.home-solutions),
+  .page-home-main main > section.home-section:not(.home-solutions){
+    content-visibility:auto;
+    contain-intrinsic-size:auto 760px;
+  }
+
+  .page-home-main .home-articles,
+  .page-home-main .home-guide,
+  .page-home-main .home-about,
+  .page-home-main .home-service,
+  .page-home-main .home-faq,
+  .page-home-main .home-request{
+    content-visibility:auto;
+    contain-intrinsic-size:auto 720px;
+  }
+}
+
+/* Avoid expensive paint work for invisible decorative layers on phones. */
+@media (max-width:47.99rem){
+  .page-home-main .home-catalog::before,
+  .page-home-main .home-catalog::after,
+  .page-home-main .home-request-aura{
+    will-change:auto!important;
+  }
+}
