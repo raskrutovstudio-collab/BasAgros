@@ -34,7 +34,8 @@ const HOME_CSS = [
   'home-v3-mobile-pass2.css',
   'home-v3-mobile-pass3.css',
   'home-v3-mobile-pass4.css',
-  'home-v3-performance.css'
+  'home-v3-performance.css',
+  'home-v3-mobile-menu.css'
 ];
 
 const HOME_JS = [
@@ -108,16 +109,10 @@ function bundleFiles(directory, names, outputName, separator) {
 }
 
 function hardenHomeAccessibility(html) {
-  /* PageSpeed Agentic View builds an accessibility tree. A tabpanel is a
-     widget container, not an article landmark, so keep the visual class but
-     use a neutral div for the ARIA role. */
   html = html.replace(/<article class="home-purpose-panel[\s\S]*?<\/article>/g, (panel) =>
     panel.replace(/^<article/, '<div').replace(/<\/article>$/, '</div>')
   );
 
-  /* The header brand already has an explicit accessible name. Mirror that on
-     the footer brand because the logo image may be visually replaced/hidden by
-     CSS and therefore cannot be relied on as the link name. */
   html = html.replace(
     /<a class="home-brand" href="\/">(?!\s*<span class="visually-hidden")/g,
     '<a class="home-brand" href="/" aria-label="BAS Agros — главная">'
@@ -173,10 +168,10 @@ function optimizeHomeDocument() {
   const preload = [
     '  <link rel="preload" as="image" type="image/avif" href="/assets/img/home/hero-v4-machinery-900.avif" media="(max-width: 63.99rem)" fetchpriority="high">',
     '  <link rel="preload" as="image" type="image/avif" href="/assets/img/home/hero-v4-machinery-1672.avif" media="(min-width: 64rem)" fetchpriority="high">',
-    '  <link rel="stylesheet" href="/assets/css/home-v3.bundle.css?v=20260907-1" data-home-v3-catalog-sculpted data-home-v3-crops-lux>'
+    '  <link rel="stylesheet" href="/assets/css/home-v3.bundle.css?v=20260907-2" data-home-v3-catalog-sculpted data-home-v3-crops-lux>'
   ].join('\n');
   html = html.replace('</head>', `${preload}\n</head>`);
-  html = html.replace('</body>', '  <script src="/assets/js/home-v3.bundle.js?v=20260907-1" defer></script>\n</body>');
+  html = html.replace('</body>', '  <script src="/assets/js/home-v3.bundle.js?v=20260907-2" defer></script>\n</body>');
 
   assertAgentAccessibility(html);
   fs.writeFileSync(file, html, 'utf8');
@@ -184,9 +179,6 @@ function optimizeHomeDocument() {
 
 validateRoutes();
 
-/* Build one render-blocking CSS request and one deferred JS request for the V3
-   homepage. The source files stay separate for maintainability; only generated
-   output is bundled. */
 bundleFiles('css', HOME_CSS, 'home-v3.bundle.css', '\n\n');
 bundleFiles('js', HOME_JS, 'home-v3.bundle.js', '\n\n;\n\n');
 
