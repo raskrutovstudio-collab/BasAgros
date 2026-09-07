@@ -23,6 +23,7 @@ on:
       - site/assets/css/home-v3-mobile.css
       - site/assets/css/home-v3-mobile-pass2.css
       - site/assets/css/home-v3-mobile-pass3.css
+      - site/assets/css/home-v3-mobile-pass4.css
       - site/assets/css/home-v3-review-fixes.css
       - site/assets/css/home-v3-header-hotfix.css
       - site/assets/css/home-v3-purpose-icons.css
@@ -69,13 +70,14 @@ jobs:
             'home-v3-final-ui.css',
             'home-v3-mobile-pass2.css',
             'home-v3-mobile-pass3.css',
+            'home-v3-mobile-pass4.css',
           ]
           for name in styles:
               if name not in html:
-                  html = html.replace('</head>', f'<link rel="stylesheet" href="/assets/css/{name}?qa=20260907b"></head>')
+                  html = html.replace('</head>', f'<link rel="stylesheet" href="/assets/css/{name}?qa=20260907c"></head>')
           for name in ['home-v3-final-ui.js','home-v3-mobile-pass3.js']:
               if name not in html:
-                  html = html.replace('</body>', f'<script src="/assets/js/{name}?qa=20260907b" defer></script></body>')
+                  html = html.replace('</body>', f'<script src="/assets/js/{name}?qa=20260907c" defer></script></body>')
           p.write_text(html, encoding='utf-8')
           PY
 
@@ -94,7 +96,7 @@ jobs:
           import { chromium } from 'playwright';
 
           const sizes = [['360',360,800],['390',390,844],['430',430,932]];
-          const browser = await chromium.launch({ headless: true });
+          const browser = await chromium.launch({ headless:true });
           const reports = [];
 
           for (const [name,width,height] of sizes) {
@@ -103,43 +105,89 @@ jobs:
             page.on('console', msg => { if (msg.type()==='error') consoleErrors.push(msg.text()); });
             page.on('pageerror', err => consoleErrors.push(String(err)));
             await page.goto('http://127.0.0.1:8765/', { waitUntil:'networkidle' });
-            await page.waitForTimeout(500);
+            await page.waitForTimeout(800);
 
             const menu = page.locator('[data-menu-toggle]');
             if (await menu.count()) { await menu.click(); await page.waitForTimeout(100); await menu.click(); }
-            for (const tab of await page.locator('[data-purpose-tab]').all()) { await tab.click(); await page.waitForTimeout(70); }
-            for (const trigger of await page.locator('#audience .audience-scene-trigger').all()) { await trigger.click(); await page.waitForTimeout(70); }
+            for (const tab of await page.locator('[data-purpose-tab]').all()) { await tab.click(); await page.waitForTimeout(60); }
+            for (const trigger of await page.locator('#audience .audience-scene-trigger').all()) { await trigger.click(); await page.waitForTimeout(60); }
+
+            const catalogRail = page.locator('.home-catalog.home-catalog-lux-ready .home-category-grid');
+            const catalogCards = page.locator('.home-catalog.home-catalog-lux-ready .home-category');
+            const cardCount = await catalogCards.count();
+            const catalogTitles = await catalogCards.locator('h3').allTextContents();
+            const initialCatalog = await catalogRail.evaluate((rail) => {
+              const cards = [...rail.querySelectorAll(':scope > .home-category')];
+              const first = cards[0]?.getBoundingClientRect();
+              const rb = rail.getBoundingClientRect();
+              return {
+                scrollLeft:+rail.scrollLeft.toFixed(1),
+                scrollWidth:rail.scrollWidth,
+                clientWidth:rail.clientWidth,
+                firstLeft:first ? +first.left.toFixed(1) : null,
+                railLeft:+rb.left.toFixed(1),
+                firstVisible:!!first && first.right > 0 && first.left < innerWidth
+              };
+            });
+
+            if (cardCount) {
+              await catalogRail.dispatchEvent('pointerdown', { pointerType:'touch' });
+              await catalogRail.evaluate((rail) => rail.scrollTo({ left:rail.scrollWidth, behavior:'auto' }));
+              await page.waitForTimeout(350);
+            }
+
+            const endCatalog = await catalogRail.evaluate((rail) => {
+              const cards = [...rail.querySelectorAll(':scope > .home-category')];
+              const last = cards.at(-1)?.getBoundingClientRect();
+              return {
+                scrollLeft:+rail.scrollLeft.toFixed(1),
+                maxScroll:+(rail.scrollWidth-rail.clientWidth).toFixed(1),
+                lastLeft:last ? +last.left.toFixed(1) : null,
+                lastRight:last ? +last.right.toFixed(1) : null,
+                lastFullyVisible:!!last && last.left >= -2 && last.right <= innerWidth+2
+              };
+            });
 
             const report = await page.evaluate(() => {
-              const vw = document.documentElement.clientWidth;
-              const rootOverflow = Math.max(0, document.documentElement.scrollWidth-vw);
-              const visible = el => { const s=getComputedStyle(el),r=el.getBoundingClientRect(); return s.display!=='none'&&s.visibility!=='hidden'&&r.width>0&&r.height>0; };
-              const scrollAncestor = el => { let p=el.parentElement; while(p&&p!==document.body){ const s=getComputedStyle(p); if((s.overflowX==='auto'||s.overflowX==='scroll')&&p.scrollWidth>p.clientWidth+2)return true; p=p.parentElement; } return false; };
-              const expected = el => el.classList?.contains('lead-form-honeypot') || el.classList?.contains('home-request-aura') || (el.tagName==='IMG' && Math.abs(el.getBoundingClientRect().left) < 4 && Math.abs(el.getBoundingClientRect().right-vw) < 4);
+              const vw=document.documentElement.clientWidth;
+              const rootOverflow=Math.max(0,document.documentElement.scrollWidth-vw);
+              const visible=el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect();return s.display!=='none'&&s.visibility!=='hidden'&&r.width>0&&r.height>0};
+              const scrollAncestor=el=>{let p=el.parentElement;while(p&&p!==document.body){const s=getComputedStyle(p);if((s.overflowX==='auto'||s.overflowX==='scroll')&&p.scrollWidth>p.clientWidth+2)return true;p=p.parentElement}return false};
+              const expected=el=>el.classList?.contains('lead-form-honeypot')||el.classList?.contains('home-request-aura')||(el.tagName==='IMG'&&Math.abs(el.getBoundingClientRect().left)<4&&Math.abs(el.getBoundingClientRect().right-vw)<4);
               const overflow=[];
               for(const el of document.body.querySelectorAll('*')){
                 if(!visible(el)||scrollAncestor(el)||expected(el))continue;
                 const r=el.getBoundingClientRect();
-                if(r.left < -2 || r.right > vw+2){ overflow.push({tag:el.tagName.toLowerCase(),cls:String(el.className||'').slice(0,100),left:+r.left.toFixed(1),right:+r.right.toFixed(1)}); if(overflow.length>=30)break; }
+                if(r.left<-2||r.right>vw+2){overflow.push({tag:el.tagName.toLowerCase(),cls:String(el.className||'').slice(0,100),left:+r.left.toFixed(1),right:+r.right.toFixed(1)});if(overflow.length>=30)break}
               }
               const sections=[...document.querySelectorAll('main > section, main > div > section')].filter(visible).map(el=>{const r=el.getBoundingClientRect();return{id:el.id||'',cls:String(el.className||'').slice(0,70),height:+r.height.toFixed(0)}});
-              const fixed=[...document.querySelectorAll('body *')].filter(el=>visible(el)&&getComputedStyle(el).position==='fixed').map(el=>{const r=el.getBoundingClientRect();return{cls:String(el.className||'').slice(0,90),left:+r.left.toFixed(0),top:+r.top.toFixed(0),right:+r.right.toFixed(0),bottom:+r.bottom.toFixed(0)}});
-              return {viewport:vw,rootOverflow,overflow,sections,fixed,pageHeight:document.documentElement.scrollHeight};
+              return {viewport:vw,rootOverflow,overflow,sections,pageHeight:document.documentElement.scrollHeight};
             });
-            report.name=name; report.consoleErrors=consoleErrors.slice(0,20); reports.push(report);
+
+            report.name=name;
+            report.consoleErrors=consoleErrors.slice(0,20);
+            report.catalog={cardCount,catalogTitles,initial:initialCatalog,end:endCatalog};
+            reports.push(report);
+
             console.log(`QA ${name}: rootOverflow=${report.rootOverflow}px overflowNodes=${report.overflow.length} pageHeight=${report.pageHeight}px errors=${report.consoleErrors.length}`);
+            console.log('CATALOG',JSON.stringify(report.catalog));
             if(report.overflow.length) console.log('OVERFLOW',JSON.stringify(report.overflow));
             console.log('SECTIONS',JSON.stringify(report.sections));
-            console.log('FIXED',JSON.stringify(report.fixed));
 
-            await page.evaluate(async()=>{const step=Math.max(320,Math.floor(innerHeight*.65));for(let y=0;y<document.documentElement.scrollHeight;y+=step){scrollTo(0,y);await new Promise(r=>setTimeout(r,45));}scrollTo(0,0);});
+            await catalogRail.evaluate((rail)=>rail.scrollTo({left:0,behavior:'auto'}));
+            await page.evaluate(async()=>{const step=Math.max(320,Math.floor(innerHeight*.65));for(let y=0;y<document.documentElement.scrollHeight;y+=step){scrollTo(0,y);await new Promise(r=>setTimeout(r,45));}scrollTo(0,0)});
             await page.waitForTimeout(200);
             await page.screenshot({path:`qa/screenshots/home-v3-${name}.png`,fullPage:true});
             await page.close();
           }
+
           await browser.close();
           fs.writeFileSync('qa/mobile-report.json',JSON.stringify(reports,null,2));
-          const hard=reports.some(r=>r.rootOverflow>2||r.overflow.length>0||r.consoleErrors.length>0);
+          const hard=reports.some(r=>
+            r.rootOverflow>2 || r.overflow.length>0 || r.consoleErrors.length>0 ||
+            r.catalog.cardCount!==4 || !r.catalog.initial.firstVisible || !r.catalog.end.lastFullyVisible ||
+            r.catalog.catalogTitles.length!==4
+          );
           if(hard) process.exitCode=2;
           EOF
           node capture-home-v3.mjs
