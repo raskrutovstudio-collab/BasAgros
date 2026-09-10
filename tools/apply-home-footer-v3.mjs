@@ -13,6 +13,9 @@ const mailIcon = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="t
 
 const contactsBlock = `<div id="contacts"><h2>Контакты</h2><p><a href="tel:+77059608987" class="home-footer-phone" aria-label="Позвонить по номеру 8 705 960 89 87">${phoneIcon}<span>8 705 960 89 87</span></a></p><p><a href="tel:+77052553242" class="home-footer-phone" aria-label="Позвонить по номеру 8 705 255 32 42">${phoneIcon}<span>8 705 255 32 42</span></a></p><p><a href="tel:+77051940212" class="home-footer-phone" aria-label="Позвонить по номеру 8 705 194 02 12">${phoneIcon}<span>8 705 194 02 12</span></a></p><p><a href="https://wa.me/77052553242" class="home-footer-phone" target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp на номер 8 705 255 32 42">${whatsappIcon}<span>WhatsApp</span></a></p><p><a href="mailto:Basagros@mail.ru" class="home-footer-phone" aria-label="Написать на электронную почту Basagros@mail.ru">${mailIcon}<span>Basagros@mail.ru</span></a></p><p>Работаем с хозяйствами по Казахстану.</p><a href="#request" class="home-footer-cta" data-home-modal-intent="commercial_offer">Получить коммерческое предложение →</a></div>`;
 
+const oldHeroSubtitle = 'BAS Agros объединяет семена для разных задач, технологии точного земледелия и биологические решения. Подбор направления и поставка по Казахстану.';
+const newHeroSubtitle = 'BAS Agros реализует семена культур и трав для разных задач, технологии точного земледелия и биологические решения для сельского хозяйства. Подбор направления и поставка по Казахстану.';
+
 function htmlFiles(dir) {
   const result = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -26,12 +29,13 @@ function htmlFiles(dir) {
 let changed = 0;
 for (const file of htmlFiles(siteDir)) {
   let html = fs.readFileSync(file, 'utf8');
-  if (!html.includes('class="home-footer"')) continue;
+  if (!html.includes('class="home-footer"') && !html.includes(oldHeroSubtitle)) continue;
 
   const before = html;
   html = html.replace(/<nav aria-label="Каталог"><h2>Каталог<\/h2><ul>[\s\S]*?<\/ul><\/nav>/, catalogNav);
   html = html.replace(/<nav aria-label="Решения"><h2>Решения<\/h2><ul>[\s\S]*?<\/ul><\/nav>/, solutionsNav);
   html = html.replace(/<div id="contacts">[\s\S]*?<\/div><\/div><div class="home-wrap home-footer-bottom">/, `${contactsBlock}</div><div class="home-wrap home-footer-bottom">`);
+  html = html.replaceAll(oldHeroSubtitle, newHeroSubtitle);
 
   if (html !== before) {
     fs.writeFileSync(file, html);
@@ -39,4 +43,4 @@ for (const file of htmlFiles(siteDir)) {
   }
 }
 
-console.log(`HOME FOOTER V3: updated ${changed} page(s)`);
+console.log(`HOME FOOTER / HERO V3: updated ${changed} page(s)`);
