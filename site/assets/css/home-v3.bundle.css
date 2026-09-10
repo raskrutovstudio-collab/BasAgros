@@ -6530,6 +6530,39 @@ body.home-modal-open { overflow: hidden; }
 /* home-v4-directions.css */
 /* BAS Agros homepage — six-direction concept, 09.09.2026. */
 
+/* Desktop header: all navigation links stay on one compact row. */
+@media (min-width: 64rem) {
+  .page-home-main .home-header .home-header-inner {
+    gap: clamp(.7rem, .9vw, 1rem) !important;
+  }
+
+  .page-home-main .home-header .home-nav {
+    gap: clamp(.65rem, .9vw, 1rem) !important;
+  }
+
+  .page-home-main .home-header .home-nav > ul {
+    grid-template-columns: repeat(9, max-content) !important;
+    justify-content: space-between !important;
+    gap: clamp(.3rem, .45vw, .55rem) !important;
+  }
+
+  .page-home-main .home-header .home-nav-actions {
+    gap: .55rem !important;
+  }
+}
+
+@media (min-width: 64rem) and (max-width: 78rem) {
+  .page-home-main .home-header .home-nav > ul > li > a,
+  .page-home-main .home-header .home-nav-actions .home-btn {
+    font-size: .75rem !important;
+  }
+
+  .page-home-main .home-header .home-nav-actions .home-btn {
+    min-height: 3rem !important;
+    padding-inline: .85rem !important;
+  }
+}
+
 .page-home-main .home-hero-index ul {
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
 }
