@@ -3,8 +3,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = path.resolve(process.cwd(), 'site');
-const port = Number(process.env.PORT || 8765);
-const host = '127.0.0.1';
+const args = process.argv.slice(2);
+const option = (name) => {
+  const index = args.indexOf(name);
+  return index >= 0 ? args[index + 1] : undefined;
+};
+const port = Number(option('--port') || process.env.PORT || 8765);
+const host = option('--host') || process.env.HOST || '127.0.0.1';
 const mime = {
   '.html':'text/html; charset=utf-8', '.css':'text/css; charset=utf-8',
   '.js':'text/javascript; charset=utf-8', '.json':'application/json; charset=utf-8',

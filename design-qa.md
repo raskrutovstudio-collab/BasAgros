@@ -143,3 +143,41 @@ final result: passed
 - Console: no site-originated errors; the only logged error belongs to the cloud-browser extension.
 - CSS cache key: `product.css?v=20260828-11`.
 - Build: `npm run quality:all` passed; 59 pages, 0 audit errors, 0 warnings, 0 broken internal links, 0 indexing errors.
+
+---
+
+# Design QA — desktop audience arrow controls
+
+final result: passed
+
+## Comparison target
+
+- Source visual truth: `/workspace/scratch/eaf1b4c76392/upload/260b02c5-0f40-42ba-b776-2c9f31676e9c.png` (`1868 × 748`).
+- Implementation screenshot: `/tmp/audience-arrow-comparison-final.png`, captured in the cloud browser.
+- Implementation viewport: `1363 × 936` CSS px, DPR `1`.
+- State: desktop, collapsed audience cards, first card selected by default.
+- The viewport widths differ, so the comparison was scoped to the circular arrow controls rather than unrelated section proportions.
+
+## Evidence and fidelity surfaces
+
+- Source and implementation screenshots were placed in the same comparison input.
+- Fonts, typography, imagery, copy, card geometry, circle size, and circle placement remain unchanged.
+- The remaining arrow uses the existing `--gold-hi` token; computed color is `rgb(232, 197, 109)`.
+- All desktop `.audience-scene-arrow` duplicates compute to `display: none`.
+- Visible circular controls contain one glyph with center delta `0 px` horizontally and `-0.11 px` vertically.
+- A focused region is sufficient because the requested correction affects only this control.
+
+## Findings and comparison history
+
+- P0/P1/P2: none after the fix. P3: none required.
+- Initial P2: two arrows overlapped inside each circle and the link arrow inherited a white foreground color.
+- Fix: hide the duplicate desktop trigger arrow, center the remaining link arrow with flex alignment, and enforce the existing gold token.
+- Post-fix: one centered gold arrow remains in each visible circle.
+
+## Browser and functional checks
+
+- The second audience card opens successfully.
+- Its trigger changes to `aria-expanded="true"` and its detail panel becomes visible.
+- Mobile accordion arrows remain available because the duplicate is hidden only from `64rem` upward.
+- No site-originated console errors were found; extension metadata errors were excluded.
+- Build: `npm run quality:all` passed; 59 pages, 0 audit errors, 0 warnings, 0 broken internal links, 0 indexing errors.

@@ -6,6 +6,7 @@
     "node": ">=22.19"
   },
   "scripts": {
+    "dev": "node tools/serve.mjs",
     "init:project": "node tools/init-project.mjs",
     "audit:pages": "node tools/audit-pages.mjs",
     "check:secrets": "node tools/check-secrets.mjs",
