@@ -350,3 +350,16 @@ dd {
     box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, .18) !important;
   }
 }
+
+/* HOME V3 — Popular crops: stretch the two lower cards across the full width of the four-card row. */
+@media (min-width: 64rem) {
+  .page-home-main .home-crops.home-crops-lux-ready .home-crops-list > li:nth-child(5) {
+    grid-column: 1 / span 6 !important;
+    grid-row: 2 !important;
+  }
+
+  .page-home-main .home-crops.home-crops-lux-ready .home-crops-list > li:nth-child(6) {
+    grid-column: 7 / span 6 !important;
+    grid-row: 2 !important;
+  }
+}
