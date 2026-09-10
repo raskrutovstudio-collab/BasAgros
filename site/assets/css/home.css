@@ -1066,3 +1066,59 @@ body.home-modal-open { overflow: hidden; }
     aspect-ratio: 1 / 1;
   }
 }
+
+/* Footer direct contact links. */
+.home-footer-contact {
+  margin: 0;
+}
+.home-footer-contact a {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.home-footer-contact-icon {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 1rem;
+  margin-right: .45rem;
+}
+.home-footer-contact a:hover {
+  text-decoration: underline;
+  text-underline-offset: .2rem;
+}
+
+/* Keep WhatsApp and email on one line in footer. */
+.home-footer-contact a {
+  white-space: nowrap;
+}
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .home-footer-grid {
+    grid-template-columns: 1.25fr .9fr 1.15fr;
+    column-gap: 1.5rem;
+  }
+}
+
+/* Footer contact icon alignment. */
+#contacts > p:first-of-type,
+.home-footer-contact {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.home-footer-phone,
+.home-footer-contact a {
+  min-height: 2rem;
+  align-items: center;
+  font-size: .8rem;
+  font-weight: 700;
+}
+.home-footer-contact-icon {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 1rem;
+  margin-right: .45rem;
+}

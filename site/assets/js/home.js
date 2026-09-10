@@ -158,36 +158,36 @@
   const variants = {
     commercial_offer: {
       title: 'Получить коммерческое предложение',
-      description: 'Укажите культуру, объём и населённый пункт доставки. Менеджер подготовит коммерческий расчёт под параметры заказа.',
-      categoryLabel: 'Категория или культура',
-      categoryPlaceholder: 'Например, люцерна или травосмесь',
-      messageLabel: 'Объём и место доставки',
-      messagePlaceholder: 'Например, 2 тонны, Акмолинская область',
+      description: 'Укажите направление и параметры задачи. Менеджер уточнит детали и подготовит коммерческое предложение.',
+      categoryLabel: 'Направление или категория',
+      categoryPlaceholder: 'Например, автопилот или семена зерновых',
+      messageLabel: 'Задача и место поставки',
+      messagePlaceholder: 'Опишите задачу и укажите населённый пункт',
       submit: 'Получить коммерческое предложение',
       formName: 'Главная — модальное окно — коммерческое предложение',
       intent: 'commercial_offer'
     },
     request: {
       title: 'Получить коммерческое предложение',
-      description: 'Укажите культуру, объём и населённый пункт доставки. Менеджер подготовит коммерческий расчёт под параметры заказа.',
-      categoryLabel: 'Категория или культура',
-      categoryPlaceholder: 'Например, люцерна или травосмесь',
-      messageLabel: 'Объём и место доставки',
-      messagePlaceholder: 'Например, 2 тонны, Акмолинская область',
+      description: 'Укажите направление и параметры задачи. Менеджер уточнит детали и подготовит коммерческое предложение.',
+      categoryLabel: 'Направление или категория',
+      categoryPlaceholder: 'Например, автопилот или семена зерновых',
+      messageLabel: 'Задача и место поставки',
+      messagePlaceholder: 'Опишите задачу и укажите населённый пункт',
       submit: 'Получить коммерческое предложение',
       formName: 'Главная — модальное окно — коммерческое предложение',
       intent: 'commercial_offer'
     },
     selection: {
-      title: 'Подобрать семена под задачу',
-      description: 'Укажите назначение посева, площадь и планируемый объём. Менеджер подберёт подходящую категорию и культуры из каталога.',
+      title: 'Подобрать решение под задачу',
+      description: 'Выберите одно из шести направлений и кратко опишите задачу хозяйства.',
       categoryLabel: 'Что нужно подобрать',
-      categoryPlaceholder: 'Например, семена для сенокоса',
+      categoryPlaceholder: 'Например, система навигации или газонные травы',
       messageLabel: 'Задача хозяйства и регион',
-      messagePlaceholder: 'Например, кормовая база, Акмолинская область',
-      submit: 'Подобрать семена под задачу',
-      formName: 'Главная — модальное окно — подбор семян',
-      intent: 'seed_selection'
+      messagePlaceholder: 'Опишите задачу, масштаб и населённый пункт',
+      submit: 'Подобрать решение',
+      formName: 'Главная — модальное окно — подбор решения',
+      intent: 'solution_selection'
     }
   };
 
@@ -313,6 +313,17 @@
         event.preventDefault();
         const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowDown' ? 1 : -1) + tabs.length) % tabs.length;
         activatePurpose(next, true);
+      });
+    });
+
+    document.querySelectorAll('[data-direction-link]').forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        const key = trigger.dataset.directionLink;
+        const index = tabs.findIndex((tab) => tab.dataset.directionKey === key);
+        if (index < 0) return;
+        event.preventDefault();
+        activatePurpose(index);
+        purposeSelector.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
       });
     });
   }

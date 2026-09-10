@@ -6,15 +6,15 @@ const homePath = path.join(root, 'site', 'index.html');
 const phonePattern = '\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}';
 const consent = 'Нажимая кнопку, вы соглашаетесь на обработку персональных данных.';
 
-const guideForm = `<form class="home-form home-form-compact" data-lead-form data-form-name="Главная — подбор семян под задачу">
-<label for="guide-task">Задача хозяйства<select id="guide-task" name="task"><option value="">Выберите задачу</option><option value="Сенокос">Сенокос</option><option value="Пастбище">Пастбище</option><option value="Медоносный посев">Медоносный посев</option><option value="Сидерация">Сидерация</option></select></label>
-<label for="guide-category">Категория<select id="guide-category" name="category"><option value="">Выберите категорию</option><option value="Травосмеси">Травосмеси</option><option value="Многолетние травы">Многолетние травы</option><option value="Однолетние травы">Однолетние травы</option><option value="Сорго">Сорго</option></select></label>
-<label for="guide-sowing-area">Площадь посева<input id="guide-sowing-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label>
-<label for="guide-desired-volume">Планируемый объём<input id="guide-desired-volume" name="desired_volume" type="text" placeholder="Например, 2 тонны"></label>
+const guideForm = `<form class="home-form home-form-compact" data-lead-form data-form-name="Главная — подбор решения под задачу">
+<label for="guide-task">Задача хозяйства<select id="guide-task" name="task"><option value="">Выберите задачу</option><option value="Закупка семян">Закупка семян</option><option value="Кормовая база">Кормовая база</option><option value="Газон и озеленение">Газон и озеленение</option><option value="Навигация сельхозтехники">Навигация сельхозтехники</option><option value="Биологическое решение">Биологическое решение</option><option value="Комплексный запрос">Комплексный запрос</option></select></label>
+<label for="guide-category">Направление<select id="guide-category" name="category"><option value="">Выберите направление</option><option value="Семена зерновых культур">Семена зерновых культур</option><option value="Семена кормовых трав и травосмеси">Кормовые травы и травосмеси</option><option value="Семена газонных трав">Семена газонных трав</option><option value="Семена сельскохозяйственных культур">Сельскохозяйственные культуры</option><option value="Автопилоты и системы навигации">Автопилоты и навигация</option><option value="Биопрепараты и биологические решения">Биологические решения</option></select></label>
+<label for="guide-sowing-area">Площадь / количество техники<input id="guide-sowing-area" name="project_scale" type="text" placeholder="Например, 500 га или 3 единицы"></label>
+<label for="guide-desired-volume">Необходимый объём / конфигурация<input id="guide-desired-volume" name="desired_volume" type="text" placeholder="Опишите требуемый объём или комплект"></label>
 <label for="guide-delivery-locality">Регион / место доставки<input id="guide-delivery-locality" name="delivery_locality" type="text" autocomplete="address-level2" placeholder="Населённый пункт"></label>
 <label for="guide-phone">Телефон<input id="guide-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="${phonePattern}" placeholder="+7 XXX XXX XX XX"></label>
-<input type="hidden" name="intent" value="seed_selection">
-<button class="home-btn home-btn-primary" type="submit">Подобрать семена под задачу</button>
+<input type="hidden" name="intent" value="solution_selection">
+<button class="home-btn home-btn-primary home-field-wide" type="submit">Получить подбор решения</button>
 <p class="home-guide-consent home-field-wide">${consent}</p>
 <div class="home-form-status home-field-wide" data-form-status aria-live="polite" aria-atomic="true"></div>
 <input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -23,9 +23,9 @@ const guideForm = `<form class="home-form home-form-compact" data-lead-form data
 const requestForm = `<form class="home-form" data-lead-form data-form-name="Главная — коммерческое предложение">
 <label for="request-name">Имя<input id="request-name" name="name" type="text" autocomplete="name"></label>
 <label for="request-phone">Телефон<input id="request-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="${phonePattern}" placeholder="+7 XXX XXX XX XX"></label>
-<label for="request-category">Категория или культура<input id="request-category" name="category" type="text" placeholder="Например, люцерна"></label>
-<label for="request-sowing-area">Площадь посева<input id="request-sowing-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label>
-<label for="request-desired-volume">Планируемый объём<input id="request-desired-volume" name="desired_volume" type="text" placeholder="Например, 2 тонны"></label>
+<label for="request-category">Направление или категория<input id="request-category" name="category" type="text" placeholder="Например, автопилот или семена зерновых"></label>
+<label for="request-sowing-area">Площадь / количество техники<input id="request-sowing-area" name="project_scale" type="text" placeholder="Например, 500 га или 3 единицы"></label>
+<label for="request-desired-volume">Объём / конфигурация<input id="request-desired-volume" name="desired_volume" type="text" placeholder="Необходимый объём или комплект"></label>
 <label for="request-delivery-locality">Населённый пункт доставки<input id="request-delivery-locality" name="delivery_locality" type="text" autocomplete="address-level2" placeholder="Населённый пункт"></label>
 <label class="home-field-wide" for="request-message">Комментарий<textarea id="request-message" name="message" rows="4" placeholder="Дополнительные параметры заказа"></textarea></label>
 <input type="hidden" name="intent" value="commercial_offer">
@@ -69,7 +69,7 @@ function assertFormContract(html) {
       ['honeypot', /<input(?=[^>]*name="website")(?=[^>]*class="[^"]*lead-form-honeypot)[^>]*>/],
       ['status', /<(?:div|p)(?=[^>]*data-form-status)(?=[^>]*aria-live="polite")[^>]*>/],
       ['submit button', /<button(?=[^>]*type="submit")[^>]*>/],
-      ['sowing area', /name="sowing_area"/]
+      ['project scale', /name="project_scale"/]
     ];
 
     for (const [label, re] of checks) {
@@ -103,9 +103,9 @@ function assertFormContract(html) {
 }
 
 let html = fs.readFileSync(homePath, 'utf8');
-html = replaceForm(html, 'Главная — подбор семян под задачу', guideForm);
+html = replaceForm(html, 'Главная — подбор решения под задачу', guideForm);
 html = replaceForm(html, 'Главная — коммерческое предложение', requestForm);
 assertFormContract(html);
 fs.writeFileSync(homePath, html, 'utf8');
 
-console.log('Forms contract applied: 3 homepage forms including modal, phone mask markup, sowing_area and stable field names.');
+console.log('Forms contract applied: 3 homepage forms including modal, phone mask markup, project_scale and stable field names.');

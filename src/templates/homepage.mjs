@@ -6,7 +6,7 @@ import { escapeHtml, pageByUrl } from './html.mjs';
 
 const homepage = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/homepage.json'), 'utf8'));
 const HEADER = [
-  ['/catalog/', 'Каталог'], ['#solutions', 'Решения'], ['/o-kompanii/', 'О компании'],
+  ['/catalog/', 'Каталог'], ['#solutions', 'Направления'], ['/o-kompanii/', 'О компании'],
   ['/dostavka-i-oplata/', 'Доставка'], ['/kachestvo-i-sertifikaty/', 'Качество'],
   ['/agroblog/', 'Агроблог'], ['/faq/', 'FAQ']
 ];
@@ -61,7 +61,13 @@ function icon(name) {
     quality: '<circle cx="24" cy="18" r="8"/><path d="M21 18l2 2 4-4"/><path d="M18 25v12l6-4 6 4V25"/>',
     categories: '<rect x="8" y="10" width="12" height="10" rx="2"/><rect x="28" y="10" width="12" height="10" rx="2"/><rect x="18" y="28" width="12" height="10" rx="2"/><path d="M14 20v4h16v4"/><path d="M34 20v4"/>',
     compass: '<circle cx="24" cy="24" r="14"/><path d="m29 19-8 3-3 8 8-3 3-8Z"/><circle cx="24" cy="24" r="1.2"/>',
-    delivery: '<path d="M6 16h23v13H6z"/><path d="M29 20h6l5 6v3H29z"/><circle cx="16" cy="34" r="4"/><circle cx="34" cy="34" r="4"/><path d="M12 21h10"/>'
+    delivery: '<path d="M6 16h23v13H6z"/><path d="M29 20h6l5 6v3H29z"/><circle cx="16" cy="34" r="4"/><circle cx="34" cy="34" r="4"/><path d="M12 21h10"/>',
+    grain: '<path d="M24 42V10M24 17c-6 0-10-3-11-8 6 0 10 3 11 8Zm0 8c6 0 10-3 11-8-6 0-10 3-11 8Zm0 8c-6 0-10-3-11-8 6 0 10 3 11 8Zm0 8c6 0 10-3 11-8-6 0-10 3-11 8Z"/>',
+    grass: '<path d="M8 39c5-12 9-20 16-28-2 12-2 20 0 28M24 39c4-10 9-17 16-23-4 10-5 17-5 23M9 39h30"/>',
+    lawn: '<path d="M7 37h34M11 37c1-9 4-16 9-23-1 10 0 17 2 23m3 0c2-8 6-14 12-19-3 8-4 14-4 19"/>',
+    seed: '<path d="M24 41V24m0 2c-8 0-13-5-13-13 8 0 13 5 13 13Zm0 0c8 0 13-5 13-13-8 0-13 5-13 13Z"/><path d="M15 41h18"/>',
+    navigation: '<circle cx="24" cy="24" r="15"/><path d="m31 17-5 10-10 5 5-10 10-5Z"/><path d="M24 5v4m0 30v4M5 24h4m30 0h4"/>',
+    bio: '<path d="M10 36c3-15 12-24 28-26 0 16-9 25-25 26"/><path d="M13 36c8-8 14-13 23-22M24 38v-9"/><circle cx="24" cy="40" r="2"/>'
   };
   return `<svg class="home-icon" viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${shapes[name] || shapes.leaf}</g></svg>`;
 }
@@ -106,13 +112,13 @@ export function renderHomeHeader(page, pages) {
 }
 export function renderHomeFooter(pages) {
   const cols = Object.entries(FOOTER).map(([heading, urls]) => `<nav aria-label="${heading}"><h2>${heading}</h2><ul>${urls.map((url) => { const p = requirePage(pages, url); return `<li>${link(p.url, p.page_name)}</li>`; }).join('')}</ul></nav>`).join('');
-  return `<footer class="home-footer"><div class="home-wrap home-footer-grid"><div class="home-footer-brand"><a class="home-brand" href="/">${logo()}</a><p>Семена трав, травосмеси и сельскохозяйственные культуры с доставкой по Казахстану.</p></div>${cols}<div id="contacts"><h2>Контакты</h2><p>${phoneLink('home-footer-phone')}</p><p>Поставка семян по Казахстану.</p>${link('#request', 'Получить коммерческое предложение →', 'home-footer-cta', 'data-home-modal-intent="commercial_offer"')}</div></div><div class="home-wrap home-footer-bottom"><p>© BAS Agros</p></div></footer>`;
+  return `<footer class="home-footer"><div class="home-wrap home-footer-grid"><div class="home-footer-brand"><a class="home-brand" href="/">${logo()}</a><p>Семена, технологии точного земледелия и биологические решения для сельского хозяйства Казахстана.</p></div>${cols}<div id="contacts"><h2>Контакты</h2><p>${phoneLink('home-footer-phone')}</p><p>Работаем с хозяйствами по Казахстану.</p>${link('#request', 'Получить коммерческое предложение →', 'home-footer-cta', 'data-home-modal-intent="commercial_offer"')}</div></div><div class="home-wrap home-footer-bottom"><p>© BAS Agros</p></div></footer>`;
 }
 
 function renderHero(page, pages) {
   const data = block('hero');
   if (page.h1 !== data.heading) throw new Error('homepage hero.heading должен совпадать с h1 маршрута');
-  const categoryLinks = data.items.map((item) => { requirePage(pages, item.url); return `<li>${link(item.url, item.title)}<span aria-hidden="true">↗</span></li>`; }).join('');
+  const categoryLinks = data.items.map((item) => `<li>${link(item.url, item.shortTitle || item.title, '', `data-direction-link="${escapeHtml(item.key)}"`)}<span aria-hidden="true">↗</span></li>`).join('');
   const facts = (data.facts || []).map((item) => `<li><span aria-hidden="true"></span>${escapeHtml(item)}</li>`).join('');
   return `<section class="home-hero" aria-labelledby="home-h1" data-lux-hero>
     <div class="home-hero-stage">
@@ -138,27 +144,21 @@ function renderHero(page, pages) {
 
 function renderSolutions(pages) {
   const data = block('solutions');
-  const purposeIcons = ['leaf', 'farm', 'bee', 'compass'];
   const tabs = data.items.map((item, index) => {
-    requirePage(pages, item.url);
-    return `<button class="home-purpose-tab${index === 0 ? ' is-active' : ''}" type="button" role="tab" id="purpose-tab-${index}" aria-controls="purpose-panel-${index}" aria-selected="${index === 0 ? 'true' : 'false'}" tabindex="${index === 0 ? '0' : '-1'}" data-purpose-tab="${index}">${icon(purposeIcons[index])}<span><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.text)}</small></span><b aria-hidden="true">→</b></button>`;
+    if (!item.url.startsWith('#')) requirePage(pages, item.url);
+    return `<button class="home-purpose-tab${index === 0 ? ' is-active' : ''}" type="button" role="tab" id="purpose-tab-${index}" aria-controls="purpose-panel-${index}" aria-selected="${index === 0 ? 'true' : 'false'}" tabindex="${index === 0 ? '0' : '-1'}" data-purpose-tab="${index}" data-direction-key="${escapeHtml(item.key)}">${icon(item.icon)}<span><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.text)}</small></span><b aria-hidden="true">→</b></button>`;
   }).join('');
-  const benefits = [
-    ['leaf', 'Категории под задачу'],
-    ['compass', 'Помощь с выбором'],
-    ['quality', 'Параметры партии'],
-    ['delivery', 'Поставка по Казахстану']
-  ];
-  const panels = data.items.map((item, index) => `<article class="home-purpose-panel${index === 0 ? ' is-active' : ''}" role="tabpanel" id="purpose-panel-${index}" aria-labelledby="purpose-tab-${index}"${index === 0 ? '' : ' hidden'} data-purpose-panel="${index}">
+  const featureIcons = ['categories', 'compass', 'delivery'];
+  const panels = data.items.map((item, index) => `<div class="home-purpose-panel${index === 0 ? ' is-active' : ''}" role="tabpanel" id="purpose-panel-${index}" aria-labelledby="purpose-tab-${index}"${index === 0 ? '' : ' hidden'} data-purpose-panel="${index}">
     ${mediaSlot(item.slot, 'home-purpose-media')}
     <div class="home-purpose-shade" aria-hidden="true"></div>
-    <div class="home-purpose-copy"><p class="home-kicker">Решение BAS Agros</p><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>${link(item.url, 'Смотреть направление →', 'home-btn home-btn-outline')}</div>
-    <ul class="home-purpose-benefits">${benefits.map(([name, label]) => `<li>${icon(name)}<span>${escapeHtml(label)}</span></li>`).join('')}</ul>
-  </article>`).join('');
+    <div class="home-purpose-copy"><p class="home-kicker">Направление BAS Agros</p><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>${link(item.url, `${item.actionLabel} →`, 'home-btn home-btn-outline', item.url.startsWith('#request') ? 'data-home-modal-intent="selection"' : '')}</div>
+    <ul class="home-purpose-benefits">${item.features.map((label, featureIndex) => `<li>${icon(featureIcons[featureIndex])}<span>${escapeHtml(label)}</span></li>`).join('')}</ul>
+  </div>`).join('');
   return `<section class="home-section home-solutions" id="solutions" aria-labelledby="solutions-title">
-    <div class="home-wrap">${sectionHead(data, 'solutions-title', '', 'Подбор по назначению')}
+    <div class="home-wrap">${sectionHead(data, 'solutions-title', '', 'Основные категории')}
       <div class="home-purpose-selector" data-purpose-selector data-lux-reveal>
-        <aside class="home-purpose-nav"><p>Выберите задачу хозяйства</p><div class="home-purpose-tabs" role="tablist" aria-orientation="vertical">${tabs}</div></aside>
+        <aside class="home-purpose-nav"><p>Выберите направление</p><div class="home-purpose-tabs" role="tablist" aria-orientation="vertical">${tabs}</div></aside>
         <div class="home-purpose-panels">${panels}</div>
       </div>
     </div>
@@ -169,49 +169,49 @@ function renderAudience(pages) {
   const data = block('audience');
   const scenes = [
     {
-      image: 'audience-livestock',
-      heading: 'Сенокос, пастбища и кормовая база',
-      lead: 'Подбор семян под назначение посева, площадь, регион и планируемый объём поставки.',
-      features: [
-        ['Назначение посева', 'Сенокос, пастбище или кормовая база'],
-        ['Подходящая категория', 'Травосмеси и кормовые травы'],
-        ['Параметры поставки', 'Площадь, объём и регион']
-      ]
-    },
-    {
       image: 'audience-farming',
-      heading: 'Культуры под производственную задачу',
-      lead: 'Переход к подходящей категории начинается с задачи хозяйства и параметров планируемой поставки.',
+      heading: 'Посевной материал для полевых задач',
+      lead: 'Подбор семян начинается с культуры, площади, региона и планируемого объёма поставки.',
       features: [
-        ['Задача хозяйства', 'Посевы, севооборот или сидерация'],
-        ['Направление каталога', 'Культуры и категории под задачу'],
-        ['Параметры заявки', 'Культура, объём и регион']
+        ['Задача хозяйства', 'Посев и производственное назначение'],
+        ['Направление', 'Зерновые и сельскохозяйственные культуры'],
+        ['Параметры запроса', 'Площадь, объём и регион']
       ]
     },
     {
-      image: 'audience-apiary',
-      heading: 'Культуры для медоносных посевов',
-      lead: 'Подбор направления для пасечного хозяйства с учётом площади посева и параметров поставки.',
+      image: 'audience-livestock',
+      heading: 'Сенокосы, пастбища и кормовая база',
+      lead: 'Кормовые травы и травосмеси подбираются под назначение посева, площадь и параметры поставки.',
       features: [
-        ['Назначение', 'Медоносный посев'],
-        ['Подтверждённые культуры', 'Фацелия и связанные позиции каталога'],
-        ['Параметры поставки', 'Площадь, объём и регион']
+        ['Назначение', 'Сенокос, пастбище или кормовая база'],
+        ['Направление', 'Кормовые травы и травосмеси'],
+        ['Параметры запроса', 'Площадь, объём и регион']
       ]
     },
     {
       image: 'audience-wholesale',
-      heading: 'Категории и объём для расчёта',
-      lead: 'Для оптовой закупки укажите нужные категории, планируемый объём и направление поставки.',
+      heading: 'Газоны и озеленение территорий',
+      lead: 'Подбор газонных трав и смесей с учётом назначения территории и параметров проекта.',
       features: [
-        ['Категории', 'Нужные группы и культуры'],
-        ['Планируемый объём', 'Параметры закупки для расчёта'],
-        ['Регион поставки', 'Направление для организации логистики']
+        ['Задача', 'Газон или озеленение'],
+        ['Направление', 'Семена газонных трав'],
+        ['Параметры запроса', 'Территория, площадь и регион']
+      ]
+    },
+    {
+      image: 'audience-apiary',
+      heading: 'Технологии и биологизация производства',
+      lead: 'Автопилоты, навигация и биологические решения подбираются под задачи конкретного предприятия.',
+      features: [
+        ['Технологическая задача', 'Точность работ или биологизация'],
+        ['Направление', 'Навигация или биологические решения'],
+        ['Параметры запроса', 'Техника, площадь и регион']
       ]
     }
   ];
   const featureIcons = ['compass', 'categories', 'delivery'];
   const rows = data.items.map((item, index) => {
-    requirePage(pages, item.url);
+    if (!item.url.startsWith('#')) requirePage(pages, item.url);
     const scene = scenes[index];
     return `<li class="audience-scene audience-scene-${index + 1}" data-audience-scene>
       <picture class="audience-scene-media" aria-hidden="true">
@@ -240,7 +240,7 @@ function renderAudience(pages) {
           </ul>
           <div class="audience-scene-actions">
             ${link(item.url, 'Смотреть решения →', 'audience-scene-primary')}
-            <a class="audience-scene-secondary" href="#request" data-home-modal-intent="selection">Подобрать культуры →</a>
+            <a class="audience-scene-secondary" href="#request" data-home-modal-intent="selection">Обсудить задачу →</a>
           </div>
         </div>
       </div>
@@ -268,14 +268,15 @@ function renderAudience(pages) {
 function renderCatalog(pages) {
   const data = block('catalog');
   const cards = data.items.map((item, index) => {
-    requirePage(pages, item.url);
+    if (!item.url.startsWith('#')) requirePage(pages, item.url);
+    const directionAttr = item.directionKey ? `data-direction-link="${escapeHtml(item.directionKey)}"` : '';
     return `<article class="home-category${item.featured ? ' home-category-featured' : ''} home-category-${index + 1}" data-lux-reveal>
-      <a href="${escapeHtml(item.url)}" class="home-category-media">${mediaSlot(item.slot)}<span class="home-category-arrow" aria-hidden="true">↗</span></a>
-      <div class="home-category-body"><p class="home-kicker">${item.featured ? 'Главное направление' : 'Категория'}</p><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>${link(item.url, 'Открыть направление →', 'home-category-link')}</div>
+      <a href="${escapeHtml(item.url)}" class="home-category-media" ${directionAttr}>${mediaSlot(item.slot)}<span class="home-category-arrow" aria-hidden="true">↗</span></a>
+      <div class="home-category-body"><p class="home-kicker">${item.featured ? 'Основа' : 'Направление'}</p><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>${link(item.url, 'Открыть направление →', 'home-category-link', directionAttr)}</div>
     </article>`;
   }).join('');
   return `<section class="home-section home-catalog" aria-labelledby="catalog-title">
-    <div class="home-wrap">${sectionHead(data, 'catalog-title', link('/catalog/', 'Весь каталог →', 'home-text-link'), 'Каталог')}<div class="home-category-grid">${cards}</div></div>
+    <div class="home-wrap">${sectionHead(data, 'catalog-title', link(data.links[0].url, `${data.links[0].label} →`, 'home-text-link'), 'Система решений')}<div class="home-category-grid">${cards}</div></div>
   </section>`;
 }
 
@@ -312,22 +313,22 @@ function renderGuide() {
   return `<section class="home-section home-guide" aria-labelledby="guide-title">
     <div class="home-wrap home-guide-grid">
       <div class="home-guide-intro" data-lux-reveal>
-        <p class="home-kicker">Персональный подбор</p>
+        <p class="home-kicker">Подбор направления</p>
         <h2 id="guide-title">${escapeHtml(data.heading)}</h2>
         <p>${escapeHtml(data.text)}</p>
         <ul class="home-guide-markers">${data.items.map((item) => `<li><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.text)}</span></li>`).join('')}</ul>
       </div>
       <div class="home-guide-form-shell" data-lux-reveal>
         <p class="home-guide-form-label">Расскажите о задаче</p>
-        <form class="home-form home-form-compact" data-lead-form data-form-name="Главная — подбор семян под задачу">
-          <label for="guide-task">Задача хозяйства<select id="guide-task" name="task"><option value="">Выберите задачу</option><option value="Сенокос">Сенокос</option><option value="Пастбище">Пастбище</option><option value="Медоносный посев">Медоносный посев</option><option value="Сидерация">Сидерация</option></select></label>
-          <label for="guide-category">Категория<select id="guide-category" name="category"><option value="">Выберите категорию</option><option value="Травосмеси">Травосмеси</option><option value="Многолетние травы">Многолетние травы</option><option value="Однолетние травы">Однолетние травы</option><option value="Сорго">Сорго</option></select></label>
-          <label for="guide-sowing-area">Площадь посева<input id="guide-sowing-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label>
-          <label for="guide-desired-volume">Планируемый объём<input id="guide-desired-volume" name="desired_volume" type="text" placeholder="Например, 2 тонны"></label>
+        <form class="home-form home-form-compact" data-lead-form data-form-name="Главная — подбор решения под задачу">
+          <label for="guide-task">Задача хозяйства<select id="guide-task" name="task"><option value="">Выберите задачу</option><option value="Закупка семян">Закупка семян</option><option value="Кормовая база">Кормовая база</option><option value="Газон и озеленение">Газон и озеленение</option><option value="Навигация сельхозтехники">Навигация сельхозтехники</option><option value="Биологическое решение">Биологическое решение</option><option value="Комплексный запрос">Комплексный запрос</option></select></label>
+          <label for="guide-category">Направление<select id="guide-category" name="category"><option value="">Выберите направление</option><option value="Семена зерновых культур">Семена зерновых культур</option><option value="Семена кормовых трав и травосмеси">Кормовые травы и травосмеси</option><option value="Семена газонных трав">Семена газонных трав</option><option value="Семена сельскохозяйственных культур">Сельскохозяйственные культуры</option><option value="Автопилоты и системы навигации">Автопилоты и навигация</option><option value="Биопрепараты и биологические решения">Биологические решения</option></select></label>
+          <label for="guide-sowing-area">Площадь / количество техники<input id="guide-sowing-area" name="project_scale" type="text" placeholder="Например, 500 га или 3 единицы"></label>
+          <label for="guide-desired-volume">Необходимый объём / конфигурация<input id="guide-desired-volume" name="desired_volume" type="text" placeholder="Опишите требуемый объём или комплект"></label>
           <label for="guide-delivery-locality">Регион / место доставки<input id="guide-delivery-locality" name="delivery_locality" type="text" autocomplete="address-level2" placeholder="Населённый пункт"></label>
           <label for="guide-phone">Телефон<input id="guide-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label>
-          <input type="hidden" name="intent" value="seed_selection"><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="home-btn home-btn-primary home-field-wide" type="submit">Получить персональный подбор</button>
+          <input type="hidden" name="intent" value="solution_selection"><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="home-btn home-btn-primary home-field-wide" type="submit">Получить подбор решения</button>
           <p class="home-guide-consent home-field-wide">${escapeHtml(CONSENT_TEXT)}</p><div class="home-form-status home-field-wide" data-form-status aria-live="polite" aria-atomic="true"></div>
         </form>
       </div>
@@ -337,11 +338,11 @@ function renderGuide() {
 
 function renderAbout(pages) {
   const data = block('about');
-  data.links.forEach((x) => requirePage(pages, x.url));
+  data.links.filter((x) => !x.url.startsWith('#')).forEach((x) => requirePage(pages, x.url));
   return `<section class="home-section home-about" aria-labelledby="about-title">
     <div class="home-wrap">
       <div class="home-strength" data-strength-banner data-lux-reveal>
-        <div class="home-strength-copy"><p class="home-kicker">Травы и травосмеси</p><h2 id="about-title">Семена для задач сельского хозяйства</h2><ul>${data.items.map((item) => `<li><span aria-hidden="true">✓</span>${escapeHtml(item.title)}</li>`).join('')}</ul>${link(data.links[1].url, 'Перейти в каталог трав →', 'home-btn home-btn-outline')}</div>
+        <div class="home-strength-copy"><p class="home-kicker">Семена · технологии · биорешения</p><h2 id="about-title">Шесть направлений для современного хозяйства</h2><ul>${data.items.map((item) => `<li><span aria-hidden="true">✓</span>${escapeHtml(item.title)}</li>`).join('')}</ul>${link(data.links[1].url, 'Смотреть все направления →', 'home-btn home-btn-outline')}</div>
         ${mediaSlot('article-2', 'home-strength-media')}
       </div>
     </div>
@@ -387,15 +388,15 @@ function renderFaq(pages) {
 function renderRequest() {
   const data = block('request');
   return `<section class="home-section home-request" id="request" aria-labelledby="request-title">
-    <div class="home-request-aura" aria-hidden="true"></div>
+      <div class="home-request-aura" aria-hidden="true"></div>
     <div class="home-wrap home-request-grid">
-      <div class="home-request-copy" data-lux-reveal><p class="home-eyebrow">Коммерческое предложение</p><h2 id="request-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p><p class="home-request-note">Культура · объём · площадь · регион поставки</p></div>
+      <div class="home-request-copy" data-lux-reveal><p class="home-eyebrow">Коммерческое предложение</p><h2 id="request-title">${escapeHtml(data.heading)}</h2><p>${escapeHtml(data.text)}</p><p class="home-request-note">Направление · масштаб задачи · регион поставки</p></div>
       <form class="home-form" data-lead-form data-form-name="Главная — коммерческое предложение" data-lux-reveal>
         <label for="request-name">Имя<input id="request-name" name="name" type="text" autocomplete="name"></label>
         <label for="request-phone">Телефон<input id="request-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label>
-        <label for="request-category">Категория или культура<input id="request-category" name="category" type="text" placeholder="Например, люцерна"></label>
-        <label for="request-sowing-area">Площадь посева<input id="request-sowing-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label>
-        <label for="request-desired-volume">Планируемый объём<input id="request-desired-volume" name="desired_volume" type="text" placeholder="Например, 2 тонны"></label>
+        <label for="request-category">Направление или категория<input id="request-category" name="category" type="text" placeholder="Например, автопилот или семена зерновых"></label>
+        <label for="request-sowing-area">Площадь / количество техники<input id="request-sowing-area" name="project_scale" type="text" placeholder="Например, 500 га или 3 единицы"></label>
+        <label for="request-desired-volume">Объём / конфигурация<input id="request-desired-volume" name="desired_volume" type="text" placeholder="Необходимый объём или комплект"></label>
         <label for="request-delivery-locality">Населённый пункт доставки<input id="request-delivery-locality" name="delivery_locality" type="text" autocomplete="address-level2" placeholder="Населённый пункт"></label>
         <label class="home-field-wide" for="request-message">Комментарий<textarea id="request-message" name="message" rows="4" placeholder="Дополнительные параметры заказа"></textarea></label>
         <input type="hidden" name="intent" value="commercial_offer"><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -412,13 +413,13 @@ function renderHomeModal() {
       <button class="home-modal-close" type="button" data-home-modal-close aria-label="Закрыть форму"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
       <p class="home-eyebrow">Заявка</p>
       <h2 id="home-modal-title" data-home-modal-title>Получить коммерческое предложение</h2>
-      <p id="home-modal-description" class="home-modal-description" data-home-modal-description>Укажите культуру, объём и населённый пункт доставки. Менеджер подготовит коммерческий расчёт под параметры заказа.</p>
+      <p id="home-modal-description" class="home-modal-description" data-home-modal-description>Укажите направление и параметры задачи. Менеджер уточнит детали и подготовит коммерческое предложение.</p>
       <form class="home-form home-modal-form" data-lead-form data-form-name="Главная — модальное окно — коммерческое предложение">
         <label for="home-modal-name">Имя<input id="home-modal-name" name="name" type="text" autocomplete="name"></label>
         <label for="home-modal-phone">Телефон<input id="home-modal-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-phone-mask maxlength="16" pattern="\\+7 [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+7 XXX XXX XX XX"></label>
-        <label for="home-modal-category"><span data-home-modal-category-label>Категория или культура</span><input id="home-modal-category" name="category" type="text" data-home-modal-category placeholder="Например, люцерна или травосмесь"></label>
-        <label for="home-modal-area">Площадь посева<input id="home-modal-area" name="sowing_area" type="text" inputmode="decimal" placeholder="Например, 50 га"></label>
-        <label class="home-modal-message" for="home-modal-message"><span data-home-modal-message-label>Объём и место доставки</span><textarea id="home-modal-message" name="message" rows="3" data-home-modal-message placeholder="Например, 2 тонны, Акмолинская область"></textarea></label>
+        <label for="home-modal-category"><span data-home-modal-category-label>Направление или категория</span><input id="home-modal-category" name="category" type="text" data-home-modal-category placeholder="Например, автопилот или семена зерновых"></label>
+        <label for="home-modal-area">Площадь / количество техники<input id="home-modal-area" name="project_scale" type="text" placeholder="Например, 500 га или 3 единицы"></label>
+        <label class="home-modal-message" for="home-modal-message"><span data-home-modal-message-label>Задача и место поставки</span><textarea id="home-modal-message" name="message" rows="3" data-home-modal-message placeholder="Опишите задачу и укажите населённый пункт"></textarea></label>
         <input type="hidden" name="intent" value="commercial_offer" data-home-modal-intent-field><input class="lead-form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <p class="home-modal-note">${escapeHtml(CONSENT_TEXT)}</p><button class="home-btn home-btn-primary" type="submit" data-home-modal-submit>Получить коммерческое предложение</button><div class="home-form-status" data-form-status aria-live="polite" aria-atomic="true"></div>
       </form>

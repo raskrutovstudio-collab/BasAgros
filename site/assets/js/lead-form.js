@@ -40,7 +40,7 @@
   function validatePhone(input) {
     if (!input) return true;
     const valid = isCompletePhone(input.value);
-    input.setCustomValidity(valid ? '' : 'Введите номер в формате +7 XXX XXX XX XX');
+    input.setCustomValidity(valid ? '' : 'Введите номер в формате +7 *** *** ** **');
     return valid;
   }
 

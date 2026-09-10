@@ -213,7 +213,7 @@ window.SITE_CONFIG = Object.freeze({
   const intro = head.firstElementChild;
   intro?.classList.add('home-catalog-lux-intro');
   const heading = head.querySelector('h2');
-  if (heading) heading.innerHTML = '<span>Каталог семян.</span><em>Четыре направления</em>';
+  if (heading) heading.innerHTML = '<span>Единая экосистема.</span><em>Для агробизнеса</em>';
 
   const catalogLink = head.querySelector('.home-text-link');
   if (intro && catalogLink) intro.append(catalogLink);

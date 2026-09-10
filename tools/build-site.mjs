@@ -13,7 +13,6 @@ const manifestPath = path.join(root, 'src', 'data', 'seo-routes.json');
 const validatorPath = path.join(root, 'tools', 'validate-seo-routes.mjs');
 
 const HOME_CSS = [
-  'site.css',
   'home.css',
   'home-square.css',
   'home-v3-qa.css',
@@ -35,7 +34,8 @@ const HOME_CSS = [
   'home-v3-mobile-pass3.css',
   'home-v3-mobile-pass4.css',
   'home-v3-performance.css',
-  'home-v3-mobile-menu.css'
+  'home-v3-mobile-menu.css',
+  'home-v4-directions.css'
 ];
 
 const HOME_JS = [
@@ -168,10 +168,10 @@ function optimizeHomeDocument() {
   const preload = [
     '  <link rel="preload" as="image" type="image/avif" href="/assets/img/home/hero-v4-machinery-900.avif" media="(max-width: 63.99rem)" fetchpriority="high">',
     '  <link rel="preload" as="image" type="image/avif" href="/assets/img/home/hero-v4-machinery-1672.avif" media="(min-width: 64rem)" fetchpriority="high">',
-    '  <link rel="stylesheet" href="/assets/css/home-v3.bundle.css?v=20260907-2" data-home-v3-catalog-sculpted data-home-v3-crops-lux>'
+    '  <link rel="stylesheet" href="/assets/css/home-v3.bundle.css?v=20260909-1" data-home-v3-catalog-sculpted data-home-v3-crops-lux>'
   ].join('\n');
   html = html.replace('</head>', `${preload}\n</head>`);
-  html = html.replace('</body>', '  <script src="/assets/js/home-v3.bundle.js?v=20260907-2" defer></script>\n</body>');
+  html = html.replace('</body>', '  <script src="/assets/js/home-v3.bundle.js?v=20260909-1" defer></script>\n</body>');
 
   assertAgentAccessibility(html);
   fs.writeFileSync(file, html, 'utf8');

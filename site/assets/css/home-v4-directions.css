@@ -1,0 +1,234 @@
+/* BAS Agros homepage — six-direction concept, 09.09.2026. */
+
+.page-home-main .home-hero-index ul {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+.page-home-main .home-hero-index li:nth-child(4) {
+  border-left: 0 !important;
+}
+
+.page-home-main .home-hero-index a {
+  min-height: 3.25rem !important;
+  font-size: clamp(.75rem, .74vw, .8rem) !important;
+  line-height: 1.24 !important;
+}
+
+.page-home-main .home-purpose-selector {
+  scroll-margin-top: 6rem;
+}
+
+.page-home-main .home-purpose-tab {
+  grid-template-columns: 2.7rem minmax(0, 1fr) 1rem !important;
+  gap: .72rem !important;
+  min-width: 0 !important;
+}
+
+.page-home-main .home-purpose-tab::before,
+.page-home-main .home-purpose-benefits li::before {
+  content: none !important;
+  display: none !important;
+}
+
+.page-home-main .home-purpose-tab > .home-icon {
+  display: block !important;
+  width: 2.35rem !important;
+  height: 2.35rem !important;
+  color: #efc763 !important;
+  filter: drop-shadow(0 0 .55rem rgba(232, 197, 109, .14));
+  transition: transform .55s cubic-bezier(.2, .75, .2, 1), color .35s ease, filter .35s ease !important;
+}
+
+.page-home-main .home-purpose-tab.is-active > .home-icon {
+  color: #090a08 !important;
+  filter: none;
+  transform: scale(1.06) !important;
+}
+
+.page-home-main .home-purpose-tab strong {
+  font-size: .85rem !important;
+  line-height: 1.16 !important;
+  text-wrap: balance;
+}
+
+.page-home-main .home-purpose-tab small {
+  font-size: .75rem !important;
+  line-height: 1.3 !important;
+}
+
+.page-home-main .home-purpose-copy h3 {
+  max-width: 13ch !important;
+  font-size: clamp(2.45rem, 4.35vw, 4.7rem) !important;
+}
+
+.page-home-main .home-purpose-benefits {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+.page-home-main .home-purpose-benefits li {
+  display: flex !important;
+  grid-template-columns: none !important;
+  gap: .62rem !important;
+  min-width: 0 !important;
+  font-size: .75rem !important;
+}
+
+.page-home-main .home-purpose-benefits li > .home-icon {
+  display: block !important;
+  width: 1.7rem !important;
+  height: 1.7rem !important;
+  flex: 0 0 1.7rem !important;
+  color: #efc763 !important;
+}
+
+.page-home-main #audience .audience-scene-copy strong {
+  max-width: 23ch !important;
+  text-wrap: balance;
+}
+
+@media (min-width: 64rem) {
+  .page-home-main .home-purpose-selector {
+    grid-template-columns: minmax(21rem, .86fr) minmax(0, 1.7fr) !important;
+    min-height: 41rem !important;
+  }
+
+  .page-home-main .home-purpose-nav {
+    padding: 1.35rem !important;
+  }
+
+  .page-home-main .home-purpose-nav > p {
+    max-width: 13ch !important;
+    margin-bottom: 1rem !important;
+    font-size: clamp(1.45rem, 1.85vw, 1.9rem) !important;
+  }
+
+  .page-home-main .home-purpose-tabs {
+    gap: .36rem !important;
+  }
+
+  .page-home-main .home-purpose-tab {
+    min-height: 4.45rem !important;
+    padding: .68rem .78rem !important;
+  }
+
+  .page-home-main .home-purpose-panels {
+    min-height: 41rem !important;
+  }
+}
+
+@media (max-width: 63.99rem) {
+  .page-home-main .home-hero-index ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .page-home-main .home-hero-index li:nth-child(4) {
+    border-left: 1px solid rgba(232, 197, 109, .16) !important;
+  }
+
+  .page-home-main .home-hero-index li:nth-child(odd) {
+    border-left: 0 !important;
+  }
+
+  .page-home-main .home-purpose-tab > .home-icon {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .page-home-main .home-hero-index a {
+    min-height: 3rem !important;
+    padding: .5rem .56rem !important;
+    font-size: .75rem !important;
+  }
+
+  .page-home-main .home-hero-index li > span {
+    padding-right: .48rem !important;
+  }
+
+  .page-home-main .home-purpose-tab {
+    grid-template-columns: 1.75rem minmax(0, 1fr) .72rem !important;
+    min-height: 4.65rem !important;
+    gap: .4rem !important;
+  }
+
+  .page-home-main .home-purpose-tab > .home-icon {
+    width: 1.65rem !important;
+    height: 1.65rem !important;
+  }
+
+  .page-home-main .home-purpose-tab strong {
+    font-size: .75rem !important;
+    line-height: 1.12 !important;
+  }
+
+  .page-home-main .home-purpose-panels,
+  .page-home-main .home-purpose-panel {
+    min-height: 32.5rem !important;
+  }
+
+  .page-home-main .home-purpose-copy {
+    bottom: 8.55rem !important;
+  }
+
+  .page-home-main .home-purpose-copy h3 {
+    max-width: 13ch !important;
+    font-size: clamp(1.8rem, 8.4vw, 2.25rem) !important;
+  }
+
+  .page-home-main .home-purpose-copy > p:not(.home-kicker) {
+    font-size: .78rem !important;
+    line-height: 1.38 !important;
+  }
+
+  .page-home-main .home-purpose-benefits {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: .35rem !important;
+  }
+
+  .page-home-main .home-purpose-benefits li {
+    display: grid !important;
+    grid-template-columns: 1.35rem minmax(0, 1fr) !important;
+    gap: .25rem !important;
+    font-size: .75rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .page-home-main .home-purpose-benefits li > .home-icon {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    flex-basis: 1.25rem !important;
+  }
+
+  .page-home-main #audience .audience-scene-copy strong,
+  .page-home-main #audience .audience-scene-1 .audience-scene-copy strong {
+    max-width: 25ch !important;
+    font-size: .94rem !important;
+  }
+}
+
+@media (max-width: 23rem) {
+  .page-home-main .home-hero-index a {
+    font-size: .75rem !important;
+  }
+
+  .page-home-main .home-purpose-tab {
+    grid-template-columns: 1.55rem minmax(0, 1fr) .65rem !important;
+    padding: .56rem .48rem !important;
+  }
+
+  .page-home-main .home-purpose-tab > .home-icon {
+    width: 1.45rem !important;
+    height: 1.45rem !important;
+  }
+
+  .page-home-main .home-purpose-tab strong {
+    font-size: .75rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-home-main .home-purpose-tab > .home-icon {
+    transition: none !important;
+  }
+}

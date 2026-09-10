@@ -27,15 +27,15 @@
   const heading = document.querySelector('#home-h1');
   if (!heading) return;
 
-  const original = 'Семена трав и травосмесей в Казахстане';
+  const original = 'Семена и технологии для сельского хозяйства';
   const desktop = window.matchMedia('(min-width: 64rem)');
 
   const render = () => {
     if (desktop.matches) {
       heading.innerHTML = [
-        '<span style="display:block;white-space:nowrap">Семена трав</span>',
-        '<span style="display:block;white-space:nowrap">и травосмесей</span>',
-        '<span style="display:block;white-space:nowrap">в Казахстане</span>'
+        '<span style="display:block;white-space:nowrap">Семена и технологии</span>',
+        '<span style="display:block;white-space:nowrap">для сельского</span>',
+        '<span style="display:block;white-space:nowrap">хозяйства</span>'
       ].join('');
       heading.setAttribute('aria-label', original);
     } else {
