@@ -23,6 +23,36 @@ export const HOME_IMAGES = {
     sizes: '100vw',
     priority: true
   },
+  'direction-grain': {
+    ...pair('direction-grain', 1600, 900, 900, 506),
+    alt: 'Спелое поле зерновых культур на закате',
+    sizes: '(min-width: 64rem) min(65vw, 1000px), 100vw'
+  },
+  'direction-forage': {
+    ...pair('direction-forage', 1600, 900, 900, 506),
+    alt: 'Поле кормовых трав и пастбище',
+    sizes: '(min-width: 64rem) min(65vw, 1000px), 100vw'
+  },
+  'direction-lawn': {
+    ...pair('direction-lawn', 1600, 900, 900, 506),
+    alt: 'Плотный профессиональный газон на благоустроенной территории',
+    sizes: '(min-width: 64rem) min(65vw, 1000px), 100vw'
+  },
+  'direction-agricultural': {
+    ...pair('direction-agricultural', 1600, 900, 900, 506),
+    alt: 'Семена разных сельскохозяйственных культур на фоне полей',
+    sizes: '(min-width: 64rem) min(65vw, 1000px), 100vw'
+  },
+  'direction-navigation': {
+    ...pair('direction-navigation', 1600, 900, 900, 506),
+    alt: 'Трактор с системой спутниковой навигации работает в поле',
+    sizes: '(min-width: 64rem) min(65vw, 1000px), 100vw'
+  },
+  'direction-bio': {
+    ...pair('direction-bio', 1600, 900, 900, 506),
+    alt: 'Исследование биологического препарата для сельского хозяйства',
+    sizes: '(min-width: 64rem) min(65vw, 1000px), 100vw'
+  },
   espartset: {
     ...pair('product-espartset', 640, 520, 480, 360),
     alt: 'Эспарцет',
