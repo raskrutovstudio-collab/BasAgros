@@ -364,24 +364,23 @@ dd {
   }
 }
 
-/* Footer contacts: all phone numbers, WhatsApp and email. */
+/* Footer contacts: compact, labeled and consistent. */
 .home-footer #contacts p {
   margin: .42rem 0;
 }
 
-.home-footer #contacts .home-footer-phone {
+.home-footer #contacts .home-footer-contact-link {
   display: inline-flex;
-  min-height: 2.25rem;
+  min-height: 2.5rem;
   align-items: center;
-  gap: .5rem;
+  gap: .65rem;
   color: #f3f0e8;
   font-size: .82rem;
-  font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
   text-decoration: none;
 }
 
-.home-footer #contacts .home-footer-phone svg {
+.home-footer #contacts .home-footer-contact-link svg {
   width: 1rem;
   height: 1rem;
   flex: 0 0 auto;
@@ -389,7 +388,36 @@ dd {
   color: #e8c56d;
 }
 
-.home-footer #contacts .home-footer-phone:hover,
-.home-footer #contacts .home-footer-phone:focus-visible {
+.home-footer-contact-copy {
+  display: grid;
+  gap: .15rem;
+}
+
+.home-footer-contact-role {
+  color: rgba(243, 240, 232, .58);
+  font-size: .67rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.home-footer-contact-value {
+  color: #f3f0e8;
+  font-size: .82rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.home-footer #contacts .home-footer-contact-link:hover .home-footer-contact-value,
+.home-footer #contacts .home-footer-contact-link:focus-visible .home-footer-contact-value {
   color: #e8c56d;
+}
+
+.home-footer-contact-note {
+  margin-top: .7rem !important;
+}
+
+@media (max-width: 47.99rem) {
+  .home-footer #contacts .home-footer-contact-link {
+    min-height: 2.75rem;
+  }
 }
