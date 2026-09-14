@@ -1,0 +1,91 @@
+/* Lucerne party infographic: align with the global page container and Home V3 icon language. */
+.page-lucerne-v3 .product-party > .lucerne-infographic {
+  width: min(calc(100% - (var(--lucerne-clean-edge) * 2)), var(--lucerne-clean-max)) !important;
+  max-width: var(--lucerne-clean-max) !important;
+  margin: 2rem auto 0 !important;
+  padding: clamp(1.35rem, 2vw, 1.8rem) !important;
+  box-sizing: border-box !important;
+}
+
+.page-lucerne-v3 .product-party > .lucerne-infographic .lucerne-infographic-head {
+  margin-bottom: 1.5rem !important;
+  padding-inline: .1rem !important;
+}
+
+.page-lucerne-v3 .product-party > .lucerne-infographic .lucerne-metrics-grid {
+  width: 100% !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
+}
+
+.page-lucerne-v3 .product-party > .lucerne-infographic .lucerne-metric {
+  min-height: 0 !important;
+  padding: 1.35rem 1.4rem !important;
+  border: 1px solid rgba(232,197,109,.14) !important;
+  border-radius: 1rem !important;
+  background: rgba(7,8,7,.46) !important;
+  box-shadow: none !important;
+}
+
+/* Remove the technical square icon tiles. Keep only a light gold line icon. */
+.page-lucerne-v3 .product-party > .lucerne-infographic .lucerne-icon {
+  display: inline-flex !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 0 .9rem !important;
+  padding: 0 !important;
+  flex: 0 0 auto !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--lucerne-gold-hi) !important;
+}
+
+.page-lucerne-v3 .product-party > .lucerne-infographic .lucerne-icon svg {
+  width: 1.45rem !important;
+  height: 1.45rem !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.55 !important;
+  opacity: .92 !important;
+}
+
+.page-lucerne-v3 .product-party > .lucerne-infographic .lucerne-metric strong {
+  margin-bottom: .42rem !important;
+  color: var(--lucerne-ivory) !important;
+  font-size: 1rem !important;
+  line-height: 1.25 !important;
+}
+
+.page-lucerne-v3 .product-party > .lucerne-infographic .lucerne-metric span:not(.lucerne-icon) {
+  color: var(--lucerne-muted) !important;
+  font-size: .86rem !important;
+  line-height: 1.5 !important;
+}
+
+@media (max-width: 63.99rem) {
+  .page-lucerne-v3 .product-party > .lucerne-infographic .lucerne-metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .page-lucerne-v3 .product-party > .lucerne-infographic {
+    width: min(calc(100% - 2rem), var(--lucerne-clean-max)) !important;
+    margin-top: 1.4rem !important;
+    padding: 1rem !important;
+  }
+
+  .page-lucerne-v3 .product-party > .lucerne-infographic .lucerne-metrics-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .page-lucerne-v3 .product-party > .lucerne-infographic .lucerne-metric {
+    padding: 1.15rem 1.2rem !important;
+  }
+}
