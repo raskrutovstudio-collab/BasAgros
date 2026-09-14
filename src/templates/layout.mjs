@@ -240,8 +240,12 @@ function renderProductDocument({ page, pages, main }) {
   const robots = productRobots(page);
   const structuredData = JSON.stringify(productStructuredData(page, pages)).replace(/</g, '\\u003c');
   const isLyutserna = page.url === '/catalog/mnogoletnie-kormovye-travy/lyutserna/';
-  const socialImage = isLyutserna ? 'https://basagros.kz/assets/img/products/lyutserna/lyutserna-social-1200x630.jpg' : 'https://basagros.kz/assets/img/social/home-fields-1200x630.jpg';
-  const socialImageAlt = isLyutserna ? 'Люцерна — семена BAS Agros' : 'BAS Agros — семена и травосмеси';
+  const socialImage = isLyutserna ? 'https://basagros.kz/assets/img/social/lucerne-seeds-1200x630.jpg' : 'https://basagros.kz/assets/img/social/home-fields-1200x630.jpg';
+  const socialImageAlt = isLyutserna ? 'Цветущая люцерна и семена люцерны' : 'BAS Agros — семена и травосмеси';
+  const productHeader = renderHomeHeader(page, pages).replace(
+    '</ul><div class="home-nav-actions">',
+    '<li><a href="#contacts">Контакты</a></li></ul><div class="home-nav-actions">'
+  );
   return `<!doctype html>
 ${GENERATED_MARKER}
 <html lang="ru">
@@ -252,8 +256,8 @@ ${GENERATED_MARKER}
   <meta name="description" content="${escapeHtml(description)}">
   <link rel="canonical" href="${escapeHtml(page.canonical)}">
   <meta name="robots" content="${escapeHtml(robots)}">
-  <meta name="theme-color" content="#F7F8F3">
-  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#060706">
+  <meta property="og:type" content="product">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:title" content="${escapeHtml(title)}">
   <meta property="og:description" content="${escapeHtml(description)}">
@@ -274,17 +278,20 @@ ${GENERATED_MARKER}
   <link rel="apple-touch-icon" href="/assets/img/favicon-bull.png?v=20260828-1">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home.css?v=20260831-9">
+  <link rel="stylesheet" href="/assets/css/product.css?v=20260914-1">
+  <link rel="stylesheet" href="/assets/css/product-lucerne-v3.css?v=20260914-1">
   <script type="application/ld+json">${structuredData}</script>
 </head>
-<body class="page-home page-product">
+<body class="page-home page-home-main page-product page-lucerne-v3">
   <a class="skip-link" href="#main">Перейти к содержанию</a>
-${renderHomeHeader(page, pages)}
+${productHeader}
   <main id="main">
 ${main}
   </main>
 ${renderHomeFooter(pages)}
   <script src="/assets/js/site-config.js" defer></script>
   <script src="/assets/js/home.js?v=20260831-7" defer></script>
+  <script src="/assets/js/product.js?v=20260831-3" defer></script>
   <script src="/assets/js/lead-form.js" defer></script>
 </body>
 </html>

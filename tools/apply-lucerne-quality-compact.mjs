@@ -12,8 +12,8 @@ let html = fs.readFileSync(pagePath, 'utf8');
 
 const qualityCopy = 'По выбранной партии предоставляются характеристики семян и перечень сопровождающих документов для согласования поставки.';
 const qualityCopyBroken = 'По выбранной партии предоставляются характеристики семян и<br>перечень сопровождающих документов для согласования поставки.';
-if (html.includes(qualityCopy)) {
-  html = html.replace(qualityCopy, qualityCopyBroken);
+if (html.includes(`<p>${qualityCopy}</p>`)) {
+  html = html.replace(`<p>${qualityCopy}</p>`, `<p>${qualityCopyBroken}</p>`);
 }
 
 const agronomyLead = 'Для уверенного старта люцерне нужны глубокая хорошо дренированная почва, плотное посевное ложе, точная глубина заделки и хороший контакт семян с почвой.';

@@ -181,3 +181,64 @@ final result: passed
 - Mobile accordion arrows remain available because the duplicate is hidden only from `64rem` upward.
 - No site-originated console errors were found; extension metadata errors were excluded.
 - Build: `npm run quality:all` passed; 59 pages, 0 audit errors, 0 warnings, 0 broken internal links, 0 indexing errors.
+
+---
+
+# Design QA — lucerne product page in Home V3 style
+
+final result: passed
+
+## Comparison target
+
+- Source visual truth: `https://basagros.kz/` — the approved BAS Agros homepage, captured in the cloud browser on 2026-09-14.
+- Implementation: `http://terminal.local:4173/catalog/mnogoletnie-kormovye-travy/lyutserna/`.
+- Source screenshot: browser-rendered in-session capture; the cloud browser did not expose a reusable filesystem path.
+- Implementation screenshot: browser-rendered in-session capture; the cloud browser did not expose a reusable filesystem path.
+- Source and implementation screenshot pixels: 1348 × 926 each.
+- CSS viewport: 1363 × 936 px for both pages; device pixel ratio 1, so density was normalized.
+- State: desktop, first screen, default state, sticky header at the top of the document.
+
+## Evidence
+
+- The approved homepage and the local lucerne page were captured at the same viewport and placed in the same comparison input twice: before and after the header correction.
+- Both pages use the same carbon background, ivory display type, metallic-gold primary CTA, gold hairlines, muted body copy, dark header and real agricultural photography.
+- The implementation keeps the product-specific information hierarchy: breadcrumbs, product title, price, delivery, party CTA and seed detail remain above the fold.
+- A focused first-screen comparison was required because header density, display typography, CTA material, panel borders, image crop and text wrapping are all visible there.
+- Additional browser-rendered checks covered the commercial form, footer, application cards and middle-page product panels. No image failed after lazy-loaded assets were brought into view.
+
+## Fidelity surfaces
+
+- Fonts and typography: the implementation mirrors the homepage's condensed uppercase display treatment, strong optical weight, compact heading leading and smaller neutral UI copy. Product text wraps without clipping.
+- Spacing and layout rhythm: the homepage's large framed stage, generous outer margins, rounded panels, compact navigation and sectional breathing room are retained. The two-column product stage is an intentional product-page adaptation of the full-width homepage hero.
+- Colors and visual tokens: carbon `#050605`, graphite panels, ivory text, muted ivory copy, metallic-gold gradients and translucent gold borders map directly to the approved homepage system. No legacy green remains in the page-specific theme.
+- Image quality and asset fidelity: existing real lucerne field, seed and use-case photographs are retained; all loaded successfully with valid natural dimensions. No product image was replaced by a CSS drawing or placeholder.
+- Copy and content: title, price, delivery geography, party characteristics, agronomic content, FAQ, form fields and SEO text remain unchanged. Only presentation and the missing header contact link were changed.
+
+## Findings and comparison history
+
+1. Initial P2: the first local comparison had eight header links and omitted «Контакты», while the approved homepage showed nine links.
+2. Fix: added the product-page «Контакты» anchor and tightened desktop navigation spacing so all nine links, phone and CTA remain on one row.
+3. Post-fix evidence: the second same-viewport comparison shows «Контакты» in the local header; the navigation reports 9 items, `scrollWidth === clientWidth`, and the document has no horizontal overflow.
+4. No remaining P0, P1 or P2 findings. P3: the muted breadcrumb contrast is intentionally quieter than the hero and remains readable.
+
+## Browser and functional checks
+
+- H1 count: 1.
+- Header: 9 navigation items; no wrapping or horizontal overflow at the desktop comparison viewport.
+- Forms: 2 lead forms; both retain required phone input, honeypot and live status region.
+- Product modal: commercial and party-characteristic variants open and close; the selection variant opens with 4 visible and enabled task fields.
+- FAQ markup and all internal page content remain present; page build validation reports no broken links.
+- Images: 8/8 rendered with non-zero natural width after lazy-load traversal.
+- Console: no site-originated errors; cloud-browser extension metadata errors were excluded.
+- Build: `npm run quality:all` passed; 59 generated pages, 0 audit errors, 0 warnings, 0 broken internal links, 0 indexing errors, 0 detected secrets.
+- Lighthouse mobile could not start because this runtime has no Chrome/Chromium executable. This is a tooling gap, not a detected page defect; the responsive CSS includes dedicated 64rem and 48rem breakpoints and the release audit should be rerun in the project's normal Chrome environment before publication.
+
+## Implementation checklist
+
+- [x] Apply the approved dark/gold homepage system only to the lucerne product page.
+- [x] Preserve product content, SEO metadata, schema and one-H1 hierarchy.
+- [x] Keep nine header links, phone and CTA on one desktop row.
+- [x] Restyle product cards, FAQ, forms, modal and footer consistently.
+- [x] Preserve form handlers and test the three modal intent variants.
+- [x] Run full project quality gates and browser visual comparison.
+- [ ] Rerun the three mobile Lighthouse passes in an environment with Chrome before publication.
