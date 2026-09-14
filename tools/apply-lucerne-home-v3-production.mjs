@@ -5,27 +5,31 @@ const file = path.resolve('site/catalog/mnogoletnie-kormovye-travy/lyutserna/ind
 if (!fs.existsSync(file)) process.exit(0);
 
 let html = fs.readFileSync(file, 'utf8');
-const assetVersion = '20260914-4';
+const assetVersion = '20260914-5';
 
 html = html.replace(/<meta name="theme-color" content="[^"]+">/, '<meta name="theme-color" content="#060706">');
 html = html.replace(/<link rel="stylesheet" href="\/assets\/css\/home\.css\?v=[^"]+">/, `<link rel="stylesheet" href="/assets/css/home.css?v=${assetVersion}">`);
 
-function ensureStyle(href, matcher) {
-  if (matcher.test(html)) {
-    html = html.replace(matcher, `<link rel="stylesheet" href="${href}">`);
-    return;
-  }
+/* Rebuild the product CSS bundle in a guaranteed order.
+   Cleanup must be last so the legacy product rules cannot reintroduce counters,
+   divider lines or inconsistent spacing. */
+html = html
+  .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product\.css(?:\?v=[^"]+)?">/g, '')
+  .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product-lucerne-v3\.css(?:\?v=[^"]+)?">/g, '')
+  .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product-lucerne-cleanup\.css(?:\?v=[^"]+)?">/g, '');
 
-  const homeStyle = new RegExp('<link rel="stylesheet" href="/assets/css/home\\.css\\?v=[^"]+">');
-  if (homeStyle.test(html)) {
-    html = html.replace(homeStyle, (match) => `${match}\n  <link rel="stylesheet" href="${href}">`);
-  } else {
-    html = html.replace('</head>', `  <link rel="stylesheet" href="${href}">\n</head>`);
-  }
+const productStyles = [
+  `<link rel="stylesheet" href="/assets/css/product.css?v=${assetVersion}">`,
+  `<link rel="stylesheet" href="/assets/css/product-lucerne-v3.css?v=${assetVersion}">`,
+  `<link rel="stylesheet" href="/assets/css/product-lucerne-cleanup.css?v=${assetVersion}">`
+].join('\n  ');
+
+const homeStyleMatcher = /<link rel="stylesheet" href="\/assets\/css\/home\.css\?v=[^"]+">/;
+if (homeStyleMatcher.test(html)) {
+  html = html.replace(homeStyleMatcher, (match) => `${match}\n  ${productStyles}`);
+} else {
+  html = html.replace('</head>', `  ${productStyles}\n</head>`);
 }
-
-ensureStyle(`/assets/css/product.css?v=${assetVersion}`, /<link rel="stylesheet" href="\/assets\/css\/product\.css(?:\?v=[^"]+)?">/);
-ensureStyle(`/assets/css/product-lucerne-v3.css?v=${assetVersion}`, /<link rel="stylesheet" href="\/assets\/css\/product-lucerne-v3\.css(?:\?v=[^"]+)?">/);
 
 html = html.replace(/<body class="([^"]*)">/, (_match, classes) => {
   const set = new Set(classes.split(/\s+/).filter(Boolean));
