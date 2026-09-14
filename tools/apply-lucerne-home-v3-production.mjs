@@ -5,23 +5,22 @@ const file = path.resolve('site/catalog/mnogoletnie-kormovye-travy/lyutserna/ind
 if (!fs.existsSync(file)) process.exit(0);
 
 let html = fs.readFileSync(file, 'utf8');
-const assetVersion = '20260914-5';
+const assetVersion = '20260914-6';
 
 html = html.replace(/<meta name="theme-color" content="[^"]+">/, '<meta name="theme-color" content="#060706">');
 html = html.replace(/<link rel="stylesheet" href="\/assets\/css\/home\.css\?v=[^"]+">/, `<link rel="stylesheet" href="/assets/css/home.css?v=${assetVersion}">`);
 
-/* Rebuild the product CSS bundle in a guaranteed order.
-   Cleanup must be last so the legacy product rules cannot reintroduce counters,
-   divider lines or inconsistent spacing. */
 html = html
   .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product\.css(?:\?v=[^"]+)?">/g, '')
   .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product-lucerne-v3\.css(?:\?v=[^"]+)?">/g, '')
-  .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product-lucerne-cleanup\.css(?:\?v=[^"]+)?">/g, '');
+  .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product-lucerne-cleanup\.css(?:\?v=[^"]+)?">/g, '')
+  .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product-lucerne-commercial-balance\.css(?:\?v=[^"]+)?">/g, '');
 
 const productStyles = [
   `<link rel="stylesheet" href="/assets/css/product.css?v=${assetVersion}">`,
   `<link rel="stylesheet" href="/assets/css/product-lucerne-v3.css?v=${assetVersion}">`,
-  `<link rel="stylesheet" href="/assets/css/product-lucerne-cleanup.css?v=${assetVersion}">`
+  `<link rel="stylesheet" href="/assets/css/product-lucerne-cleanup.css?v=${assetVersion}">`,
+  `<link rel="stylesheet" href="/assets/css/product-lucerne-commercial-balance.css?v=${assetVersion}">`
 ].join('\n  ');
 
 const homeStyleMatcher = /<link rel="stylesheet" href="\/assets\/css\/home\.css\?v=[^"]+">/;
