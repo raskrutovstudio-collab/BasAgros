@@ -5,19 +5,27 @@ const file = path.resolve('site/catalog/mnogoletnie-kormovye-travy/lyutserna/ind
 if (!fs.existsSync(file)) process.exit(0);
 
 let html = fs.readFileSync(file, 'utf8');
+const assetVersion = '20260914-4';
 
-html = html.replace('<meta name="theme-color" content="#F7F8F3">', '<meta name="theme-color" content="#060706">');
-html = html.replace(/<link rel="stylesheet" href="\/assets\/css\/home\.css\?v=[^"]+">/, '<link rel="stylesheet" href="/assets/css/home.css?v=20260914-1">');
-html = html.replace(/<link rel="stylesheet" href="\/assets\/css\/product\.css\?v=[^"]+">/, '<link rel="stylesheet" href="/assets/css/product.css?v=20260914-1">');
+html = html.replace(/<meta name="theme-color" content="[^"]+">/, '<meta name="theme-color" content="#060706">');
+html = html.replace(/<link rel="stylesheet" href="\/assets\/css\/home\.css\?v=[^"]+">/, `<link rel="stylesheet" href="/assets/css/home.css?v=${assetVersion}">`);
 
-if (!html.includes('/assets/css/product-lucerne-v3.css')) {
-  html = html.replace(
-    '<link rel="stylesheet" href="/assets/css/product.css?v=20260914-1">',
-    '<link rel="stylesheet" href="/assets/css/product.css?v=20260914-1">\n  <link rel="stylesheet" href="/assets/css/product-lucerne-v3.css?v=20260914-3">'
-  );
-} else {
-  html = html.replace(/product-lucerne-v3\.css\?v=[^"]+/, 'product-lucerne-v3.css?v=20260914-3');
+function ensureStyle(href, matcher) {
+  if (matcher.test(html)) {
+    html = html.replace(matcher, `<link rel="stylesheet" href="${href}">`);
+    return;
+  }
+
+  const homeStyle = new RegExp('<link rel="stylesheet" href="/assets/css/home\\.css\\?v=[^"]+">');
+  if (homeStyle.test(html)) {
+    html = html.replace(homeStyle, (match) => `${match}\n  <link rel="stylesheet" href="${href}">`);
+  } else {
+    html = html.replace('</head>', `  <link rel="stylesheet" href="${href}">\n</head>`);
+  }
 }
+
+ensureStyle(`/assets/css/product.css?v=${assetVersion}`, /<link rel="stylesheet" href="\/assets\/css\/product\.css(?:\?v=[^"]+)?">/);
+ensureStyle(`/assets/css/product-lucerne-v3.css?v=${assetVersion}`, /<link rel="stylesheet" href="\/assets\/css\/product-lucerne-v3\.css(?:\?v=[^"]+)?">/);
 
 html = html.replace(/<body class="([^"]*)">/, (_match, classes) => {
   const set = new Set(classes.split(/\s+/).filter(Boolean));
@@ -25,7 +33,17 @@ html = html.replace(/<body class="([^"]*)">/, (_match, classes) => {
   return `<body class="${[...set].join(' ')}">`;
 });
 
-html = html.replace(/<script src="\/assets\/js\/product\.js(?:\?v=[^"]+)?" defer><\/script>/, '<script src="/assets/js/product.js?v=20260914-3" defer></script>');
+const productScriptMatcher = /<script src="\/assets\/js\/product\.js(?:\?v=[^"]+)?" defer><\/script>/;
+if (productScriptMatcher.test(html)) {
+  html = html.replace(productScriptMatcher, `<script src="/assets/js/product.js?v=${assetVersion}" defer></script>`);
+} else {
+  const leadScriptMatcher = /<script src="\/assets\/js\/lead-form\.js(?:\?v=[^"]+)?" defer><\/script>/;
+  if (leadScriptMatcher.test(html)) {
+    html = html.replace(leadScriptMatcher, (match) => `${match}\n  <script src="/assets/js/product.js?v=${assetVersion}" defer></script>`);
+  } else {
+    html = html.replace('</body>', `  <script src="/assets/js/product.js?v=${assetVersion}" defer></script>\n</body>`);
+  }
+}
 
 const navMarker = '<nav class="home-nav" id="home-navigation" aria-label="Основная навигация" data-mobile-nav><ul>';
 if (html.includes(navMarker) && !html.includes(`${navMarker}<li><a href="/">Главная</a></li>`)) {
