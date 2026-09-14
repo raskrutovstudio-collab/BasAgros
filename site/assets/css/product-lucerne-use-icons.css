@@ -1,0 +1,92 @@
+/* Lucerne usage infographic — refined Home V3 icon treatment. */
+.page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-node {
+  position: relative;
+  overflow: hidden;
+  transition: transform .28s ease, border-color .28s ease, background .28s ease, box-shadow .28s ease !important;
+}
+
+.page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-node::before {
+  content: "";
+  position: absolute;
+  top: 1.15rem;
+  left: 1.15rem;
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,197,109,.12) 0%, rgba(201,151,45,.045) 48%, rgba(201,151,45,0) 74%);
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-node:hover {
+  transform: translateY(-3px) !important;
+  border-color: rgba(232,197,109,.3) !important;
+  background: linear-gradient(145deg, rgba(20,22,17,.94), rgba(8,9,8,.88)) !important;
+  box-shadow: 0 1rem 2.25rem rgba(0,0,0,.14) !important;
+}
+
+.page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-icon {
+  position: relative !important;
+  z-index: 1;
+  display: inline-flex !important;
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  flex: 0 0 2.25rem !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 0 1rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--lucerne-gold-hi) !important;
+  box-shadow: none !important;
+  transition: transform .28s ease, color .28s ease, filter .28s ease !important;
+}
+
+.page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-icon::before,
+.page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-icon::after {
+  content: none !important;
+  display: none !important;
+}
+
+.page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-icon svg {
+  width: 1.72rem !important;
+  height: 1.72rem !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.55 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  filter: drop-shadow(0 0 .35rem rgba(232,197,109,.16));
+}
+
+.page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-node:hover .lucerne-icon {
+  transform: translateY(-2px) scale(1.06) !important;
+  color: #f0cf79 !important;
+  filter: drop-shadow(0 0 .45rem rgba(232,197,109,.22));
+}
+
+.page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-node strong {
+  position: relative;
+  z-index: 1;
+}
+
+.page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-node p {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 47.99rem) {
+  .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-icon {
+    width: 2rem !important;
+    height: 2rem !important;
+    flex-basis: 2rem !important;
+    margin-bottom: .85rem !important;
+  }
+
+  .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-icon svg {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+}
