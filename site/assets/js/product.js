@@ -1,6 +1,64 @@
 (() => {
   if (!document.body.classList.contains('page-product')) return;
 
+  if (document.body.classList.contains('page-lucerne-v3')) {
+    const typography = document.createElement('style');
+    typography.dataset.lucerneHomeTypography = 'true';
+    typography.textContent = `
+      .page-lucerne-v3,
+      .page-lucerne-v3 button,
+      .page-lucerne-v3 input,
+      .page-lucerne-v3 select,
+      .page-lucerne-v3 textarea {
+        font-family: Inter, Manrope, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      }
+
+      .page-lucerne-v3 h1,
+      .page-lucerne-v3 h2,
+      .page-lucerne-v3 h3,
+      .page-lucerne-v3 .product-hero-copy::before,
+      .page-lucerne-v3 .product-kicker,
+      .page-lucerne-v3 .product-eyebrow,
+      .page-lucerne-v3 .home-btn,
+      .page-lucerne-v3 .home-nav li a {
+        font-family: inherit !important;
+      }
+
+      .page-lucerne-v3 h1,
+      .page-lucerne-v3 h2,
+      .page-lucerne-v3 h3 {
+        text-transform: none !important;
+      }
+
+      .page-lucerne-v3 .product-hero h1 {
+        line-height: 1.02 !important;
+        letter-spacing: -.045em !important;
+      }
+
+      .page-lucerne-v3 .product-section h2,
+      .page-lucerne-v3 .product-request h2 {
+        line-height: 1.08 !important;
+        letter-spacing: -.035em !important;
+      }
+
+      .page-lucerne-v3 .home-btn {
+        font-weight: 700 !important;
+        letter-spacing: normal !important;
+      }
+
+      .page-lucerne-v3 .home-nav li a {
+        font-weight: 650 !important;
+        letter-spacing: normal !important;
+      }
+
+      .page-lucerne-v3 .product-kicker,
+      .page-lucerne-v3 .product-eyebrow {
+        font-weight: 800 !important;
+      }
+    `;
+    document.head.appendChild(typography);
+  }
+
   const modal = document.querySelector('[data-product-modal]');
   const form = modal?.querySelector('[data-lead-form]');
   const title = modal?.querySelector('[data-product-modal-title]');
