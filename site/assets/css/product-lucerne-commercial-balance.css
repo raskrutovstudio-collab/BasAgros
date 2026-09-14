@@ -1,0 +1,70 @@
+/* Lucerne commercial section balance: remove the tall empty left column. */
+@media (min-width: 64rem) {
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-card {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
+    gap: 1.5rem !important;
+    min-height: 0 !important;
+  }
+
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-card > div:first-child {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    align-self: start !important;
+  }
+
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-card > div:first-child > p:not(.product-eyebrow) {
+    max-width: 52rem !important;
+    margin: .9rem 0 1.15rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: .85rem !important;
+    margin: 1.25rem 0 1.35rem !important;
+  }
+
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-facts > div {
+    min-height: 7.15rem !important;
+    padding: 1rem 1.05rem !important;
+  }
+
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-actions {
+    margin-top: .35rem !important;
+  }
+
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-links {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    min-height: 0 !important;
+  }
+
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-links > div {
+    min-height: 0 !important;
+    padding: 1.3rem 1.4rem !important;
+  }
+
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-links > div h3 {
+    margin: .7rem 0 .45rem !important;
+  }
+
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-links > div p {
+    max-width: 45rem !important;
+    margin-bottom: .75rem !important;
+  }
+}
+
+@media (max-width: 63.99rem) {
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-card {
+    align-items: start !important;
+  }
+
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-links > div {
+    min-height: 0 !important;
+  }
+}
