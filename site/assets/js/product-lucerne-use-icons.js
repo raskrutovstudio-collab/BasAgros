@@ -1,7 +1,7 @@
 (() => {
   if (!document.body.classList.contains('page-lucerne-v3')) return;
 
-  const version = '20260915-11';
+  const version = '20260915-12';
 
   const ensureStyle = (href, marker) => {
     if (document.querySelector(`link[${marker}]`)) return;
@@ -17,6 +17,16 @@
   ensureStyle('/assets/css/product-lucerne-rhythm-v2.css', 'data-lucerne-rhythm-v2');
   ensureStyle('/assets/css/product-lucerne-backtop.css', 'data-lucerne-backtop');
   ensureStyle('/assets/css/product-lucerne-radius-system.css', 'data-lucerne-radius-system');
+
+  const commercialCard = document.querySelector('[data-lucerne-commercial-flow] .product-commercial-card');
+  if (commercialCard) {
+    const links = commercialCard.querySelector('.product-commercial-links');
+    const actions = commercialCard.querySelector('.product-actions');
+    if (links && actions && actions.previousElementSibling !== links) {
+      actions.classList.add('product-commercial-actions-bottom');
+      links.insertAdjacentElement('afterend', actions);
+    }
+  }
 
   const useNodes = document.querySelectorAll('[data-lucerne-use-infographic] .lucerne-use-node .lucerne-icon');
   const useIcons = [
