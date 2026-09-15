@@ -1,0 +1,59 @@
+/* Lucerne back-to-top: exact Home V3 visual language. */
+.page-lucerne-v3 .home-back-to-top {
+  position: fixed !important;
+  right: 24px !important;
+  bottom: 24px !important;
+  z-index: 10000 !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 52px !important;
+  height: 52px !important;
+  padding: 0 !important;
+  border: 1px solid rgba(232,197,109,.43) !important;
+  border-radius: 50% !important;
+  background: rgba(6,7,6,.9) !important;
+  color: #e8c56d !important;
+  box-shadow: 0 14px 45px rgba(0,0,0,.38) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  appearance: none !important;
+  cursor: pointer !important;
+}
+
+.page-lucerne-v3 .home-back-to-top svg {
+  width: 21px !important;
+  height: 21px !important;
+  fill: none !important;
+  stroke: currentColor !important;
+}
+
+.page-lucerne-v3 .home-back-to-top:hover {
+  border-color: #c9972d !important;
+  background: #c9972d !important;
+  color: #080807 !important;
+}
+
+.page-lucerne-v3 .home-back-to-top:focus-visible {
+  outline: 3px solid rgba(232,197,109,.24) !important;
+  outline-offset: 3px !important;
+}
+
+@media (max-width: 47.99rem) {
+  .page-lucerne-v3 .home-back-to-top {
+    right: .8rem !important;
+    bottom: calc(5.7rem + env(safe-area-inset-bottom)) !important;
+    width: 2.55rem !important;
+    height: 2.55rem !important;
+  }
+
+  .page-lucerne-v3 .home-back-to-top svg {
+    width: 1.1rem !important;
+    height: 1.1rem !important;
+  }
+}
+
+body.menu-open.page-lucerne-v3 .home-back-to-top {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
