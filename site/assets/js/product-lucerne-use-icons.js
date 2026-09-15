@@ -1,7 +1,7 @@
 (() => {
   if (!document.body.classList.contains('page-lucerne-v3')) return;
 
-  const version = '20260915-14';
+  const version = '20260915-15';
 
   const ensureStyle = (href, marker) => {
     if (document.querySelector(`link[${marker}]`)) return;
@@ -33,7 +33,17 @@
   if (partyInfographic && !partyInfographic.querySelector('.lucerne-party-visual')) {
     const visual = document.createElement('figure');
     visual.className = 'lucerne-party-visual';
-    visual.innerHTML = '<img src="/assets/img/products/lucerne-party-passport.svg?v=20260915-14" width="720" height="900" alt="Контроль качества партии семян люцерны: паспорт партии, образец семян и проверка характеристик" loading="lazy" decoding="async">';
+    visual.innerHTML = '<img src="/assets/img/products/lucerne-seeds-section-960.webp" width="480" height="600" alt="Контроль качества партии семян люцерны: образец семян и поле люцерны" loading="lazy" decoding="async">';
+
+    const img = visual.querySelector('img');
+    fetch(`/assets/img/products/lucerne-party-passport.svg?v=${version}`, { cache: 'force-cache' })
+      .then((response) => response.ok ? response.text() : Promise.reject(new Error('party image source unavailable')))
+      .then((svgText) => {
+        const match = svgText.match(/data:image\/jpeg;base64,([^"']+)/);
+        if (match && match[1]) img.src = `data:image/jpeg;base64,${match[1]}`;
+      })
+      .catch(() => {});
+
     const head = partyInfographic.querySelector('.lucerne-infographic-head');
     if (head) head.insertAdjacentElement('beforebegin', visual);
     else partyInfographic.prepend(visual);
