@@ -1,0 +1,120 @@
+/* BAS Agros — Lucerne party passport media.
+   Adds a homepage-style visual to the passport infographic without changing content. */
+
+.page-lucerne-v3 [data-lucerne-party-infographic] {
+  display: grid !important;
+  grid-template-columns: minmax(18rem, .72fr) minmax(0, 1.28fr) !important;
+  grid-template-areas:
+    "media head"
+    "media metrics" !important;
+  gap: 1rem 1.15rem !important;
+  align-items: stretch !important;
+  padding: 1.2rem !important;
+}
+
+.page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-party-visual {
+  grid-area: media;
+  position: relative;
+  min-width: 0;
+  min-height: 29rem;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(232,197,109,.18);
+  border-radius: 20px !important;
+  background: #0a0c09;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.018);
+}
+
+.page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-party-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 48%, rgba(5,6,5,.52) 100%),
+    radial-gradient(circle at 82% 16%, rgba(232,197,109,.12), transparent 14rem);
+}
+
+.page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-party-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 29rem;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px !important;
+  filter: brightness(.9) saturate(1.06) contrast(1.04);
+  transform: scale(1.015);
+  transition: transform .8s cubic-bezier(.2,.75,.2,1), filter .5s ease;
+}
+
+.page-lucerne-v3 [data-lucerne-party-infographic]:hover .lucerne-party-visual img {
+  transform: scale(1.045);
+  filter: brightness(.94) saturate(1.1) contrast(1.03);
+}
+
+.page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-infographic-head {
+  grid-area: head;
+  align-self: start;
+  margin: 0 !important;
+  padding: .15rem .1rem .2rem !important;
+}
+
+.page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-metrics-grid {
+  grid-area: metrics;
+  align-self: stretch;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+  gap: .85rem !important;
+  min-width: 0;
+}
+
+.page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-metric {
+  min-height: 0 !important;
+  height: 100%;
+  padding: 1.15rem !important;
+  border-radius: 20px !important;
+}
+
+@media (max-width: 63.99rem) {
+  .page-lucerne-v3 [data-lucerne-party-infographic] {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      "head"
+      "media"
+      "metrics" !important;
+    gap: .9rem !important;
+  }
+
+  .page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-party-visual {
+    min-height: 0;
+    aspect-ratio: 16 / 7;
+  }
+
+  .page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-party-visual img {
+    min-height: 0;
+    aspect-ratio: 16 / 7;
+  }
+
+  .page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: auto !important;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .page-lucerne-v3 [data-lucerne-party-infographic] {
+    padding: .9rem !important;
+  }
+
+  .page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-party-visual,
+  .page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-party-visual img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-metrics-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
