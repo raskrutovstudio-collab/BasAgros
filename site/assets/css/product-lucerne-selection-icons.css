@@ -54,6 +54,64 @@
   margin: 0;
 }
 
+/* Purchase flow: icon gets its own column and can no longer overlap text. */
+.page-lucerne-v3 .product-flow-list li {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: 3rem minmax(0, 1fr) !important;
+  grid-template-rows: auto auto !important;
+  column-gap: 1rem !important;
+  row-gap: .35rem !important;
+  align-items: start !important;
+  min-height: 0 !important;
+  padding: 1.35rem 1.4rem !important;
+  overflow: hidden !important;
+}
+
+.page-lucerne-v3 .product-flow-list li > .product-flow-icon {
+  position: static !important;
+  grid-column: 1 !important;
+  grid-row: 1 / span 2 !important;
+  align-self: start !important;
+  justify-self: start !important;
+  width: 2.55rem !important;
+  height: 2.55rem !important;
+  margin: 0 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(232,197,109,.22) !important;
+  border-radius: .7rem !important;
+  background: rgba(201,151,45,.035) !important;
+}
+
+.page-lucerne-v3 .product-flow-list li > .product-flow-icon svg {
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+}
+
+.page-lucerne-v3 .product-flow-list li > strong {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  align-self: center !important;
+  margin: .1rem 0 0 !important;
+  min-width: 0 !important;
+  line-height: 1.25 !important;
+}
+
+.page-lucerne-v3 .product-flow-list li > p,
+.page-lucerne-v3 .product-flow-list li > small {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+  line-height: 1.5 !important;
+}
+
+.page-lucerne-v3 .product-flow-list li::before,
+.page-lucerne-v3 .product-flow-list li::after {
+  display: none !important;
+}
+
 @media (max-width: 47.99rem) {
   .page-lucerne-v3 .product-guide ol li {
     grid-template-columns: 2.35rem minmax(0,1fr) !important;
@@ -69,5 +127,16 @@
   .page-lucerne-v3 .product-selection-icon svg {
     width: 1.12rem;
     height: 1.12rem;
+  }
+
+  .page-lucerne-v3 .product-flow-list li {
+    grid-template-columns: 2.4rem minmax(0, 1fr) !important;
+    column-gap: .85rem !important;
+    padding: 1.05rem !important;
+  }
+
+  .page-lucerne-v3 .product-flow-list li > .product-flow-icon {
+    width: 2.2rem !important;
+    height: 2.2rem !important;
   }
 }
