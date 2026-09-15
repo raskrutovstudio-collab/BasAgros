@@ -1,0 +1,58 @@
+/* Lucerne agronomy readability + left alignment */
+.page-lucerne-v3 .product-agronomy .product-intro-media {
+  background: linear-gradient(145deg, rgba(17,19,15,.96), rgba(9,10,8,.94)) !important;
+}
+
+.page-lucerne-v3 .product-agronomy .product-intro-media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  padding: .55rem !important;
+  filter: brightness(.98) saturate(1.05) contrast(1.02) !important;
+}
+
+.page-lucerne-v3 .product-agronomy .product-spec-list-compact > div,
+.page-lucerne-v3 .product-agronomy .product-spec-list-compact dt,
+.page-lucerne-v3 .product-agronomy .product-spec-list-compact dd {
+  text-align: left !important;
+}
+
+.page-lucerne-v3 .product-agronomy .product-spec-list-compact > div {
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+}
+
+.page-lucerne-v3 .product-agronomy .product-spec-list-compact dt,
+.page-lucerne-v3 .product-agronomy .product-spec-list-compact dd {
+  width: 100% !important;
+  margin-inline: 0 !important;
+}
+
+@media (min-width: 72rem) {
+  .page-lucerne-v3 .product-agronomy .product-intro-media img {
+    object-fit: contain !important;
+    object-position: center center !important;
+    padding: .75rem !important;
+    filter: brightness(1) saturate(1.06) contrast(1.02) !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-spec-list-compact > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-spec-list-compact dt {
+    margin: 0 0 .55rem !important;
+    line-height: 1.2 !important;
+    text-align: left !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-spec-list-compact dd {
+    margin: 0 !important;
+    line-height: 1.38 !important;
+    text-align: left !important;
+  }
+}
