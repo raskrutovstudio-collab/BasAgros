@@ -1,7 +1,7 @@
 (() => {
   if (!document.body.classList.contains('page-lucerne-v3')) return;
 
-  const version = '20260915-10';
+  const version = '20260915-11';
 
   const ensureStyle = (href, marker) => {
     if (document.querySelector(`link[${marker}]`)) return;
@@ -16,6 +16,7 @@
   ensureStyle('/assets/css/product-lucerne-agronomy-fix.css', 'data-lucerne-agronomy-fix');
   ensureStyle('/assets/css/product-lucerne-rhythm-v2.css', 'data-lucerne-rhythm-v2');
   ensureStyle('/assets/css/product-lucerne-backtop.css', 'data-lucerne-backtop');
+  ensureStyle('/assets/css/product-lucerne-radius-system.css', 'data-lucerne-radius-system');
 
   const useNodes = document.querySelectorAll('[data-lucerne-use-infographic] .lucerne-use-node .lucerne-icon');
   const useIcons = [
