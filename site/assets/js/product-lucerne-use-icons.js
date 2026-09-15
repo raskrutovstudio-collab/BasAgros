@@ -1,7 +1,7 @@
 (() => {
   if (!document.body.classList.contains('page-lucerne-v3')) return;
 
-  const version = '20260915-20';
+  const version = '20260915-21';
 
   const ensureStyle = (href, marker) => {
     if (document.querySelector(`link[${marker}]`)) return;
@@ -33,7 +33,7 @@
   if (partyInfographic && !partyInfographic.querySelector('.lucerne-party-visual')) {
     const visual = document.createElement('figure');
     visual.className = 'lucerne-party-visual';
-    visual.innerHTML = '<img src="/assets/img/products/lucerne-party-quality.webp?v=20260915-20" width="480" height="600" alt="Контроль качества партии семян люцерны" loading="lazy" decoding="async">';
+    visual.innerHTML = '<img src="/assets/img/products/lucerne-party-quality.webp?v=20260915-21" width="480" height="600" alt="Контроль качества партии семян люцерны" loading="lazy" decoding="async">';
     const head = partyInfographic.querySelector('.lucerne-infographic-head');
     if (head) head.insertAdjacentElement('beforebegin', visual);
     else partyInfographic.prepend(visual);
