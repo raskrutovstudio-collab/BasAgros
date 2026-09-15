@@ -1,7 +1,7 @@
 (() => {
   if (!document.body.classList.contains('page-lucerne-v3')) return;
 
-  const version = '20260915-16';
+  const version = '20260915-17';
 
   const ensureStyle = (href, marker) => {
     if (document.querySelector(`link[${marker}]`)) return;
@@ -33,14 +33,7 @@
   if (partyInfographic && !partyInfographic.querySelector('.lucerne-party-visual')) {
     const visual = document.createElement('figure');
     visual.className = 'lucerne-party-visual';
-    visual.innerHTML = `
-      <img src="/assets/img/products/lucerne-field-hero.webp?v=${version}" width="960" height="640" alt="Поле люцерны BAS Agros" loading="lazy" decoding="async">
-      <figcaption class="lucerne-party-visual-badge">
-        <span class="lucerne-party-visual-badge-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3 5.5 5.7v5.4c0 4.4 2.7 7.7 6.5 9.9 3.8-2.2 6.5-5.5 6.5-9.9V5.7L12 3Z"/><path d="m9.1 11.8 1.8 1.8 4-4"/></svg>
-        </span>
-        <span><strong>Контроль качества</strong><small>Параметры партии подтверждаются перед поставкой</small></span>
-      </figcaption>`;
+    visual.innerHTML = '<img src="/assets/img/products/lucerne-party-quality.webp?v=20260915-17" width="720" height="900" alt="Контроль качества партии семян люцерны" loading="lazy" decoding="async">';
     const head = partyInfographic.querySelector('.lucerne-infographic-head');
     if (head) head.insertAdjacentElement('beforebegin', visual);
     else partyInfographic.prepend(visual);
