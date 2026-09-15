@@ -92,6 +92,97 @@
   background-color: rgba(5,7,5,.72) !important;
 }
 
+/* Quality section: compact top area + two equal cards below, no dead space. */
+@media (min-width: 64rem) {
+  .page-lucerne-v3 .product-quality .product-commercial-card {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    min-height: 0 !important;
+    padding: 1.45rem !important;
+    align-items: start !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-card > div:first-child {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-areas:
+      "eyebrow actions"
+      "title actions"
+      "copy actions" !important;
+    column-gap: 2rem !important;
+    row-gap: .45rem !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    padding: 1.35rem 1.45rem !important;
+    border: 1px solid rgba(232,197,109,.15) !important;
+    border-radius: 1rem !important;
+    background:
+      radial-gradient(circle at 0 0, rgba(201,151,45,.055), transparent 16rem),
+      rgba(5,7,5,.5) !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-card > div:first-child .product-eyebrow {
+    grid-area: eyebrow !important;
+    margin: 0 0 .2rem !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-card > div:first-child h2 {
+    grid-area: title !important;
+    max-width: 12ch !important;
+    margin: 0 !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-card > div:first-child > p:not(.product-eyebrow) {
+    grid-area: copy !important;
+    max-width: 44rem !important;
+    margin: .2rem 0 0 !important;
+    line-height: 1.55 !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-card > div:first-child .product-actions {
+    grid-area: actions !important;
+    align-self: center !important;
+    justify-self: end !important;
+    margin: 0 !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-links {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    min-height: 0 !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-links > div {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 13.5rem !important;
+    padding: 1.4rem 1.5rem !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-links > div > svg {
+    margin-bottom: .7rem !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-links > div h3 {
+    margin: .25rem 0 .5rem !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-links > div p {
+    margin: 0 0 .9rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-links > div a {
+    margin-top: auto !important;
+    align-self: flex-start !important;
+  }
+}
+
 /* Keep adjacent blocks from feeling visually detached after reducing section padding. */
 .page-lucerne-v3 .product-actions {
   margin-top: clamp(1rem, 1.7vw, 1.4rem) !important;
@@ -108,6 +199,14 @@
 
   .page-lucerne-v3 .product-section-head {
     margin-bottom: 1.35rem !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-card {
+    min-height: 0 !important;
+  }
+
+  .page-lucerne-v3 .product-quality .product-commercial-links {
+    gap: .85rem !important;
   }
 }
 
