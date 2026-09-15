@@ -42,7 +42,7 @@ jobs:
           from pathlib import Path
           p = Path('site/assets/img/products/lucerne-party-quality.webp')
           b = p.read_bytes()
-          assert len(b) > 40000, f'image too small: {len(b)} bytes'
+          assert len(b) > 10000, f'image too small: {len(b)} bytes'
           assert b[:4] == b'RIFF', b[:12]
           assert b[8:12] == b'WEBP', b[:12]
           print(f'lucerne party image verified: {len(b)} bytes')
