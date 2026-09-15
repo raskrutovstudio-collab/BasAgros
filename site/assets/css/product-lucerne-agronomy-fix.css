@@ -6,7 +6,6 @@
   background: #0b0d0a !important;
 }
 
-/* Fill the tall card with a soft version of the same photo instead of empty black space. */
 .page-lucerne-v3 .product-agronomy .product-intro-media::before {
   content: "" !important;
   position: absolute !important;
@@ -53,12 +52,88 @@
   margin-inline: 0 !important;
 }
 
+/* Desktop composition: photo only accompanies the three copy cards;
+   the 8 agronomy specs then span the entire section width below. */
 @media (min-width: 72rem) {
+  .page-lucerne-v3 .product-agronomy > .home-wrap {
+    display: grid !important;
+    grid-template-columns: minmax(26rem, 29rem) minmax(0, 1fr) !important;
+    grid-template-rows: auto auto auto !important;
+    column-gap: 1.25rem !important;
+    row-gap: 1rem !important;
+    align-items: stretch !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-section-head {
+    grid-column: 1 / -1 !important;
+    grid-row: 1 !important;
+    margin-bottom: .35rem !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-intro-grid {
+    display: contents !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-intro-media {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    align-self: stretch !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-width: none !important;
+    aspect-ratio: auto !important;
+    margin: 0 !important;
+    border-radius: 1rem !important;
+  }
+
   .page-lucerne-v3 .product-agronomy .product-intro-media img {
     object-fit: contain !important;
     object-position: center center !important;
-    padding: .75rem !important;
+    padding: .7rem !important;
     filter: brightness(1.05) saturate(1.1) contrast(1.03) !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-intro-copy {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
+    gap: .75rem !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    align-self: stretch !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-intro-copy > p {
+    display: flex !important;
+    align-items: center !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 1.05rem 1.2rem 1.05rem 1.35rem !important;
+    border-radius: .9rem !important;
+    line-height: 1.5 !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-intro-copy > p::before {
+    top: 1rem !important;
+    bottom: 1rem !important;
+    left: .55rem !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-spec-list-compact {
+    grid-column: 1 / -1 !important;
+    grid-row: 3 !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(2, minmax(7rem, auto)) !important;
+    gap: .75rem !important;
+    width: 100% !important;
+    margin: 0 !important;
+    align-self: stretch !important;
   }
 
   .page-lucerne-v3 .product-agronomy .product-spec-list-compact > div {
@@ -66,10 +141,17 @@
     flex-direction: column !important;
     align-items: flex-start !important;
     justify-content: flex-start !important;
+    min-width: 0 !important;
+    min-height: 7rem !important;
+    height: 100% !important;
+    padding: 1.15rem 1.2rem !important;
+    border-radius: .9rem !important;
+    box-sizing: border-box !important;
   }
 
   .page-lucerne-v3 .product-agronomy .product-spec-list-compact dt {
-    margin: 0 0 .55rem !important;
+    margin: 0 0 .6rem !important;
+    min-height: auto !important;
     line-height: 1.2 !important;
     text-align: left !important;
   }
@@ -78,5 +160,54 @@
     margin: 0 !important;
     line-height: 1.38 !important;
     text-align: left !important;
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 71.99rem) {
+  .page-lucerne-v3 .product-agronomy .product-intro-grid {
+    grid-template-columns: minmax(18rem, 22rem) minmax(0, 1fr) !important;
+    gap: 1rem !important;
+    align-items: stretch !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-intro-copy {
+    gap: .7rem !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-intro-copy > p {
+    margin: 0 !important;
+    padding: 1rem 1.1rem 1rem 1.25rem !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-spec-list-compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: .7rem !important;
+    margin-top: 1rem !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-spec-list-compact > div {
+    min-height: 6.4rem !important;
+    padding: .95rem 1rem !important;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .page-lucerne-v3 .product-agronomy .product-intro-copy {
+    gap: .7rem !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-intro-copy > p {
+    margin: 0 !important;
+    padding: 1rem 1.05rem 1rem 1.2rem !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-spec-list-compact {
+    gap: .65rem !important;
+    margin-top: .85rem !important;
+  }
+
+  .page-lucerne-v3 .product-agronomy .product-spec-list-compact > div {
+    min-height: 6rem !important;
+    padding: .9rem !important;
   }
 }
