@@ -1,14 +1,19 @@
 (() => {
   if (!document.body.classList.contains('page-lucerne-v3')) return;
 
-  const version = '20260915-1';
-  if (!document.querySelector('link[data-lucerne-selection-icons]')) {
+  const version = '20260915-2';
+
+  const ensureStyle = (href, marker) => {
+    if (document.querySelector(`link[${marker}]`)) return;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = `/assets/css/product-lucerne-selection-icons.css?v=${version}`;
-    link.dataset.lucerneSelectionIcons = 'true';
+    link.href = `${href}?v=${version}`;
+    link.setAttribute(marker, 'true');
     document.head.appendChild(link);
-  }
+  };
+
+  ensureStyle('/assets/css/product-lucerne-selection-icons.css', 'data-lucerne-selection-icons');
+  ensureStyle('/assets/css/product-lucerne-agronomy-fix.css', 'data-lucerne-agronomy-fix');
 
   const useNodes = document.querySelectorAll('[data-lucerne-use-infographic] .lucerne-use-node .lucerne-icon');
   const useIcons = [
