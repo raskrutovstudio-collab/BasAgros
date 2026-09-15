@@ -1,0 +1,122 @@
+/* BAS Agros — Lucerne section rhythm + tonal backgrounds.
+   Slightly tighter vertical flow with alternating graphite/olive surfaces. */
+
+.page-lucerne-v3 {
+  --lucerne-section-dark: #070807;
+  --lucerne-section-graphite: #0c0f0b;
+  --lucerne-section-olive: #10130e;
+  --lucerne-section-warm: #11120e;
+}
+
+/* Slightly tighter section rhythm across desktop/tablet/mobile. */
+.page-lucerne-v3 .product-section {
+  padding-block: clamp(3.15rem, 4.5vw, 4.8rem) !important;
+}
+
+.page-lucerne-v3 .product-request {
+  padding-block: clamp(3.6rem, 5vw, 5.25rem) !important;
+}
+
+.page-lucerne-v3 .product-section-head {
+  margin-bottom: clamp(1.3rem, 2vw, 1.9rem) !important;
+}
+
+.page-lucerne-v3 .lucerne-infographic {
+  margin-top: 1.4rem !important;
+}
+
+/* Alternating full-width surfaces. No divider lines. */
+.page-lucerne-v3 .product-commercial:not(.product-quality) {
+  background:
+    radial-gradient(circle at 14% 20%, rgba(201,151,45,.07), transparent 25rem),
+    linear-gradient(180deg, #0f120d 0%, #0b0e0a 100%) !important;
+}
+
+.page-lucerne-v3 .product-party {
+  background: var(--lucerne-section-dark) !important;
+}
+
+.page-lucerne-v3 .product-use {
+  background:
+    radial-gradient(circle at 86% 18%, rgba(232,197,109,.055), transparent 24rem),
+    linear-gradient(180deg, #0d100c 0%, #0a0c09 100%) !important;
+}
+
+.page-lucerne-v3 .product-guide {
+  background: #080908 !important;
+}
+
+.page-lucerne-v3 .product-packaging-v2,
+.page-lucerne-v3 .product-packaging {
+  background:
+    radial-gradient(circle at 22% 0%, rgba(201,151,45,.055), transparent 22rem),
+    linear-gradient(180deg, #11130f 0%, #0d0f0c 100%) !important;
+}
+
+.page-lucerne-v3 .product-flow {
+  background:
+    radial-gradient(circle at 82% 72%, rgba(201,151,45,.045), transparent 24rem),
+    linear-gradient(180deg, #0c0f0b 0%, #090b09 100%) !important;
+}
+
+.page-lucerne-v3 .product-agronomy {
+  background: #080a08 !important;
+}
+
+.page-lucerne-v3 .product-quality {
+  background:
+    radial-gradient(circle at 12% 80%, rgba(232,197,109,.045), transparent 22rem),
+    linear-gradient(180deg, #10120e 0%, #0c0e0b 100%) !important;
+}
+
+.page-lucerne-v3 .product-faq {
+  background: #080908 !important;
+}
+
+.page-lucerne-v3 .product-request {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(201,151,45,.08), transparent 28rem),
+    linear-gradient(180deg, #11140f 0%, #0c0f0b 100%) !important;
+}
+
+/* Make cards distinguishable from the new section surfaces without over-lightening. */
+.page-lucerne-v3 .product-commercial-card,
+.page-lucerne-v3 .product-party-copy,
+.page-lucerne-v3 .product-party-card,
+.page-lucerne-v3 .product-guide-grid > div,
+.page-lucerne-v3 .product-flow-list li,
+.page-lucerne-v3 .packaging-v2-card,
+.page-lucerne-v3 .product-spec-list-compact > div,
+.page-lucerne-v3 .product-faq details,
+.page-lucerne-v3 .lucerne-infographic {
+  background-color: rgba(5,7,5,.72) !important;
+}
+
+/* Keep adjacent blocks from feeling visually detached after reducing section padding. */
+.page-lucerne-v3 .product-actions {
+  margin-top: clamp(1rem, 1.7vw, 1.4rem) !important;
+}
+
+@media (max-width: 63.99rem) {
+  .page-lucerne-v3 .product-section {
+    padding-block: clamp(2.8rem, 5vw, 3.6rem) !important;
+  }
+
+  .page-lucerne-v3 .product-request {
+    padding-block: clamp(3rem, 5.5vw, 4rem) !important;
+  }
+
+  .page-lucerne-v3 .product-section-head {
+    margin-bottom: 1.35rem !important;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .page-lucerne-v3 .product-section {
+    padding-block: 2.55rem !important;
+  }
+
+  .page-lucerne-v3 .product-request {
+    padding-block: 2.85rem !important;
+  }
+}
