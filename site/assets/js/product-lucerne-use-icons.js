@@ -1,7 +1,7 @@
 (() => {
   if (!document.body.classList.contains('page-lucerne-v3')) return;
 
-  const version = '20260915-25';
+  const version = '20260915-26';
 
   const ensureStyle = (href, marker) => {
     if (document.querySelector(`link[${marker}]`)) return;
@@ -13,6 +13,7 @@
   };
 
   ensureStyle('/assets/css/product-lucerne-selection-icons.css', 'data-lucerne-selection-icons');
+  ensureStyle('/assets/css/product-lucerne-guide-balance.css', 'data-lucerne-guide-balance');
   ensureStyle('/assets/css/product-lucerne-agronomy-fix.css', 'data-lucerne-agronomy-fix');
   ensureStyle('/assets/css/product-lucerne-rhythm-v2.css', 'data-lucerne-rhythm-v2');
   ensureStyle('/assets/css/product-lucerne-backtop.css', 'data-lucerne-backtop');
@@ -33,7 +34,7 @@
   if (partyInfographic && !partyInfographic.querySelector('.lucerne-party-visual')) {
     const visual = document.createElement('figure');
     visual.className = 'lucerne-party-visual';
-    visual.innerHTML = '<img src="/assets/img/products/lucerne-party-quality.webp?v=20260915-25" width="250" height="300" alt="Семена люцерны на фоне поля" loading="lazy" decoding="async">';
+    visual.innerHTML = '<img src="/assets/img/products/lucerne-party-quality.webp?v=20260915-26" width="250" height="300" alt="Семена люцерны на фоне поля" loading="lazy" decoding="async">';
     const head = partyInfographic.querySelector('.lucerne-infographic-head');
     if (head) head.insertAdjacentElement('beforebegin', visual);
     else partyInfographic.prepend(visual);
