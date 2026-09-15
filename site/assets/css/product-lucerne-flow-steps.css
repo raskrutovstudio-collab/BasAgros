@@ -1,0 +1,107 @@
+/* BAS Agros — lucerne purchase flow polish. */
+
+.page-lucerne-v3 .product-flow .product-two-col {
+  align-items: stretch;
+}
+
+.page-lucerne-v3 .product-flow .product-two-col > div:first-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-lucerne-v3 .product-flow .product-flow-cta {
+  width: fit-content;
+  margin-top: 1.5rem;
+}
+
+.page-lucerne-v3 .product-flow-list {
+  counter-reset: none !important;
+}
+
+.page-lucerne-v3 .product-flow-list li {
+  display: grid !important;
+  grid-template-columns: 2.7rem minmax(0, 1fr) auto;
+  grid-template-areas:
+    "icon title number"
+    "icon text number";
+  column-gap: .9rem;
+  row-gap: .32rem;
+  align-items: start;
+  min-width: 0;
+  padding: 1.2rem 1.25rem !important;
+}
+
+.page-lucerne-v3 .product-flow-list li::before {
+  display: none !important;
+  content: none !important;
+}
+
+.page-lucerne-v3 .product-flow-list .product-flow-icon {
+  grid-area: icon;
+  align-self: start;
+  margin: 0 !important;
+}
+
+.page-lucerne-v3 .product-flow-list li > strong {
+  grid-area: title;
+  align-self: center;
+  min-width: 0;
+  margin: .18rem 0 0 !important;
+  padding: 0 !important;
+  line-height: 1.2;
+}
+
+.page-lucerne-v3 .product-flow-list li > span:not(.product-flow-icon):not(.product-flow-step-number) {
+  grid-area: text;
+  min-width: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.5;
+}
+
+.page-lucerne-v3 .product-flow-step-number {
+  grid-area: number;
+  align-self: start;
+  justify-self: end;
+  display: inline-flex !important;
+  min-width: 2.7rem;
+  height: 2.15rem;
+  align-items: center;
+  justify-content: center;
+  margin: 0 !important;
+  padding: 0 .55rem;
+  border: 1px solid rgba(232, 197, 109, .24);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(232, 197, 109, .10), rgba(201, 151, 45, .025));
+  color: var(--lucerne-gold-hi, #e8c56d) !important;
+  font-size: .78rem;
+  font-weight: 850 !important;
+  line-height: 1;
+  letter-spacing: .12em;
+  box-shadow: inset 0 1px rgba(255,255,255,.025);
+}
+
+.page-lucerne-v3 .product-flow-list li:hover .product-flow-step-number {
+  border-color: rgba(232, 197, 109, .52);
+  background: linear-gradient(135deg, rgba(232, 197, 109, .18), rgba(201, 151, 45, .055));
+}
+
+@media (max-width: 47.99rem) {
+  .page-lucerne-v3 .product-flow .product-flow-cta {
+    width: 100%;
+    margin-top: 1.15rem;
+  }
+
+  .page-lucerne-v3 .product-flow-list li {
+    grid-template-columns: 2.55rem minmax(0, 1fr) auto;
+    column-gap: .72rem;
+    padding: 1rem !important;
+  }
+
+  .page-lucerne-v3 .product-flow-step-number {
+    min-width: 2.45rem;
+    height: 2rem;
+    padding-inline: .45rem;
+    font-size: .72rem;
+  }
+}
