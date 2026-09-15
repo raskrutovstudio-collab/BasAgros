@@ -99,8 +99,8 @@
 
 .page-lucerne-v3 .product-flow-list li::before,
 .page-lucerne-v3 .product-flow-list li::after {
-  display: none !important;
   content: none !important;
+  display: none !important;
 }
 
 .page-lucerne-v3 .product-flow-list li:hover {
@@ -110,20 +110,31 @@
   box-shadow: 0 .75rem 1.8rem rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.02) !important;
 }
 
-/* Existing icon node is repurposed as a large editorial step number. */
-.page-lucerne-v3 .product-flow-list .product-flow-icon {
+/* Existing icon node is repurposed as a large editorial step number.
+   Full reset is intentional: legacy icon styles used a square box. */
+.page-lucerne-v3 .product-flow-list .product-flow-icon,
+.page-lucerne-v3 .product-flow-list li .product-flow-icon {
   grid-area: number;
   align-self: center;
   justify-self: start;
   display: block !important;
+  box-sizing: border-box !important;
   width: auto !important;
   height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
   margin: 0 !important;
   padding: 0 !important;
   border: 0 !important;
+  outline: 0 !important;
   border-radius: 0 !important;
-  background: none !important;
+  background: transparent !important;
+  background-image: none !important;
   box-shadow: none !important;
+  filter: none !important;
   color: transparent !important;
   font-family: "Arial Narrow","Roboto Condensed",Arial,sans-serif;
   font-size: clamp(2.65rem,3.4vw,3.7rem);
@@ -135,14 +146,39 @@
   opacity: .96;
 }
 
+.page-lucerne-v3 .product-flow-list .product-flow-icon::before,
+.page-lucerne-v3 .product-flow-list .product-flow-icon::after,
+.page-lucerne-v3 .product-flow-list li .product-flow-icon::before,
+.page-lucerne-v3 .product-flow-list li .product-flow-icon::after {
+  content: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  border: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
 .page-lucerne-v3 .product-flow-list li:hover .product-flow-icon {
   color: rgba(232,197,109,.08) !important;
   -webkit-text-stroke-color: rgba(232,197,109,.98);
   text-shadow: 0 0 1.6rem rgba(201,151,45,.2);
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
-.page-lucerne-v3 .product-flow-list .product-flow-icon svg {
+.page-lucerne-v3 .product-flow-list .product-flow-icon svg,
+.page-lucerne-v3 .product-flow-list .product-flow-icon > svg,
+.page-lucerne-v3 .product-flow-list li .product-flow-icon svg {
   display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
 }
 
 .page-lucerne-v3 .product-flow-list li > strong {
