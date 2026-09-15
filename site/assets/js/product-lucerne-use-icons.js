@@ -1,7 +1,7 @@
 (() => {
   if (!document.body.classList.contains('page-lucerne-v3')) return;
 
-  const version = '20260915-26';
+  const version = '20260915-27';
 
   const ensureStyle = (href, marker) => {
     if (document.querySelector(`link[${marker}]`)) return;
@@ -19,6 +19,7 @@
   ensureStyle('/assets/css/product-lucerne-backtop.css', 'data-lucerne-backtop');
   ensureStyle('/assets/css/product-lucerne-radius-system.css', 'data-lucerne-radius-system');
   ensureStyle('/assets/css/product-lucerne-party-image.css', 'data-lucerne-party-image');
+  ensureStyle('/assets/css/product-lucerne-flow-steps.css', 'data-lucerne-flow-steps');
 
   const commercialCard = document.querySelector('[data-lucerne-commercial-flow] .product-commercial-card');
   if (commercialCard) {
@@ -34,10 +35,32 @@
   if (partyInfographic && !partyInfographic.querySelector('.lucerne-party-visual')) {
     const visual = document.createElement('figure');
     visual.className = 'lucerne-party-visual';
-    visual.innerHTML = '<img src="/assets/img/products/lucerne-party-quality.webp?v=20260915-26" width="250" height="300" alt="Семена люцерны на фоне поля" loading="lazy" decoding="async">';
+    visual.innerHTML = '<img src="/assets/img/products/lucerne-party-quality.webp?v=20260915-27" width="250" height="300" alt="Семена люцерны на фоне поля" loading="lazy" decoding="async">';
     const head = partyInfographic.querySelector('.lucerne-infographic-head');
     if (head) head.insertAdjacentElement('beforebegin', visual);
     else partyInfographic.prepend(visual);
+  }
+
+  const flowSection = document.querySelector('.product-flow');
+  if (flowSection) {
+    const intro = flowSection.querySelector('.product-two-col > div:first-child');
+    if (intro && !intro.querySelector('.product-flow-cta')) {
+      const cta = document.createElement('a');
+      cta.className = 'home-btn home-btn-primary product-flow-cta';
+      cta.href = '#request';
+      cta.dataset.productModalIntent = 'commercial_offer';
+      cta.textContent = 'Оставить заявку';
+      intro.appendChild(cta);
+    }
+
+    flowSection.querySelectorAll('.product-flow-list li').forEach((item, index) => {
+      if (item.querySelector('.product-flow-step-number')) return;
+      const number = document.createElement('span');
+      number.className = 'product-flow-step-number';
+      number.setAttribute('aria-hidden', 'true');
+      number.textContent = String(index + 1).padStart(2, '0');
+      item.appendChild(number);
+    });
   }
 
   const useNodes = document.querySelectorAll('[data-lucerne-use-infographic] .lucerne-use-node .lucerne-icon');
