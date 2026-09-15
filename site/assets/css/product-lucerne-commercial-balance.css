@@ -4,7 +4,7 @@
     display: grid !important;
     grid-template-columns: 1fr !important;
     align-items: start !important;
-    gap: 1.15rem !important;
+    gap: .55rem !important;
     min-height: 0 !important;
   }
 
@@ -17,14 +17,14 @@
 
   .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-card > div:first-child > p:not(.product-eyebrow) {
     max-width: 52rem !important;
-    margin: .9rem 0 1.15rem !important;
+    margin: .65rem 0 .45rem !important;
     line-height: 1.5 !important;
   }
 
   .page-lucerne-v3 .product-commercial:not(.product-quality) .product-facts {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: .85rem !important;
-    margin: 1.25rem 0 1.35rem !important;
+    margin: 1.25rem 0 .45rem !important;
   }
 
   .page-lucerne-v3 .product-commercial:not(.product-quality) .product-facts > div {
@@ -42,6 +42,7 @@
     gap: 1rem !important;
     width: 100% !important;
     min-height: 0 !important;
+    margin-top: 0 !important;
   }
 
   .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-links > div {
@@ -73,6 +74,7 @@
 @media (max-width: 63.99rem) {
   .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-card {
     align-items: start !important;
+    gap: .7rem !important;
   }
 
   .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-links > div {
