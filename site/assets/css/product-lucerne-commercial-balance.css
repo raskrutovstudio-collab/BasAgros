@@ -4,7 +4,7 @@
     display: grid !important;
     grid-template-columns: 1fr !important;
     align-items: start !important;
-    gap: 1.5rem !important;
+    gap: 1.15rem !important;
     min-height: 0 !important;
   }
 
@@ -33,7 +33,7 @@
   }
 
   .page-lucerne-v3 .product-commercial:not(.product-quality) .product-actions {
-    margin-top: .35rem !important;
+    margin-top: 0 !important;
   }
 
   .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-links {
@@ -57,6 +57,17 @@
     max-width: 45rem !important;
     margin-bottom: .75rem !important;
   }
+
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-actions-bottom {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: .8rem !important;
+    width: 100% !important;
+    margin: .1rem 0 0 !important;
+    padding: .2rem 0 0 !important;
+  }
 }
 
 @media (max-width: 63.99rem) {
@@ -66,5 +77,19 @@
 
   .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-links > div {
     min-height: 0 !important;
+  }
+
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-actions-bottom {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: .7rem !important;
+    width: 100% !important;
+    margin-top: .2rem !important;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .page-lucerne-v3 .product-commercial:not(.product-quality) .product-commercial-actions-bottom .home-btn {
+    width: 100% !important;
   }
 }
