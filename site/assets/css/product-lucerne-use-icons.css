@@ -77,7 +77,58 @@
   z-index: 1;
 }
 
+/* Final desktop composition: four scenarios in one balanced row. */
+@media (min-width: 64rem) {
+  .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-map {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+    align-items: stretch !important;
+  }
+
+  .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-node {
+    display: flex !important;
+    min-width: 0 !important;
+    min-height: 13rem !important;
+    height: 100% !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    padding: 1.35rem 1.3rem !important;
+    border-radius: 20px !important;
+  }
+
+  .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-node strong {
+    min-height: 2.4em;
+    margin-bottom: .6rem !important;
+    font-size: 1rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-node p {
+    margin: 0 !important;
+    font-size: .86rem !important;
+    line-height: 1.5 !important;
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-map {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+
+  .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-node {
+    min-height: 11rem !important;
+    height: 100% !important;
+  }
+}
+
 @media (max-width: 47.99rem) {
+  .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-map {
+    grid-template-columns: 1fr !important;
+  }
+
   .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-icon {
     width: 2rem !important;
     height: 2rem !important;
@@ -88,5 +139,9 @@
   .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-icon svg {
     width: 1.5rem !important;
     height: 1.5rem !important;
+  }
+
+  .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-node {
+    min-height: 0 !important;
   }
 }
