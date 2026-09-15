@@ -1,7 +1,7 @@
 (() => {
   if (!document.body.classList.contains('page-lucerne-v3')) return;
 
-  const version = '20260915-28';
+  const version = '20260915-29';
 
   const ensureStyle = (href, marker) => {
     if (document.querySelector(`link[${marker}]`)) return;
@@ -35,7 +35,7 @@
   if (partyInfographic && !partyInfographic.querySelector('.lucerne-party-visual')) {
     const visual = document.createElement('figure');
     visual.className = 'lucerne-party-visual';
-    visual.innerHTML = '<img src="/assets/img/products/lucerne-party-quality.webp?v=20260915-28" width="250" height="300" alt="Семена люцерны на фоне поля" loading="lazy" decoding="async">';
+    visual.innerHTML = '<img src="/assets/img/products/lucerne-party-quality.webp?v=20260915-29" width="250" height="300" alt="Семена люцерны на фоне поля" loading="lazy" decoding="async">';
     const head = partyInfographic.querySelector('.lucerne-infographic-head');
     if (head) head.insertAdjacentElement('beforebegin', visual);
     else partyInfographic.prepend(visual);
@@ -52,6 +52,17 @@
       cta.textContent = 'Оставить заявку';
       intro.appendChild(cta);
     }
+
+    flowSection.querySelectorAll('.product-flow-list li').forEach((item, index) => {
+      let marker = item.querySelector('.product-flow-icon');
+      if (!marker) {
+        marker = document.createElement('span');
+        marker.className = 'product-flow-icon';
+        item.prepend(marker);
+      }
+      marker.textContent = String(index + 1).padStart(2, '0');
+      marker.setAttribute('aria-hidden', 'true');
+    });
 
     flowSection.querySelectorAll('.product-flow-step-number').forEach((node) => node.remove());
   }
