@@ -181,6 +181,35 @@
     margin-top: auto !important;
     align-self: flex-start !important;
   }
+
+  /* Hero: exact desktop scale requested + both actions in one row. */
+  .page-lucerne-v3 .product-hero h1 {
+    max-width: 10ch !important;
+    font-size: 60px !important;
+    line-height: .94 !important;
+    letter-spacing: -.055em !important;
+  }
+
+  .page-lucerne-v3 .product-hero-copy .product-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: .7rem !important;
+    margin-top: 1.2rem !important;
+    width: 100% !important;
+  }
+
+  .page-lucerne-v3 .product-hero-copy .product-actions .home-btn {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 3rem !important;
+    padding: .65rem 1rem !important;
+    font-size: .82rem !important;
+    line-height: 1.15 !important;
+    white-space: nowrap !important;
+  }
 }
 
 /* Keep adjacent blocks from feeling visually detached after reducing section padding. */
