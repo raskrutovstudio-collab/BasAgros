@@ -32,6 +32,13 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Restore lucerne party image
+        run: |
+          base64 --decode site/assets/img/products/lucerne-party-quality-fixed.b64 > site/assets/img/products/lucerne-party-quality.webp
+          rm site/assets/img/products/lucerne-party-quality-fixed.b64
+          file site/assets/img/products/lucerne-party-quality.webp
+          test -s site/assets/img/products/lucerne-party-quality.webp
+
       - name: Install dependencies
         run: npm ci
 
