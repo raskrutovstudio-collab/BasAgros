@@ -1,0 +1,95 @@
+/* BAS Agros — Lucerne unified radius system.
+   One rectangular radius across the entire page.
+   Intentional exceptions: pill buttons/badges and circular icon controls. */
+
+.page-lucerne-v3 {
+  --lucerne-radius: 20px;
+}
+
+/* Major surfaces and content cards */
+.page-lucerne-v3 .product-hero-grid,
+.page-lucerne-v3 .product-gallery-detail,
+.page-lucerne-v3 .product-lead-price,
+.page-lucerne-v3 .product-facts > div,
+.page-lucerne-v3 .product-commercial-card,
+.page-lucerne-v3 .product-commercial-card > div:first-child,
+.page-lucerne-v3 .product-commercial-links > div,
+.page-lucerne-v3 .product-party-copy,
+.page-lucerne-v3 .product-party-card,
+.page-lucerne-v3 .product-party-list li,
+.page-lucerne-v3 .lucerne-infographic,
+.page-lucerne-v3 .lucerne-metric,
+.page-lucerne-v3 .lucerne-use-node,
+.page-lucerne-v3 .product-use-card,
+.page-lucerne-v3 .product-use-link,
+.page-lucerne-v3 .product-use-media,
+.page-lucerne-v3 .product-article-grid article,
+.page-lucerne-v3 .product-guide-grid > div:first-child,
+.page-lucerne-v3 .product-guide ol,
+.page-lucerne-v3 .product-guide li,
+.page-lucerne-v3 .product-flow .product-two-col > div:first-child,
+.page-lucerne-v3 .product-flow-list li,
+.page-lucerne-v3 .product-intro-media,
+.page-lucerne-v3 .product-intro-copy > p,
+.page-lucerne-v3 .product-spec-list-compact > div,
+.page-lucerne-v3 .product-faq details,
+.page-lucerne-v3 .product-request-grid,
+.page-lucerne-v3 .product-request-card,
+.page-lucerne-v3 .product-request-form,
+.page-lucerne-v3 .packaging-v2-summary,
+.page-lucerne-v3 .packaging-v2-card,
+.page-lucerne-v3 .packaging-v2-specs > div,
+.page-lucerne-v3 .packaging-v2-fact,
+.page-lucerne-v3 .home-form-compact,
+.page-lucerne-v3 .product-modal,
+.page-lucerne-v3 .product-modal-card,
+.page-lucerne-v3 [data-product-modal] > div {
+  border-radius: var(--lucerne-radius) !important;
+}
+
+/* Images should inherit the same visual geometry as their containers. */
+.page-lucerne-v3 .product-gallery-main,
+.page-lucerne-v3 .product-gallery-main img,
+.page-lucerne-v3 .product-gallery-detail img,
+.page-lucerne-v3 .product-use-media img,
+.page-lucerne-v3 .product-intro-media img {
+  border-radius: var(--lucerne-radius) !important;
+}
+
+/* Form controls follow the same corner system too. */
+.page-lucerne-v3 .home-form input,
+.page-lucerne-v3 .home-form select,
+.page-lucerne-v3 .home-form textarea,
+.page-lucerne-v3 .product-request input,
+.page-lucerne-v3 .product-request select,
+.page-lucerne-v3 .product-request textarea,
+.page-lucerne-v3 .product-modal input,
+.page-lucerne-v3 .product-modal select,
+.page-lucerne-v3 .product-modal textarea {
+  border-radius: var(--lucerne-radius) !important;
+}
+
+/* Keep intentionally round UI round. */
+.page-lucerne-v3 .home-btn,
+.page-lucerne-v3 .packaging-v2-badge,
+.page-lucerne-v3 .product-packaging-note-badge {
+  border-radius: 999px !important;
+}
+
+.page-lucerne-v3 .product-selection-icon,
+.page-lucerne-v3 .packaging-v2-icon,
+.page-lucerne-v3 .home-back-to-top {
+  border-radius: 50% !important;
+}
+
+/* Remove mismatched nested corner decorations if an older layer adds them. */
+.page-lucerne-v3 .product-gallery-detail::before,
+.page-lucerne-v3 .product-gallery-detail::after {
+  border-radius: var(--lucerne-radius) !important;
+}
+
+@media (max-width: 47.99rem) {
+  .page-lucerne-v3 {
+    --lucerne-radius: 20px;
+  }
+}
