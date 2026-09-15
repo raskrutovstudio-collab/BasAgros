@@ -34,10 +34,24 @@ jobs:
 
       - name: Restore lucerne party image
         run: |
-          base64 --decode site/assets/img/products/lucerne-party-quality-fixed.b64 > site/assets/img/products/lucerne-party-quality.webp
-          rm site/assets/img/products/lucerne-party-quality-fixed.b64
+          cat \
+            site/assets/img/products/lucerne-party-quality.part01.txt \
+            site/assets/img/products/lucerne-party-quality.part02.txt \
+            site/assets/img/products/lucerne-party-quality.part03.txt \
+            site/assets/img/products/lucerne-party-quality.part04.txt \
+            | base64 --decode > site/assets/img/products/lucerne-party-quality.webp
+          rm -f site/assets/img/products/lucerne-party-quality.part*.txt
+          rm -f site/assets/img/products/lucerne-party-quality-fixed.b64
           file site/assets/img/products/lucerne-party-quality.webp
-          test -s site/assets/img/products/lucerne-party-quality.webp
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('site/assets/img/products/lucerne-party-quality.webp')
+          b = p.read_bytes()
+          assert len(b) > 40000, f'image too small: {len(b)} bytes'
+          assert b[:4] == b'RIFF', b[:12]
+          assert b[8:12] == b'WEBP', b[:12]
+          print(f'lucerne party image verified: {len(b)} bytes')
+          PY
 
       - name: Install dependencies
         run: npm ci
