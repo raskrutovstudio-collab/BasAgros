@@ -5,7 +5,7 @@ const file = path.resolve('site/catalog/mnogoletnie-kormovye-travy/lyutserna/ind
 if (!fs.existsSync(file)) process.exit(0);
 
 let html = fs.readFileSync(file, 'utf8');
-const assetVersion = '20260914-10';
+const assetVersion = '20260915-23';
 
 html = html.replace(/<meta name="theme-color" content="[^"]+">/, '<meta name="theme-color" content="#060706">');
 html = html.replace(/<link rel="stylesheet" href="\/assets\/css\/home\.css\?v=[^"]+">/, `<link rel="stylesheet" href="/assets/css/home.css?v=${assetVersion}">`);
@@ -17,7 +17,8 @@ html = html
   .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product-lucerne-commercial-balance\.css(?:\?v=[^"]+)?">/g, '')
   .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product-lucerne-party-balance\.css(?:\?v=[^"]+)?">/g, '')
   .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product-lucerne-use-icons\.css(?:\?v=[^"]+)?">/g, '')
-  .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product-lucerne-packaging-v2\.css(?:\?v=[^"]+)?">/g, '');
+  .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product-lucerne-packaging-v2\.css(?:\?v=[^"]+)?">/g, '')
+  .replace(/\s*<link rel="stylesheet" href="\/assets\/css\/product-lucerne-quality-home\.css(?:\?v=[^"]+)?">/g, '');
 
 const productStyles = [
   `<link rel="stylesheet" href="/assets/css/product.css?v=${assetVersion}">`,
@@ -26,7 +27,8 @@ const productStyles = [
   `<link rel="stylesheet" href="/assets/css/product-lucerne-commercial-balance.css?v=${assetVersion}">`,
   `<link rel="stylesheet" href="/assets/css/product-lucerne-party-balance.css?v=${assetVersion}">`,
   `<link rel="stylesheet" href="/assets/css/product-lucerne-use-icons.css?v=${assetVersion}">`,
-  `<link rel="stylesheet" href="/assets/css/product-lucerne-packaging-v2.css?v=${assetVersion}">`
+  `<link rel="stylesheet" href="/assets/css/product-lucerne-packaging-v2.css?v=${assetVersion}">`,
+  `<link rel="stylesheet" href="/assets/css/product-lucerne-quality-home.css?v=${assetVersion}">`
 ].join('\n  ');
 
 const homeStyleMatcher = /<link rel="stylesheet" href="\/assets\/css\/home\.css\?v=[^"]+">/;
@@ -45,6 +47,10 @@ html = html.replace(/<body class="([^"]*)">/, (_match, classes) => {
 const packagingSection = `<section class="product-section product-packaging-v2" aria-labelledby="product-packaging-title"><div class="home-wrap"><div class="packaging-v2-head"><div><p class="product-eyebrow">Фасовка</p><h2 id="product-packaging-title" style="max-width:none!important">Варианты упаковки<br>семян люцерны</h2></div><div class="packaging-v2-summary"><strong>2 формата поставки</strong><p>Формат тары подбирается под объём заказа и схему отгрузки: крупная партия в МКР или более гибкая комплектация в полипропиленовых мешках.</p></div></div><div class="packaging-v2-compare"><article class="packaging-v2-card"><div class="packaging-v2-top"><span class="packaging-v2-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 9h11v10h-11z"/><path d="M8 9 9.3 5.8h5.4L16 9"/><path d="M9.4 5.8c0-1 .5-1.8 1.2-1.8s1.2.8 1.2 1.8M13.2 5.8c0-1 .5-1.8 1.2-1.8s1.2.8 1.2 1.8"/><path d="M9.5 13h5v3.2h-5z"/></svg></span><span class="packaging-v2-badge">Крупнотоннажная поставка</span></div><h3>БИГ-БЭГ / МКР</h3><p class="packaging-v2-lead">Основной формат для крупного объёма отгрузки семян.</p><dl class="packaging-v2-specs"><div><dt>Формат</dt><dd>МКР Л4 Н-140, 95×95</dd></div><div><dt>Лучше для</dt><dd>крупных партий</dd></div><div><dt>Плюс</dt><dd>проще логистика большого объёма</dd></div></dl></article><article class="packaging-v2-card"><div class="packaging-v2-top"><span class="packaging-v2-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.4 10.4 7.5 20h9l-.9-9.6"/><path d="M8.4 10.4c0-1.2 1.6-2.2 3.6-2.2s3.6 1 3.6 2.2"/><path d="M9.8 8.2 10.4 5h3.2l.6 3.2"/><path d="M9.8 8.2h4.4"/></svg></span><span class="packaging-v2-badge">Гибкая комплектация</span></div><h3>Полипропиленовый мешок</h3><p class="packaging-v2-lead">Формат для более дробного комплектования конкретного заказа.</p><dl class="packaging-v2-specs"><div><dt>Формат</dt><dd>ПП-мешок 56×110</dd></div><div><dt>Лучше для</dt><dd>разбитой поставки</dd></div><div><dt>Плюс</dt><dd>гибкая комплектация по потребности</dd></div></dl></article></div><div class="packaging-v2-choice">формат фиксируется при расчёте заказа</div><div class="packaging-v2-facts"><div class="packaging-v2-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h10l2 4v10H5V9l2-4Z"/><path d="M8 9h8"/></svg><div><strong>Вес нетто</strong><span>одной упаковки</span></div></div><div class="packaging-v2-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8.5 12 4l8 4.5V18l-8 4-8-4V8.5Z"/><path d="m4 8.5 8 4 8-4M12 12.5V22"/></svg><div><strong>Количество мест</strong><span>по конкретному заказу</span></div></div><div class="packaging-v2-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18h16M6 15l4-4 3 2 5-6"/><path d="M18 7v4h-4"/></svg><div><strong>Общий объём</strong><span>фиксируется в предложении</span></div></div></div></div></section>`;
 
 html = html.replace(/<section class="product-section product-articles product-packaging"[\s\S]*?<\/section>/, packagingSection);
+
+const qualitySection = `<section class="product-section product-commercial product-quality product-quality-home" aria-labelledby="product-quality-title"><div class="home-wrap"><div class="product-quality-home-card"><div class="product-quality-home-hero"><figure class="product-quality-home-media"><picture><source type="image/avif" srcset="/assets/img/home/ref-lab-720.avif 720w, /assets/img/home/ref-lab-960.avif 960w" sizes="(min-width:64rem) calc(100vw - 5rem), 100vw"><source type="image/webp" srcset="/assets/img/home/ref-lab-720.webp 720w, /assets/img/home/ref-lab-960.webp 960w" sizes="(min-width:64rem) calc(100vw - 5rem), 100vw"><img src="/assets/img/home/ref-lab-960.webp" width="960" height="540" alt="Работа с образцами семян и документами" loading="lazy" decoding="async"></picture></figure><div class="product-quality-home-shade" aria-hidden="true"></div><div class="product-quality-home-copy"><p class="product-eyebrow">Качество</p><h2 id="product-quality-title">Качество и документы</h2><p>По выбранной партии предоставляются характеристики семян и перечень сопровождающих документов для согласования поставки.</p><a class="home-btn home-btn-outline" href="#request" data-product-modal-intent="party_characteristics">Запросить характеристики партии</a></div></div><div class="product-quality-home-links"><div><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6zM14 3v5h5M9 12h6m-6 4h6"/></g></svg><h3>Документы поставки</h3><p>Перечень документов формируется по конкретной партии и включается в условия поставки.</p><a href="/kachestvo-i-sertifikaty/">Качество и сертификаты →</a></div><div><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 4v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></g></svg><h3>Условия поставки</h3><p>Логистика рассчитывается по направлению, объёму и формату фасовки.</p><a href="/dostavka-i-oplata/">Доставка и оплата →</a></div></div></div></div></section>`;
+
+html = html.replace(/<section class="product-section product-commercial product-quality"[\s\S]*?<\/section>/, qualitySection);
 
 const productScriptMatcher = /<script src="\/assets\/js\/product\.js(?:\?v=[^"]+)?" defer><\/script>/;
 if (productScriptMatcher.test(html)) {
