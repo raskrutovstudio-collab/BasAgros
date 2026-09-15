@@ -1,7 +1,7 @@
 (() => {
   if (!document.body.classList.contains('page-lucerne-v3')) return;
 
-  const version = '20260915-2';
+  const version = '20260915-3';
 
   const ensureStyle = (href, marker) => {
     if (document.querySelector(`link[${marker}]`)) return;
