@@ -1,0 +1,221 @@
+/* BAS Agros — Lucerne quality section aligned with the Home V3 quality panel. */
+.page-lucerne-v3 .product-quality-home-card {
+  display: grid;
+  gap: 1rem;
+}
+
+.page-lucerne-v3 .product-quality-home-hero {
+  position: relative;
+  min-height: 23rem;
+  overflow: hidden;
+  border: 1px solid rgba(232, 197, 109, .18);
+  border-radius: 20px;
+  background: #0a0c09;
+  isolation: isolate;
+}
+
+.page-lucerne-v3 .product-quality-home-media,
+.page-lucerne-v3 .product-quality-home-media picture,
+.page-lucerne-v3 .product-quality-home-media img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.page-lucerne-v3 .product-quality-home-media {
+  margin: 0;
+  z-index: -3;
+}
+
+.page-lucerne-v3 .product-quality-home-media img {
+  object-fit: cover;
+  object-position: center 52%;
+  filter: saturate(.9) contrast(1.04) brightness(.72);
+  transform: scale(1.015);
+  transition: transform .8s cubic-bezier(.2,.75,.2,1), filter .5s ease;
+}
+
+.page-lucerne-v3 .product-quality-home-hero:hover .product-quality-home-media img {
+  transform: scale(1.04);
+  filter: saturate(.95) contrast(1.05) brightness(.76);
+}
+
+.page-lucerne-v3 .product-quality-home-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(6,7,6,.97) 0%, rgba(6,7,6,.91) 34%, rgba(6,7,6,.54) 58%, rgba(6,7,6,.18) 100%),
+    linear-gradient(180deg, rgba(6,7,6,.06) 0%, rgba(6,7,6,.45) 100%);
+}
+
+.page-lucerne-v3 .product-quality-home-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 84% 22%, rgba(225,185,82,.14), transparent 20rem),
+    linear-gradient(180deg, rgba(255,255,255,.018), transparent 28%);
+}
+
+.page-lucerne-v3 .product-quality-home-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: min(43rem, 58%);
+  min-height: 23rem;
+  padding: clamp(2rem, 3.4vw, 3.6rem);
+}
+
+.page-lucerne-v3 .product-quality-home-copy .product-eyebrow {
+  margin-bottom: 1rem;
+}
+
+.page-lucerne-v3 .product-quality-home-copy h2 {
+  margin: 0;
+  max-width: 10ch;
+  font-size: clamp(2.7rem, 4.25vw, 4.85rem);
+  line-height: .98;
+  letter-spacing: -.045em;
+}
+
+.page-lucerne-v3 .product-quality-home-copy > p:not(.product-eyebrow) {
+  max-width: 42rem;
+  margin: 1.15rem 0 1.55rem;
+  color: rgba(240,237,227,.78);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.page-lucerne-v3 .product-quality-home-copy .home-btn {
+  margin-top: auto;
+}
+
+.page-lucerne-v3 .product-quality-home-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.page-lucerne-v3 .product-quality-home-links > div {
+  display: flex;
+  flex-direction: column;
+  min-height: 15.5rem;
+  padding: 1.65rem 1.75rem;
+  border: 1px solid rgba(232, 197, 109, .16);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 90% 12%, rgba(225,185,82,.06), transparent 11rem),
+    rgba(8,10,8,.82);
+  transition: transform .3s ease, border-color .3s ease, background .3s ease;
+}
+
+.page-lucerne-v3 .product-quality-home-links > div:hover {
+  transform: translateY(-3px);
+  border-color: rgba(232,197,109,.28);
+  background:
+    radial-gradient(circle at 90% 12%, rgba(225,185,82,.09), transparent 11rem),
+    rgba(10,12,9,.92);
+}
+
+.page-lucerne-v3 .product-quality-home-links svg {
+  width: 1.9rem;
+  height: 1.9rem;
+  margin-bottom: 1.45rem;
+  color: #e2bb50;
+}
+
+.page-lucerne-v3 .product-quality-home-links h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.15;
+}
+
+.page-lucerne-v3 .product-quality-home-links p {
+  margin: .8rem 0 1.15rem;
+  color: rgba(240,237,227,.66);
+  line-height: 1.6;
+}
+
+.page-lucerne-v3 .product-quality-home-links a {
+  margin-top: auto;
+  color: #e5c45e;
+  font-weight: 700;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+}
+
+@media (max-width: 63.99rem) {
+  .page-lucerne-v3 .product-quality-home-hero {
+    min-height: 29rem;
+  }
+
+  .page-lucerne-v3 .product-quality-home-copy {
+    width: min(46rem, 78%);
+    min-height: 29rem;
+    padding: 2rem;
+  }
+
+  .page-lucerne-v3 .product-quality-home-shade {
+    background:
+      linear-gradient(90deg, rgba(6,7,6,.96) 0%, rgba(6,7,6,.84) 46%, rgba(6,7,6,.36) 100%),
+      linear-gradient(180deg, rgba(6,7,6,.08), rgba(6,7,6,.55));
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .page-lucerne-v3 .product-quality-home-hero {
+    min-height: 32rem;
+  }
+
+  .page-lucerne-v3 .product-quality-home-media img {
+    object-position: 66% center;
+  }
+
+  .page-lucerne-v3 .product-quality-home-shade {
+    background:
+      linear-gradient(180deg, rgba(6,7,6,.28) 0%, rgba(6,7,6,.63) 45%, rgba(6,7,6,.96) 74%, rgba(6,7,6,.99) 100%);
+  }
+
+  .page-lucerne-v3 .product-quality-home-copy {
+    justify-content: flex-end;
+    width: 100%;
+    min-height: 32rem;
+    padding: 1.45rem;
+  }
+
+  .page-lucerne-v3 .product-quality-home-copy h2 {
+    font-size: clamp(2.35rem, 11vw, 3.5rem);
+  }
+
+  .page-lucerne-v3 .product-quality-home-copy > p:not(.product-eyebrow) {
+    font-size: .96rem;
+  }
+
+  .page-lucerne-v3 .product-quality-home-copy .home-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .page-lucerne-v3 .product-quality-home-links {
+    grid-template-columns: 1fr;
+  }
+
+  .page-lucerne-v3 .product-quality-home-links > div {
+    min-height: 13.5rem;
+    padding: 1.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-lucerne-v3 .product-quality-home-media img,
+  .page-lucerne-v3 .product-quality-home-links > div {
+    transition: none;
+  }
+}
