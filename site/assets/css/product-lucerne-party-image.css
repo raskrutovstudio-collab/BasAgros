@@ -1,22 +1,27 @@
 /* BAS Agros — Lucerne party passport media.
-   Adds a homepage-style visual to the passport infographic without changing content. */
+   Homepage-style visual with compact title-to-card rhythm. */
 
 .page-lucerne-v3 [data-lucerne-party-infographic] {
   display: grid !important;
   grid-template-columns: minmax(18rem, .72fr) minmax(0, 1.28fr) !important;
+  grid-template-rows: auto auto !important;
   grid-template-areas:
     "media head"
     "media metrics" !important;
-  gap: 1rem 1.15rem !important;
-  align-items: stretch !important;
-  padding: 1.2rem !important;
+  column-gap: 1.15rem !important;
+  row-gap: .55rem !important;
+  align-items: start !important;
+  align-content: start !important;
+  padding: .7rem 1.2rem 1.2rem !important;
 }
 
 .page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-party-visual {
   grid-area: media;
   position: relative;
+  align-self: stretch !important;
   min-width: 0;
-  min-height: 29rem;
+  min-height: 0 !important;
+  height: 100%;
   margin: 0;
   overflow: hidden;
   border: 1px solid rgba(232,197,109,.18);
@@ -40,7 +45,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 29rem;
+  min-height: 0 !important;
   object-fit: cover;
   object-position: center;
   border-radius: 20px !important;
@@ -58,17 +63,19 @@
   grid-area: head;
   align-self: start;
   margin: 0 !important;
-  padding: .15rem .1rem .2rem !important;
+  padding: .05rem .1rem 0 !important;
+  min-height: 0 !important;
 }
 
 .page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-metrics-grid {
   grid-area: metrics;
-  align-self: stretch;
+  align-self: start !important;
   display: grid !important;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
   gap: .85rem !important;
   min-width: 0;
+  margin: 0 !important;
 }
 
 .page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-metric {
@@ -81,20 +88,24 @@
 @media (max-width: 63.99rem) {
   .page-lucerne-v3 [data-lucerne-party-infographic] {
     grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
     grid-template-areas:
       "head"
       "media"
       "metrics" !important;
-    gap: .9rem !important;
+    gap: .75rem !important;
+    padding-top: .8rem !important;
   }
 
   .page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-party-visual {
     min-height: 0;
+    height: auto;
     aspect-ratio: 16 / 7;
   }
 
   .page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-party-visual img {
     min-height: 0;
+    height: 100%;
     aspect-ratio: 16 / 7;
   }
 
@@ -106,7 +117,7 @@
 
 @media (max-width: 47.99rem) {
   .page-lucerne-v3 [data-lucerne-party-infographic] {
-    padding: .9rem !important;
+    padding: .75rem .9rem .9rem !important;
   }
 
   .page-lucerne-v3 [data-lucerne-party-infographic] .lucerne-party-visual,
