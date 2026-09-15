@@ -112,7 +112,7 @@
       "copy actions" !important;
     column-gap: 2rem !important;
     row-gap: .45rem !important;
-    align-items: center !important;
+    align-items: stretch !important;
     width: 100% !important;
     max-width: none !important;
     min-height: 0 !important;
@@ -144,7 +144,7 @@
 
   .page-lucerne-v3 .product-quality .product-commercial-card > div:first-child .product-actions {
     grid-area: actions !important;
-    align-self: center !important;
+    align-self: end !important;
     justify-self: end !important;
     margin: 0 !important;
   }
