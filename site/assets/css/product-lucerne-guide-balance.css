@@ -1,0 +1,92 @@
+/* BAS Agros — Lucerne selection block balance.
+   Desktop: strict 50/50 columns, equal outer height and denser right column. */
+
+@media (min-width: 64rem) {
+  .page-lucerne-v3 .product-guide .product-guide-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.25rem !important;
+    align-items: stretch !important;
+  }
+
+  .page-lucerne-v3 .product-guide .product-guide-grid > div:first-child,
+  .page-lucerne-v3 .product-guide .product-guide-grid > ol {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-lucerne-v3 .product-guide .product-guide-grid > div:first-child {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 1.7rem 1.8rem !important;
+  }
+
+  .page-lucerne-v3 .product-guide .product-guide-grid > ol {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: repeat(4, minmax(0, 1fr)) !important;
+    gap: .55rem !important;
+    padding: .8rem !important;
+    align-content: stretch !important;
+  }
+
+  .page-lucerne-v3 .product-guide ol li {
+    min-height: 0 !important;
+    height: 100% !important;
+    grid-template-columns: 2.45rem minmax(0, 1fr) !important;
+    column-gap: .8rem !important;
+    align-items: center !important;
+    padding: .72rem .9rem !important;
+  }
+
+  .page-lucerne-v3 .product-guide ol li > span:not(.product-selection-icon) {
+    align-self: center !important;
+  }
+
+  .page-lucerne-v3 .product-guide ol li strong {
+    margin: 0 0 .22rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .page-lucerne-v3 .product-guide ol li small {
+    line-height: 1.4 !important;
+  }
+
+  .page-lucerne-v3 .product-guide .product-selection-icon {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    flex: 0 0 2.25rem !important;
+  }
+
+  .page-lucerne-v3 .product-guide .product-selection-icon svg {
+    width: 1.12rem !important;
+    height: 1.12rem !important;
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .page-lucerne-v3 .product-guide .product-guide-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+    align-items: stretch !important;
+  }
+
+  .page-lucerne-v3 .product-guide .product-guide-grid > div:first-child,
+  .page-lucerne-v3 .product-guide .product-guide-grid > ol {
+    height: 100% !important;
+  }
+
+  .page-lucerne-v3 .product-guide .product-guide-grid > ol {
+    padding: .75rem !important;
+    gap: .55rem !important;
+  }
+
+  .page-lucerne-v3 .product-guide ol li {
+    padding: .8rem .9rem !important;
+  }
+}
