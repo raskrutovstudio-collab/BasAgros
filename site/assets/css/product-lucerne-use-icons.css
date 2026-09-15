@@ -77,6 +77,14 @@
   z-index: 1;
 }
 
+/* Packaging V2: remove the redundant trailing calculation row entirely. */
+.page-lucerne-v3 .product-packaging-v2 .packaging-v2-choice,
+.page-lucerne-v3 .product-packaging-v2 .packaging-v2-facts {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 /* Final desktop composition: four scenarios in one balanced row. */
 @media (min-width: 64rem) {
   .page-lucerne-v3 [data-lucerne-use-infographic] .lucerne-use-map {
