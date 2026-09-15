@@ -1,7 +1,7 @@
 (() => {
   if (!document.body.classList.contains('page-lucerne-v3')) return;
 
-  const version = '20260915-12';
+  const version = '20260915-13';
 
   const ensureStyle = (href, marker) => {
     if (document.querySelector(`link[${marker}]`)) return;
@@ -17,6 +17,7 @@
   ensureStyle('/assets/css/product-lucerne-rhythm-v2.css', 'data-lucerne-rhythm-v2');
   ensureStyle('/assets/css/product-lucerne-backtop.css', 'data-lucerne-backtop');
   ensureStyle('/assets/css/product-lucerne-radius-system.css', 'data-lucerne-radius-system');
+  ensureStyle('/assets/css/product-lucerne-party-image.css', 'data-lucerne-party-image');
 
   const commercialCard = document.querySelector('[data-lucerne-commercial-flow] .product-commercial-card');
   if (commercialCard) {
@@ -26,6 +27,16 @@
       actions.classList.add('product-commercial-actions-bottom');
       links.insertAdjacentElement('afterend', actions);
     }
+  }
+
+  const partyInfographic = document.querySelector('[data-lucerne-party-infographic]');
+  if (partyInfographic && !partyInfographic.querySelector('.lucerne-party-visual')) {
+    const visual = document.createElement('figure');
+    visual.className = 'lucerne-party-visual';
+    visual.innerHTML = '<img src="/assets/img/home/article-lyutserna-960.webp" width="960" height="540" alt="Поле люцерны" loading="lazy" decoding="async">';
+    const head = partyInfographic.querySelector('.lucerne-infographic-head');
+    if (head) head.insertAdjacentElement('beforebegin', visual);
+    else partyInfographic.prepend(visual);
   }
 
   const useNodes = document.querySelectorAll('[data-lucerne-use-infographic] .lucerne-use-node .lucerne-icon');
